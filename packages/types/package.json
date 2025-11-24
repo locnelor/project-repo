@@ -7,6 +7,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@repo/database": "*"
+    "@repo/database": "workspace:*"
   }
 }

@@ -14,11 +14,11 @@
     "#/*": "./src/*"
   },
   "dependencies": {
-    "@internal/tailwind-config": "*",
-    "@repo/hooks": "*",
-    "@repo/request": "*",
-    "@repo/stores": "*",
-    "@repo/styles": "*",
-    "@repo/utils": "*"
+    "@internal/tailwind-config": "workspace:*",
+    "@repo/hooks": "workspace:*",
+    "@repo/request": "workspace:*",
+    "@repo/stores": "workspace:*",
+    "@repo/styles": "workspace:*",
+    "@repo/utils": "workspace:*"
   }
 }

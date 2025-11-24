@@ -1,0 +1,6 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "packages/effects/*"
+  - "internal/*"
+  - "scripts/*"

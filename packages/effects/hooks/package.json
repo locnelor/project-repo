@@ -10,7 +10,7 @@
     }
   },
   "dependencies": {
-    "@repo/utils": "*",
+    "@repo/utils": "workspace:*",
     "@types/nprogress": "^0.2.3",
     "nprogress": "^0.2.0"
   }

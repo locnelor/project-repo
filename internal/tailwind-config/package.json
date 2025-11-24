@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@iconify/tailwind": "^1.2.0",
-    "@internal/pkg-utils": "*",
+    "@internal/pkg-utils": "workspace:*",
     "@tailwindcss/typography": "^0.5.19",
     "tailwindcss-animate": "^1.0.7"
   }
