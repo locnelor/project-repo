@@ -1,0 +1,30 @@
+{
+  "name": "@repo/database",
+  "version": "1.0.0",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "scripts": {
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:seed": "tsx src/seed.ts",
+    "db:pull": "prisma db pull",
+    "format": "prisma format",
+    "generate": "prisma generate",
+    "push": "prisma db push",
+    "stub": "pnpm unbuild --stub"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.0.0",
+    "prisma": "^7.0.0",
+    "rimraf": "^6.1.2"
+  }
+}

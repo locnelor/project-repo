@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2023",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@app/auth-power": [
+        "libs/auth-power/src"
+      ],
+      "@app/auth-power/*": [
+        "libs/auth-power/src/*"
+      ],
+      "@app/error": [
+        "libs/error/src"
+      ],
+      "@app/error/*": [
+        "libs/error/src/*"
+      ],
+      "@app/file": [
+        "libs/file/src"
+      ],
+      "@app/file/*": [
+        "libs/file/src/*"
+      ],
+      "@app/hash": [
+        "libs/hash/src"
+      ],
+      "@app/hash/*": [
+        "libs/hash/src/*"
+      ],
+      "@app/prisma": [
+        "libs/prisma/src"
+      ],
+      "@app/prisma/*": [
+        "libs/prisma/src/*"
+      ],
+      "@app/redis-cache": [
+        "libs/redis-cache/src"
+      ],
+      "@app/redis-cache/*": [
+        "libs/redis-cache/src/*"
+      ]
+    }
+  }
+}

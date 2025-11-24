@@ -1,0 +1,322 @@
+// 数据库客户端生成配置
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+// 数据库连接配置
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+enum log_type {
+  INFO // 信息
+  WARN // 警告
+  ERROR // 错误
+}
+
+// 配置类型枚举
+enum config_type {
+  string
+  boolean
+  int
+  json
+}
+
+// 数据权限类型枚举
+enum data_scope_type {
+  all // 全部数据
+  currentOrg // 当前组织
+  currentDeptAndSubDept // 当前部门及子部门
+  custom // 自定义
+}
+
+model sys_user {
+  id                  String   @id @default(uuid())
+  create_time         DateTime @default(now())
+  update_time         DateTime @default(now()) @updatedAt
+  org_id              String? /// 组织机构id
+  org_code            String?  @db.VarChar(50) /// 组织机构code
+  dept_id             String? /// 部门id
+  username            String   @unique @db.VarChar(64) /// 用户名
+  password            String?  @db.VarChar(68) /// 密码
+  nickname            String?  @db.VarChar(64) /// 昵称
+  real_name           String?  @db.VarChar(200) /// 真实名称
+  email               String?  @db.VarChar(64) /// 邮箱
+  phone               String?  @db.VarChar(16) /// 手机号
+  job_no              String?  @db.VarChar(32) /// 工号
+  status              Int      @default(1) /// 状态
+  hidden              Boolean  @default(false) /// 是否隐藏
+  admin_flag          Boolean  @default(false) /// 是否是管理员
+  avatar              String?  @db.VarChar(32) /// 头像真实路径
+  client_id           String?  @db.VarChar(50) /// 手机cid
+  sort                Int      @default(100) /// 排序
+  user_function_codes String?  @db.VarChar(255) /// 用户职能字典codes
+  deleted             Boolean  @default(false) /// 是否被删除
+
+  // 关联关系
+  organization sys_organization? @relation(fields: [org_id], references: [id], map: "user_org_fkey")
+  department   sys_dept?         @relation(fields: [dept_id], references: [id], map: "user_dept_fkey")
+  sys_log      sys_log[]
+  role_users   sys_role_user[] /// 用户角色关联
+
+  @@index([org_id], name: "idx_org_id")
+  @@index([org_code], name: "idx_org_code")
+  @@index([dept_id])
+  @@map("sys_user")
+}
+
+/// 日志表
+model sys_log {
+  id               String    @id @default(uuid()) /// ID
+  request_unique   String?   @db.VarChar(32) /// 请求唯一码
+  description      String?   @db.VarChar(255) /// 日志描述
+  log_type         log_type? /// 日志类型
+  method           String?   @db.VarChar(255) /// 请求方法
+  params           String?   @db.Text /// 请求参数
+  request_ip       String?   @db.VarChar(255) /// 请求IP
+  time             BigInt? /// 耗时
+  user_id          String?   @db.VarChar(32) /// 用户ID
+  user_name        String?   @db.VarChar(50) /// 用户名称
+  address          String?   @db.VarChar(255) /// 地址
+  exception_detail String?   @db.Text /// 异常信息
+  create_time      DateTime  @default(now()) /// 创建时间
+
+  user sys_user? @relation(fields: [user_id], references: [id])
+
+  @@index([create_time], name: "log_create_time_index")
+  @@index([log_type], name: "inx_log_type")
+  @@index([user_id])
+  @@map("sys_log")
+}
+
+// 系统菜单表 - 用于前端菜单和权限管理
+model sys_menu {
+  id            String     @id @default(uuid())
+  create_time   DateTime   @default(now())
+  update_time   DateTime   @default(now()) @updatedAt
+  create_by     String? /// 创建人id
+  update_by     String? /// 更新人id
+  pid           String? /// 父菜单ID
+  parent        sys_menu?  @relation("SysMenuParent", fields: [pid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children      sys_menu[] @relation("SysMenuParent")
+  name          String? /// 菜单名称
+  url           String? /// 菜单URL
+  perms        String? /// 授权（多个用逗号分隔，如： user:list,user:create
+  type          Int        @default(0) /// 类型 0:目录 1:菜单 2:按钮
+  mode          String? /// 模式：pc，app
+  icon          String? /// 菜单图标
+  color         String? /// 颜色
+  routeUrl      String? /// 路由地址
+  breadCrumb    String? /// 是否显示面包屑
+  componentName String? /// 组件路径
+  componentPath String? /// 组件名称
+  orderNum      Int        @default(0) /// 排序
+  display       Boolean    @default(true) /// 是否显示
+  deleted     Boolean     @default(false) /// 是否被删除
+
+  // 关联关系
+  role_menus sys_role_menu[] /// 菜单角色关联
+
+  @@index([pid])
+}
+
+// 系统配置表
+model sys_config {
+  id          String      @id @db.VarChar(32) /// ID
+  code        String?     @db.VarChar(128) /// 配置编码
+  type        config_type @default(string) /// 类型:string、boolean、int、json
+  describe    String?     @default("") @db.VarChar(500) /// 描述
+  value       String?     @db.Text /// 值
+  sort        Int         @default(10) /// 排序
+  enabled     Boolean     @default(true) /// 是否启用
+  cache       Boolean     @default(true) /// 是否加入缓存
+  update_by   String      @db.VarChar(32) /// 修改者
+  update_time DateTime? /// 修改时间
+  create_by   String      @db.VarChar(32) /// 创建者
+  create_time DateTime? /// 创建时间
+  deleted     Boolean     @default(false) /// 是否被删除
+
+  @@index([code], name: "index_code")
+  @@map("sys_config")
+}
+
+// 系统组织结构表
+model sys_organization {
+  id                   String    @id @db.Char(32) /// ID
+  pid                  String?   @db.VarChar(32) /// 父级组织结构
+  code                 String    @unique @db.VarChar(50) /// 编号
+  name                 String?   @db.VarChar(128) /// 组织结构名称
+  alias                String?   @db.VarChar(128) /// 别名
+  description          String?   @db.VarChar(200) /// 组织结构描述
+  full_path            String?   @db.VarChar(300) /// 全路径
+  sort                 Int       @default(10) /// 排序
+  create_by            String?   @db.VarChar(32) /// 创建者
+  update_by            String?   @db.VarChar(32) /// 更新者
+  create_time          DateTime? /// 创建日期
+  update_time          DateTime? /// 更新时间
+  deleted              Boolean   @default(false) /// 是否被删除
+  lng                  Decimal?  @db.Decimal(17, 14) /// 经度
+  lat                  Decimal?  @db.Decimal(17, 14) /// 纬度
+  car_sys_org_id       String?   @db.VarChar(32) /// 单车核算系统中的机构id
+  car_clear_sys_org_id String?   @db.VarChar(32) /// 车辆清运系统中的机构id
+
+  // 自引用关系
+  parent   sys_organization?  @relation("OrganizationParent", fields: [pid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children sys_organization[] @relation("OrganizationParent")
+
+  // 关联关系
+  departments sys_dept[] /// 部门
+  roles       sys_role[] /// 角色
+  users       sys_user[] /// 用户
+
+  @@index([name], name: "index_name")
+  @@index([pid])
+  @@map("sys_organization")
+}
+
+// 部门表
+model sys_dept {
+  id              String    @id @db.VarChar(32) /// ID
+  pid             String?   @db.VarChar(32) /// PID
+  parent_link_ids String?   @db.VarChar(1024) /// 父级完成链路ids
+  org_code        String    @db.VarChar(32) /// 组织机构code
+  org_id          String    @db.VarChar(32) /// 组织机构id
+  name            String    @db.VarChar(255) /// 部门名称
+  display         Boolean   @default(true) /// 是否显示
+  sort            Int       @default(10) /// 排序
+  create_by       String?   @db.VarChar(32) /// 创建者
+  update_by       String?   @db.VarChar(32) /// 更新者
+  create_time     DateTime? /// 创建日期
+  update_time     DateTime? /// 更新时间
+  deleted         Boolean   @default(false) /// 删除标志
+
+  // 自引用关系
+  parent   sys_dept?  @relation("DeptParent", fields: [pid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children sys_dept[] @relation("DeptParent")
+
+  // 关联关系
+  organization sys_organization @relation(fields: [org_id], references: [id])
+  users        sys_user[] /// 用户
+
+  @@index([org_id], name: "index_org_id")
+  @@index([org_code], name: "index_org_code")
+  @@index([pid])
+  @@map("sys_dept")
+}
+
+// 系统角色表
+model sys_role {
+  id              String           @id @db.Char(32) /// ID
+  org_id          String?          @db.VarChar(32) /// 组织机构id
+  org_code        String?          @db.VarChar(50) /// 组织机构code
+  name            String?          @db.VarChar(100) /// 角色名称
+  description     String?          @db.VarChar(200) /// 角色描述
+  data_scope_type data_scope_type? /// 数据权限类型(all、currentOrg、currentDeptAndSubDept、custom)
+  create_by       String?          @db.VarChar(32) /// 创建者
+  update_by       String?          @db.VarChar(32) /// 更新者
+  create_time     DateTime? /// 创建日期
+  update_time     DateTime? /// 更新时间
+  deleted         Boolean          @default(false) /// 是否被删除
+
+  // 关联关系
+  organization sys_organization? @relation(fields: [org_id], references: [id])
+  role_menus   sys_role_menu[] /// 角色菜单关联
+  role_users   sys_role_user[] /// 角色用户关联
+
+  @@index([org_id], name: "idx_org_id")
+  @@index([org_code], name: "idx_org_code")
+  @@map("sys_role")
+}
+
+// 系统角色绑定菜单表
+model sys_role_menu {
+  id          String    @id @db.Char(32) /// ID
+  role_id     String?   @db.VarChar(32) /// 角色id
+  menu_id     String?   @db.VarChar(32) /// 菜单id
+  create_by   String?   @db.VarChar(32) /// 创建者
+  create_time DateTime? /// 创建日期
+  deleted     Boolean   @default(false) /// 是否被删除
+
+  // 关联关系
+  role sys_role? @relation(fields: [role_id], references: [id])
+  menu sys_menu? @relation(fields: [menu_id], references: [id])
+
+  @@index([role_id])
+  @@index([menu_id])
+  @@map("sys_role_menu")
+}
+
+// 系统角色绑定用户表
+model sys_role_user {
+  id          String    @id @db.Char(32) /// ID
+  role_id     String?   @db.VarChar(32) /// 角色id
+  user_id     String?   @db.VarChar(32) /// 用户id
+  create_by   String?   @db.VarChar(32) /// 创建者
+  create_time DateTime? /// 创建日期
+  deleted     Boolean   @default(false) /// 是否被删除
+
+  // 关联关系
+  role sys_role? @relation(fields: [role_id], references: [id])
+  user sys_user? @relation(fields: [user_id], references: [id])
+
+  @@index([role_id])
+  @@index([user_id])
+  @@map("sys_role_user")
+}
+
+// 系统字典表
+model sys_dict {
+  id          String    @id @db.Char(32) /// ID
+  name        String?   @db.VarChar(128) /// 字典名称
+  description String?   @db.VarChar(200) /// 字典描述
+  create_by   String?   @db.VarChar(32) /// 创建者
+  update_by   String?   @db.VarChar(32) /// 更新者
+  create_time DateTime? /// 创建日期
+  update_time DateTime? /// 更新时间
+  deleted     Boolean   @default(false) /// 是否被删除
+
+  // 关联关系
+  details sys_dict_detail[] /// 字典详情
+
+  @@index([name], name: "index_name")
+  @@map("sys_dict")
+}
+
+// 系统字典详情表
+model sys_dict_detail {
+  id          String    @id @db.Char(32) /// ID
+  dict_id     String?   @db.VarChar(32) /// 字典id
+  label       String?   @db.VarChar(128) /// label
+  code        String?   @db.VarChar(128) /// code
+  sort        Int       @default(10) /// 排序
+  create_by   String?   @db.VarChar(32) /// 创建者
+  update_by   String?   @db.VarChar(32) /// 更新者
+  create_time DateTime? /// 创建日期
+  update_time DateTime? /// 更新时间
+  deleted     Boolean   @default(false) /// 是否被删除
+  tab         String?   @db.VarChar(100) /// 标记
+
+  // 关联关系
+  dict sys_dict? @relation(fields: [dict_id], references: [id])
+
+  @@index([dict_id])
+  @@map("sys_dict_detail")
+}
+
+// 系统附件表
+model sys_file {
+  id          String    @id @db.VarChar(32) /// ID
+  name        String    @default("") @db.VarChar(128) /// 文件名称
+  path        String    @default("") @db.VarChar(255) /// 文件存放路径
+  md5         String    @default("") @db.VarChar(32) /// 文件md5
+  sort        Int       @default(10) /// 排序
+  create_by   String?   @default("") @db.VarChar(32) /// 创建记录操作人用户ID
+  create_time DateTime? /// 创建时间
+  space_id    String?   @db.VarChar(32) /// 空间id
+
+  @@index([md5], name: "index_md5")
+  @@map("sys_file")
+}

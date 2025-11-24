@@ -1,0 +1,185 @@
+@import "./nprogress.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* @import "tailwindcss"; */
+:root {
+  /* 默认主题颜色 */
+  --theme-current: 255 255 255;
+  /* 白色 */
+  --theme-background: 23 23 23;
+  /* 黑色 */
+  --theme-base-100: 243 244 246;
+  /* gray-100 */
+  --theme-base-200: 229 231 235;
+  /* gray-200 */
+  --theme-base-300: 209 213 219;
+  /* gray-300 */
+  --theme-base-400: 156 163 175;
+  /* gray-400 */
+  --theme-base-500: 107 114 128;
+  /* gray-500 */
+  --theme-base-600: 75 85 99;
+  /* gray-600 */
+  --theme-base-700: 55 65 81;
+  /* gray-700 */
+  --theme-base-800: 31 41 55;
+  /* gray-800 */
+  --theme-base-900: 17 24 39;
+  /* gray-900 */
+  --theme-text-current: 23 23 23;
+  /* 黑色文本 */
+  --theme-text-background: 255 255 255;
+  /* 白色文本 */
+  --theme-text-base-100: 55 65 81;
+  /* gray-700 文本 */
+  --theme-text-base-200: 31 41 55;
+  /* gray-800 文本 */
+  --theme-text-base-300: 17 24 39;
+  /* gray-900 文本 */
+  --theme-text-base-400: 31 41 55;
+  /* gray-800 文本 */
+  --theme-text-base-500: 55 65 81;
+  /* gray-700 文本 */
+  --theme-text-base-600: 75 85 99;
+  /* gray-600 文本 */
+  --theme-text-base-700: 107 114 128;
+  /* gray-500 文本 */
+  --theme-text-base-800: 156 163 175;
+  /* gray-400 文本 */
+  --theme-text-base-900: 209 213 219;
+  /* gray-300 文本 */
+}
+
+/* 页面加载淡入淡出动画 */
+.content-fade-enter-active,
+.content-fade-leave-active {
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.content-fade-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.content-fade-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+/* 路由切换淡入淡出动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* 系统程序淡入淡出动画 */
+.system-fade-enter-active,
+.system-fade-leave-active {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.system-fade-enter-from {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+.system-fade-leave-to {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+/* 背景颜色类 */
+.bg-current {
+  background-color: rgb(var(--theme-current));
+}
+
+.bg-background {
+  background-color: rgb(var(--theme-background));
+}
+
+.bg-base-100 {
+  background-color: rgb(var(--theme-base-100));
+}
+
+.bg-base-200 {
+  background-color: rgb(var(--theme-base-200));
+}
+
+.bg-base-300 {
+  background-color: rgb(var(--theme-base-300));
+}
+
+.bg-base-400 {
+  background-color: rgb(var(--theme-base-400));
+}
+
+.bg-base-500 {
+  background-color: rgb(var(--theme-base-500));
+}
+
+.bg-base-600 {
+  background-color: rgb(var(--theme-base-600));
+}
+
+.bg-base-700 {
+  background-color: rgb(var(--theme-base-700));
+}
+
+.bg-base-800 {
+  background-color: rgb(var(--theme-base-800));
+}
+
+.bg-base-900 {
+  background-color: rgb(var(--theme-base-900));
+}
+
+/* 文本颜色类 */
+.text-current {
+  color: rgb(var(--theme-text-current));
+}
+
+.text-background {
+  color: rgb(var(--theme-text-background));
+}
+
+.text-base-100 {
+  color: rgb(var(--theme-text-base-100));
+}
+
+.text-base-200 {
+  color: rgb(var(--theme-text-base-200));
+}
+
+.text-base-300 {
+  color: rgb(var(--theme-text-base-300));
+}
+
+.text-base-400 {
+  color: rgb(var(--theme-text-base-400));
+}
+
+.text-base-500 {
+  color: rgb(var(--theme-text-base-500));
+}
+
+.text-base-600 {
+  color: rgb(var(--theme-text-base-600));
+}
+
+.text-base-700 {
+  color: rgb(var(--theme-text-base-700));
+}
+
+.text-base-800 {
+  color: rgb(var(--theme-text-base-800));
+}
+
+.text-base-900 {
+  color: rgb(var(--theme-text-base-900));
+}
