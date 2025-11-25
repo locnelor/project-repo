@@ -1,0 +1,25 @@
+{
+  "name": "@repo/docs",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "imports": {
+    "#/*": {
+      "node": "./src/_env/node/*",
+      "default": "./src/_env/*"
+    }
+  },
+  "scripts": {
+    "preview": "vitepress preview src",
+    "dev": "vitepress dev src",
+    "build": "vitepress build src"
+  },
+  "dependencies": {
+    "@vite-pwa/vitepress": "^1.0.1",
+    "zod": "^4.1.12",
+    "radix-vue": "^1.9.17",
+    "vitepress": "^1.6.4"
+  }
+}

@@ -19,6 +19,8 @@
     "@repo/request": "workspace:*",
     "@repo/stores": "workspace:*",
     "@repo/styles": "workspace:*",
-    "@repo/utils": "workspace:*"
+    "@repo/utils": "workspace:*",
+    "ant-design-vue": "^4.2.6",
+    "dayjs": "^1.11.19"
   }
 }
