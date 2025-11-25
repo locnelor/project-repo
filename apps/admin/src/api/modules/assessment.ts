@@ -18,9 +18,13 @@ export const getAnnualTaskList = (opts: object) => {
 
 // 导出年度统计数据（文件流）
 export const exportStatistic = (data: any) => {
-  return request.post(`/api/assess/internal/annualTask/exportStatistics`, data, {
-    responseType: "blob",
-  });
+  return request.post(
+    `/api/assess/internal/annualTask/exportStatistics`,
+    data,
+    {
+      responseType: "blob",
+    },
+  );
 };
 
 // 新增年度任务
@@ -101,5 +105,3 @@ export const deleteAnnualTask = (id: string) => {
   data.append("id", id);
   return request.post(`/api/assess/internal/annualTask/delete`, data);
 };
-
-

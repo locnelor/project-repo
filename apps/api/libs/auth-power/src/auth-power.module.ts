@@ -10,26 +10,18 @@ import { HashModule } from '@app/hash';
   imports: [
     JwtModule.registerAsync({
       useFactory: async (configService: ConfigService) => {
-        return ({
-          secret: configService.getOrThrow("JWT_SECRET"),
+        return {
+          secret: configService.getOrThrow('JWT_SECRET'),
           signOptions: {
-            expiresIn: configService.getOrThrow("JWT_EXPIRATION"),
-          }
-        })
+            expiresIn: configService.getOrThrow('JWT_EXPIRATION'),
+          },
+        };
       },
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
-    HashModule
+    HashModule,
   ],
-  providers: [
-    AuthPowerService,
-    JwtAuthGuard,
-    JwtStrategy,
-  ],
-  exports: [
-    AuthPowerService,
-    JwtAuthGuard,
-    JwtModule,
-  ],
+  providers: [AuthPowerService, JwtAuthGuard, JwtStrategy],
+  exports: [AuthPowerService, JwtAuthGuard, JwtModule],
 })
-export class AuthPowerModule { }
+export class AuthPowerModule {}

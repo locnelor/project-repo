@@ -36,7 +36,7 @@ export function numberToChinese(num: number | string): string {
 
     let result = "";
     for (let i = 0; i < groups.length; i++) {
-      const group= groups[i] || "";
+      const group = groups[i] || "";
       const groupResult = convertGroup(group);
       const unitIndex = groups.length - 1 - i;
 

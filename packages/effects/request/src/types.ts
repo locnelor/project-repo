@@ -59,7 +59,7 @@ export type RequestOptions<T> = {
 
 export type RequestFn = <T>(
   action: RequestAction<T>,
-  options?: RequestOptions<T>
+  options?: RequestOptions<T>,
 ) => [
   {
     loading: Ref<boolean>;

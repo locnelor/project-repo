@@ -26,6 +26,6 @@ export class PaginationDto {
   pageSize: number = 10;
 
   constructor() {
-    console.log(this.pageNo, this.pageSize)
+    console.log(this.pageNo, this.pageSize);
   }
 }

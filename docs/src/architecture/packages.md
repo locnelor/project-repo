@@ -11,7 +11,7 @@
 ```json
 {
   "name": "@repo/components",
-  "name": "@repo/utils", 
+  "name": "@repo/utils",
   "name": "@repo/types"
 }
 ```
@@ -65,12 +65,14 @@ packages/components/
 ### 🔧 主要组件
 
 #### 基础组件
+
 - **QButton**: 增强的按钮组件，支持加载状态、权限控制
 - **QInput**: 增强的输入框，支持验证、格式化
 - **QModal**: 统一的弹窗组件，支持拖拽、全屏
 - **QTable**: 功能丰富的表格组件，支持排序、筛选、分页
 
 #### 业务组件
+
 - **UserSelect**: 用户选择器，支持搜索、多选
 - **RoleSelect**: 角色选择器，支持权限验证
 - **PermissionTree**: 权限树组件，支持级联选择
@@ -83,9 +85,9 @@ packages/components/
     <QButton type="primary" :loading="loading" @click="handleClick">
       提交
     </QButton>
-    
-    <QTable 
-      :columns="columns" 
+
+    <QTable
+      :columns="columns"
       :data="tableData"
       :pagination="pagination"
       @change="handleTableChange"
@@ -94,7 +96,7 @@ packages/components/
 </template>
 
 <script setup lang="ts">
-import { QButton, QTable } from '@repo/components'
+import { QButton, QTable } from "@repo/components";
 </script>
 ```
 
@@ -127,30 +129,33 @@ packages/utils/
 ### 🔧 主要功能
 
 #### 数据处理
+
 ```typescript
 // 深拷贝
-import { deepCopy } from '@repo/utils'
-const newObj = deepCopy(originalObj)
+import { deepCopy } from "@repo/utils";
+const newObj = deepCopy(originalObj);
 
 // 树形数据处理
-import { arrayToTree, treeToArray } from '@repo/utils'
-const tree = arrayToTree(flatArray, 'id', 'parentId')
-const flatArray = treeToArray(treeData)
+import { arrayToTree, treeToArray } from "@repo/utils";
+const tree = arrayToTree(flatArray, "id", "parentId");
+const flatArray = treeToArray(treeData);
 ```
 
 #### 时间处理
-```typescript
-import { formatDate, getRelativeTime } from '@repo/utils'
 
-const formatted = formatDate(new Date(), 'YYYY-MM-DD HH:mm:ss')
-const relative = getRelativeTime(date) // "2小时前"
+```typescript
+import { formatDate, getRelativeTime } from "@repo/utils";
+
+const formatted = formatDate(new Date(), "YYYY-MM-DD HH:mm:ss");
+const relative = getRelativeTime(date); // "2小时前"
 ```
 
 #### 数字处理
-```typescript
-import { numberToChinese } from '@repo/utils'
 
-const chinese = numberToChinese(12345) // "一万二千三百四十五"
+```typescript
+import { numberToChinese } from "@repo/utils";
+
+const chinese = numberToChinese(12345); // "一万二千三百四十五"
 ```
 
 ---
@@ -181,37 +186,39 @@ packages/types/
 ### 🔧 主要类型
 
 #### 用户类型
+
 ```typescript
 export interface User {
-  id: string
-  username: string
-  email: string
-  avatar?: string
-  roles: Role[]
-  createdAt: Date
-  updatedAt: Date
+  id: string;
+  username: string;
+  email: string;
+  avatar?: string;
+  roles: Role[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Role {
-  id: string
-  name: string
-  permissions: Permission[]
+  id: string;
+  name: string;
+  permissions: Permission[];
 }
 ```
 
 #### API 类型
+
 ```typescript
 export interface ApiResponse<T = any> {
-  code: number
-  message: string
-  data: T
-  timestamp: number
+  code: number;
+  message: string;
+  data: T;
+  timestamp: number;
 }
 
 export interface PaginationParams {
-  page: number
-  pageSize: number
-  total?: number
+  page: number;
+  pageSize: number;
+  total?: number;
 }
 ```
 
@@ -246,18 +253,20 @@ packages/styles/
 ### 🔧 主要功能
 
 #### 样式工具函数
+
 ```typescript
-import { cn } from '@repo/styles'
+import { cn } from "@repo/styles";
 
 // 条件样式合并
 const className = cn(
-  'base-class',
-  isActive && 'active-class',
-  variant === 'primary' && 'primary-class'
-)
+  "base-class",
+  isActive && "active-class",
+  variant === "primary" && "primary-class",
+);
 ```
 
 #### 主题系统
+
 ```css
 /* 亮色主题 */
 :root {
@@ -302,42 +311,48 @@ packages/stores/
 ### 🔧 主要 Store
 
 #### 用户状态
+
 ```typescript
-export const useUserStore = defineStore('user', () => {
-  const user = ref<User | null>(null)
-  const token = ref<string>('')
-  
-  const login = async (credentials: LoginCredentials) => {
-    // 登录逻辑
-  }
-  
-  const logout = () => {
-    user.value = null
-    token.value = ''
-  }
-  
-  return { user, token, login, logout }
-}, {
-  persist: true // 持久化存储
-})
+export const useUserStore = defineStore(
+  "user",
+  () => {
+    const user = ref<User | null>(null);
+    const token = ref<string>("");
+
+    const login = async (credentials: LoginCredentials) => {
+      // 登录逻辑
+    };
+
+    const logout = () => {
+      user.value = null;
+      token.value = "";
+    };
+
+    return { user, token, login, logout };
+  },
+  {
+    persist: true, // 持久化存储
+  },
+);
 ```
 
 #### 权限状态
+
 ```typescript
-export const useAccessStore = defineStore('access', () => {
-  const permissions = ref<string[]>([])
-  const roles = ref<Role[]>([])
-  
+export const useAccessStore = defineStore("access", () => {
+  const permissions = ref<string[]>([]);
+  const roles = ref<Role[]>([]);
+
   const hasPermission = (permission: string) => {
-    return permissions.value.includes(permission)
-  }
-  
+    return permissions.value.includes(permission);
+  };
+
   const hasRole = (role: string) => {
-    return roles.value.some(r => r.name === role)
-  }
-  
-  return { permissions, roles, hasPermission, hasRole }
-})
+    return roles.value.some((r) => r.name === role);
+  };
+
+  return { permissions, roles, hasPermission, hasRole };
+});
 ```
 
 ---
@@ -378,7 +393,7 @@ model User {
   roles     Role[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   @@map("users")
 }
 
@@ -390,7 +405,7 @@ model Role {
   permissions Permission[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
-  
+
   @@map("roles")
 }
 ```
@@ -410,10 +425,10 @@ model Role {
 ```typescript
 // 用户状态
 export const USER_STATUS = {
-  ACTIVE: 'active',
-  INACTIVE: 'inactive',
-  BANNED: 'banned'
-} as const
+  ACTIVE: "active",
+  INACTIVE: "inactive",
+  BANNED: "banned",
+} as const;
 
 // API 状态码
 export const HTTP_STATUS = {
@@ -423,15 +438,15 @@ export const HTTP_STATUS = {
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   NOT_FOUND: 404,
-  INTERNAL_SERVER_ERROR: 500
-} as const
+  INTERNAL_SERVER_ERROR: 500,
+} as const;
 
 // 权限常量
 export const PERMISSIONS = {
-  USER_READ: 'user:read',
-  USER_WRITE: 'user:write',
-  USER_DELETE: 'user:delete'
-} as const
+  USER_READ: "user:read",
+  USER_WRITE: "user:write",
+  USER_DELETE: "user:delete",
+} as const;
 ```
 
 ---
@@ -468,14 +483,14 @@ graph TD
     A --> D[@repo/types]
     A --> E[@repo/stores]
     A --> F[@repo/styles]
-    
+
     B --> C
     B --> D
     B --> F
-    
+
     E --> D
     E --> C
-    
+
     G[@repo/database] --> D
     H[@repo/constants] --> D
     I[@repo/effects] --> B
@@ -496,19 +511,19 @@ pnpm add @repo/components @repo/utils @repo/types
 
 ```typescript
 // 引用组件
-import { QButton, QTable } from '@repo/components'
+import { QButton, QTable } from "@repo/components";
 
 // 引用工具函数
-import { formatDate, deepCopy } from '@repo/utils'
+import { formatDate, deepCopy } from "@repo/utils";
 
 // 引用类型
-import type { User, ApiResponse } from '@repo/types'
+import type { User, ApiResponse } from "@repo/types";
 
 // 引用状态管理
-import { useUserStore } from '@repo/stores'
+import { useUserStore } from "@repo/stores";
 
 // 引用样式
-import '@repo/styles'
+import "@repo/styles";
 ```
 
 ### 开发新的共享包

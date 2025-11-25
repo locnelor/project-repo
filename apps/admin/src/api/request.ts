@@ -23,7 +23,7 @@ const createRequestClient = (baseURL: string) => {
     (error) => {
       message.error(error.message);
       return error;
-    }
+    },
   );
   return client;
 };

@@ -1,7 +1,7 @@
 // import { defineConfig } from 'vite'
 // import { resolve } from 'path'
 
-import { defineConfig } from '@internal/vite-config'
+import { defineConfig } from "@internal/vite-config";
 
 // export default defineConfig({
 //   build: {
@@ -20,4 +20,4 @@ import { defineConfig } from '@internal/vite-config'
 //   }
 // })
 
-export default defineConfig()
+export default defineConfig();

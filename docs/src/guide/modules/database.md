@@ -73,12 +73,12 @@ model User {
   lastLoginAt DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   // 关联关系
   roles     UserRole[]
   profile   UserProfile?
   logs      UserLog[]
-  
+
   @@map("users")
 }
 
@@ -90,10 +90,10 @@ model UserProfile {
   birthday DateTime?
   address  String?
   bio      String?
-  
+
   // 关联关系
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+
   @@map("user_profiles")
 }
 
@@ -106,11 +106,11 @@ model Role {
   status      Int      @default(1)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  
+
   // 关联关系
   users       UserRole[]
   permissions RolePermission[]
-  
+
   @@map("roles")
 }
 
@@ -119,11 +119,11 @@ model UserRole {
   id     String @id @default(cuid())
   userId String
   roleId String
-  
+
   // 关联关系
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  
+
   @@unique([userId, roleId])
   @@map("user_roles")
 }
@@ -138,10 +138,10 @@ model Permission {
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  
+
   // 关联关系
   roles RolePermission[]
-  
+
   @@map("permissions")
 }
 
@@ -150,11 +150,11 @@ model RolePermission {
   id           String @id @default(cuid())
   roleId       String
   permissionId String
-  
+
   // 关联关系
   role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
   permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
-  
+
   @@unique([roleId, permissionId])
   @@map("role_permissions")
 }
@@ -172,11 +172,11 @@ model Menu {
   status    Int      @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   // 自关联
   parent   Menu?  @relation("MenuHierarchy", fields: [parentId], references: [id])
   children Menu[] @relation("MenuHierarchy")
-  
+
   @@map("menus")
 }
 
@@ -189,7 +189,7 @@ model SystemConfig {
   type        String   @default("string") // string, number, boolean, json
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  
+
   @@map("system_configs")
 }
 
@@ -206,10 +206,10 @@ model UserLog {
   params    Json?    // 请求参数
   result    Json?    // 操作结果
   createdAt DateTime @default(now())
-  
+
   // 关联关系
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+
   @@map("user_logs")
 }
 
@@ -223,7 +223,7 @@ model File {
   hash      String   // 文件哈希
   uploadBy  String   // 上传者
   createdAt DateTime @default(now())
-  
+
   @@map("files")
 }
 
@@ -239,7 +239,7 @@ model Dictionary {
   status      Int      @default(1)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  
+
   @@unique([type, code])
   @@map("dictionaries")
 }
@@ -252,35 +252,38 @@ model Dictionary {
 ```typescript
 // apps/api/src/database/prisma.service.ts
 
-import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common'
-import { PrismaClient } from '../prisma/generated/client'
+import { Injectable, OnModuleInit, OnModuleDestroy } from "@nestjs/common";
+import { PrismaClient } from "../prisma/generated/client";
 
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+export class PrismaService
+  extends PrismaClient
+  implements OnModuleInit, OnModuleDestroy
+{
   constructor() {
     super({
-      log: ['query', 'info', 'warn', 'error'],
-      errorFormat: 'pretty',
-    })
+      log: ["query", "info", "warn", "error"],
+      errorFormat: "pretty",
+    });
   }
 
   async onModuleInit() {
-    await this.$connect()
-    console.log('数据库连接成功')
+    await this.$connect();
+    console.log("数据库连接成功");
   }
 
   async onModuleDestroy() {
-    await this.$disconnect()
-    console.log('数据库连接已断开')
+    await this.$disconnect();
+    console.log("数据库连接已断开");
   }
 
   /**
    * 清理数据库连接
    */
   async enableShutdownHooks(app: any) {
-    this.$on('beforeExit', async () => {
-      await app.close()
-    })
+    this.$on("beforeExit", async () => {
+      await app.close();
+    });
   }
 
   /**
@@ -292,7 +295,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
       data: {
         deletedAt: new Date(),
       },
-    })
+    });
   }
 
   /**
@@ -304,7 +307,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
       data: {
         deletedAt: new Date(),
       },
-    })
+    });
   }
 
   /**
@@ -316,7 +319,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
       data: {
         deletedAt: null,
       },
-    })
+    });
   }
 
   /**
@@ -331,15 +334,15 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
       orderBy = {},
       include = {},
     }: {
-      page?: number
-      pageSize?: number
-      where?: any
-      orderBy?: any
-      include?: any
-    }
+      page?: number;
+      pageSize?: number;
+      where?: any;
+      orderBy?: any;
+      include?: any;
+    },
   ) {
-    const skip = (page - 1) * pageSize
-    
+    const skip = (page - 1) * pageSize;
+
     const [data, total] = await Promise.all([
       this[model].findMany({
         where,
@@ -349,7 +352,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
         take: pageSize,
       }),
       this[model].count({ where }),
-    ])
+    ]);
 
     return {
       data,
@@ -357,14 +360,16 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
       page,
       pageSize,
       totalPages: Math.ceil(total / pageSize),
-    }
+    };
   }
 
   /**
    * 事务执行辅助方法
    */
-  async executeTransaction<T>(callback: (prisma: PrismaClient) => Promise<T>): Promise<T> {
-    return this.$transaction(callback)
+  async executeTransaction<T>(
+    callback: (prisma: PrismaClient) => Promise<T>,
+  ): Promise<T> {
+    return this.$transaction(callback);
   }
 }
 ```
@@ -374,8 +379,8 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
 ```typescript
 // apps/api/src/database/database.module.ts
 
-import { Global, Module } from '@nestjs/common'
-import { PrismaService } from './prisma.service'
+import { Global, Module } from "@nestjs/common";
+import { PrismaService } from "./prisma.service";
 
 @Global()
 @Module({
@@ -392,27 +397,27 @@ export class DatabaseModule {}
 ```typescript
 // apps/api/src/common/repositories/base.repository.ts
 
-import { Injectable } from '@nestjs/common'
-import { PrismaService } from '../../database/prisma.service'
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../../database/prisma.service";
 
 export interface PaginationOptions {
-  page?: number
-  pageSize?: number
-  orderBy?: any
-  include?: any
+  page?: number;
+  pageSize?: number;
+  orderBy?: any;
+  include?: any;
 }
 
 export interface PaginationResult<T> {
-  data: T[]
-  total: number
-  page: number
-  pageSize: number
-  totalPages: number
+  data: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
 }
 
 @Injectable()
 export abstract class BaseRepository<T> {
-  protected abstract modelName: string
+  protected abstract modelName: string;
 
   constructor(protected readonly prisma: PrismaService) {}
 
@@ -420,7 +425,7 @@ export abstract class BaseRepository<T> {
    * 创建记录
    */
   async create(data: any): Promise<T> {
-    return this.prisma[this.modelName].create({ data })
+    return this.prisma[this.modelName].create({ data });
   }
 
   /**
@@ -430,7 +435,7 @@ export abstract class BaseRepository<T> {
     return this.prisma[this.modelName].findUnique({
       where: { id },
       include,
-    })
+    });
   }
 
   /**
@@ -440,7 +445,7 @@ export abstract class BaseRepository<T> {
     return this.prisma[this.modelName].findMany({
       where,
       include,
-    })
+    });
   }
 
   /**
@@ -448,12 +453,12 @@ export abstract class BaseRepository<T> {
    */
   async findManyWithPagination(
     where: any = {},
-    options: PaginationOptions = {}
+    options: PaginationOptions = {},
   ): Promise<PaginationResult<T>> {
     return this.prisma.paginate(this.modelName, {
       where,
       ...options,
-    })
+    });
   }
 
   /**
@@ -463,7 +468,7 @@ export abstract class BaseRepository<T> {
     return this.prisma[this.modelName].update({
       where: { id },
       data,
-    })
+    });
   }
 
   /**
@@ -472,29 +477,29 @@ export abstract class BaseRepository<T> {
   async delete(id: string): Promise<T> {
     return this.prisma[this.modelName].delete({
       where: { id },
-    })
+    });
   }
 
   /**
    * 批量删除
    */
   async deleteMany(where: any): Promise<{ count: number }> {
-    return this.prisma[this.modelName].deleteMany({ where })
+    return this.prisma[this.modelName].deleteMany({ where });
   }
 
   /**
    * 统计记录数
    */
   async count(where?: any): Promise<number> {
-    return this.prisma[this.modelName].count({ where })
+    return this.prisma[this.modelName].count({ where });
   }
 
   /**
    * 检查记录是否存在
    */
   async exists(where: any): Promise<boolean> {
-    const count = await this.count(where)
-    return count > 0
+    const count = await this.count(where);
+    return count > 0;
   }
 }
 ```
@@ -504,17 +509,17 @@ export abstract class BaseRepository<T> {
 ```typescript
 // apps/api/src/modules/users/repositories/user.repository.ts
 
-import { Injectable } from '@nestjs/common'
-import { User, Prisma } from '../../../prisma/generated/client'
-import { BaseRepository } from '../../../common/repositories/base.repository'
-import { PrismaService } from '../../../database/prisma.service'
+import { Injectable } from "@nestjs/common";
+import { User, Prisma } from "../../../prisma/generated/client";
+import { BaseRepository } from "../../../common/repositories/base.repository";
+import { PrismaService } from "../../../database/prisma.service";
 
 @Injectable()
 export class UserRepository extends BaseRepository<User> {
-  protected modelName = 'user'
+  protected modelName = "user";
 
   constructor(prisma: PrismaService) {
-    super(prisma)
+    super(prisma);
   }
 
   /**
@@ -539,7 +544,7 @@ export class UserRepository extends BaseRepository<User> {
           },
         },
       },
-    })
+    });
   }
 
   /**
@@ -548,24 +553,29 @@ export class UserRepository extends BaseRepository<User> {
   async findByUsername(username: string): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: { username },
-    })
+    });
   }
 
   /**
    * 创建用户及其资料
    */
-  async createWithProfile(userData: Prisma.UserCreateInput, profileData?: any): Promise<User> {
+  async createWithProfile(
+    userData: Prisma.UserCreateInput,
+    profileData?: any,
+  ): Promise<User> {
     return this.prisma.user.create({
       data: {
         ...userData,
-        profile: profileData ? {
-          create: profileData,
-        } : undefined,
+        profile: profileData
+          ? {
+              create: profileData,
+            }
+          : undefined,
       },
       include: {
         profile: true,
       },
-    })
+    });
   }
 
   /**
@@ -577,7 +587,7 @@ export class UserRepository extends BaseRepository<User> {
       data: {
         lastLoginAt: new Date(),
       },
-    })
+    });
   }
 
   /**
@@ -587,15 +597,15 @@ export class UserRepository extends BaseRepository<User> {
     // 先删除现有角色
     await this.prisma.userRole.deleteMany({
       where: { userId },
-    })
+    });
 
     // 分配新角色
     await this.prisma.userRole.createMany({
-      data: roleIds.map(roleId => ({
+      data: roleIds.map((roleId) => ({
         userId,
         roleId,
       })),
-    })
+    });
   }
 
   /**
@@ -615,17 +625,17 @@ export class UserRepository extends BaseRepository<User> {
           },
         },
       },
-    })
+    });
 
-    const permissions = new Set<string>()
-    
-    userRoles.forEach(userRole => {
-      userRole.role.permissions.forEach(rolePermission => {
-        permissions.add(rolePermission.permission.code)
-      })
-    })
+    const permissions = new Set<string>();
 
-    return Array.from(permissions)
+    userRoles.forEach((userRole) => {
+      userRole.role.permissions.forEach((rolePermission) => {
+        permissions.add(rolePermission.permission.code);
+      });
+    });
+
+    return Array.from(permissions);
   }
 
   /**
@@ -633,20 +643,20 @@ export class UserRepository extends BaseRepository<User> {
    */
   async searchUsers(
     keyword: string,
-    options: { page?: number; pageSize?: number } = {}
+    options: { page?: number; pageSize?: number } = {},
   ) {
     const where = {
       OR: [
-        { email: { contains: keyword, mode: 'insensitive' as const } },
-        { username: { contains: keyword, mode: 'insensitive' as const } },
-        { nickname: { contains: keyword, mode: 'insensitive' as const } },
+        { email: { contains: keyword, mode: "insensitive" as const } },
+        { username: { contains: keyword, mode: "insensitive" as const } },
+        { nickname: { contains: keyword, mode: "insensitive" as const } },
         {
           profile: {
-            realName: { contains: keyword, mode: 'insensitive' as const },
+            realName: { contains: keyword, mode: "insensitive" as const },
           },
         },
       ],
-    }
+    };
 
     return this.findManyWithPagination(where, {
       ...options,
@@ -659,9 +669,9 @@ export class UserRepository extends BaseRepository<User> {
         },
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
-    })
+    });
   }
 }
 ```
@@ -692,41 +702,41 @@ npx prisma migrate resolve --applied "20231201000001_init"
 ```typescript
 // apps/api/src/database/migrations/add-indexes.ts
 
-import { PrismaClient } from '../../prisma/generated/client'
+import { PrismaClient } from "../../prisma/generated/client";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 async function addIndexes() {
   try {
     // 添加用户邮箱索引
     await prisma.$executeRaw`
       CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
-    `
+    `;
 
     // 添加用户状态索引
     await prisma.$executeRaw`
       CREATE INDEX IF NOT EXISTS idx_users_status ON users(status);
-    `
+    `;
 
     // 添加用户创建时间索引
     await prisma.$executeRaw`
       CREATE INDEX IF NOT EXISTS idx_users_created_at ON users(created_at);
-    `
+    `;
 
     // 添加用户角色联合索引
     await prisma.$executeRaw`
       CREATE INDEX IF NOT EXISTS idx_user_roles_user_role ON user_roles(user_id, role_id);
-    `
+    `;
 
-    console.log('索引添加成功')
+    console.log("索引添加成功");
   } catch (error) {
-    console.error('索引添加失败:', error)
+    console.error("索引添加失败:", error);
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
-addIndexes()
+addIndexes();
 ```
 
 ## 数据种子
@@ -736,48 +746,48 @@ addIndexes()
 ```typescript
 // apps/api/prisma/seeds/index.ts
 
-import { PrismaClient } from '../generated/client'
-import { seedUsers } from './users'
-import { seedRoles } from './roles'
-import { seedPermissions } from './permissions'
-import { seedMenus } from './menus'
+import { PrismaClient } from "../generated/client";
+import { seedUsers } from "./users";
+import { seedRoles } from "./roles";
+import { seedPermissions } from "./permissions";
+import { seedMenus } from "./menus";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 async function main() {
-  console.log('开始执行数据种子...')
+  console.log("开始执行数据种子...");
 
   try {
     // 清理现有数据
-    await prisma.userRole.deleteMany()
-    await prisma.rolePermission.deleteMany()
-    await prisma.userProfile.deleteMany()
-    await prisma.user.deleteMany()
-    await prisma.role.deleteMany()
-    await prisma.permission.deleteMany()
-    await prisma.menu.deleteMany()
+    await prisma.userRole.deleteMany();
+    await prisma.rolePermission.deleteMany();
+    await prisma.userProfile.deleteMany();
+    await prisma.user.deleteMany();
+    await prisma.role.deleteMany();
+    await prisma.permission.deleteMany();
+    await prisma.menu.deleteMany();
 
     // 执行种子数据
-    await seedPermissions(prisma)
-    await seedRoles(prisma)
-    await seedUsers(prisma)
-    await seedMenus(prisma)
+    await seedPermissions(prisma);
+    await seedRoles(prisma);
+    await seedUsers(prisma);
+    await seedMenus(prisma);
 
-    console.log('数据种子执行完成')
+    console.log("数据种子执行完成");
   } catch (error) {
-    console.error('数据种子执行失败:', error)
-    throw error
+    console.error("数据种子执行失败:", error);
+    throw error;
   }
 }
 
 main()
   .catch((e) => {
-    console.error(e)
-    process.exit(1)
+    console.error(e);
+    process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect()
-  })
+    await prisma.$disconnect();
+  });
 ```
 
 ### 用户种子数据
@@ -785,56 +795,56 @@ main()
 ```typescript
 // apps/api/prisma/seeds/users.ts
 
-import { PrismaClient } from '../generated/client'
-import * as bcrypt from 'bcrypt'
+import { PrismaClient } from "../generated/client";
+import * as bcrypt from "bcrypt";
 
 export async function seedUsers(prisma: PrismaClient) {
-  console.log('创建用户数据...')
+  console.log("创建用户数据...");
 
-  const hashedPassword = await bcrypt.hash('123456', 10)
+  const hashedPassword = await bcrypt.hash("123456", 10);
 
   // 创建超级管理员
   const admin = await prisma.user.create({
     data: {
-      email: 'admin@qiyun.com',
-      username: 'admin',
+      email: "admin@qiyun.com",
+      username: "admin",
       password: hashedPassword,
-      nickname: '超级管理员',
+      nickname: "超级管理员",
       status: 1,
       profile: {
         create: {
-          realName: '系统管理员',
-          bio: '系统超级管理员账户',
+          realName: "系统管理员",
+          bio: "系统超级管理员账户",
         },
       },
     },
-  })
+  });
 
   // 创建普通用户
   const user = await prisma.user.create({
     data: {
-      email: 'user@qiyun.com',
-      username: 'user',
+      email: "user@qiyun.com",
+      username: "user",
       password: hashedPassword,
-      nickname: '普通用户',
+      nickname: "普通用户",
       status: 1,
       profile: {
         create: {
-          realName: '测试用户',
-          bio: '普通测试用户账户',
+          realName: "测试用户",
+          bio: "普通测试用户账户",
         },
       },
     },
-  })
+  });
 
   // 分配角色
   const adminRole = await prisma.role.findUnique({
-    where: { code: 'admin' },
-  })
+    where: { code: "admin" },
+  });
 
   const userRole = await prisma.role.findUnique({
-    where: { code: 'user' },
-  })
+    where: { code: "user" },
+  });
 
   if (adminRole) {
     await prisma.userRole.create({
@@ -842,7 +852,7 @@ export async function seedUsers(prisma: PrismaClient) {
         userId: admin.id,
         roleId: adminRole.id,
       },
-    })
+    });
   }
 
   if (userRole) {
@@ -851,10 +861,10 @@ export async function seedUsers(prisma: PrismaClient) {
         userId: user.id,
         roleId: userRole.id,
       },
-    })
+    });
   }
 
-  console.log('用户数据创建完成')
+  console.log("用户数据创建完成");
 }
 ```
 
@@ -875,7 +885,7 @@ const users = await prisma.user.findMany({
       },
     },
   },
-})
+});
 
 // 2. 使用 include 预加载关联数据
 const userWithRoles = await prisma.user.findUnique({
@@ -895,27 +905,27 @@ const userWithRoles = await prisma.user.findUnique({
       },
     },
   },
-})
+});
 
 // 3. 使用索引优化查询
 const activeUsers = await prisma.user.findMany({
   where: {
     status: 1, // 确保 status 字段有索引
     createdAt: {
-      gte: new Date('2023-01-01'), // 确保 createdAt 字段有索引
+      gte: new Date("2023-01-01"), // 确保 createdAt 字段有索引
     },
   },
-})
+});
 
 // 4. 使用批量操作
-const userIds = ['id1', 'id2', 'id3']
+const userIds = ["id1", "id2", "id3"];
 const users = await prisma.user.findMany({
   where: {
     id: {
       in: userIds,
     },
   },
-})
+});
 
 // 5. 使用原生 SQL 进行复杂查询
 const result = await prisma.$queryRaw`
@@ -925,7 +935,7 @@ const result = await prisma.$queryRaw`
   WHERE u.status = 1
   GROUP BY u.id, u.email
   HAVING COUNT(ur.role_id) > 0
-`
+`;
 ```
 
 ### 事务处理
@@ -936,30 +946,30 @@ const result = await prisma.$transaction(async (prisma) => {
   // 创建用户
   const user = await prisma.user.create({
     data: {
-      email: 'test@example.com',
-      username: 'test',
-      password: 'hashedPassword',
+      email: "test@example.com",
+      username: "test",
+      password: "hashedPassword",
     },
-  })
+  });
 
   // 创建用户资料
   const profile = await prisma.userProfile.create({
     data: {
       userId: user.id,
-      realName: '测试用户',
+      realName: "测试用户",
     },
-  })
+  });
 
   // 分配角色
   await prisma.userRole.create({
     data: {
       userId: user.id,
-      roleId: 'role-id',
+      roleId: "role-id",
     },
-  })
+  });
 
-  return { user, profile }
-})
+  return { user, profile };
+});
 
 // 批量事务
 const [updatedUser, createdLog] = await prisma.$transaction([
@@ -970,14 +980,14 @@ const [updatedUser, createdLog] = await prisma.$transaction([
   prisma.userLog.create({
     data: {
       userId,
-      action: 'login',
-      resource: 'auth',
-      method: 'POST',
-      path: '/auth/login',
-      ip: '127.0.0.1',
+      action: "login",
+      resource: "auth",
+      method: "POST",
+      path: "/auth/login",
+      ip: "127.0.0.1",
     },
   }),
-])
+]);
 ```
 
 ## 数据库监控
@@ -987,8 +997,8 @@ const [updatedUser, createdLog] = await prisma.$transaction([
 ```typescript
 // apps/api/src/database/prisma.service.ts
 
-import { Injectable } from '@nestjs/common'
-import { PrismaClient } from '../prisma/generated/client'
+import { Injectable } from "@nestjs/common";
+import { PrismaClient } from "../prisma/generated/client";
 
 @Injectable()
 export class PrismaService extends PrismaClient {
@@ -996,35 +1006,35 @@ export class PrismaService extends PrismaClient {
     super({
       log: [
         {
-          emit: 'event',
-          level: 'query',
+          emit: "event",
+          level: "query",
         },
         {
-          emit: 'event',
-          level: 'error',
+          emit: "event",
+          level: "error",
         },
         {
-          emit: 'event',
-          level: 'info',
+          emit: "event",
+          level: "info",
         },
         {
-          emit: 'event',
-          level: 'warn',
+          emit: "event",
+          level: "warn",
         },
       ],
-    })
+    });
 
     // 监听查询事件
-    this.$on('query', (e) => {
-      console.log('Query: ' + e.query)
-      console.log('Params: ' + e.params)
-      console.log('Duration: ' + e.duration + 'ms')
-    })
+    this.$on("query", (e) => {
+      console.log("Query: " + e.query);
+      console.log("Params: " + e.params);
+      console.log("Duration: " + e.duration + "ms");
+    });
 
     // 监听错误事件
-    this.$on('error', (e) => {
-      console.error('Database Error:', e)
-    })
+    this.$on("error", (e) => {
+      console.error("Database Error:", e);
+    });
   }
 }
 ```
@@ -1039,25 +1049,28 @@ import {
   NestInterceptor,
   ExecutionContext,
   CallHandler,
-} from '@nestjs/common'
-import { Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
+} from "@nestjs/common";
+import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
 
 @Injectable()
 export class DatabaseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const start = Date.now()
-    
+    const start = Date.now();
+
     return next.handle().pipe(
       tap(() => {
-        const duration = Date.now() - start
-        const request = context.switchToHttp().getRequest()
-        
-        if (duration > 1000) { // 超过 1 秒的查询记录警告
-          console.warn(`Slow database query detected: ${request.url} took ${duration}ms`)
+        const duration = Date.now() - start;
+        const request = context.switchToHttp().getRequest();
+
+        if (duration > 1000) {
+          // 超过 1 秒的查询记录警告
+          console.warn(
+            `Slow database query detected: ${request.url} took ${duration}ms`,
+          );
         }
       }),
-    )
+    );
   }
 }
 ```

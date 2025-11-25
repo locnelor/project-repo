@@ -103,22 +103,22 @@ export interface PaginatedResponse<T> extends ApiResponse<T[]> {
 // 状态码定义
 export enum HttpStatus {
   // 成功
-  OK = 200,                    // 请求成功
-  CREATED = 201,               // 资源创建成功
-  NO_CONTENT = 204,            // 请求成功，无返回内容
-  
+  OK = 200, // 请求成功
+  CREATED = 201, // 资源创建成功
+  NO_CONTENT = 204, // 请求成功，无返回内容
+
   // 客户端错误
-  BAD_REQUEST = 400,           // 请求参数错误
-  UNAUTHORIZED = 401,          // 未认证
-  FORBIDDEN = 403,             // 无权限
-  NOT_FOUND = 404,             // 资源不存在
-  CONFLICT = 409,              // 资源冲突
-  UNPROCESSABLE_ENTITY = 422,  // 数据验证失败
-  
+  BAD_REQUEST = 400, // 请求参数错误
+  UNAUTHORIZED = 401, // 未认证
+  FORBIDDEN = 403, // 无权限
+  NOT_FOUND = 404, // 资源不存在
+  CONFLICT = 409, // 资源冲突
+  UNPROCESSABLE_ENTITY = 422, // 数据验证失败
+
   // 服务器错误
   INTERNAL_SERVER_ERROR = 500, // 服务器内部错误
-  BAD_GATEWAY = 502,           // 网关错误
-  SERVICE_UNAVAILABLE = 503    // 服务不可用
+  BAD_GATEWAY = 502, // 网关错误
+  SERVICE_UNAVAILABLE = 503, // 服务不可用
 }
 ```
 
@@ -128,54 +128,67 @@ export enum HttpStatus {
 
 ```typescript
 // controllers/base.controller.ts
-import { Controller, Get, Post, Put, Delete, Param, Body, Query } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  Query,
+} from "@nestjs/common";
+import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
-@ApiTags('Users')
-@Controller('users')
+@ApiTags("Users")
+@Controller("users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  @ApiOperation({ summary: '获取用户列表' })
-  @ApiResponse({ status: 200, description: '成功获取用户列表' })
-  async findAll(@Query() query: FindUsersDto): Promise<PaginatedResponse<User>> {
-    return this.usersService.findAll(query)
+  @ApiOperation({ summary: "获取用户列表" })
+  @ApiResponse({ status: 200, description: "成功获取用户列表" })
+  async findAll(
+    @Query() query: FindUsersDto,
+  ): Promise<PaginatedResponse<User>> {
+    return this.usersService.findAll(query);
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: '获取用户详情' })
-  @ApiResponse({ status: 200, description: '成功获取用户详情' })
-  @ApiResponse({ status: 404, description: '用户不存在' })
-  async findOne(@Param('id') id: string): Promise<ApiResponse<User>> {
-    return this.usersService.findOne(+id)
+  @Get(":id")
+  @ApiOperation({ summary: "获取用户详情" })
+  @ApiResponse({ status: 200, description: "成功获取用户详情" })
+  @ApiResponse({ status: 404, description: "用户不存在" })
+  async findOne(@Param("id") id: string): Promise<ApiResponse<User>> {
+    return this.usersService.findOne(+id);
   }
 
   @Post()
-  @ApiOperation({ summary: '创建用户' })
-  @ApiResponse({ status: 201, description: '用户创建成功' })
-  @ApiResponse({ status: 400, description: '请求参数错误' })
-  async create(@Body() createUserDto: CreateUserDto): Promise<ApiResponse<User>> {
-    return this.usersService.create(createUserDto)
-  }
-
-  @Put(':id')
-  @ApiOperation({ summary: '更新用户' })
-  @ApiResponse({ status: 200, description: '用户更新成功' })
-  @ApiResponse({ status: 404, description: '用户不存在' })
-  async update(
-    @Param('id') id: string,
-    @Body() updateUserDto: UpdateUserDto
+  @ApiOperation({ summary: "创建用户" })
+  @ApiResponse({ status: 201, description: "用户创建成功" })
+  @ApiResponse({ status: 400, description: "请求参数错误" })
+  async create(
+    @Body() createUserDto: CreateUserDto,
   ): Promise<ApiResponse<User>> {
-    return this.usersService.update(+id, updateUserDto)
+    return this.usersService.create(createUserDto);
   }
 
-  @Delete(':id')
-  @ApiOperation({ summary: '删除用户' })
-  @ApiResponse({ status: 204, description: '用户删除成功' })
-  @ApiResponse({ status: 404, description: '用户不存在' })
-  async remove(@Param('id') id: string): Promise<void> {
-    return this.usersService.remove(+id)
+  @Put(":id")
+  @ApiOperation({ summary: "更新用户" })
+  @ApiResponse({ status: 200, description: "用户更新成功" })
+  @ApiResponse({ status: 404, description: "用户不存在" })
+  async update(
+    @Param("id") id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<ApiResponse<User>> {
+    return this.usersService.update(+id, updateUserDto);
+  }
+
+  @Delete(":id")
+  @ApiOperation({ summary: "删除用户" })
+  @ApiResponse({ status: 204, description: "用户删除成功" })
+  @ApiResponse({ status: 404, description: "用户不存在" })
+  async remove(@Param("id") id: string): Promise<void> {
+    return this.usersService.remove(+id);
   }
 }
 ```
@@ -184,68 +197,78 @@ export class UsersController {
 
 ```typescript
 // dto/create-user.dto.ts
-import { IsEmail, IsString, IsOptional, MinLength, MaxLength } from 'class-validator'
-import { ApiProperty } from '@nestjs/swagger'
+import {
+  IsEmail,
+  IsString,
+  IsOptional,
+  MinLength,
+  MaxLength,
+} from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateUserDto {
-  @ApiProperty({ description: '用户名', example: 'john_doe' })
+  @ApiProperty({ description: "用户名", example: "john_doe" })
   @IsString()
   @MinLength(3)
   @MaxLength(20)
-  username: string
+  username: string;
 
-  @ApiProperty({ description: '邮箱', example: 'john@example.com' })
+  @ApiProperty({ description: "邮箱", example: "john@example.com" })
   @IsEmail()
-  email: string
+  email: string;
 
-  @ApiProperty({ description: '密码', example: 'password123' })
+  @ApiProperty({ description: "密码", example: "password123" })
   @IsString()
   @MinLength(6)
-  password: string
+  password: string;
 
-  @ApiProperty({ description: '姓名', example: 'John Doe', required: false })
+  @ApiProperty({ description: "姓名", example: "John Doe", required: false })
   @IsOptional()
   @IsString()
-  name?: string
+  name?: string;
 }
 
 // dto/update-user.dto.ts
-import { PartialType } from '@nestjs/swagger'
-import { CreateUserDto } from './create-user.dto'
+import { PartialType } from "@nestjs/swagger";
+import { CreateUserDto } from "./create-user.dto";
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
 
 // dto/find-users.dto.ts
 export class FindUsersDto {
-  @ApiProperty({ description: '页码', example: 1, required: false })
+  @ApiProperty({ description: "页码", example: 1, required: false })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  page?: number = 1
+  page?: number = 1;
 
-  @ApiProperty({ description: '每页数量', example: 10, required: false })
+  @ApiProperty({ description: "每页数量", example: 10, required: false })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
   @Max(100)
-  limit?: number = 10
+  limit?: number = 10;
 
-  @ApiProperty({ description: '搜索关键词', required: false })
+  @ApiProperty({ description: "搜索关键词", required: false })
   @IsOptional()
   @IsString()
-  search?: string
+  search?: string;
 
-  @ApiProperty({ description: '排序字段', required: false })
+  @ApiProperty({ description: "排序字段", required: false })
   @IsOptional()
   @IsString()
-  sortBy?: string
+  sortBy?: string;
 
-  @ApiProperty({ description: '排序方向', enum: ['asc', 'desc'], required: false })
+  @ApiProperty({
+    description: "排序方向",
+    enum: ["asc", "desc"],
+    required: false,
+  })
   @IsOptional()
-  @IsIn(['asc', 'desc'])
-  sortOrder?: 'asc' | 'desc' = 'desc'
+  @IsIn(["asc", "desc"])
+  sortOrder?: "asc" | "desc" = "desc";
 }
 ```
 
@@ -255,29 +278,35 @@ export class FindUsersDto {
 
 ```typescript
 // services/users.service.ts
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common'
-import { PrismaService } from '../prisma/prisma.service'
-import { CreateUserDto, UpdateUserDto, FindUsersDto } from '../dto'
-import { User } from '@prisma/client'
-import * as bcrypt from 'bcrypt'
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { CreateUserDto, UpdateUserDto, FindUsersDto } from "../dto";
+import { User } from "@prisma/client";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async findAll(query: FindUsersDto): Promise<PaginatedResponse<User>> {
-    const { page, limit, search, sortBy, sortOrder } = query
-    const skip = (page - 1) * limit
+    const { page, limit, search, sortBy, sortOrder } = query;
+    const skip = (page - 1) * limit;
 
-    const where = search ? {
-      OR: [
-        { username: { contains: search, mode: 'insensitive' } },
-        { email: { contains: search, mode: 'insensitive' } },
-        { name: { contains: search, mode: 'insensitive' } }
-      ]
-    } : {}
+    const where = search
+      ? {
+          OR: [
+            { username: { contains: search, mode: "insensitive" } },
+            { email: { contains: search, mode: "insensitive" } },
+            { name: { contains: search, mode: "insensitive" } },
+          ],
+        }
+      : {};
 
-    const orderBy = sortBy ? { [sortBy]: sortOrder } : { createdAt: 'desc' }
+    const orderBy = sortBy ? { [sortBy]: sortOrder } : { createdAt: "desc" };
 
     const [users, total] = await Promise.all([
       this.prisma.user.findMany({
@@ -291,25 +320,25 @@ export class UsersService {
           email: true,
           name: true,
           createdAt: true,
-          updatedAt: true
-        }
+          updatedAt: true,
+        },
       }),
-      this.prisma.user.count({ where })
-    ])
+      this.prisma.user.count({ where }),
+    ]);
 
     return {
       code: 200,
-      message: 'Success',
+      message: "Success",
       data: users,
       pagination: {
         page,
         limit,
         total,
-        totalPages: Math.ceil(total / limit)
+        totalPages: Math.ceil(total / limit),
       },
       timestamp: new Date().toISOString(),
-      path: '/api/users'
-    }
+      path: "/api/users",
+    };
   }
 
   async findOne(id: number): Promise<ApiResponse<User>> {
@@ -321,21 +350,21 @@ export class UsersService {
         email: true,
         name: true,
         createdAt: true,
-        updatedAt: true
-      }
-    })
+        updatedAt: true,
+      },
+    });
 
     if (!user) {
-      throw new NotFoundException('User not found')
+      throw new NotFoundException("User not found");
     }
 
     return {
       code: 200,
-      message: 'Success',
+      message: "Success",
       data: user,
       timestamp: new Date().toISOString(),
-      path: `/api/users/${id}`
-    }
+      path: `/api/users/${id}`,
+    };
   }
 
   async create(createUserDto: CreateUserDto): Promise<ApiResponse<User>> {
@@ -344,22 +373,22 @@ export class UsersService {
       where: {
         OR: [
           { username: createUserDto.username },
-          { email: createUserDto.email }
-        ]
-      }
-    })
+          { email: createUserDto.email },
+        ],
+      },
+    });
 
     if (existingUser) {
-      throw new ConflictException('Username or email already exists')
+      throw new ConflictException("Username or email already exists");
     }
 
     // 加密密码
-    const hashedPassword = await bcrypt.hash(createUserDto.password, 10)
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
 
     const user = await this.prisma.user.create({
       data: {
         ...createUserDto,
-        password: hashedPassword
+        password: hashedPassword,
       },
       select: {
         id: true,
@@ -367,27 +396,30 @@ export class UsersService {
         email: true,
         name: true,
         createdAt: true,
-        updatedAt: true
-      }
-    })
+        updatedAt: true,
+      },
+    });
 
     return {
       code: 201,
-      message: 'User created successfully',
+      message: "User created successfully",
       data: user,
       timestamp: new Date().toISOString(),
-      path: '/api/users'
-    }
+      path: "/api/users",
+    };
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<ApiResponse<User>> {
-    await this.findOne(id) // 检查用户是否存在
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+  ): Promise<ApiResponse<User>> {
+    await this.findOne(id); // 检查用户是否存在
 
-    const updateData = { ...updateUserDto }
-    
+    const updateData = { ...updateUserDto };
+
     // 如果更新密码，需要加密
     if (updateData.password) {
-      updateData.password = await bcrypt.hash(updateData.password, 10)
+      updateData.password = await bcrypt.hash(updateData.password, 10);
     }
 
     const user = await this.prisma.user.update({
@@ -399,25 +431,25 @@ export class UsersService {
         email: true,
         name: true,
         createdAt: true,
-        updatedAt: true
-      }
-    })
+        updatedAt: true,
+      },
+    });
 
     return {
       code: 200,
-      message: 'User updated successfully',
+      message: "User updated successfully",
       data: user,
       timestamp: new Date().toISOString(),
-      path: `/api/users/${id}`
-    }
+      path: `/api/users/${id}`,
+    };
   }
 
   async remove(id: number): Promise<void> {
-    await this.findOne(id) // 检查用户是否存在
+    await this.findOne(id); // 检查用户是否存在
 
     await this.prisma.user.delete({
-      where: { id }
-    })
+      where: { id },
+    });
   }
 }
 ```
@@ -428,56 +460,58 @@ export class UsersService {
 
 ```typescript
 // auth/auth.service.ts
-import { Injectable, UnauthorizedException } from '@nestjs/common'
-import { JwtService } from '@nestjs/jwt'
-import { UsersService } from '../users/users.service'
-import * as bcrypt from 'bcrypt'
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { UsersService } from "../users/users.service";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
 
-  async login(loginDto: LoginDto): Promise<ApiResponse<{ token: string; user: User }>> {
-    const user = await this.validateUser(loginDto.username, loginDto.password)
-    
+  async login(
+    loginDto: LoginDto,
+  ): Promise<ApiResponse<{ token: string; user: User }>> {
+    const user = await this.validateUser(loginDto.username, loginDto.password);
+
     if (!user) {
-      throw new UnauthorizedException('Invalid credentials')
+      throw new UnauthorizedException("Invalid credentials");
     }
 
-    const payload = { sub: user.id, username: user.username }
-    const token = this.jwtService.sign(payload)
+    const payload = { sub: user.id, username: user.username };
+    const token = this.jwtService.sign(payload);
 
     return {
       code: 200,
-      message: 'Login successful',
+      message: "Login successful",
       data: {
         token,
         user: {
           id: user.id,
           username: user.username,
           email: user.email,
-          name: user.name
-        }
+          name: user.name,
+        },
       },
       timestamp: new Date().toISOString(),
-      path: '/api/auth/login'
-    }
+      path: "/api/auth/login",
+    };
   }
 
   async validateUser(username: string, password: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({
-      where: { username }
-    })
+      where: { username },
+    });
 
-    if (user && await bcrypt.compare(password, user.password)) {
-      const { password, ...result } = user
-      return result
+    if (user && (await bcrypt.compare(password, user.password))) {
+      const { password, ...result } = user;
+      return result;
     }
 
-    return null
+    return null;
   }
 }
 ```
@@ -535,30 +569,30 @@ import {
   Catch,
   ArgumentsHost,
   HttpException,
-  HttpStatus
-} from '@nestjs/common'
-import { Request, Response } from 'express'
+  HttpStatus,
+} from "@nestjs/common";
+import { Request, Response } from "express";
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost) {
-    const ctx = host.switchToHttp()
-    const response = ctx.getResponse<Response>()
-    const request = ctx.getRequest<Request>()
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
 
-    let status = HttpStatus.INTERNAL_SERVER_ERROR
-    let message = 'Internal server error'
-    let errors: any[] = []
+    let status = HttpStatus.INTERNAL_SERVER_ERROR;
+    let message = "Internal server error";
+    let errors: any[] = [];
 
     if (exception instanceof HttpException) {
-      status = exception.getStatus()
-      const exceptionResponse = exception.getResponse()
-      
-      if (typeof exceptionResponse === 'object') {
-        message = (exceptionResponse as any).message || exception.message
-        errors = (exceptionResponse as any).errors || []
+      status = exception.getStatus();
+      const exceptionResponse = exception.getResponse();
+
+      if (typeof exceptionResponse === "object") {
+        message = (exceptionResponse as any).message || exception.message;
+        errors = (exceptionResponse as any).errors || [];
       } else {
-        message = exceptionResponse as string
+        message = exceptionResponse as string;
       }
     }
 
@@ -567,10 +601,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
       message,
       ...(errors.length > 0 && { errors }),
       timestamp: new Date().toISOString(),
-      path: request.url
-    }
+      path: request.url,
+    };
 
-    response.status(status).json(errorResponse)
+    response.status(status).json(errorResponse);
   }
 }
 ```
@@ -583,39 +617,39 @@ import {
   PipeTransform,
   Injectable,
   ArgumentMetadata,
-  BadRequestException
-} from '@nestjs/common'
-import { validate } from 'class-validator'
-import { plainToClass } from 'class-transformer'
+  BadRequestException,
+} from "@nestjs/common";
+import { validate } from "class-validator";
+import { plainToClass } from "class-transformer";
 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
   async transform(value: any, { metatype }: ArgumentMetadata) {
     if (!metatype || !this.toValidate(metatype)) {
-      return value
+      return value;
     }
 
-    const object = plainToClass(metatype, value)
-    const errors = await validate(object)
+    const object = plainToClass(metatype, value);
+    const errors = await validate(object);
 
     if (errors.length > 0) {
-      const errorMessages = errors.map(error => ({
+      const errorMessages = errors.map((error) => ({
         field: error.property,
-        message: Object.values(error.constraints || {}).join(', ')
-      }))
+        message: Object.values(error.constraints || {}).join(", "),
+      }));
 
       throw new BadRequestException({
-        message: 'Validation failed',
-        errors: errorMessages
-      })
+        message: "Validation failed",
+        errors: errorMessages,
+      });
     }
 
-    return value
+    return value;
   }
 
   private toValidate(metatype: Function): boolean {
-    const types: Function[] = [String, Boolean, Number, Array, Object]
-    return !types.includes(metatype)
+    const types: Function[] = [String, Boolean, Number, Array, Object];
+    return !types.includes(metatype);
   }
 }
 ```
@@ -626,63 +660,63 @@ export class ValidationPipe implements PipeTransform<any> {
 
 ```typescript
 // main.ts
-import { NestFactory } from '@nestjs/core'
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
-import { AppModule } from './app.module'
+import { NestFactory } from "@nestjs/core";
+import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
+import { AppModule } from "./app.module";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(AppModule);
 
   // Swagger 配置
   const config = new DocumentBuilder()
-    .setTitle('Qiyun API')
-    .setDescription('Qiyun 项目 API 文档')
-    .setVersion('1.0')
+    .setTitle("Qiyun API")
+    .setDescription("Qiyun 项目 API 文档")
+    .setVersion("1.0")
     .addBearerAuth(
       {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        name: 'JWT',
-        description: 'Enter JWT token',
-        in: 'header'
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+        name: "JWT",
+        description: "Enter JWT token",
+        in: "header",
       },
-      'JWT-auth'
+      "JWT-auth",
     )
-    .build()
+    .build();
 
-  const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api/docs', app, document)
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup("api/docs", app, document);
 
-  await app.listen(3000)
+  await app.listen(3000);
 }
-bootstrap()
+bootstrap();
 ```
 
 ### API 文档注解
 
 ```typescript
 // entities/user.entity.ts
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty } from "@nestjs/swagger";
 
 export class User {
-  @ApiProperty({ description: '用户ID', example: 1 })
-  id: number
+  @ApiProperty({ description: "用户ID", example: 1 })
+  id: number;
 
-  @ApiProperty({ description: '用户名', example: 'john_doe' })
-  username: string
+  @ApiProperty({ description: "用户名", example: "john_doe" })
+  username: string;
 
-  @ApiProperty({ description: '邮箱', example: 'john@example.com' })
-  email: string
+  @ApiProperty({ description: "邮箱", example: "john@example.com" })
+  email: string;
 
-  @ApiProperty({ description: '姓名', example: 'John Doe' })
-  name: string
+  @ApiProperty({ description: "姓名", example: "John Doe" })
+  name: string;
 
-  @ApiProperty({ description: '创建时间' })
-  createdAt: Date
+  @ApiProperty({ description: "创建时间" })
+  createdAt: Date;
 
-  @ApiProperty({ description: '更新时间' })
-  updatedAt: Date
+  @ApiProperty({ description: "更新时间" })
+  updatedAt: Date;
 }
 ```
 
@@ -692,107 +726,126 @@ export class User {
 
 ```typescript
 // api/client.ts
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { message } from 'ant-design-vue'
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import { message } from "ant-design-vue";
 
 class ApiClient {
-  private instance: AxiosInstance
+  private instance: AxiosInstance;
 
   constructor() {
     this.instance = axios.create({
       baseURL: import.meta.env.VITE_API_BASE_URL,
       timeout: 10000,
       headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+        "Content-Type": "application/json",
+      },
+    });
 
-    this.setupInterceptors()
+    this.setupInterceptors();
   }
 
   private setupInterceptors() {
     // 请求拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem("token");
         if (token) {
-          config.headers.Authorization = `Bearer ${token}`
+          config.headers.Authorization = `Bearer ${token}`;
         }
-        return config
+        return config;
       },
       (error) => {
-        return Promise.reject(error)
-      }
-    )
+        return Promise.reject(error);
+      },
+    );
 
     // 响应拦截器
     this.instance.interceptors.response.use(
       (response) => {
-        return response.data
+        return response.data;
       },
       (error) => {
-        const { response } = error
+        const { response } = error;
 
         if (response?.status === 401) {
-          localStorage.removeItem('token')
-          window.location.href = '/login'
-          return
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+          return;
         }
 
-        const errorMessage = response?.data?.message || '请求失败'
-        message.error(errorMessage)
+        const errorMessage = response?.data?.message || "请求失败";
+        message.error(errorMessage);
 
-        return Promise.reject(error)
-      }
-    )
+        return Promise.reject(error);
+      },
+    );
   }
 
-  async get<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    return this.instance.get(url, config)
+  async get<T>(
+    url: string,
+    config?: AxiosRequestConfig,
+  ): Promise<ApiResponse<T>> {
+    return this.instance.get(url, config);
   }
 
-  async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    return this.instance.post(url, data, config)
+  async post<T>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): Promise<ApiResponse<T>> {
+    return this.instance.post(url, data, config);
   }
 
-  async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    return this.instance.put(url, data, config)
+  async put<T>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): Promise<ApiResponse<T>> {
+    return this.instance.put(url, data, config);
   }
 
-  async delete<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    return this.instance.delete(url, config)
+  async delete<T>(
+    url: string,
+    config?: AxiosRequestConfig,
+  ): Promise<ApiResponse<T>> {
+    return this.instance.delete(url, config);
   }
 }
 
-export const apiClient = new ApiClient()
+export const apiClient = new ApiClient();
 ```
 
 ### API 服务
 
 ```typescript
 // api/users.ts
-import { apiClient } from './client'
-import type { User, CreateUserDto, UpdateUserDto, FindUsersDto } from '@/types'
+import { apiClient } from "./client";
+import type { User, CreateUserDto, UpdateUserDto, FindUsersDto } from "@/types";
 
 export class UsersApi {
-  static async getUsers(params: FindUsersDto): Promise<PaginatedResponse<User>> {
-    return apiClient.get('/users', { params })
+  static async getUsers(
+    params: FindUsersDto,
+  ): Promise<PaginatedResponse<User>> {
+    return apiClient.get("/users", { params });
   }
 
   static async getUser(id: number): Promise<ApiResponse<User>> {
-    return apiClient.get(`/users/${id}`)
+    return apiClient.get(`/users/${id}`);
   }
 
   static async createUser(data: CreateUserDto): Promise<ApiResponse<User>> {
-    return apiClient.post('/users', data)
+    return apiClient.post("/users", data);
   }
 
-  static async updateUser(id: number, data: UpdateUserDto): Promise<ApiResponse<User>> {
-    return apiClient.put(`/users/${id}`, data)
+  static async updateUser(
+    id: number,
+    data: UpdateUserDto,
+  ): Promise<ApiResponse<User>> {
+    return apiClient.put(`/users/${id}`, data);
   }
 
   static async deleteUser(id: number): Promise<void> {
-    return apiClient.delete(`/users/${id}`)
+    return apiClient.delete(`/users/${id}`);
   }
 }
 ```

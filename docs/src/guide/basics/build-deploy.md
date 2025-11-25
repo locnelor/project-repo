@@ -36,72 +36,72 @@ pnpm --filter dv build
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { resolve } from 'path'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { resolve } from "path";
 
 export default defineConfig({
   plugins: [vue()],
-  
+
   build: {
     // 输出目录
-    outDir: 'dist',
-    
+    outDir: "dist",
+
     // 生成 sourcemap
-    sourcemap: process.env.NODE_ENV === 'development',
-    
+    sourcemap: process.env.NODE_ENV === "development",
+
     // 代码分割
     rollupOptions: {
       output: {
         // 手动分包
         manualChunks: {
           // 第三方库
-          vendor: ['vue', 'vue-router', 'pinia'],
-          antd: ['ant-design-vue'],
-          utils: ['lodash-es', 'dayjs', 'axios']
+          vendor: ["vue", "vue-router", "pinia"],
+          antd: ["ant-design-vue"],
+          utils: ["lodash-es", "dayjs", "axios"],
         },
-        
+
         // 文件命名
-        chunkFileNames: 'js/[name]-[hash].js',
-        entryFileNames: 'js/[name]-[hash].js',
+        chunkFileNames: "js/[name]-[hash].js",
+        entryFileNames: "js/[name]-[hash].js",
         assetFileNames: (assetInfo) => {
-          const info = assetInfo.name.split('.')
-          const ext = info[info.length - 1]
-          
+          const info = assetInfo.name.split(".");
+          const ext = info[info.length - 1];
+
           if (/\.(mp4|webm|ogg|mp3|wav|flac|aac)$/.test(assetInfo.name)) {
-            return `media/[name]-[hash].${ext}`
+            return `media/[name]-[hash].${ext}`;
           }
-          
+
           if (/\.(png|jpe?g|gif|svg)$/.test(assetInfo.name)) {
-            return `images/[name]-[hash].${ext}`
+            return `images/[name]-[hash].${ext}`;
           }
-          
+
           if (/\.(woff2?|eot|ttf|otf)$/.test(assetInfo.name)) {
-            return `fonts/[name]-[hash].${ext}`
+            return `fonts/[name]-[hash].${ext}`;
           }
-          
-          return `assets/[name]-[hash].${ext}`
-        }
-      }
+
+          return `assets/[name]-[hash].${ext}`;
+        },
+      },
     },
-    
+
     // 压缩配置
-    minify: 'terser',
+    minify: "terser",
     terserOptions: {
       compress: {
         // 生产环境移除 console
-        drop_console: process.env.NODE_ENV === 'production',
-        drop_debugger: true
-      }
+        drop_console: process.env.NODE_ENV === "production",
+        drop_debugger: true,
+      },
     },
-    
+
     // 构建目标
-    target: 'es2015',
-    
+    target: "es2015",
+
     // 资源内联阈值
-    assetsInlineLimit: 4096
-  }
-})
+    assetsInlineLimit: 4096,
+  },
+});
 ```
 
 ## Turbo 构建配置
@@ -199,80 +199,80 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           // 第三方库分包
-          if (id.includes('node_modules')) {
-            if (id.includes('vue')) {
-              return 'vue-vendor'
+          if (id.includes("node_modules")) {
+            if (id.includes("vue")) {
+              return "vue-vendor";
             }
-            if (id.includes('ant-design-vue')) {
-              return 'antd-vendor'
+            if (id.includes("ant-design-vue")) {
+              return "antd-vendor";
             }
-            if (id.includes('lodash') || id.includes('dayjs')) {
-              return 'utils-vendor'
+            if (id.includes("lodash") || id.includes("dayjs")) {
+              return "utils-vendor";
             }
-            return 'vendor'
+            return "vendor";
           }
-          
+
           // 按路由分包
-          if (id.includes('/views/')) {
-            const route = id.split('/views/')[1].split('/')[0]
-            return `page-${route}`
+          if (id.includes("/views/")) {
+            const route = id.split("/views/")[1].split("/")[0];
+            return `page-${route}`;
           }
-          
+
           // 组件分包
-          if (id.includes('/components/')) {
-            return 'components'
+          if (id.includes("/components/")) {
+            return "components";
           }
-        }
-      }
-    }
-  }
-})
+        },
+      },
+    },
+  },
+});
 ```
 
 ### 压缩优化
 
 ```typescript
 // vite.config.ts
-import { compression } from 'vite-plugin-compression'
+import { compression } from "vite-plugin-compression";
 
 export default defineConfig({
   plugins: [
     // Gzip 压缩
     compression({
-      algorithm: 'gzip',
-      ext: '.gz',
+      algorithm: "gzip",
+      ext: ".gz",
       deleteOriginFile: false,
-      threshold: 1024
+      threshold: 1024,
     }),
-    
+
     // Brotli 压缩
     compression({
-      algorithm: 'brotliCompress',
-      ext: '.br',
+      algorithm: "brotliCompress",
+      ext: ".br",
       deleteOriginFile: false,
-      threshold: 1024
-    })
-  ]
-})
+      threshold: 1024,
+    }),
+  ],
+});
 ```
 
 ### 构建分析
 
 ```typescript
 // vite.config.ts
-import { visualizer } from 'rollup-plugin-visualizer'
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
   plugins: [
     // 包分析
     visualizer({
-      filename: 'dist/stats.html',
+      filename: "dist/stats.html",
       open: true,
       gzipSize: true,
-      brotliSize: true
-    })
-  ]
-})
+      brotliSize: true,
+    }),
+  ],
+});
 ```
 
 ## Docker 部署
@@ -327,26 +327,26 @@ CMD ["nginx", "-g", "daemon off;"]
 server {
     listen 80;
     server_name localhost;
-    
+
     # 前端静态文件
     location / {
         root /usr/share/nginx/html;
         index index.html index.htm;
         try_files $uri $uri/ /index.html;
-        
+
         # 缓存策略
         location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
             expires 1y;
             add_header Cache-Control "public, immutable";
         }
-        
+
         # HTML 文件不缓存
         location ~* \.html$ {
             expires -1;
             add_header Cache-Control "no-cache, no-store, must-revalidate";
         }
     }
-    
+
     # API 代理
     location /api/ {
         proxy_pass http://api:3000/;
@@ -355,7 +355,7 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
     }
-    
+
     # Gzip 压缩
     gzip on;
     gzip_vary on;
@@ -375,7 +375,7 @@ server {
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   # 前端应用
@@ -455,58 +455,58 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          
+          node-version: "18"
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
-          
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        
+
       - name: Run tests
         run: pnpm test
-        
+
       - name: Run linting
         run: pnpm lint
-        
+
       - name: Type check
         run: pnpm type-check
 
   build:
     needs: test
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          
+          node-version: "18"
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
-          
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        
+
       - name: Build applications
         run: pnpm build
         env:
           NODE_ENV: production
           VITE_API_BASE_URL: ${{ secrets.API_BASE_URL }}
-          
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -519,13 +519,13 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    
+
     steps:
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
           name: build-files
-          
+
       - name: Deploy to server
         uses: appleboy/ssh-action@v0.1.5
         with:
@@ -572,17 +572,17 @@ docker run -d --name qiyun-app-new -p $NEW_PORT:80 qiyun-app:new
 sleep 10
 if curl -f http://localhost:$NEW_PORT/health; then
     echo "Health check passed"
-    
+
     # 更新负载均衡器
     # 这里需要根据实际的负载均衡器配置
-    
+
     # 停止旧容器
     docker stop qiyun-app-old
     docker rm qiyun-app-old
-    
+
     # 重命名容器
     docker rename qiyun-app-new qiyun-app-old
-    
+
     echo "Deployment successful"
 else
     echo "Health check failed, rolling back"
@@ -616,22 +616,22 @@ spec:
         app: qiyun-admin
     spec:
       containers:
-      - name: admin
-        image: qiyun/admin:latest
-        ports:
-        - containerPort: 80
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 80
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: admin
+          image: qiyun/admin:latest
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
 ```
 
 ## 监控和日志
@@ -642,27 +642,27 @@ spec:
 // utils/monitor.ts
 export class Monitor {
   static trackBuildTime(startTime: number) {
-    const buildTime = Date.now() - startTime
-    console.log(`Build completed in ${buildTime}ms`)
-    
+    const buildTime = Date.now() - startTime;
+    console.log(`Build completed in ${buildTime}ms`);
+
     // 发送到监控系统
-    if (process.env.NODE_ENV === 'production') {
-      this.sendMetric('build.time', buildTime)
+    if (process.env.NODE_ENV === "production") {
+      this.sendMetric("build.time", buildTime);
     }
   }
-  
+
   static trackBundleSize(stats: any) {
     const totalSize = stats.assets.reduce((sum: number, asset: any) => {
-      return sum + asset.size
-    }, 0)
-    
-    console.log(`Total bundle size: ${(totalSize / 1024 / 1024).toFixed(2)}MB`)
-    
-    if (process.env.NODE_ENV === 'production') {
-      this.sendMetric('bundle.size', totalSize)
+      return sum + asset.size;
+    }, 0);
+
+    console.log(`Total bundle size: ${(totalSize / 1024 / 1024).toFixed(2)}MB`);
+
+    if (process.env.NODE_ENV === "production") {
+      this.sendMetric("bundle.size", totalSize);
     }
   }
-  
+
   private static sendMetric(name: string, value: number) {
     // 实现监控数据发送逻辑
   }
@@ -676,20 +676,20 @@ export class Monitor {
 export default defineConfig({
   plugins: [
     {
-      name: 'build-logger',
+      name: "build-logger",
       buildStart() {
-        console.log('🚀 Build started...')
+        console.log("🚀 Build started...");
       },
       buildEnd() {
-        console.log('✅ Build completed!')
+        console.log("✅ Build completed!");
       },
       generateBundle(options, bundle) {
-        const files = Object.keys(bundle)
-        console.log(`📦 Generated ${files.length} files`)
-      }
-    }
-  ]
-})
+        const files = Object.keys(bundle);
+        console.log(`📦 Generated ${files.length} files`);
+      },
+    },
+  ],
+});
 ```
 
 ## 部署最佳实践

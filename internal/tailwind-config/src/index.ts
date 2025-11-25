@@ -24,15 +24,11 @@ export default {
   content: [
     "./index.html",
     ...tailwindPackages.map((item) =>
-      path.join(item, "src/**/*.{vue,js,ts,jsx,tsx,svelte,astro,html}")
+      path.join(item, "src/**/*.{vue,js,ts,jsx,tsx,svelte,astro,html}"),
     ),
   ],
   darkMode: "selector",
-  plugins: [
-    animate,
-    typographyPlugin,
-    addDynamicIconSelectors(),
-  ],
+  plugins: [animate, typographyPlugin, addDynamicIconSelectors()],
   prefix: "",
 } as Config;
 

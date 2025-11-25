@@ -14,8 +14,8 @@ import { RoleModule } from './role/role.module';
     RoleModule,
     OrgModule,
     DeptModule,
-    MenuModule
+    MenuModule,
   ],
-  providers: [SystemService]
+  providers: [SystemService],
 })
-export class SystemModule { }
+export class SystemModule {}

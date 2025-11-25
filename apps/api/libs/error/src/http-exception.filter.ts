@@ -17,14 +17,13 @@ export class HttpExceptionFilter implements ExceptionFilter {
       : HttpStatus.INTERNAL_SERVER_ERROR;
 
     const exceptionResponse = exception.getResponse() as any;
-    const message =
-      exceptionResponse.message || 'An unexpected error occurred';
+    const message = exceptionResponse.message || 'An unexpected error occurred';
     const code = exceptionResponse.code || 403;
     response.status(status).json({
       success: false,
       statusCode: status,
       message,
-      code
+      code,
     });
   }
 }

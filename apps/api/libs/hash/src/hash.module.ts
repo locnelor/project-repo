@@ -7,5 +7,4 @@ import { ConfigModule } from '@nestjs/config';
   providers: [HashService],
   exports: [HashService],
 })
-export class HashModule {
-}
+export class HashModule {}

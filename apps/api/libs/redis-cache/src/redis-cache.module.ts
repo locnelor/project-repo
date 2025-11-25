@@ -11,18 +11,17 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         return {
-          type: "single",
+          type: 'single',
           options: {
             host: configService.get('REDIS_HOST'),
             port: configService.get('REDIS_PORT'),
-            password: configService.get('REDIS_PASSWORD')
-          }
-        }
+            password: configService.get('REDIS_PASSWORD'),
+          },
+        };
       },
-    })
+    }),
   ],
   providers: [RedisCacheService],
-  exports: [RedisCacheService]
+  exports: [RedisCacheService],
 })
-export class RedisCacheModule {
-}
+export class RedisCacheModule {}

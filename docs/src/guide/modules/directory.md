@@ -432,17 +432,17 @@ eslint.config.js
 ```typescript
 // 统一使用 index.ts 作为模块入口
 // packages/utils/src/index.ts
-export * from './array'
-export * from './object'
-export * from './string'
-export * from './date'
+export * from "./array";
+export * from "./object";
+export * from "./string";
+export * from "./date";
 
 // 使用命名导出
-export { formatDate, parseDate } from './date'
-export { validateEmail, validatePhone } from './validation'
+export { formatDate, parseDate } from "./date";
+export { validateEmail, validatePhone } from "./validation";
 
 // 默认导出用于主要功能
-export { default as ApiClient } from './ApiClient'
+export { default as ApiClient } from "./ApiClient";
 ```
 
 ## 目录管理最佳实践

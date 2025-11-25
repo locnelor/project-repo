@@ -2,7 +2,10 @@ import { defineStore } from "pinia";
 import { useAccessStore } from "@repo/stores";
 import { userLogin } from "#/api/_core/auth";
 import { message } from "ant-design-vue";
-import { getCurrentUserHaveMenu, getCurrentUserInfo } from "#/api/_core/menu/menu";
+import {
+  getCurrentUserHaveMenu,
+  getCurrentUserInfo,
+} from "#/api/_core/menu/menu";
 import { getFirstLeafNode, treeMap } from "@repo/utils";
 import router from "#/router";
 import { routes } from "#/router/routes";
@@ -20,7 +23,7 @@ export const useAuthStore = defineStore("auth", () => {
           name: item.meta?.title,
           id: item.path,
         };
-      })
+      }),
     );
     console.log(accessStore.menuTree);
   };

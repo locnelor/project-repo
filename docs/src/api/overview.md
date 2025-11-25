@@ -6,11 +6,11 @@
 
 ### 服务地址
 
-| 环境 | 地址 | 说明 |
-|------|------|------|
-| 开发环境 | `http://localhost:3000` | 本地开发服务器 |
-| 测试环境 | `https://api-test.qiyun.com` | 测试环境 API |
-| 生产环境 | `https://api.qiyun.com` | 生产环境 API |
+| 环境     | 地址                         | 说明           |
+| -------- | ---------------------------- | -------------- |
+| 开发环境 | `http://localhost:3000`      | 本地开发服务器 |
+| 测试环境 | `https://api-test.qiyun.com` | 测试环境 API   |
+| 生产环境 | `https://api.qiyun.com`      | 生产环境 API   |
 
 ### API 版本
 
@@ -89,40 +89,40 @@ Content-Type: application/json
 
 ```typescript
 interface ApiResponse<T = any> {
-  code: number        // 状态码
-  message: string     // 响应消息
-  data: T            // 响应数据
-  timestamp: number   // 时间戳
+  code: number; // 状态码
+  message: string; // 响应消息
+  data: T; // 响应数据
+  timestamp: number; // 时间戳
 }
 ```
 
 ### 状态码说明
 
-| 状态码 | 说明 | 示例场景 |
-|--------|------|----------|
-| 200 | 成功 | 请求处理成功 |
-| 201 | 创建成功 | 资源创建成功 |
-| 400 | 请求错误 | 参数验证失败 |
-| 401 | 未认证 | Token 无效或过期 |
-| 403 | 无权限 | 权限不足 |
-| 404 | 资源不存在 | 用户不存在 |
-| 409 | 资源冲突 | 用户名已存在 |
-| 500 | 服务器错误 | 内部服务器错误 |
+| 状态码 | 说明       | 示例场景         |
+| ------ | ---------- | ---------------- |
+| 200    | 成功       | 请求处理成功     |
+| 201    | 创建成功   | 资源创建成功     |
+| 400    | 请求错误   | 参数验证失败     |
+| 401    | 未认证     | Token 无效或过期 |
+| 403    | 无权限     | 权限不足         |
+| 404    | 资源不存在 | 用户不存在       |
+| 409    | 资源冲突   | 用户名已存在     |
+| 500    | 服务器错误 | 内部服务器错误   |
 
 ### 分页数据格式
 
 ```typescript
 interface PaginatedResponse<T> {
-  code: 200
-  message: string
+  code: 200;
+  message: string;
   data: {
-    items: T[]          // 数据列表
-    total: number       // 总数量
-    page: number        // 当前页码
-    pageSize: number    // 每页大小
-    totalPages: number  // 总页数
-  }
-  timestamp: number
+    items: T[]; // 数据列表
+    total: number; // 总数量
+    page: number; // 当前页码
+    pageSize: number; // 每页大小
+    totalPages: number; // 总页数
+  };
+  timestamp: number;
 }
 ```
 
@@ -156,28 +156,28 @@ interface PaginatedResponse<T> {
 
 ```typescript
 interface User {
-  id: string
-  username: string
-  email: string
-  avatar?: string
-  roles: Role[]
-  status: 'active' | 'inactive' | 'banned'
-  createdAt: string
-  updatedAt: string
+  id: string;
+  username: string;
+  email: string;
+  avatar?: string;
+  roles: Role[];
+  status: "active" | "inactive" | "banned";
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface Role {
-  id: string
-  name: string
-  description?: string
-  permissions: Permission[]
+  id: string;
+  name: string;
+  description?: string;
+  permissions: Permission[];
 }
 
 interface Permission {
-  id: string
-  name: string
-  resource: string
-  action: string
+  id: string;
+  name: string;
+  resource: string;
+  action: string;
 }
 ```
 
@@ -190,12 +190,12 @@ Authorization: Bearer <token>
 
 **查询参数：**
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| page | number | 否 | 页码，默认 1 |
-| pageSize | number | 否 | 每页大小，默认 10 |
-| search | string | 否 | 搜索关键词 |
-| status | string | 否 | 用户状态筛选 |
+| 参数     | 类型   | 必填 | 说明              |
+| -------- | ------ | ---- | ----------------- |
+| page     | number | 否   | 页码，默认 1      |
+| pageSize | number | 否   | 每页大小，默认 10 |
+| search   | string | 否   | 搜索关键词        |
+| status   | string | 否   | 用户状态筛选      |
 
 **响应示例：**
 
@@ -390,7 +390,7 @@ Authorization: Bearer <token>
     "userCount": 1250,
     "activeUsers": 890,
     "todayVisits": 3456,
-    "revenue": 125000.50,
+    "revenue": 125000.5,
     "growthRate": {
       "users": 12.5,
       "visits": 8.3,
@@ -424,12 +424,12 @@ Authorization: Bearer <token>
 
 **查询参数：**
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| q | string | 是 | 搜索关键词 |
-| type | string | 否 | 搜索类型 (user, role, permission) |
-| page | number | 否 | 页码 |
-| pageSize | number | 否 | 每页大小 |
+| 参数     | 类型   | 必填 | 说明                              |
+| -------- | ------ | ---- | --------------------------------- |
+| q        | string | 是   | 搜索关键词                        |
+| type     | string | 否   | 搜索类型 (user, role, permission) |
+| page     | number | 否   | 页码                              |
+| pageSize | number | 否   | 每页大小                          |
 
 ---
 
@@ -439,98 +439,101 @@ Authorization: Bearer <token>
 
 ```typescript
 // api/client.ts
-import axios from 'axios'
-import { useUserStore } from '@repo/stores'
+import axios from "axios";
+import { useUserStore } from "@repo/stores";
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api/v1',
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api/v1",
   timeout: 10000,
-})
+});
 
 // 请求拦截器
 apiClient.interceptors.request.use(
   (config) => {
-    const userStore = useUserStore()
-    const token = userStore.token
-    
+    const userStore = useUserStore();
+    const token = userStore.token;
+
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    
-    return config
+
+    return config;
   },
   (error) => {
-    return Promise.reject(error)
-  }
-)
+    return Promise.reject(error);
+  },
+);
 
 // 响应拦截器
 apiClient.interceptors.response.use(
   (response) => {
-    return response.data
+    return response.data;
   },
   (error) => {
     if (error.response?.status === 401) {
       // Token 过期，跳转到登录页
-      const userStore = useUserStore()
-      userStore.logout()
-      window.location.href = '/login'
+      const userStore = useUserStore();
+      userStore.logout();
+      window.location.href = "/login";
     }
-    
-    return Promise.reject(error)
-  }
-)
 
-export default apiClient
+    return Promise.reject(error);
+  },
+);
+
+export default apiClient;
 ```
 
 ### API 服务封装
 
 ```typescript
 // api/user.ts
-import type { User, ApiResponse, PaginatedResponse } from '@repo/types'
-import apiClient from './client'
+import type { User, ApiResponse, PaginatedResponse } from "@repo/types";
+import apiClient from "./client";
 
 export interface GetUsersParams {
-  page?: number
-  pageSize?: number
-  search?: string
-  status?: string
+  page?: number;
+  pageSize?: number;
+  search?: string;
+  status?: string;
 }
 
 export interface CreateUserDto {
-  username: string
-  email: string
-  password: string
-  roleIds: string[]
+  username: string;
+  email: string;
+  password: string;
+  roleIds: string[];
 }
 
 export const userApi = {
   // 获取用户列表
   getUsers(params: GetUsersParams): Promise<PaginatedResponse<User>> {
-    return apiClient.get('/users', { params })
+    return apiClient.get("/users", { params });
   },
 
   // 获取用户详情
   getUserById(id: string): Promise<ApiResponse<User>> {
-    return apiClient.get(`/users/${id}`)
+    return apiClient.get(`/users/${id}`);
   },
 
   // 创建用户
   createUser(data: CreateUserDto): Promise<ApiResponse<User>> {
-    return apiClient.post('/users', data)
+    return apiClient.post("/users", data);
   },
 
   // 更新用户
-  updateUser(id: string, data: Partial<CreateUserDto>): Promise<ApiResponse<User>> {
-    return apiClient.put(`/users/${id}`, data)
+  updateUser(
+    id: string,
+    data: Partial<CreateUserDto>,
+  ): Promise<ApiResponse<User>> {
+    return apiClient.put(`/users/${id}`, data);
   },
 
   // 删除用户
   deleteUser(id: string): Promise<ApiResponse<null>> {
-    return apiClient.delete(`/users/${id}`)
-  }
-}
+    return apiClient.delete(`/users/${id}`);
+  },
+};
 ```
 
 ### 在组件中使用
@@ -538,7 +541,7 @@ export const userApi = {
 ```vue
 <template>
   <div>
-    <QTable 
+    <QTable
       :columns="columns"
       :data="users"
       :loading="loading"
@@ -549,43 +552,43 @@ export const userApi = {
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { userApi } from '@/api/user'
-import type { User } from '@repo/types'
+import { ref, onMounted } from "vue";
+import { userApi } from "@/api/user";
+import type { User } from "@repo/types";
 
-const users = ref<User[]>([])
-const loading = ref(false)
+const users = ref<User[]>([]);
+const loading = ref(false);
 const pagination = ref({
   page: 1,
   pageSize: 10,
-  total: 0
-})
+  total: 0,
+});
 
 const fetchUsers = async () => {
-  loading.value = true
+  loading.value = true;
   try {
     const response = await userApi.getUsers({
       page: pagination.value.page,
-      pageSize: pagination.value.pageSize
-    })
-    
-    users.value = response.data.items
-    pagination.value.total = response.data.total
+      pageSize: pagination.value.pageSize,
+    });
+
+    users.value = response.data.items;
+    pagination.value.total = response.data.total;
   } catch (error) {
-    console.error('获取用户列表失败:', error)
+    console.error("获取用户列表失败:", error);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 
 const handleTableChange = (newPagination: any) => {
-  pagination.value = { ...pagination.value, ...newPagination }
-  fetchUsers()
-}
+  pagination.value = { ...pagination.value, ...newPagination };
+  fetchUsers();
+};
 
 onMounted(() => {
-  fetchUsers()
-})
+  fetchUsers();
+});
 </script>
 ```
 

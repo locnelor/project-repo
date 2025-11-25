@@ -34,11 +34,9 @@ function getEnvFilePath(): string[] {
       isGlobal: true,
       envFilePath: getEnvFilePath(),
     }),
-    SystemModule
+    SystemModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService
-  ],
+  providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

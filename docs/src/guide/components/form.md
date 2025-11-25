@@ -33,6 +33,7 @@ Form表单组件是一个基于 vee-validate 的高度可配置的表单解决�
 使用 `useQiyunForm` 来创建一个表单实例：
 4
 <DemoPreview dir="qiyun-form/basic" />
+
 ```vue
 <template>
   <div>
@@ -45,52 +46,52 @@ Form表单组件是一个基于 vee-validate 的高度可配置的表单解决�
 </template>
 
 <script setup>
-import { useQiyunForm } from '@repo/form-ui';
-import { Button } from 'ant-design-vue';
-import { z } from 'zod';
+import { useQiyunForm } from "@repo/form-ui";
+import { Button } from "ant-design-vue";
+import { z } from "zod";
 
 // 创建表单实例
 const [Form, formApi] = useQiyunForm({
   // 表单配置
-  layout: 'vertical',
+  layout: "vertical",
   schema: [
     {
-      component: 'Input',
-      name: 'username',
-      label: '用户名',
-      rules: z.string().min(1, '请输入用户名'),
+      component: "Input",
+      name: "username",
+      label: "用户名",
+      rules: z.string().min(1, "请输入用户名"),
       componentProps: {
-        placeholder: '请输入用户名'
-      }
+        placeholder: "请输入用户名",
+      },
     },
     {
-      component: 'Input',
-      name: 'email',
-      label: '邮箱',
-      rules: z.string().email('请输入正确的邮箱格式'),
+      component: "Input",
+      name: "email",
+      label: "邮箱",
+      rules: z.string().email("请输入正确的邮箱格式"),
       componentProps: {
-        type: 'email',
-        placeholder: '请输入邮箱'
-      }
+        type: "email",
+        placeholder: "请输入邮箱",
+      },
     },
     {
-      component: 'Select',
-      name: 'role',
-      label: '角色',
-      rules: z.string().min(1, '请选择角色'),
+      component: "Select",
+      name: "role",
+      label: "角色",
+      rules: z.string().min(1, "请选择角色"),
       componentProps: {
-        placeholder: '请选择角色',
+        placeholder: "请选择角色",
         options: [
-          { label: '管理员', value: 'admin' },
-          { label: '用户', value: 'user' }
-        ]
-      }
-    }
+          { label: "管理员", value: "admin" },
+          { label: "用户", value: "user" },
+        ],
+      },
+    },
   ],
   // 提交回调
   onSubmit: (values) => {
-    console.log('表单提交:', values);
-  }
+    console.log("表单提交:", values);
+  },
 });
 
 // 手动提交表单
@@ -113,175 +114,175 @@ const handleReset = () => {
 </template>
 
 <script setup>
-import { useQiyunForm } from '@repo/form-ui';
+import { useQiyunForm } from "@repo/form-ui";
 
 const [Form] = useQiyunForm({
   schema: [
     {
-      component: 'Input',
-      name: 'name',
-      label: '姓名',
-      rules: 'required'
-    }
+      component: "Input",
+      name: "name",
+      label: "姓名",
+      rules: "required",
+    },
   ],
   onSubmit: (values) => {
     alert(`Hello, ${values.name}!`);
-  }
- });
- </script>
- ```
+  },
+});
+</script>
+```
 
 ## 🔧 Props 属性
 
 ### QiyunForm 组件属性
 
-| 属性名 | 类型 | 默认值 | 说明 |
-|--------|------|--------|------|
-| `layout` | `'horizontal' \| 'vertical' \| 'inline'` | `'horizontal'` | 表单布局方式 |
-| `mode` | `'create' \| 'edit' \| 'view'` | `'create'` | 表单模式，影响字段的显示和交互 |
-| `schema` | `FormSchema[]` | `[]` | 表单字段配置数组 |
-| `initialValues` | `Record<string, any>` | `{}` | 表单初始值 |
-| `disabled` | `boolean` | `false` | 是否禁用整个表单 |
-| `readonly` | `boolean` | `false` | 是否只读模式 |
-| `size` | `'small' \| 'middle' \| 'large'` | `'middle'` | 表单组件尺寸 |
-| `labelAlign` | `'left' \| 'right'` | `'right'` | 标签对齐方式 |
-| `labelWidth` | `number \| string` | `auto` | 标签宽度 |
-| `labelWrap` | `boolean` | `false` | 标签是否换行 |
-| `requiredMark` | `boolean \| 'optional'` | `true` | 必填标记显示方式 |
-| `colon` | `boolean` | `true` | 是否显示标签后的冒号 |
-| `validateTrigger` | `string \| string[]` | `'change'` | 验证触发方式 |
-| `scrollToFirstError` | `boolean` | `false` | 验证失败时是否滚动到第一个错误字段 |
-| `autoComplete` | `'on' \| 'off'` | `'off'` | 表单自动完成 |
-| `preserve` | `boolean` | `true` | 是否保留字段值（卸载时） |
-| `name` | `string` | - | 表单名称，用于 DevTools |
-| `gutter` | `number \| [number, number]` | `0` | 表单项间距 |
-| `responsive` | `boolean` | `true` | 是否启用响应式布局 |
+| 属性名               | 类型                                     | 默认值         | 说明                               |
+| -------------------- | ---------------------------------------- | -------------- | ---------------------------------- |
+| `layout`             | `'horizontal' \| 'vertical' \| 'inline'` | `'horizontal'` | 表单布局方式                       |
+| `mode`               | `'create' \| 'edit' \| 'view'`           | `'create'`     | 表单模式，影响字段的显示和交互     |
+| `schema`             | `FormSchema[]`                           | `[]`           | 表单字段配置数组                   |
+| `initialValues`      | `Record<string, any>`                    | `{}`           | 表单初始值                         |
+| `disabled`           | `boolean`                                | `false`        | 是否禁用整个表单                   |
+| `readonly`           | `boolean`                                | `false`        | 是否只读模式                       |
+| `size`               | `'small' \| 'middle' \| 'large'`         | `'middle'`     | 表单组件尺寸                       |
+| `labelAlign`         | `'left' \| 'right'`                      | `'right'`      | 标签对齐方式                       |
+| `labelWidth`         | `number \| string`                       | `auto`         | 标签宽度                           |
+| `labelWrap`          | `boolean`                                | `false`        | 标签是否换行                       |
+| `requiredMark`       | `boolean \| 'optional'`                  | `true`         | 必填标记显示方式                   |
+| `colon`              | `boolean`                                | `true`         | 是否显示标签后的冒号               |
+| `validateTrigger`    | `string \| string[]`                     | `'change'`     | 验证触发方式                       |
+| `scrollToFirstError` | `boolean`                                | `false`        | 验证失败时是否滚动到第一个错误字段 |
+| `autoComplete`       | `'on' \| 'off'`                          | `'off'`        | 表单自动完成                       |
+| `preserve`           | `boolean`                                | `true`         | 是否保留字段值（卸载时）           |
+| `name`               | `string`                                 | -              | 表单名称，用于 DevTools            |
+| `gutter`             | `number \| [number, number]`             | `0`            | 表单项间距                         |
+| `responsive`         | `boolean`                                | `true`         | 是否启用响应式布局                 |
 
 ### FormSchema 字段属性
 
-| 属性名 | 类型 | 默认值 | 说明 |
-|--------|------|--------|------|
-| `component` | `BaseFormComponentType \| string` | - | **必填** 组件类型 |
-| `name` | `string` | - | **必填** 字段名称，支持嵌套路径如 `user.name` |
-| `label` | `string` | - | 字段标签文本 |
-| `rules` | `ZodSchema \| ZodSchema[]` | - | 验证规则，使用 Zod 模式 |
-| `componentProps` | `Record<string, any>` | `{}` | 传递给组件的属性 |
-| `dependencies` | `FormItemDependencies` | - | 字段依赖配置 |
-| `hidden` | `boolean` | `false` | 是否隐藏字段 |
-| `disabled` | `boolean` | `false` | 是否禁用字段 |
-| `readonly` | `boolean` | `false` | 是否只读 |
-| `required` | `boolean` | `false` | 是否必填（显示红色星号） |
-| `help` | `string` | - | 字段帮助信息 |
-| `extra` | `string` | - | 字段额外信息 |
-| `tooltip` | `string` | - | 标签提示信息 |
-| `validateStatus` | `'success' \| 'warning' \| 'error' \| 'validating'` | - | 验证状态 |
-| `hasFeedback` | `boolean` | `false` | 是否显示验证反馈图标 |
-| `labelAlign` | `'left' \| 'right'` | - | 标签对齐方式（覆盖表单设置） |
-| `labelWidth` | `number \| string` | - | 标签宽度（覆盖表单设置） |
-| `wrapperProps` | `Record<string, any>` | `{}` | 字段包装器属性 |
+| 属性名           | 类型                                                | 默认值  | 说明                                          |
+| ---------------- | --------------------------------------------------- | ------- | --------------------------------------------- |
+| `component`      | `BaseFormComponentType \| string`                   | -       | **必填** 组件类型                             |
+| `name`           | `string`                                            | -       | **必填** 字段名称，支持嵌套路径如 `user.name` |
+| `label`          | `string`                                            | -       | 字段标签文本                                  |
+| `rules`          | `ZodSchema \| ZodSchema[]`                          | -       | 验证规则，使用 Zod 模式                       |
+| `componentProps` | `Record<string, any>`                               | `{}`    | 传递给组件的属性                              |
+| `dependencies`   | `FormItemDependencies`                              | -       | 字段依赖配置                                  |
+| `hidden`         | `boolean`                                           | `false` | 是否隐藏字段                                  |
+| `disabled`       | `boolean`                                           | `false` | 是否禁用字段                                  |
+| `readonly`       | `boolean`                                           | `false` | 是否只读                                      |
+| `required`       | `boolean`                                           | `false` | 是否必填（显示红色星号）                      |
+| `help`           | `string`                                            | -       | 字段帮助信息                                  |
+| `extra`          | `string`                                            | -       | 字段额外信息                                  |
+| `tooltip`        | `string`                                            | -       | 标签提示信息                                  |
+| `validateStatus` | `'success' \| 'warning' \| 'error' \| 'validating'` | -       | 验证状态                                      |
+| `hasFeedback`    | `boolean`                                           | `false` | 是否显示验证反馈图标                          |
+| `labelAlign`     | `'left' \| 'right'`                                 | -       | 标签对齐方式（覆盖表单设置）                  |
+| `labelWidth`     | `number \| string`                                  | -       | 标签宽度（覆盖表单设置）                      |
+| `wrapperProps`   | `Record<string, any>`                               | `{}`    | 字段包装器属性                                |
 
 ### 栅格布局属性
 
-| 属性名 | 类型 | 默认值 | 说明 |
-|--------|------|--------|------|
-| `span` | `number` | `24` | 栅格占位格数 |
-| `offset` | `number` | `0` | 栅格左侧间隔格数 |
-| `push` | `number` | `0` | 栅格向右移动格数 |
-| `pull` | `number` | `0` | 栅格向左移动格数 |
-| `order` | `number` | `0` | 栅格顺序 |
-| `xs` | `number \| { span?: number; offset?: number }` | - | `<576px` 响应式栅格 |
-| `sm` | `number \| { span?: number; offset?: number }` | - | `≥576px` 响应式栅格 |
-| `md` | `number \| { span?: number; offset?: number }` | - | `≥768px` 响应式栅格 |
-| `lg` | `number \| { span?: number; offset?: number }` | - | `≥992px` 响应式栅格 |
-| `xl` | `number \| { span?: number; offset?: number }` | - | `≥1200px` 响应式栅格 |
-| `xxl` | `number \| { span?: number; offset?: number }` | - | `≥1600px` 响应式栅格 |
+| 属性名   | 类型                                           | 默认值 | 说明                 |
+| -------- | ---------------------------------------------- | ------ | -------------------- |
+| `span`   | `number`                                       | `24`   | 栅格占位格数         |
+| `offset` | `number`                                       | `0`    | 栅格左侧间隔格数     |
+| `push`   | `number`                                       | `0`    | 栅格向右移动格数     |
+| `pull`   | `number`                                       | `0`    | 栅格向左移动格数     |
+| `order`  | `number`                                       | `0`    | 栅格顺序             |
+| `xs`     | `number \| { span?: number; offset?: number }` | -      | `<576px` 响应式栅格  |
+| `sm`     | `number \| { span?: number; offset?: number }` | -      | `≥576px` 响应式栅格  |
+| `md`     | `number \| { span?: number; offset?: number }` | -      | `≥768px` 响应式栅格  |
+| `lg`     | `number \| { span?: number; offset?: number }` | -      | `≥992px` 响应式栅格  |
+| `xl`     | `number \| { span?: number; offset?: number }` | -      | `≥1200px` 响应式栅格 |
+| `xxl`    | `number \| { span?: number; offset?: number }` | -      | `≥1600px` 响应式栅格 |
 
 ### FormItemDependencies 依赖属性
 
-| 属性名 | 类型 | 默认值 | 说明 |
-|--------|------|--------|------|
-| `fields` | `string[]` | - | **必填** 依赖的字段名数组 |
-| `condition` | `(values: Record<string, any>) => boolean` | - | 条件判断函数 |
-| `props` | `(values: Record<string, any>) => Record<string, any>` | - | 动态属性函数 |
-| `rules` | `(values: Record<string, any>) => ZodSchema \| ZodSchema[]` | - | 动态验证规则函数 |
-| `options` | `(values: Record<string, any>) => any[]` | - | 动态选项函数 |
-| `show` | `(values: Record<string, any>) => boolean` | - | 显示/隐藏控制函数 |
-| `disabled` | `(values: Record<string, any>) => boolean` | - | 禁用状态控制函数 |
-| `required` | `(values: Record<string, any>) => boolean` | - | 必填状态控制函数 |
+| 属性名      | 类型                                                        | 默认值 | 说明                      |
+| ----------- | ----------------------------------------------------------- | ------ | ------------------------- |
+| `fields`    | `string[]`                                                  | -      | **必填** 依赖的字段名数组 |
+| `condition` | `(values: Record<string, any>) => boolean`                  | -      | 条件判断函数              |
+| `props`     | `(values: Record<string, any>) => Record<string, any>`      | -      | 动态属性函数              |
+| `rules`     | `(values: Record<string, any>) => ZodSchema \| ZodSchema[]` | -      | 动态验证规则函数          |
+| `options`   | `(values: Record<string, any>) => any[]`                    | -      | 动态选项函数              |
+| `show`      | `(values: Record<string, any>) => boolean`                  | -      | 显示/隐藏控制函数         |
+| `disabled`  | `(values: Record<string, any>) => boolean`                  | -      | 禁用状态控制函数          |
+| `required`  | `(values: Record<string, any>) => boolean`                  | -      | 必填状态控制函数          |
 
 ### 组件特定属性
 
 #### Input 输入框
 
-| 属性名 | 类型 | 默认值 | 说明 |
-|--------|------|--------|------|
-| `placeholder` | `string` | - | 占位符文本 |
-| `maxLength` | `number` | - | 最大输入长度 |
-| `showCount` | `boolean` | `false` | 是否显示字符计数 |
-| `allowClear` | `boolean` | `false` | 是否显示清除按钮 |
-| `addonBefore` | `string \| VNode` | - | 前置标签 |
-| `addonAfter` | `string \| VNode` | - | 后置标签 |
-| `prefix` | `string \| VNode` | - | 前缀图标 |
-| `suffix` | `string \| VNode` | - | 后缀图标 |
+| 属性名        | 类型              | 默认值  | 说明             |
+| ------------- | ----------------- | ------- | ---------------- |
+| `placeholder` | `string`          | -       | 占位符文本       |
+| `maxLength`   | `number`          | -       | 最大输入长度     |
+| `showCount`   | `boolean`         | `false` | 是否显示字符计数 |
+| `allowClear`  | `boolean`         | `false` | 是否显示清除按钮 |
+| `addonBefore` | `string \| VNode` | -       | 前置标签         |
+| `addonAfter`  | `string \| VNode` | -       | 后置标签         |
+| `prefix`      | `string \| VNode` | -       | 前缀图标         |
+| `suffix`      | `string \| VNode` | -       | 后缀图标         |
 
 #### Select 选择器
 
-| 属性名 | 类型 | 默认值 | 说明 |
-|--------|------|--------|------|
-| `options` | `Array<{label: string, value: any, disabled?: boolean}>` | `[]` | 选项数据 |
-| `mode` | `'multiple' \| 'tags'` | - | 选择模式 |
-| `placeholder` | `string` | - | 占位符文本 |
-| `allowClear` | `boolean` | `false` | 是否显示清除按钮 |
-| `showSearch` | `boolean` | `false` | 是否支持搜索 |
-| `filterOption` | `boolean \| function` | `true` | 是否根据输入项进行筛选 |
-| `maxTagCount` | `number` | - | 最多显示多少个标签 |
-| `loading` | `boolean` | `false` | 是否显示加载状态 |
+| 属性名         | 类型                                                     | 默认值  | 说明                   |
+| -------------- | -------------------------------------------------------- | ------- | ---------------------- |
+| `options`      | `Array<{label: string, value: any, disabled?: boolean}>` | `[]`    | 选项数据               |
+| `mode`         | `'multiple' \| 'tags'`                                   | -       | 选择模式               |
+| `placeholder`  | `string`                                                 | -       | 占位符文本             |
+| `allowClear`   | `boolean`                                                | `false` | 是否显示清除按钮       |
+| `showSearch`   | `boolean`                                                | `false` | 是否支持搜索           |
+| `filterOption` | `boolean \| function`                                    | `true`  | 是否根据输入项进行筛选 |
+| `maxTagCount`  | `number`                                                 | -       | 最多显示多少个标签     |
+| `loading`      | `boolean`                                                | `false` | 是否显示加载状态       |
 
 #### DatePicker 日期选择器
 
-| 属性名 | 类型 | 默认值 | 说明 |
-|--------|------|--------|------|
-| `format` | `string` | `'YYYY-MM-DD'` | 日期格式 |
-| `placeholder` | `string` | - | 占位符文本 |
-| `showTime` | `boolean \| object` | `false` | 是否显示时间选择 |
-| `disabledDate` | `(date: Dayjs) => boolean` | - | 不可选择的日期 |
-| `allowClear` | `boolean` | `true` | 是否显示清除按钮 |
-| `picker` | `'date' \| 'week' \| 'month' \| 'quarter' \| 'year'` | `'date'` | 选择器类型 |
+| 属性名         | 类型                                                 | 默认值         | 说明             |
+| -------------- | ---------------------------------------------------- | -------------- | ---------------- |
+| `format`       | `string`                                             | `'YYYY-MM-DD'` | 日期格式         |
+| `placeholder`  | `string`                                             | -              | 占位符文本       |
+| `showTime`     | `boolean \| object`                                  | `false`        | 是否显示时间选择 |
+| `disabledDate` | `(date: Dayjs) => boolean`                           | -              | 不可选择的日期   |
+| `allowClear`   | `boolean`                                            | `true`         | 是否显示清除按钮 |
+| `picker`       | `'date' \| 'week' \| 'month' \| 'quarter' \| 'year'` | `'date'`       | 选择器类型       |
 
 #### Upload 上传
 
-| 属性名 | 类型 | 默认值 | 说明 |
-|--------|------|--------|------|
-| `action` | `string` | - | 上传地址 |
-| `accept` | `string` | - | 接受的文件类型 |
-| `multiple` | `boolean` | `false` | 是否支持多选 |
-| `maxCount` | `number` | - | 最大文件数量 |
-| `listType` | `'text' \| 'picture' \| 'picture-card'` | `'text'` | 上传列表样式 |
-| `beforeUpload` | `(file: File) => boolean \| Promise<File>` | - | 上传前的钩子 |
-| `customRequest` | `function` | - | 自定义上传实现 |
+| 属性名          | 类型                                       | 默认值   | 说明           |
+| --------------- | ------------------------------------------ | -------- | -------------- |
+| `action`        | `string`                                   | -        | 上传地址       |
+| `accept`        | `string`                                   | -        | 接受的文件类型 |
+| `multiple`      | `boolean`                                  | `false`  | 是否支持多选   |
+| `maxCount`      | `number`                                   | -        | 最大文件数量   |
+| `listType`      | `'text' \| 'picture' \| 'picture-card'`    | `'text'` | 上传列表样式   |
+| `beforeUpload`  | `(file: File) => boolean \| Promise<File>` | -        | 上传前的钩子   |
+| `customRequest` | `function`                                 | -        | 自定义上传实现 |
 
 ### 事件回调属性
 
-| 属性名 | 类型 | 说明 |
-|--------|------|------|
-| `onSubmit` | `(values: Record<string, any>) => void \| Promise<void>` | 表单提交回调 |
-| `onValuesChange` | `(changedValues: Record<string, any>, allValues: Record<string, any>) => void` | 字段值变化回调 |
-| `onReset` | `() => void` | 表单重置回调 |
-| `onFinishFailed` | `(errorInfo: any) => void` | 表单验证失败回调 |
-| `onFieldsChange` | `(changedFields: any[], allFields: any[]) => void` | 字段变化回调 |
+| 属性名           | 类型                                                                           | 说明             |
+| ---------------- | ------------------------------------------------------------------------------ | ---------------- |
+| `onSubmit`       | `(values: Record<string, any>) => void \| Promise<void>`                       | 表单提交回调     |
+| `onValuesChange` | `(changedValues: Record<string, any>, allValues: Record<string, any>) => void` | 字段值变化回调   |
+| `onReset`        | `() => void`                                                                   | 表单重置回调     |
+| `onFinishFailed` | `(errorInfo: any) => void`                                                     | 表单验证失败回调 |
+| `onFieldsChange` | `(changedFields: any[], allFields: any[]) => void`                             | 字段变化回调     |
 
 ### 样式定制属性
 
-| 属性名 | 类型 | 默认值 | 说明 |
-|--------|------|--------|------|
-| `className` | `string` | - | 自定义 CSS 类名 |
-| `style` | `CSSProperties` | - | 自定义样式 |
-| `formItemClassName` | `string` | - | 表单项 CSS 类名 |
-| `formItemStyle` | `CSSProperties` | - | 表单项样式 |
-| `labelClassName` | `string` | - | 标签 CSS 类名 |
-| `labelStyle` | `CSSProperties` | - | 标签样式 |
-| `wrapperClassName` | `string` | - | 包装器 CSS 类名 |
-| `wrapperStyle` | `CSSProperties` | - | 包装器样式 |
+| 属性名              | 类型            | 默认值 | 说明            |
+| ------------------- | --------------- | ------ | --------------- |
+| `className`         | `string`        | -      | 自定义 CSS 类名 |
+| `style`             | `CSSProperties` | -      | 自定义样式      |
+| `formItemClassName` | `string`        | -      | 表单项 CSS 类名 |
+| `formItemStyle`     | `CSSProperties` | -      | 表单项样式      |
+| `labelClassName`    | `string`        | -      | 标签 CSS 类名   |
+| `labelStyle`        | `CSSProperties` | -      | 标签样式        |
+| `wrapperClassName`  | `string`        | -      | 包装器 CSS 类名 |
+| `wrapperStyle`      | `CSSProperties` | -      | 包装器样式      |
 
 ## 🎯 Slots 插槽
 
@@ -316,11 +317,7 @@ const [Form] = useQiyunForm({
     <template #footer="{ formApi, loading }">
       <div class="form-footer">
         <Button @click="formApi.resetFields()">重置</Button>
-        <Button 
-          type="primary" 
-          :loading="loading"
-          @click="formApi.submit()"
-        >
+        <Button type="primary" :loading="loading" @click="formApi.submit()">
           提交
         </Button>
         <Button type="link" @click="handleCancel">取消</Button>
@@ -338,11 +335,11 @@ const [Form] = useQiyunForm({
 <template>
   <QiyunForm>
     <template #extra>
-      <Alert 
-        message="提示" 
-        description="请确保所有信息准确无误" 
-        type="info" 
-        show-icon 
+      <Alert
+        message="提示"
+        description="请确保所有信息准确无误"
+        type="info"
+        show-icon
       />
     </template>
   </QiyunForm>
@@ -361,7 +358,7 @@ const [Form] = useQiyunForm({
     <template #username="{ field, formApi, errors }">
       <div class="custom-field">
         <label>{{ field.label }}</label>
-        <Input 
+        <Input
           :value="formApi.getFieldValue('username')"
           @update:value="formApi.setFieldValue('username', $event)"
           :status="errors.length > 0 ? 'error' : ''"
@@ -425,9 +422,9 @@ const [Form] = useQiyunForm({
   <QiyunForm>
     <template #avatar-extra="{ field, formApi }">
       <div class="avatar-preview">
-        <img 
-          v-if="formApi.getFieldValue('avatar')" 
-          :src="formApi.getFieldValue('avatar')" 
+        <img
+          v-if="formApi.getFieldValue('avatar')"
+          :src="formApi.getFieldValue('avatar')"
           alt="头像预览"
           style="width: 100px; height: 100px; object-fit: cover;"
         />
@@ -451,7 +448,7 @@ const [Form] = useQiyunForm({
         <Tag v-if="option.hot" color="red">热门</Tag>
       </div>
     </template>
-    
+
     <template #category-suffixIcon>
       <DownOutlined />
     </template>
@@ -470,7 +467,7 @@ const [Form] = useQiyunForm({
         <div>点击上传</div>
       </div>
     </template>
-    
+
     <template #files-itemRender="{ file, actions }">
       <div class="custom-file-item">
         <FileOutlined />
@@ -511,11 +508,11 @@ const [Form] = useQiyunForm({
             删除
           </Button>
         </template>
-        
+
         <Row :gutter="16">
           <Col :span="12">
             <FormItem label="姓名">
-              <Input 
+              <Input
                 :value="item.name"
                 @update:value="actions.update(index, 'name', $event)"
               />
@@ -523,7 +520,7 @@ const [Form] = useQiyunForm({
           </Col>
           <Col :span="12">
             <FormItem label="电话">
-              <Input 
+              <Input
                 :value="item.phone"
                 @update:value="actions.update(index, 'phone', $event)"
               />
@@ -532,7 +529,7 @@ const [Form] = useQiyunForm({
         </Row>
       </Card>
     </template>
-    
+
     <template #contacts-addButton="{ actions }">
       <Button type="dashed" block @click="actions.add()">
         <PlusOutlined />
@@ -547,41 +544,41 @@ const [Form] = useQiyunForm({
 
 #### 通用插槽参数
 
-| 参数名 | 类型 | 说明 |
-|--------|------|------|
-| `field` | `FormSchema` | 当前字段配置 |
-| `formApi` | `FormApi` | 表单API实例 |
-| `values` | `Record<string, any>` | 当前表单所有值 |
-| `errors` | `string[]` | 当前字段错误信息 |
-| `loading` | `boolean` | 表单提交状态 |
-| `disabled` | `boolean` | 字段禁用状态 |
-| `readonly` | `boolean` | 字段只读状态 |
+| 参数名     | 类型                  | 说明             |
+| ---------- | --------------------- | ---------------- |
+| `field`    | `FormSchema`          | 当前字段配置     |
+| `formApi`  | `FormApi`             | 表单API实例      |
+| `values`   | `Record<string, any>` | 当前表单所有值   |
+| `errors`   | `string[]`            | 当前字段错误信息 |
+| `loading`  | `boolean`             | 表单提交状态     |
+| `disabled` | `boolean`             | 字段禁用状态     |
+| `readonly` | `boolean`             | 字段只读状态     |
 
 #### 特定插槽参数
 
 ##### `#footer` 插槽参数
 
-| 参数名 | 类型 | 说明 |
-|--------|------|------|
-| `formApi` | `FormApi` | 表单API实例 |
-| `loading` | `boolean` | 表单提交状态 |
-| `valid` | `boolean` | 表单验证状态 |
-| `dirty` | `boolean` | 表单是否有变更 |
+| 参数名    | 类型      | 说明           |
+| --------- | --------- | -------------- |
+| `formApi` | `FormApi` | 表单API实例    |
+| `loading` | `boolean` | 表单提交状态   |
+| `valid`   | `boolean` | 表单验证状态   |
+| `dirty`   | `boolean` | 表单是否有变更 |
 
 ##### `#[fieldName]-option` 插槽参数
 
-| 参数名 | 类型 | 说明 |
-|--------|------|------|
-| `option` | `any` | 选项数据 |
-| `index` | `number` | 选项索引 |
+| 参数名     | 类型      | 说明     |
+| ---------- | --------- | -------- |
+| `option`   | `any`     | 选项数据 |
+| `index`    | `number`  | 选项索引 |
 | `selected` | `boolean` | 是否选中 |
 
 ##### `#[fieldName]-item` 插槽参数
 
-| 参数名 | 类型 | 说明 |
-|--------|------|------|
-| `item` | `any` | 列表项数据 |
-| `index` | `number` | 项目索引 |
+| 参数名    | 类型     | 说明         |
+| --------- | -------- | ------------ |
+| `item`    | `any`    | 列表项数据   |
+| `index`   | `number` | 项目索引     |
 | `actions` | `object` | 操作方法集合 |
 
 ### 插槽使用示例
@@ -598,13 +595,13 @@ const [Form] = useQiyunForm({
         <Text type="secondary">请完善您的个人信息</Text>
       </div>
     </template>
-    
+
     <!-- 自定义头像字段 -->
     <template #avatar="{ formApi }">
       <div class="avatar-field">
-        <Avatar 
-          :size="100" 
-          :src="formApi.getFieldValue('avatar')" 
+        <Avatar
+          :size="100"
+          :src="formApi.getFieldValue('avatar')"
           icon={<UserOutlined />}
         />
         <Upload
@@ -618,12 +615,12 @@ const [Form] = useQiyunForm({
         </Upload>
       </div>
     </template>
-    
+
     <!-- 自定义技能标签 -->
     <template #skills-extra="{ formApi }">
       <div class="skills-suggestions">
         <Text>推荐技能：</Text>
-        <Tag 
+        <Tag
           v-for="skill in suggestedSkills"
           :key="skill"
           @click="addSkill(skill, formApi)"
@@ -633,7 +630,7 @@ const [Form] = useQiyunForm({
         </Tag>
       </div>
     </template>
-    
+
     <!-- 表单底部 -->
     <template #footer="{ formApi, loading, valid }">
       <div class="form-footer">
@@ -641,8 +638,8 @@ const [Form] = useQiyunForm({
           <Button @click="formApi.resetFields()">
             重置
           </Button>
-          <Button 
-            type="primary" 
+          <Button
+            type="primary"
             :loading="loading"
             :disabled="!valid"
             @click="formApi.submit()"
@@ -723,71 +720,74 @@ const [FormComponent, formApi] = useQiyunForm(options);
 ```typescript
 interface FormOptions {
   // 表单布局
-  layout?: 'horizontal' | 'vertical' | 'inline';
-  
+  layout?: "horizontal" | "vertical" | "inline";
+
   // 表单模式
-  mode?: 'create' | 'edit' | 'view';
-  
+  mode?: "create" | "edit" | "view";
+
   // 表单字段配置
   schema: FormSchema[];
-  
+
   // 初始值
   initialValues?: Record<string, any>;
-  
+
   // 表单提交处理
   onSubmit?: (values: Record<string, any>) => void | Promise<void>;
-  
+
   // 表单值变化处理
-  onValuesChange?: (changedValues: Record<string, any>, allValues: Record<string, any>) => void;
-  
+  onValuesChange?: (
+    changedValues: Record<string, any>,
+    allValues: Record<string, any>,
+  ) => void;
+
   // 表单重置处理
   onReset?: () => void;
-  
+
   // 表单验证失败处理
   onFinishFailed?: (errorInfo: any) => void;
-  
+
   // 是否保留字段值
   preserve?: boolean;
-  
+
   // 表单名称
   name?: string;
-  
+
   // 是否禁用表单
   disabled?: boolean;
-  
+
   // 表单大小
-  size?: 'small' | 'middle' | 'large';
-  
+  size?: "small" | "middle" | "large";
+
   // 标签对齐方式
-  labelAlign?: 'left' | 'right';
-  
+  labelAlign?: "left" | "right";
+
   // 标签宽度
   labelWidth?: number | string;
-  
+
   // 标签换行
   labelWrap?: boolean;
-  
+
   // 必填标记位置
-  requiredMark?: boolean | 'optional';
-  
+  requiredMark?: boolean | "optional";
+
   // 冒号显示
   colon?: boolean;
-  
+
   // 验证触发方式
   validateTrigger?: string | string[];
-  
+
   // 滚动到错误字段
   scrollToFirstError?: boolean;
-  
+
   // 自动完成
-  autoComplete?: 'on' | 'off';
-  
+  autoComplete?: "on" | "off";
+
   // 表单项间距
   gutter?: number | [number, number];
-  
+
   // 响应式配置
   responsive?: boolean;
-  
+
   // 提供给子组件的数据
   provide?: Record<string, any>;
 }
@@ -799,65 +799,65 @@ interface FormOptions {
 interface FormSchema {
   // 组件类型
   component: BaseFormComponentType | string;
-  
+
   // 字段名称
   name: string;
-  
+
   // 字段标签
   label?: string;
-  
+
   // 验证规则
   rules?: ZodSchema | ZodSchema[];
-  
+
   // 组件属性
   componentProps?: Record<string, any>;
-  
+
   // 字段依赖
   dependencies?: FormItemDependencies;
-  
+
   // 是否隐藏
   hidden?: boolean;
-  
+
   // 是否禁用
   disabled?: boolean;
-  
+
   // 是否只读
   readonly?: boolean;
-  
+
   // 字段说明
   help?: string;
-  
+
   // 额外信息
   extra?: string;
-  
+
   // 标签提示
   tooltip?: string;
-  
+
   // 是否必填
   required?: boolean;
-  
+
   // 验证状态
-  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
-  
+  validateStatus?: "success" | "warning" | "error" | "validating";
+
   // 是否有反馈图标
   hasFeedback?: boolean;
-  
+
   // 标签对齐
-  labelAlign?: 'left' | 'right';
-  
+  labelAlign?: "left" | "right";
+
   // 标签宽度
   labelWidth?: number | string;
-  
+
   // 包装器属性
   wrapperProps?: Record<string, any>;
-  
+
   // 栅格布局
   span?: number;
   offset?: number;
   push?: number;
   pull?: number;
   order?: number;
-  
+
   // 响应式栅格
   xs?: number | { span?: number; offset?: number };
   sm?: number | { span?: number; offset?: number };
@@ -874,25 +874,25 @@ interface FormSchema {
 interface FormItemDependencies {
   // 依赖的字段名
   fields: string[];
-  
+
   // 条件函数
   condition?: (values: Record<string, any>) => boolean;
-  
+
   // 动态属性
   props?: (values: Record<string, any>) => Record<string, any>;
-  
+
   // 动态规则
   rules?: (values: Record<string, any>) => ZodSchema | ZodSchema[];
-  
+
   // 动态选项
   options?: (values: Record<string, any>) => any[];
-  
+
   // 是否显示
   show?: (values: Record<string, any>) => boolean;
-  
+
   // 是否禁用
   disabled?: (values: Record<string, any>) => boolean;
-  
+
   // 是否必填
   required?: (values: Record<string, any>) => boolean;
 }
@@ -1048,39 +1048,39 @@ registerFormComponent(name: string, component: Component): void
 #### 示例
 
 ```typescript
-import { registerFormComponent } from '@repo/form-ui';
-import CustomInput from './CustomInput.vue';
+import { registerFormComponent } from "@repo/form-ui";
+import CustomInput from "./CustomInput.vue";
 
-registerFormComponent('CustomInput', CustomInput);
+registerFormComponent("CustomInput", CustomInput);
 ```
 
 ### 内置组件类型
 
 ```typescript
-type BaseFormComponentType = 
-  | 'Input'           // 输入框
-  | 'InputPassword'   // 密码输入框
-  | 'InputNumber'     // 数字输入框
-  | 'InputSearch'     // 搜索输入框
-  | 'Textarea'        // 文本域
-  | 'Select'          // 选择器
-  | 'TreeSelect'      // 树选择器
-  | 'Cascader'        // 级联选择器
-  | 'DatePicker'      // 日期选择器
-  | 'TimePicker'      // 时间选择器
-  | 'RangePicker'     // 范围选择器
-  | 'Upload'          // 上传
-  | 'Switch'          // 开关
-  | 'Slider'          // 滑动输入条
-  | 'Rate'            // 评分
-  | 'Checkbox'        // 多选框
-  | 'CheckboxGroup'   // 多选框组
-  | 'Radio'           // 单选框
-  | 'RadioGroup'      // 单选框组
-  | 'AutoComplete'    // 自动完成
-  | 'Mention'         // 提及
-  | 'Transfer'        // 穿梭框
-  | 'ColorPicker';    // 颜色选择器
+type BaseFormComponentType =
+  | "Input" // 输入框
+  | "InputPassword" // 密码输入框
+  | "InputNumber" // 数字输入框
+  | "InputSearch" // 搜索输入框
+  | "Textarea" // 文本域
+  | "Select" // 选择器
+  | "TreeSelect" // 树选择器
+  | "Cascader" // 级联选择器
+  | "DatePicker" // 日期选择器
+  | "TimePicker" // 时间选择器
+  | "RangePicker" // 范围选择器
+  | "Upload" // 上传
+  | "Switch" // 开关
+  | "Slider" // 滑动输入条
+  | "Rate" // 评分
+  | "Checkbox" // 多选框
+  | "CheckboxGroup" // 多选框组
+  | "Radio" // 单选框
+  | "RadioGroup" // 单选框组
+  | "AutoComplete" // 自动完成
+  | "Mention" // 提及
+  | "Transfer" // 穿梭框
+  | "ColorPicker"; // 颜色选择器
 ```
 
 ### 工具函数
@@ -1100,7 +1100,9 @@ function createFormSchema<T = any>(schema: FormSchema[]): FormSchema[] {
 创建验证规则的工具函数。
 
 ```typescript
-function createFormRules<T = any>(rules: Record<keyof T, ZodSchema>): Record<keyof T, ZodSchema> {
+function createFormRules<T = any>(
+  rules: Record<keyof T, ZodSchema>,
+): Record<keyof T, ZodSchema> {
   return rules;
 }
 ```
@@ -1112,7 +1114,7 @@ function createFormRules<T = any>(rules: Record<keyof T, ZodSchema>): Record<key
 ```typescript
 function mergeFormOptions(
   defaultOptions: Partial<FormOptions>,
-  userOptions: Partial<FormOptions>
+  userOptions: Partial<FormOptions>,
 ): FormOptions {
   // 实现合并逻辑
 }
@@ -1130,30 +1132,30 @@ function mergeFormOptions(
 </template>
 
 <script setup>
-import { useQiyunForm, registerFormComponent } from '@repo/form-ui';
-import { z } from 'zod';
-import { defineComponent, ref } from 'vue';
-import { Input, Button, Upload, message } from 'ant-design-vue';
-import { UploadOutlined } from '@ant-design/icons-vue';
+import { useQiyunForm, registerFormComponent } from "@repo/form-ui";
+import { z } from "zod";
+import { defineComponent, ref } from "vue";
+import { Input, Button, Upload, message } from "ant-design-vue";
+import { UploadOutlined } from "@ant-design/icons-vue";
 
 // 自定义图片上传组件
 const ImageUploader = defineComponent({
-  name: 'ImageUploader',
+  name: "ImageUploader",
   props: {
     value: {
       type: [String, Array],
-      default: ''
+      default: "",
     },
     multiple: {
       type: Boolean,
-      default: false
+      default: false,
     },
     maxCount: {
       type: Number,
-      default: 1
-    }
+      default: 1,
+    },
   },
-  emits: ['update:value', 'change'],
+  emits: ["update:value", "change"],
   setup(props, { emit }) {
     const fileList = ref([]);
 
@@ -1164,7 +1166,7 @@ const ImageUploader = defineComponent({
       newFileList = newFileList.slice(-props.maxCount);
 
       // 只保留已上传成功的文件
-      newFileList = newFileList.map(file => {
+      newFileList = newFileList.map((file) => {
         if (file.response) {
           file.url = file.response.url;
         }
@@ -1175,25 +1177,25 @@ const ImageUploader = defineComponent({
 
       // 提取URL值
       const urls = newFileList
-        .filter(file => file.status === 'done')
-        .map(file => file.url || file.response?.url)
+        .filter((file) => file.status === "done")
+        .map((file) => file.url || file.response?.url)
         .filter(Boolean);
 
-      const value = props.multiple ? urls : urls[0] || '';
-      emit('update:value', value);
-      emit('change', value);
+      const value = props.multiple ? urls : urls[0] || "";
+      emit("update:value", value);
+      emit("change", value);
     };
 
     const beforeUpload = (file) => {
-      const isImage = file.type.startsWith('image/');
+      const isImage = file.type.startsWith("image/");
       if (!isImage) {
-        message.error('只能上传图片文件！');
+        message.error("只能上传图片文件！");
         return false;
       }
 
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isLt2M) {
-        message.error('图片大小不能超过 2MB！');
+        message.error("图片大小不能超过 2MB！");
         return false;
       }
 
@@ -1210,52 +1212,50 @@ const ImageUploader = defineComponent({
         listType="picture"
       >
         {fileList.value.length < props.maxCount && (
-          <Button icon={<UploadOutlined />}>
-            上传图片
-          </Button>
+          <Button icon={<UploadOutlined />}>上传图片</Button>
         )}
       </Upload>
     );
-  }
+  },
 });
 
 // 自定义标签输入组件
 const TagInput = defineComponent({
-  name: 'TagInput',
+  name: "TagInput",
   props: {
     value: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     placeholder: {
       type: String,
-      default: '请输入标签'
-    }
+      default: "请输入标签",
+    },
   },
-  emits: ['update:value', 'change'],
+  emits: ["update:value", "change"],
   setup(props, { emit }) {
-    const inputValue = ref('');
+    const inputValue = ref("");
     const inputRef = ref();
 
     const handleInputConfirm = () => {
       const value = inputValue.value.trim();
       if (value && !props.value.includes(value)) {
         const newTags = [...props.value, value];
-        emit('update:value', newTags);
-        emit('change', newTags);
+        emit("update:value", newTags);
+        emit("change", newTags);
       }
-      inputValue.value = '';
+      inputValue.value = "";
     };
 
     const handleClose = (removedTag) => {
-      const newTags = props.value.filter(tag => tag !== removedTag);
-      emit('update:value', newTags);
-      emit('change', newTags);
+      const newTags = props.value.filter((tag) => tag !== removedTag);
+      emit("update:value", newTags);
+      emit("change", newTags);
     };
 
     return () => (
       <div class="tag-input">
-        {props.value.map(tag => (
+        {props.value.map((tag) => (
           <span key={tag} class="tag">
             {tag}
             <button onClick={() => handleClose(tag)}>×</button>
@@ -1266,57 +1266,57 @@ const TagInput = defineComponent({
           value={inputValue.value}
           placeholder={props.placeholder}
           size="small"
-          style={{ width: '120px' }}
-          onUpdate:value={(val) => inputValue.value = val}
+          style={{ width: "120px" }}
+          onUpdate:value={(val) => (inputValue.value = val)}
           onPressEnter={handleInputConfirm}
           onBlur={handleInputConfirm}
         />
       </div>
     );
-  }
+  },
 });
 
 // 自定义富文本编辑器组件
 const RichTextEditor = defineComponent({
-  name: 'RichTextEditor',
+  name: "RichTextEditor",
   props: {
     value: {
       type: String,
-      default: ''
+      default: "",
     },
     placeholder: {
       type: String,
-      default: '请输入内容'
+      default: "请输入内容",
     },
     height: {
       type: Number,
-      default: 200
-    }
+      default: 200,
+    },
   },
-  emits: ['update:value', 'change'],
+  emits: ["update:value", "change"],
   setup(props, { emit }) {
     const editorRef = ref();
 
     const handleChange = (content) => {
-      emit('update:value', content);
-      emit('change', content);
+      emit("update:value", content);
+      emit("change", content);
     };
 
     return () => (
       <div class="rich-text-editor">
         <div class="toolbar">
-          <button onClick={() => document.execCommand('bold')}>B</button>
-          <button onClick={() => document.execCommand('italic')}>I</button>
-          <button onClick={() => document.execCommand('underline')}>U</button>
+          <button onClick={() => document.execCommand("bold")}>B</button>
+          <button onClick={() => document.execCommand("italic")}>I</button>
+          <button onClick={() => document.execCommand("underline")}>U</button>
         </div>
         <div
           ref={editorRef}
           contenteditable
-          style={{ 
-            height: `${props.height}px`, 
-            border: '1px solid #d9d9d9',
-            padding: '8px',
-            minHeight: '100px'
+          style={{
+            height: `${props.height}px`,
+            border: "1px solid #d9d9d9",
+            padding: "8px",
+            minHeight: "100px",
           }}
           innerHTML={props.value}
           onInput={(e) => handleChange(e.target.innerHTML)}
@@ -1324,69 +1324,69 @@ const RichTextEditor = defineComponent({
         />
       </div>
     );
-  }
+  },
 });
 
 // 注册自定义组件
-registerFormComponent('ImageUploader', ImageUploader);
-registerFormComponent('TagInput', TagInput);
-registerFormComponent('RichTextEditor', RichTextEditor);
+registerFormComponent("ImageUploader", ImageUploader);
+registerFormComponent("TagInput", TagInput);
+registerFormComponent("RichTextEditor", RichTextEditor);
 
 const [CustomComponentForm] = useQiyunForm({
-  layout: 'vertical',
+  layout: "vertical",
   schema: [
     {
-      component: 'Input',
-      name: 'title',
-      label: '文章标题',
-      rules: z.string().min(1, '请输入文章标题'),
+      component: "Input",
+      name: "title",
+      label: "文章标题",
+      rules: z.string().min(1, "请输入文章标题"),
       componentProps: {
-        placeholder: '请输入文章标题'
-      }
+        placeholder: "请输入文章标题",
+      },
     },
     {
-      component: 'ImageUploader',
-      name: 'coverImage',
-      label: '封面图片',
-      rules: z.string().min(1, '请上传封面图片'),
+      component: "ImageUploader",
+      name: "coverImage",
+      label: "封面图片",
+      rules: z.string().min(1, "请上传封面图片"),
       componentProps: {
         multiple: false,
-        maxCount: 1
-      }
+        maxCount: 1,
+      },
     },
     {
-      component: 'ImageUploader',
-      name: 'gallery',
-      label: '图片集',
+      component: "ImageUploader",
+      name: "gallery",
+      label: "图片集",
       rules: z.array(z.string()).optional(),
       componentProps: {
         multiple: true,
-        maxCount: 5
-      }
+        maxCount: 5,
+      },
     },
     {
-      component: 'TagInput',
-      name: 'tags',
-      label: '标签',
-      rules: z.array(z.string()).min(1, '请至少添加一个标签'),
+      component: "TagInput",
+      name: "tags",
+      label: "标签",
+      rules: z.array(z.string()).min(1, "请至少添加一个标签"),
       componentProps: {
-        placeholder: '输入标签后按回车'
-      }
+        placeholder: "输入标签后按回车",
+      },
     },
     {
-      component: 'RichTextEditor',
-      name: 'content',
-      label: '文章内容',
-      rules: z.string().min(10, '文章内容至少10个字符'),
+      component: "RichTextEditor",
+      name: "content",
+      label: "文章内容",
+      rules: z.string().min(10, "文章内容至少10个字符"),
       componentProps: {
-        placeholder: '请输入文章内容',
-        height: 300
-      }
-    }
+        placeholder: "请输入文章内容",
+        height: 300,
+      },
+    },
   ],
   onSubmit: (values) => {
-    console.log('自定义组件表单提交:', values);
-  }
+    console.log("自定义组件表单提交:", values);
+  },
 });
 </script>
 
@@ -1448,35 +1448,35 @@ const [CustomComponentForm] = useQiyunForm({
 </template>
 
 <script setup>
-import { useQiyunForm, registerFormComponent } from '@repo/form-ui';
-import { z } from 'zod';
-import { defineComponent } from 'vue';
+import { useQiyunForm, registerFormComponent } from "@repo/form-ui";
+import { z } from "zod";
+import { defineComponent } from "vue";
 
 // 假设使用第三方日期范围选择器
-import DateRangePicker from 'some-date-range-picker';
+import DateRangePicker from "some-date-range-picker";
 
 // 包装第三方组件以适配表单
 const WrappedDateRangePicker = defineComponent({
-  name: 'WrappedDateRangePicker',
+  name: "WrappedDateRangePicker",
   props: {
     value: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     format: {
       type: String,
-      default: 'YYYY-MM-DD'
+      default: "YYYY-MM-DD",
     },
     placeholder: {
       type: Array,
-      default: () => ['开始日期', '结束日期']
-    }
+      default: () => ["开始日期", "结束日期"],
+    },
   },
-  emits: ['update:value', 'change'],
+  emits: ["update:value", "change"],
   setup(props, { emit }) {
     const handleChange = (dates) => {
-      emit('update:value', dates);
-      emit('change', dates);
+      emit("update:value", dates);
+      emit("change", dates);
     };
 
     return () => (
@@ -1487,31 +1487,31 @@ const WrappedDateRangePicker = defineComponent({
         onChange={handleChange}
       />
     );
-  }
+  },
 });
 
 // 自定义评分组件
 const StarRating = defineComponent({
-  name: 'StarRating',
+  name: "StarRating",
   props: {
     value: {
       type: Number,
-      default: 0
+      default: 0,
     },
     max: {
       type: Number,
-      default: 5
+      default: 5,
     },
     allowHalf: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  emits: ['update:value', 'change'],
+  emits: ["update:value", "change"],
   setup(props, { emit }) {
     const handleClick = (rating) => {
-      emit('update:value', rating);
-      emit('change', rating);
+      emit("update:value", rating);
+      emit("change", rating);
     };
 
     return () => (
@@ -1520,13 +1520,13 @@ const StarRating = defineComponent({
           const rating = index + 1;
           const isFilled = rating <= props.value;
           const isHalfFilled = props.allowHalf && rating - 0.5 === props.value;
-          
+
           return (
             <span
               key={rating}
               class={[
-                'star',
-                { filled: isFilled, 'half-filled': isHalfFilled }
+                "star",
+                { filled: isFilled, "half-filled": isHalfFilled },
               ]}
               onClick={() => handleClick(rating)}
             >
@@ -1536,59 +1536,59 @@ const StarRating = defineComponent({
         })}
       </div>
     );
-  }
+  },
 });
 
 // 注册组件
-registerFormComponent('DateRangePicker', WrappedDateRangePicker);
-registerFormComponent('StarRating', StarRating);
+registerFormComponent("DateRangePicker", WrappedDateRangePicker);
+registerFormComponent("StarRating", StarRating);
 
 const [ThirdPartyComponentForm] = useQiyunForm({
-  layout: 'vertical',
+  layout: "vertical",
   schema: [
     {
-      component: 'Input',
-      name: 'eventName',
-      label: '活动名称',
-      rules: z.string().min(1, '请输入活动名称'),
+      component: "Input",
+      name: "eventName",
+      label: "活动名称",
+      rules: z.string().min(1, "请输入活动名称"),
       componentProps: {
-        placeholder: '请输入活动名称'
-      }
+        placeholder: "请输入活动名称",
+      },
     },
     {
-      component: 'DateRangePicker',
-      name: 'dateRange',
-      label: '活动时间',
-      rules: z.array(z.date()).length(2, '请选择活动开始和结束时间'),
+      component: "DateRangePicker",
+      name: "dateRange",
+      label: "活动时间",
+      rules: z.array(z.date()).length(2, "请选择活动开始和结束时间"),
       componentProps: {
-        format: 'YYYY-MM-DD HH:mm',
-        placeholder: ['活动开始时间', '活动结束时间']
-      }
+        format: "YYYY-MM-DD HH:mm",
+        placeholder: ["活动开始时间", "活动结束时间"],
+      },
     },
     {
-      component: 'StarRating',
-      name: 'priority',
-      label: '优先级',
-      rules: z.number().min(1, '请选择优先级'),
+      component: "StarRating",
+      name: "priority",
+      label: "优先级",
+      rules: z.number().min(1, "请选择优先级"),
       componentProps: {
         max: 5,
-        allowHalf: false
-      }
+        allowHalf: false,
+      },
     },
     {
-      component: 'StarRating',
-      name: 'satisfaction',
-      label: '满意度',
-      rules: z.number().min(0.5, '请选择满意度'),
+      component: "StarRating",
+      name: "satisfaction",
+      label: "满意度",
+      rules: z.number().min(0.5, "请选择满意度"),
       componentProps: {
         max: 5,
-        allowHalf: true
-      }
-    }
+        allowHalf: true,
+      },
+    },
   ],
   onSubmit: (values) => {
-    console.log('第三方组件表单提交:', values);
-  }
+    console.log("第三方组件表单提交:", values);
+  },
 });
 </script>
 
@@ -1629,43 +1629,47 @@ const [ThirdPartyComponentForm] = useQiyunForm({
 </template>
 
 <script setup>
-import { useQiyunForm, registerFormComponent } from '@repo/form-ui';
-import { z } from 'zod';
-import { defineComponent, ref, inject } from 'vue';
-import { Button, Modal, List } from 'ant-design-vue';
+import { useQiyunForm, registerFormComponent } from "@repo/form-ui";
+import { z } from "zod";
+import { defineComponent, ref, inject } from "vue";
+import { Button, Modal, List } from "ant-design-vue";
 
 // 自定义选择器组件，支持与表单通信
 const CustomSelector = defineComponent({
-  name: 'CustomSelector',
+  name: "CustomSelector",
   props: {
     value: {
       type: [String, Array],
-      default: ''
+      default: "",
     },
     multiple: {
       type: Boolean,
-      default: false
+      default: false,
     },
     options: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     placeholder: {
       type: String,
-      default: '请选择'
-    }
+      default: "请选择",
+    },
   },
-  emits: ['update:value', 'change'],
+  emits: ["update:value", "change"],
   setup(props, { emit }) {
     const visible = ref(false);
-    const selectedItems = ref(props.multiple ? (props.value || []) : [props.value].filter(Boolean));
-    
+    const selectedItems = ref(
+      props.multiple ? props.value || [] : [props.value].filter(Boolean),
+    );
+
     // 注入表单上下文
-    const formApi = inject('formApi', null);
+    const formApi = inject("formApi", null);
 
     const handleSelect = (item) => {
       if (props.multiple) {
-        const index = selectedItems.value.findIndex(selected => selected.value === item.value);
+        const index = selectedItems.value.findIndex(
+          (selected) => selected.value === item.value,
+        );
         if (index > -1) {
           selectedItems.value.splice(index, 1);
         } else {
@@ -1678,36 +1682,34 @@ const CustomSelector = defineComponent({
     };
 
     const handleConfirm = () => {
-      const value = props.multiple 
-        ? selectedItems.value.map(item => item.value)
-        : selectedItems.value[0]?.value || '';
-      
-      emit('update:value', value);
-      emit('change', value);
-      
+      const value = props.multiple
+        ? selectedItems.value.map((item) => item.value)
+        : selectedItems.value[0]?.value || "";
+
+      emit("update:value", value);
+      emit("change", value);
+
       // 可以触发其他字段的更新
       if (formApi) {
-        formApi.validateField('relatedField');
+        formApi.validateField("relatedField");
       }
-      
+
       visible.value = false;
     };
 
     const displayText = () => {
       if (selectedItems.value.length === 0) return props.placeholder;
-      return selectedItems.value.map(item => item.label).join(', ');
+      return selectedItems.value.map((item) => item.label).join(", ");
     };
 
     return () => (
       <div>
-        <Button onClick={() => visible.value = true}>
-          {displayText()}
-        </Button>
+        <Button onClick={() => (visible.value = true)}>{displayText()}</Button>
         <Modal
           title="请选择"
           visible={visible.value}
           onOk={handleConfirm}
-          onCancel={() => visible.value = false}
+          onCancel={() => (visible.value = false)}
         >
           <List
             dataSource={props.options}
@@ -1715,9 +1717,12 @@ const CustomSelector = defineComponent({
               <List.Item
                 onClick={() => handleSelect(item)}
                 style={{
-                  cursor: 'pointer',
-                  background: selectedItems.value.some(selected => selected.value === item.value) 
-                    ? '#f0f0f0' : 'transparent'
+                  cursor: "pointer",
+                  background: selectedItems.value.some(
+                    (selected) => selected.value === item.value,
+                  )
+                    ? "#f0f0f0"
+                    : "transparent",
                 }}
               >
                 {item.label}
@@ -1727,61 +1732,61 @@ const CustomSelector = defineComponent({
         </Modal>
       </div>
     );
-  }
+  },
 });
 
-registerFormComponent('CustomSelector', CustomSelector);
+registerFormComponent("CustomSelector", CustomSelector);
 
 const [CommunicationForm, formApi] = useQiyunForm({
-  layout: 'vertical',
+  layout: "vertical",
   // 提供表单API给子组件
   provide: {
-    formApi
+    formApi,
   },
   schema: [
     {
-      component: 'CustomSelector',
-      name: 'category',
-      label: '分类',
-      rules: z.string().min(1, '请选择分类'),
+      component: "CustomSelector",
+      name: "category",
+      label: "分类",
+      rules: z.string().min(1, "请选择分类"),
       componentProps: {
         multiple: false,
         options: [
-          { label: '电子产品', value: 'electronics' },
-          { label: '服装鞋帽', value: 'clothing' },
-          { label: '家居用品', value: 'home' },
-          { label: '图书音像', value: 'books' }
-        ]
-      }
+          { label: "电子产品", value: "electronics" },
+          { label: "服装鞋帽", value: "clothing" },
+          { label: "家居用品", value: "home" },
+          { label: "图书音像", value: "books" },
+        ],
+      },
     },
     {
-      component: 'CustomSelector',
-      name: 'tags',
-      label: '标签',
-      rules: z.array(z.string()).min(1, '请至少选择一个标签'),
+      component: "CustomSelector",
+      name: "tags",
+      label: "标签",
+      rules: z.array(z.string()).min(1, "请至少选择一个标签"),
       componentProps: {
         multiple: true,
         options: [
-          { label: '热门', value: 'hot' },
-          { label: '新品', value: 'new' },
-          { label: '促销', value: 'sale' },
-          { label: '限量', value: 'limited' }
-        ]
-      }
+          { label: "热门", value: "hot" },
+          { label: "新品", value: "new" },
+          { label: "促销", value: "sale" },
+          { label: "限量", value: "limited" },
+        ],
+      },
     },
     {
-      component: 'Input',
-      name: 'relatedField',
-      label: '相关字段',
+      component: "Input",
+      name: "relatedField",
+      label: "相关字段",
       rules: z.string().optional(),
       componentProps: {
-        placeholder: '这个字段会在选择器变化时验证'
-      }
-    }
+        placeholder: "这个字段会在选择器变化时验证",
+      },
+    },
   ],
   onSubmit: (values) => {
-    console.log('组件通信表单提交:', values);
-  }
+    console.log("组件通信表单提交:", values);
+  },
 });
 </script>
 ```
@@ -1798,73 +1803,73 @@ const [CommunicationForm, formApi] = useQiyunForm({
 </template>
 
 <script setup>
-import { useQiyunForm } from '@repo/form-ui';
-import { z } from 'zod';
+import { useQiyunForm } from "@repo/form-ui";
+import { z } from "zod";
 
 const [BasicDependencyForm] = useQiyunForm({
-  layout: 'vertical',
+  layout: "vertical",
   schema: [
     {
-      component: 'Select',
-      name: 'hasAddress',
-      label: '是否有收货地址',
-      rules: z.enum(['yes', 'no'], {
-        errorMap: () => ({ message: '请选择是否有收货地址' })
+      component: "Select",
+      name: "hasAddress",
+      label: "是否有收货地址",
+      rules: z.enum(["yes", "no"], {
+        errorMap: () => ({ message: "请选择是否有收货地址" }),
       }),
       componentProps: {
-        placeholder: '请选择',
+        placeholder: "请选择",
         options: [
-          { label: '是', value: 'yes' },
-          { label: '否', value: 'no' }
-        ]
-      }
+          { label: "是", value: "yes" },
+          { label: "否", value: "no" },
+        ],
+      },
     },
     {
-      component: 'Select',
-      name: 'province',
-      label: '省份',
+      component: "Select",
+      name: "province",
+      label: "省份",
       rules: z.string().optional(),
       componentProps: {
-        placeholder: '请选择省份',
+        placeholder: "请选择省份",
         options: [
-          { label: '北京市', value: 'beijing' },
-          { label: '上海市', value: 'shanghai' },
-          { label: '广东省', value: 'guangdong' },
-          { label: '浙江省', value: 'zhejiang' }
-        ]
+          { label: "北京市", value: "beijing" },
+          { label: "上海市", value: "shanghai" },
+          { label: "广东省", value: "guangdong" },
+          { label: "浙江省", value: "zhejiang" },
+        ],
       },
       dependencies: {
         hasAddress: {
-          when: (value) => value === 'yes',
+          when: (value) => value === "yes",
           then: {
             show: true,
-            rules: z.string().min(1, '请选择省份')
+            rules: z.string().min(1, "请选择省份"),
           },
           else: {
             show: false,
-            rules: z.string().optional()
-          }
-        }
-      }
+            rules: z.string().optional(),
+          },
+        },
+      },
     },
     {
-      component: 'Select',
-      name: 'city',
-      label: '城市',
+      component: "Select",
+      name: "city",
+      label: "城市",
       rules: z.string().optional(),
       componentProps: {
-        placeholder: '请选择城市',
-        options: []
+        placeholder: "请选择城市",
+        options: [],
       },
       dependencies: {
         hasAddress: {
-          when: (value) => value === 'yes',
+          when: (value) => value === "yes",
           then: {
-            show: true
+            show: true,
           },
           else: {
-            show: false
-          }
+            show: false,
+          },
         },
         province: {
           when: (value) => !!value,
@@ -1873,65 +1878,65 @@ const [BasicDependencyForm] = useQiyunForm({
               options: (formValues) => {
                 const cityMap = {
                   beijing: [
-                    { label: '东城区', value: 'dongcheng' },
-                    { label: '西城区', value: 'xicheng' },
-                    { label: '朝阳区', value: 'chaoyang' }
+                    { label: "东城区", value: "dongcheng" },
+                    { label: "西城区", value: "xicheng" },
+                    { label: "朝阳区", value: "chaoyang" },
                   ],
                   shanghai: [
-                    { label: '黄浦区', value: 'huangpu' },
-                    { label: '徐汇区', value: 'xuhui' },
-                    { label: '长宁区', value: 'changning' }
+                    { label: "黄浦区", value: "huangpu" },
+                    { label: "徐汇区", value: "xuhui" },
+                    { label: "长宁区", value: "changning" },
                   ],
                   guangdong: [
-                    { label: '广州市', value: 'guangzhou' },
-                    { label: '深圳市', value: 'shenzhen' },
-                    { label: '珠海市', value: 'zhuhai' }
+                    { label: "广州市", value: "guangzhou" },
+                    { label: "深圳市", value: "shenzhen" },
+                    { label: "珠海市", value: "zhuhai" },
                   ],
                   zhejiang: [
-                    { label: '杭州市', value: 'hangzhou' },
-                    { label: '宁波市', value: 'ningbo' },
-                    { label: '温州市', value: 'wenzhou' }
-                  ]
+                    { label: "杭州市", value: "hangzhou" },
+                    { label: "宁波市", value: "ningbo" },
+                    { label: "温州市", value: "wenzhou" },
+                  ],
                 };
                 return cityMap[formValues.province] || [];
-              }
+              },
             },
-            rules: z.string().min(1, '请选择城市')
+            rules: z.string().min(1, "请选择城市"),
           },
           else: {
             componentProps: {
-              options: []
+              options: [],
             },
-            rules: z.string().optional()
-          }
-        }
-      }
+            rules: z.string().optional(),
+          },
+        },
+      },
     },
     {
-      component: 'Input',
-      name: 'detailAddress',
-      label: '详细地址',
+      component: "Input",
+      name: "detailAddress",
+      label: "详细地址",
       rules: z.string().optional(),
       componentProps: {
-        placeholder: '请输入详细地址'
+        placeholder: "请输入详细地址",
       },
       dependencies: {
         hasAddress: {
-          when: (value) => value === 'yes',
+          when: (value) => value === "yes",
           then: {
             show: true,
-            rules: z.string().min(1, '请输入详细地址')
+            rules: z.string().min(1, "请输入详细地址"),
           },
           else: {
-            show: false
-          }
-        }
-      }
-    }
+            show: false,
+          },
+        },
+      },
+    },
   ],
   onSubmit: (values) => {
-    console.log('基础联动表单提交:', values);
-  }
+    console.log("基础联动表单提交:", values);
+  },
 });
 </script>
 ```
@@ -1944,177 +1949,178 @@ const [BasicDependencyForm] = useQiyunForm({
 </template>
 
 <script setup>
-import { useQiyunForm } from '@repo/form-ui';
-import { z } from 'zod';
+import { useQiyunForm } from "@repo/form-ui";
+import { z } from "zod";
 
 const [ComplexDependencyForm] = useQiyunForm({
-  layout: 'vertical',
+  layout: "vertical",
   schema: [
     {
-      component: 'Select',
-      name: 'productType',
-      label: '产品类型',
-      rules: z.enum(['physical', 'digital', 'service'], {
-        errorMap: () => ({ message: '请选择产品类型' })
+      component: "Select",
+      name: "productType",
+      label: "产品类型",
+      rules: z.enum(["physical", "digital", "service"], {
+        errorMap: () => ({ message: "请选择产品类型" }),
       }),
       componentProps: {
-        placeholder: '请选择产品类型',
+        placeholder: "请选择产品类型",
         options: [
-          { label: '实体商品', value: 'physical' },
-          { label: '数字商品', value: 'digital' },
-          { label: '服务商品', value: 'service' }
-        ]
-      }
+          { label: "实体商品", value: "physical" },
+          { label: "数字商品", value: "digital" },
+          { label: "服务商品", value: "service" },
+        ],
+      },
     },
     {
-      component: 'InputNumber',
-      name: 'weight',
-      label: '重量(kg)',
+      component: "InputNumber",
+      name: "weight",
+      label: "重量(kg)",
       rules: z.number().optional(),
       componentProps: {
-        placeholder: '请输入重量',
+        placeholder: "请输入重量",
         min: 0,
-        precision: 2
+        precision: 2,
       },
       dependencies: {
         productType: {
-          when: (value) => value === 'physical',
+          when: (value) => value === "physical",
           then: {
             show: true,
-            rules: z.number().min(0.01, '重量必须大于0')
+            rules: z.number().min(0.01, "重量必须大于0"),
           },
           else: {
-            show: false
-          }
-        }
-      }
+            show: false,
+          },
+        },
+      },
     },
     {
-      component: 'Select',
-      name: 'shippingMethod',
-      label: '配送方式',
+      component: "Select",
+      name: "shippingMethod",
+      label: "配送方式",
       rules: z.string().optional(),
       componentProps: {
-        placeholder: '请选择配送方式',
-        options: []
+        placeholder: "请选择配送方式",
+        options: [],
       },
       dependencies: {
         productType: {
-          when: (value) => value === 'physical',
+          when: (value) => value === "physical",
           then: {
             show: true,
-            rules: z.string().min(1, '请选择配送方式')
+            rules: z.string().min(1, "请选择配送方式"),
           },
           else: {
-            show: false
-          }
+            show: false,
+          },
         },
         weight: {
-          when: (value, formValues) => formValues.productType === 'physical' && value > 0,
+          when: (value, formValues) =>
+            formValues.productType === "physical" && value > 0,
           then: {
             componentProps: {
               options: (formValues) => {
                 const weight = formValues.weight || 0;
                 if (weight <= 1) {
                   return [
-                    { label: '标准快递', value: 'standard' },
-                    { label: '特快专递', value: 'express' }
+                    { label: "标准快递", value: "standard" },
+                    { label: "特快专递", value: "express" },
                   ];
                 } else if (weight <= 10) {
                   return [
-                    { label: '标准快递', value: 'standard' },
-                    { label: '物流配送', value: 'logistics' }
+                    { label: "标准快递", value: "standard" },
+                    { label: "物流配送", value: "logistics" },
                   ];
                 } else {
                   return [
-                    { label: '物流配送', value: 'logistics' },
-                    { label: '专车配送', value: 'special' }
+                    { label: "物流配送", value: "logistics" },
+                    { label: "专车配送", value: "special" },
                   ];
                 }
-              }
-            }
-          }
-        }
-      }
+              },
+            },
+          },
+        },
+      },
     },
     {
-      component: 'Select',
-      name: 'downloadFormat',
-      label: '下载格式',
+      component: "Select",
+      name: "downloadFormat",
+      label: "下载格式",
       rules: z.string().optional(),
       componentProps: {
-        placeholder: '请选择下载格式',
+        placeholder: "请选择下载格式",
         options: [
-          { label: 'PDF', value: 'pdf' },
-          { label: 'ZIP', value: 'zip' },
-          { label: 'MP4', value: 'mp4' },
-          { label: 'MP3', value: 'mp3' }
-        ]
+          { label: "PDF", value: "pdf" },
+          { label: "ZIP", value: "zip" },
+          { label: "MP4", value: "mp4" },
+          { label: "MP3", value: "mp3" },
+        ],
       },
       dependencies: {
         productType: {
-          when: (value) => value === 'digital',
+          when: (value) => value === "digital",
           then: {
             show: true,
-            rules: z.string().min(1, '请选择下载格式')
+            rules: z.string().min(1, "请选择下载格式"),
           },
           else: {
-            show: false
-          }
-        }
-      }
+            show: false,
+          },
+        },
+      },
     },
     {
-      component: 'Select',
-      name: 'serviceType',
-      label: '服务类型',
+      component: "Select",
+      name: "serviceType",
+      label: "服务类型",
       rules: z.string().optional(),
       componentProps: {
-        placeholder: '请选择服务类型',
+        placeholder: "请选择服务类型",
         options: [
-          { label: '咨询服务', value: 'consulting' },
-          { label: '技术支持', value: 'support' },
-          { label: '培训服务', value: 'training' }
-        ]
+          { label: "咨询服务", value: "consulting" },
+          { label: "技术支持", value: "support" },
+          { label: "培训服务", value: "training" },
+        ],
       },
       dependencies: {
         productType: {
-          when: (value) => value === 'service',
+          when: (value) => value === "service",
           then: {
             show: true,
-            rules: z.string().min(1, '请选择服务类型')
+            rules: z.string().min(1, "请选择服务类型"),
           },
           else: {
-            show: false
-          }
-        }
-      }
+            show: false,
+          },
+        },
+      },
     },
     {
-      component: 'DatePicker',
-      name: 'serviceDate',
-      label: '服务日期',
+      component: "DatePicker",
+      name: "serviceDate",
+      label: "服务日期",
       rules: z.date().optional(),
       componentProps: {
-        placeholder: '请选择服务日期'
+        placeholder: "请选择服务日期",
       },
       dependencies: {
         serviceType: {
           when: (value) => !!value,
           then: {
             show: true,
-            rules: z.date().min(new Date(), '服务日期不能早于今天')
+            rules: z.date().min(new Date(), "服务日期不能早于今天"),
           },
           else: {
-            show: false
-          }
-        }
-      }
-    }
+            show: false,
+          },
+        },
+      },
+    },
   ],
   onSubmit: (values) => {
-    console.log('复杂联动表单提交:', values);
-  }
+    console.log("复杂联动表单提交:", values);
+  },
 });
 </script>
 ```
@@ -2126,18 +2132,16 @@ const [ComplexDependencyForm] = useQiyunForm({
   <div>
     <DynamicForm />
     <div class="mt-4">
-      <Button @click="addContact" type="dashed" block>
-        + 添加联系人
-      </Button>
+      <Button @click="addContact" type="dashed" block> + 添加联系人 </Button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useQiyunForm } from '@repo/form-ui';
-import { Button } from 'ant-design-vue';
-import { z } from 'zod';
-import { ref, computed } from 'vue';
+import { useQiyunForm } from "@repo/form-ui";
+import { Button } from "ant-design-vue";
+import { z } from "zod";
+import { ref, computed } from "vue";
 
 const contactCount = ref(1);
 
@@ -2163,61 +2167,66 @@ const removeContact = (index) => {
 const dynamicSchema = computed(() => {
   const baseSchema = [
     {
-      component: 'Input',
-      name: 'companyName',
-      label: '公司名称',
-      rules: z.string().min(1, '请输入公司名称'),
+      component: "Input",
+      name: "companyName",
+      label: "公司名称",
+      rules: z.string().min(1, "请输入公司名称"),
       componentProps: {
-        placeholder: '请输入公司名称'
-      }
-    }
+        placeholder: "请输入公司名称",
+      },
+    },
   ];
 
   // 动态添加联系人字段
   for (let i = 0; i < contactCount.value; i++) {
     baseSchema.push(
       {
-        component: 'Input',
+        component: "Input",
         name: `contact_${i}_name`,
         label: `联系人${i + 1}姓名`,
-        rules: z.string().min(1, '请输入联系人姓名'),
+        rules: z.string().min(1, "请输入联系人姓名"),
         componentProps: {
-          placeholder: '请输入联系人姓名',
-          addonAfter: i > 0 ? {
-            component: 'Button',
-            props: {
-              type: 'link',
-              danger: true,
-              size: 'small',
-              onClick: () => removeContact(i)
-            },
-            children: '删除'
-          } : undefined
-        }
+          placeholder: "请输入联系人姓名",
+          addonAfter:
+            i > 0
+              ? {
+                  component: "Button",
+                  props: {
+                    type: "link",
+                    danger: true,
+                    size: "small",
+                    onClick: () => removeContact(i),
+                  },
+                  children: "删除",
+                }
+              : undefined,
+        },
       },
       {
-        component: 'Input',
+        component: "Input",
         name: `contact_${i}_phone`,
         label: `联系人${i + 1}电话`,
-        rules: z.string()
-          .min(1, '请输入联系人电话')
-          .regex(/^1[3-9]\d{9}$/, '请输入正确的手机号'),
+        rules: z
+          .string()
+          .min(1, "请输入联系人电话")
+          .regex(/^1[3-9]\d{9}$/, "请输入正确的手机号"),
         componentProps: {
-          placeholder: '请输入联系人电话'
-        }
+          placeholder: "请输入联系人电话",
+        },
       },
       {
-        component: 'Input',
+        component: "Input",
         name: `contact_${i}_email`,
         label: `联系人${i + 1}邮箱`,
-        rules: z.string()
-          .email('请输入正确的邮箱格式')
+        rules: z
+          .string()
+          .email("请输入正确的邮箱格式")
           .optional()
-          .or(z.literal('')),
+          .or(z.literal("")),
         componentProps: {
-          placeholder: '请输入联系人邮箱（可选）'
-        }
-      }
+          placeholder: "请输入联系人邮箱（可选）",
+        },
+      },
     );
   }
 
@@ -2225,11 +2234,11 @@ const dynamicSchema = computed(() => {
 });
 
 const [DynamicForm, formApi] = useQiyunForm({
-  layout: 'vertical',
+  layout: "vertical",
   schema: dynamicSchema,
   onSubmit: (values) => {
-    console.log('动态表单提交:', values);
-  }
+    console.log("动态表单提交:", values);
+  },
 });
 </script>
 ```
@@ -2242,112 +2251,113 @@ const [DynamicForm, formApi] = useQiyunForm({
 </template>
 
 <script setup>
-import { useQiyunForm } from '@repo/form-ui';
-import { z } from 'zod';
+import { useQiyunForm } from "@repo/form-ui";
+import { z } from "zod";
 
 const [ConditionalDisableForm] = useQiyunForm({
-  layout: 'vertical',
+  layout: "vertical",
   schema: [
     {
-      component: 'Checkbox',
-      name: 'isVip',
-      label: 'VIP会员',
+      component: "Checkbox",
+      name: "isVip",
+      label: "VIP会员",
       rules: z.boolean().optional(),
       componentProps: {
-        children: '我是VIP会员'
-      }
+        children: "我是VIP会员",
+      },
     },
     {
-      component: 'InputNumber',
-      name: 'discountRate',
-      label: '折扣率(%)',
+      component: "InputNumber",
+      name: "discountRate",
+      label: "折扣率(%)",
       rules: z.number().optional(),
       componentProps: {
-        placeholder: '请输入折扣率',
+        placeholder: "请输入折扣率",
         min: 1,
         max: 100,
         formatter: (value) => `${value}%`,
-        parser: (value) => value.replace('%', '')
+        parser: (value) => value.replace("%", ""),
       },
       dependencies: {
         isVip: {
           when: (value) => value === true,
           then: {
             disabled: false,
-            rules: z.number()
-              .min(1, '折扣率不能小于1%')
-              .max(50, 'VIP最大折扣50%'),
+            rules: z
+              .number()
+              .min(1, "折扣率不能小于1%")
+              .max(50, "VIP最大折扣50%"),
             componentProps: {
-              max: 50
-            }
+              max: 50,
+            },
           },
           else: {
             disabled: true,
             rules: z.number().optional(),
             componentProps: {
-              max: 100
-            }
-          }
-        }
-      }
+              max: 100,
+            },
+          },
+        },
+      },
     },
     {
-      component: 'Select',
-      name: 'memberLevel',
-      label: '会员等级',
+      component: "Select",
+      name: "memberLevel",
+      label: "会员等级",
       rules: z.string().optional(),
       componentProps: {
-        placeholder: '请选择会员等级',
+        placeholder: "请选择会员等级",
         options: [
-          { label: '青铜会员', value: 'bronze' },
-          { label: '白银会员', value: 'silver' },
-          { label: '黄金会员', value: 'gold' },
-          { label: '钻石会员', value: 'diamond' }
-        ]
+          { label: "青铜会员", value: "bronze" },
+          { label: "白银会员", value: "silver" },
+          { label: "黄金会员", value: "gold" },
+          { label: "钻石会员", value: "diamond" },
+        ],
       },
       dependencies: {
         isVip: {
           when: (value) => value === true,
           then: {
             show: true,
-            rules: z.string().min(1, '请选择会员等级')
+            rules: z.string().min(1, "请选择会员等级"),
           },
           else: {
-            show: false
-          }
-        }
-      }
+            show: false,
+          },
+        },
+      },
     },
     {
-      component: 'Input',
-      name: 'specialPrivilege',
-      label: '专属特权',
+      component: "Input",
+      name: "specialPrivilege",
+      label: "专属特权",
       rules: z.string().optional(),
       componentProps: {
-        placeholder: '请输入专属特权'
+        placeholder: "请输入专属特权",
       },
       dependencies: {
         memberLevel: {
-          when: (value) => ['gold', 'diamond'].includes(value),
+          when: (value) => ["gold", "diamond"].includes(value),
           then: {
             show: true,
-            rules: z.string().min(1, '请输入专属特权'),
+            rules: z.string().min(1, "请输入专属特权"),
             componentProps: {
               style: {
-                borderColor: '#gold'
-              }
-            }
+                borderColor: "#gold",
+              },
+            },
           },
           else: {
-            show: false
-          }
-        }
-      }
-    }
+            show: false,
+          },
+        },
+      },
+    },
   ],
   onSubmit: (values) => {
-    console.log('条件禁用表单提交:', values);
-  }
+    console.log("条件禁用表单提交:", values);
+  },
 });
 </script>
 ```
@@ -2371,124 +2381,133 @@ const [ConditionalDisableForm] = useQiyunForm({
 </template>
 
 <script setup>
-import { useQiyunForm } from '@repo/form-ui';
-import { Button, message } from 'ant-design-vue';
-import { z } from 'zod';
+import { useQiyunForm } from "@repo/form-ui";
+import { Button, message } from "ant-design-vue";
+import { z } from "zod";
 
 const [ValidationForm, formApi] = useQiyunForm({
-  layout: 'vertical',
+  layout: "vertical",
   schema: [
     {
-      component: 'Input',
-      name: 'username',
-      label: '用户名',
-      rules: z.string()
-        .min(3, '用户名至少3个字符')
-        .max(20, '用户名最多20个字符')
-        .regex(/^[a-zA-Z0-9_]+$/, '用户名只能包含字母、数字和下划线'),
+      component: "Input",
+      name: "username",
+      label: "用户名",
+      rules: z
+        .string()
+        .min(3, "用户名至少3个字符")
+        .max(20, "用户名最多20个字符")
+        .regex(/^[a-zA-Z0-9_]+$/, "用户名只能包含字母、数字和下划线"),
       componentProps: {
-        placeholder: '请输入用户名'
-      }
+        placeholder: "请输入用户名",
+      },
     },
     {
-      component: 'Input',
-      name: 'password',
-      label: '密码',
-      rules: z.string()
-        .min(8, '密码至少8个字符')
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, '密码必须包含大小写字母和数字'),
+      component: "Input",
+      name: "password",
+      label: "密码",
+      rules: z
+        .string()
+        .min(8, "密码至少8个字符")
+        .regex(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+          "密码必须包含大小写字母和数字",
+        ),
       componentProps: {
-        type: 'password',
-        placeholder: '请输入密码'
-      }
+        type: "password",
+        placeholder: "请输入密码",
+      },
     },
     {
-      component: 'Input',
-      name: 'confirmPassword',
-      label: '确认密码',
-      rules: z.string().min(1, '请确认密码'),
+      component: "Input",
+      name: "confirmPassword",
+      label: "确认密码",
+      rules: z.string().min(1, "请确认密码"),
       componentProps: {
-        type: 'password',
-        placeholder: '请再次输入密码'
-      }
+        type: "password",
+        placeholder: "请再次输入密码",
+      },
     },
     {
-      component: 'Input',
-      name: 'email',
-      label: '邮箱',
-      rules: z.string()
-        .email('请输入正确的邮箱格式')
+      component: "Input",
+      name: "email",
+      label: "邮箱",
+      rules: z
+        .string()
+        .email("请输入正确的邮箱格式")
         .refine(async (email) => {
           // 模拟异步校验邮箱是否已存在
-          await new Promise(resolve => setTimeout(resolve, 500));
-          return !['admin@example.com', 'test@example.com'].includes(email);
-        }, '该邮箱已被注册'),
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          return !["admin@example.com", "test@example.com"].includes(email);
+        }, "该邮箱已被注册"),
       componentProps: {
-        placeholder: '请输入邮箱'
-      }
+        placeholder: "请输入邮箱",
+      },
     },
     {
-      component: 'InputNumber',
-      name: 'age',
-      label: '年龄',
-      rules: z.number()
-        .min(18, '年龄不能小于18岁')
-        .max(100, '年龄不能大于100岁'),
+      component: "InputNumber",
+      name: "age",
+      label: "年龄",
+      rules: z
+        .number()
+        .min(18, "年龄不能小于18岁")
+        .max(100, "年龄不能大于100岁"),
       componentProps: {
-        placeholder: '请输入年龄',
+        placeholder: "请输入年龄",
         min: 1,
-        max: 150
-      }
+        max: 150,
+      },
     },
     {
-      component: 'Select',
-      name: 'gender',
-      label: '性别',
-      rules: z.enum(['male', 'female'], {
-        errorMap: () => ({ message: '请选择性别' })
+      component: "Select",
+      name: "gender",
+      label: "性别",
+      rules: z.enum(["male", "female"], {
+        errorMap: () => ({ message: "请选择性别" }),
       }),
       componentProps: {
-        placeholder: '请选择性别',
+        placeholder: "请选择性别",
         options: [
-          { label: '男', value: 'male' },
-          { label: '女', value: 'female' }
-        ]
-      }
+          { label: "男", value: "male" },
+          { label: "女", value: "female" },
+        ],
+      },
     },
     {
-      component: 'Checkbox',
-      name: 'agreement',
-      label: '同意条款',
-      rules: z.boolean().refine(val => val === true, '请同意用户协议'),
+      component: "Checkbox",
+      name: "agreement",
+      label: "同意条款",
+      rules: z.boolean().refine((val) => val === true, "请同意用户协议"),
       componentProps: {
-        children: '我已阅读并同意用户协议'
-      }
-    }
+        children: "我已阅读并同意用户协议",
+      },
+    },
   ],
   // 表单级别的校验
-  validationSchema: z.object({
-    username: z.string(),
-    password: z.string(),
-    confirmPassword: z.string(),
-    email: z.string(),
-    age: z.number(),
-    gender: z.enum(['male', 'female']),
-    agreement: z.boolean()
-  }).refine((data) => data.password === data.confirmPassword, {
-    message: '两次输入的密码不一致',
-    path: ['confirmPassword']
-  }),
+  validationSchema: z
+    .object({
+      username: z.string(),
+      password: z.string(),
+      confirmPassword: z.string(),
+      email: z.string(),
+      age: z.number(),
+      gender: z.enum(["male", "female"]),
+      agreement: z.boolean(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "两次输入的密码不一致",
+      path: ["confirmPassword"],
+    }),
   onSubmit: (values) => {
-    message.success('表单提交成功！');
-    console.log('表单数据:', values);
-  }
+    message.success("表单提交成功！");
+    console.log("表单数据:", values);
+  },
 });
 
 const handleSubmit = async () => {
   try {
     await formApi.submitForm();
   } catch (error) {
-    message.error('表单验证失败，请检查输入');
+    message.error("表单验证失败，请检查输入");
   }
 };
 
@@ -2496,18 +2515,18 @@ const handleValidate = async () => {
   try {
     const isValid = await formApi.validate();
     if (isValid) {
-      message.success('表单验证通过！');
+      message.success("表单验证通过！");
     } else {
-      message.error('表单验证失败！');
+      message.error("表单验证失败！");
     }
   } catch (error) {
-    message.error('验证过程中出现错误');
+    message.error("验证过程中出现错误");
   }
 };
 
 const handleReset = () => {
   formApi.resetForm();
-  message.info('表单已重置');
+  message.info("表单已重置");
 };
 </script>
 ```
@@ -2520,8 +2539,8 @@ const handleReset = () => {
 </template>
 
 <script setup>
-import { useQiyunForm } from '@repo/form-ui';
-import { z } from 'zod';
+import { useQiyunForm } from "@repo/form-ui";
+import { z } from "zod";
 
 // 自定义校验函数
 const validatePhone = (phone) => {
@@ -2530,69 +2549,74 @@ const validatePhone = (phone) => {
 };
 
 const validateIdCard = (idCard) => {
-  const idCardRegex = /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+  const idCardRegex =
+    /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
   return idCardRegex.test(idCard);
 };
 
 // 异步校验用户名是否可用
 const checkUsernameAvailable = async (username) => {
   // 模拟API调用
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  const unavailableUsernames = ['admin', 'root', 'test', 'user'];
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const unavailableUsernames = ["admin", "root", "test", "user"];
   return !unavailableUsernames.includes(username.toLowerCase());
 };
 
 const [CustomValidationForm] = useQiyunForm({
   schema: [
     {
-      component: 'Input',
-      name: 'username',
-      label: '用户名',
-      rules: z.string()
-        .min(1, '请输入用户名')
-        .refine(checkUsernameAvailable, '该用户名不可用'),
+      component: "Input",
+      name: "username",
+      label: "用户名",
+      rules: z
+        .string()
+        .min(1, "请输入用户名")
+        .refine(checkUsernameAvailable, "该用户名不可用"),
       componentProps: {
-        placeholder: '请输入用户名'
-      }
+        placeholder: "请输入用户名",
+      },
     },
     {
-      component: 'Input',
-      name: 'phone',
-      label: '手机号',
-      rules: z.string()
-        .min(1, '请输入手机号')
-        .refine(validatePhone, '请输入正确的手机号格式'),
+      component: "Input",
+      name: "phone",
+      label: "手机号",
+      rules: z
+        .string()
+        .min(1, "请输入手机号")
+        .refine(validatePhone, "请输入正确的手机号格式"),
       componentProps: {
-        placeholder: '请输入手机号'
-      }
+        placeholder: "请输入手机号",
+      },
     },
     {
-      component: 'Input',
-      name: 'idCard',
-      label: '身份证号',
-      rules: z.string()
-        .min(1, '请输入身份证号')
-        .refine(validateIdCard, '请输入正确的身份证号格式'),
+      component: "Input",
+      name: "idCard",
+      label: "身份证号",
+      rules: z
+        .string()
+        .min(1, "请输入身份证号")
+        .refine(validateIdCard, "请输入正确的身份证号格式"),
       componentProps: {
-        placeholder: '请输入身份证号'
-      }
+        placeholder: "请输入身份证号",
+      },
     },
     {
-      component: 'Input',
-      name: 'website',
-      label: '个人网站',
-      rules: z.string()
-        .url('请输入正确的网址格式')
+      component: "Input",
+      name: "website",
+      label: "个人网站",
+      rules: z
+        .string()
+        .url("请输入正确的网址格式")
         .optional()
-        .or(z.literal('')), // 允许空值
+        .or(z.literal("")), // 允许空值
       componentProps: {
-        placeholder: '请输入个人网站（可选）'
-      }
-    }
+        placeholder: "请输入个人网站（可选）",
+      },
+    },
   ],
   onSubmit: (values) => {
-    console.log('自定义校验表单提交:', values);
-  }
+    console.log("自定义校验表单提交:", values);
+  },
 });
 </script>
 ```
@@ -2605,100 +2629,102 @@ const [CustomValidationForm] = useQiyunForm({
 </template>
 
 <script setup>
-import { useQiyunForm } from '@repo/form-ui';
-import { z } from 'zod';
+import { useQiyunForm } from "@repo/form-ui";
+import { z } from "zod";
 
 const [ConditionalValidationForm] = useQiyunForm({
   schema: [
     {
-      component: 'Select',
-      name: 'userType',
-      label: '用户类型',
-      rules: z.enum(['individual', 'company'], {
-        errorMap: () => ({ message: '请选择用户类型' })
+      component: "Select",
+      name: "userType",
+      label: "用户类型",
+      rules: z.enum(["individual", "company"], {
+        errorMap: () => ({ message: "请选择用户类型" }),
       }),
       componentProps: {
-        placeholder: '请选择用户类型',
+        placeholder: "请选择用户类型",
         options: [
-          { label: '个人用户', value: 'individual' },
-          { label: '企业用户', value: 'company' }
-        ]
-      }
+          { label: "个人用户", value: "individual" },
+          { label: "企业用户", value: "company" },
+        ],
+      },
     },
     {
-      component: 'Input',
-      name: 'personalName',
-      label: '姓名',
+      component: "Input",
+      name: "personalName",
+      label: "姓名",
       rules: z.string().optional(),
       componentProps: {
-        placeholder: '请输入姓名'
+        placeholder: "请输入姓名",
       },
       dependencies: {
         userType: {
-          when: (value) => value === 'individual',
+          when: (value) => value === "individual",
           then: {
-            rules: z.string().min(1, '请输入姓名')
-          }
-        }
-      }
+            rules: z.string().min(1, "请输入姓名"),
+          },
+        },
+      },
     },
     {
-      component: 'Input',
-      name: 'companyName',
-      label: '公司名称',
+      component: "Input",
+      name: "companyName",
+      label: "公司名称",
       rules: z.string().optional(),
       componentProps: {
-        placeholder: '请输入公司名称'
+        placeholder: "请输入公司名称",
       },
       dependencies: {
         userType: {
-          when: (value) => value === 'company',
+          when: (value) => value === "company",
           then: {
-            rules: z.string().min(1, '请输入公司名称')
-          }
-        }
-      }
+            rules: z.string().min(1, "请输入公司名称"),
+          },
+        },
+      },
     },
     {
-      component: 'Input',
-      name: 'taxNumber',
-      label: '税号',
+      component: "Input",
+      name: "taxNumber",
+      label: "税号",
       rules: z.string().optional(),
       componentProps: {
-        placeholder: '请输入税号'
+        placeholder: "请输入税号",
       },
       dependencies: {
         userType: {
-          when: (value) => value === 'company',
+          when: (value) => value === "company",
           then: {
-            rules: z.string()
-              .min(1, '请输入税号')
-              .regex(/^[A-Z0-9]{15,20}$/, '税号格式不正确')
-          }
-        }
-      }
-    }
+            rules: z
+              .string()
+              .min(1, "请输入税号")
+              .regex(/^[A-Z0-9]{15,20}$/, "税号格式不正确"),
+          },
+        },
+      },
+    },
   ],
   // 使用 Zod 的条件校验
-  validationSchema: z.discriminatedUnion('userType', [
+  validationSchema: z.discriminatedUnion("userType", [
     z.object({
-      userType: z.literal('individual'),
-      personalName: z.string().min(1, '请输入姓名'),
+      userType: z.literal("individual"),
+      personalName: z.string().min(1, "请输入姓名"),
       companyName: z.string().optional(),
-      taxNumber: z.string().optional()
+      taxNumber: z.string().optional(),
     }),
     z.object({
-      userType: z.literal('company'),
+      userType: z.literal("company"),
       personalName: z.string().optional(),
-      companyName: z.string().min(1, '请输入公司名称'),
-      taxNumber: z.string()
-        .min(1, '请输入税号')
-        .regex(/^[A-Z0-9]{15,20}$/, '税号格式不正确')
-    })
+      companyName: z.string().min(1, "请输入公司名称"),
+      taxNumber: z
+        .string()
+        .min(1, "请输入税号")
+        .regex(/^[A-Z0-9]{15,20}$/, "税号格式不正确"),
+    }),
   ]),
   onSubmit: (values) => {
-    console.log('条件校验表单提交:', values);
-  }
+    console.log("条件校验表单提交:", values);
+  },
 });
 </script>
 ```
@@ -2711,17 +2737,17 @@ const [ConditionalValidationForm] = useQiyunForm({
 </template>
 
 <script setup>
-import { useQiyunForm } from '@repo/form-ui';
-import { z } from 'zod';
-import { debounce } from 'lodash-es';
+import { useQiyunForm } from "@repo/form-ui";
+import { z } from "zod";
+import { debounce } from "lodash-es";
 
 // 防抖的异步校验函数
 const debouncedEmailCheck = debounce(async (email) => {
   if (!email) return true;
-  
+
   // 模拟API调用
-  await new Promise(resolve => setTimeout(resolve, 500));
-  const existingEmails = ['admin@example.com', 'test@example.com'];
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  const existingEmails = ["admin@example.com", "test@example.com"];
   return !existingEmails.includes(email);
 }, 300);
 
@@ -2731,51 +2757,58 @@ const [RealtimeValidationForm] = useQiyunForm({
   validateOnBlur: true,
   schema: [
     {
-      component: 'Input',
-      name: 'email',
-      label: '邮箱',
-      rules: z.string()
-        .email('请输入正确的邮箱格式')
-        .refine(debouncedEmailCheck, '该邮箱已被注册'),
+      component: "Input",
+      name: "email",
+      label: "邮箱",
+      rules: z
+        .string()
+        .email("请输入正确的邮箱格式")
+        .refine(debouncedEmailCheck, "该邮箱已被注册"),
       componentProps: {
-        placeholder: '请输入邮箱'
-      }
+        placeholder: "请输入邮箱",
+      },
     },
     {
-      component: 'Input',
-      name: 'password',
-      label: '密码',
-      rules: z.string()
-        .min(8, '密码至少8个字符')
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, '密码必须包含大小写字母和数字'),
+      component: "Input",
+      name: "password",
+      label: "密码",
+      rules: z
+        .string()
+        .min(8, "密码至少8个字符")
+        .regex(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+          "密码必须包含大小写字母和数字",
+        ),
       componentProps: {
-        type: 'password',
-        placeholder: '请输入密码'
-      }
+        type: "password",
+        placeholder: "请输入密码",
+      },
     },
     {
-      component: 'Input',
-      name: 'confirmPassword',
-      label: '确认密码',
-      rules: z.string().min(1, '请确认密码'),
+      component: "Input",
+      name: "confirmPassword",
+      label: "确认密码",
+      rules: z.string().min(1, "请确认密码"),
       componentProps: {
-        type: 'password',
-        placeholder: '请再次输入密码'
-      }
-    }
+        type: "password",
+        placeholder: "请再次输入密码",
+      },
+    },
   ],
   // 表单级别的实时校验
-  validationSchema: z.object({
-    email: z.string(),
-    password: z.string(),
-    confirmPassword: z.string()
-  }).refine((data) => data.password === data.confirmPassword, {
-    message: '两次输入的密码不一致',
-    path: ['confirmPassword']
-  }),
+  validationSchema: z
+    .object({
+      email: z.string(),
+      password: z.string(),
+      confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "两次输入的密码不一致",
+      path: ["confirmPassword"],
+    }),
   onSubmit: (values) => {
-    console.log('实时校验表单提交:', values);
-  }
+    console.log("实时校验表单提交:", values);
+  },
 });
 </script>
 ```
@@ -2783,6 +2816,7 @@ const [RealtimeValidationForm] = useQiyunForm({
 ## 🔍 查询表单
 
 查询表单通常用于数据筛选和搜索场景，具有以下特点：
+
 - 内联布局，节省空间
 - 支持实时搜索
 - 提供重置功能
@@ -2795,7 +2829,7 @@ const [RealtimeValidationForm] = useQiyunForm({
     <div class="bg-white p-4 rounded-lg shadow-sm mb-4">
       <SearchForm />
     </div>
-    
+
     <!-- 查询结果 -->
     <div class="bg-white p-4 rounded-lg shadow-sm">
       <div v-if="loading" class="text-center py-8">
@@ -2812,9 +2846,9 @@ const [RealtimeValidationForm] = useQiyunForm({
 </template>
 
 <script setup>
-import { useQiyunForm } from '@repo/form-ui';
-import { Spin } from 'ant-design-vue';
-import { ref, watch } from 'vue';
+import { useQiyunForm } from "@repo/form-ui";
+import { Spin } from "ant-design-vue";
+import { ref, watch } from "vue";
 
 const loading = ref(false);
 const results = ref([]);
@@ -2823,68 +2857,68 @@ const results = ref([]);
 const searchUsers = async (params) => {
   loading.value = true;
   // 模拟API调用
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   // 模拟返回数据
   results.value = [
-    { id: 1, name: '张三', email: 'zhang@example.com', status: '激活' },
-    { id: 2, name: '李四', email: 'li@example.com', status: '禁用' },
-  ].filter(item => {
+    { id: 1, name: "张三", email: "zhang@example.com", status: "激活" },
+    { id: 2, name: "李四", email: "li@example.com", status: "禁用" },
+  ].filter((item) => {
     if (params.name && !item.name.includes(params.name)) return false;
     if (params.status && item.status !== params.status) return false;
     return true;
   });
-  
+
   loading.value = false;
 };
 
 // 创建查询表单
 const [SearchForm, searchFormApi] = useQiyunForm({
-  layout: 'inline',
+  layout: "inline",
   submitOnChange: true, // 值变化时自动提交
   schema: [
     {
-      component: 'Input',
-      name: 'name',
-      label: '用户名',
+      component: "Input",
+      name: "name",
+      label: "用户名",
       componentProps: {
-        placeholder: '请输入用户名',
-        allowClear: true
-      }
+        placeholder: "请输入用户名",
+        allowClear: true,
+      },
     },
     {
-      component: 'Select',
-      name: 'status',
-      label: '状态',
+      component: "Select",
+      name: "status",
+      label: "状态",
       componentProps: {
-        placeholder: '请选择状态',
+        placeholder: "请选择状态",
         allowClear: true,
         options: [
-          { label: '激活', value: '激活' },
-          { label: '禁用', value: '禁用' }
-        ]
-      }
+          { label: "激活", value: "激活" },
+          { label: "禁用", value: "禁用" },
+        ],
+      },
     },
     {
-      component: 'DatePicker',
-      name: 'createTime',
-      label: '创建时间',
+      component: "DatePicker",
+      name: "createTime",
+      label: "创建时间",
       componentProps: {
-        placeholder: '请选择创建时间',
-        allowClear: true
-      }
-    }
+        placeholder: "请选择创建时间",
+        allowClear: true,
+      },
+    },
   ],
   // 查询回调
   onSubmit: (values) => {
-    console.log('查询参数:', values);
+    console.log("查询参数:", values);
     searchUsers(values);
   },
   // 显示操作按钮
   showActiveButton: true,
   showResetButton: true,
-  activeButtonText: '查询',
-  resetButtonText: '重置'
+  activeButtonText: "查询",
+  resetButtonText: "重置",
 });
 
 // 监听表单值变化，实现实时搜索
@@ -2893,7 +2927,7 @@ watch(
   (newValues) => {
     searchUsers(newValues);
   },
-  { deep: true }
+  { deep: true },
 );
 
 // 初始化查询
@@ -2907,11 +2941,11 @@ searchUsers({});
 <template>
   <div>
     <AdvancedSearchForm />
-    
+
     <!-- 展开/收起更多筛选条件 -->
     <div class="mt-4">
       <Button @click="toggleExpanded" type="link">
-        {{ expanded ? '收起' : '展开' }}更多筛选条件
+        {{ expanded ? "收起" : "展开" }}更多筛选条件
         <DownOutlined v-if="!expanded" />
         <UpOutlined v-if="expanded" />
       </Button>
@@ -2920,10 +2954,10 @@ searchUsers({});
 </template>
 
 <script setup>
-import { useQiyunForm } from '@repo/form-ui';
-import { Button } from 'ant-design-vue';
-import { DownOutlined, UpOutlined } from '@ant-design/icons-vue';
-import { ref, computed } from 'vue';
+import { useQiyunForm } from "@repo/form-ui";
+import { Button } from "ant-design-vue";
+import { DownOutlined, UpOutlined } from "@ant-design/icons-vue";
+import { ref, computed } from "vue";
 
 const expanded = ref(false);
 
@@ -2934,64 +2968,64 @@ const toggleExpanded = () => {
 // 基础查询字段
 const baseSchema = [
   {
-    component: 'Input',
-    name: 'keyword',
-    label: '关键词',
+    component: "Input",
+    name: "keyword",
+    label: "关键词",
     componentProps: {
-      placeholder: '请输入关键词搜索'
-    }
+      placeholder: "请输入关键词搜索",
+    },
   },
   {
-    component: 'Select',
-    name: 'category',
-    label: '分类',
+    component: "Select",
+    name: "category",
+    label: "分类",
     componentProps: {
-      placeholder: '请选择分类',
+      placeholder: "请选择分类",
       options: [
-        { label: '用户管理', value: 'user' },
-        { label: '订单管理', value: 'order' },
-        { label: '商品管理', value: 'product' }
-      ]
-    }
-  }
+        { label: "用户管理", value: "user" },
+        { label: "订单管理", value: "order" },
+        { label: "商品管理", value: "product" },
+      ],
+    },
+  },
 ];
 
 // 高级查询字段
 const advancedSchema = [
   {
-    component: 'DatePicker',
-    name: 'startDate',
-    label: '开始日期',
+    component: "DatePicker",
+    name: "startDate",
+    label: "开始日期",
     componentProps: {
-      placeholder: '请选择开始日期'
-    }
+      placeholder: "请选择开始日期",
+    },
   },
   {
-    component: 'DatePicker',
-    name: 'endDate',
-    label: '结束日期',
+    component: "DatePicker",
+    name: "endDate",
+    label: "结束日期",
     componentProps: {
-      placeholder: '请选择结束日期'
-    }
+      placeholder: "请选择结束日期",
+    },
   },
   {
-    component: 'InputNumber',
-    name: 'minAmount',
-    label: '最小金额',
+    component: "InputNumber",
+    name: "minAmount",
+    label: "最小金额",
     componentProps: {
-      placeholder: '请输入最小金额',
-      min: 0
-    }
+      placeholder: "请输入最小金额",
+      min: 0,
+    },
   },
   {
-    component: 'InputNumber',
-    name: 'maxAmount',
-    label: '最大金额',
+    component: "InputNumber",
+    name: "maxAmount",
+    label: "最大金额",
     componentProps: {
-      placeholder: '请输入最大金额',
-      min: 0
-    }
-  }
+      placeholder: "请输入最大金额",
+      min: 0,
+    },
+  },
 ];
 
 // 动态计算schema
@@ -3000,11 +3034,11 @@ const dynamicSchema = computed(() => {
 });
 
 const [AdvancedSearchForm, formApi] = useQiyunForm({
-  layout: 'inline',
+  layout: "inline",
   schema: dynamicSchema,
   onSubmit: (values) => {
-    console.log('高级查询:', values);
-  }
+    console.log("高级查询:", values);
+  },
 });
 </script>
 ```

@@ -80,7 +80,7 @@ const allLeaves = getAllLeafNodes(treeNodes);
 合并动态路由模块的默认导出，用于 Vue Router。
 
 ```ts
-const modules = import.meta.glob('./routes/*.ts', { eager: true });
+const modules = import.meta.glob("./routes/*.ts", { eager: true });
 const routes = mergeRouteModules(modules);
 ```
 

@@ -6,42 +6,45 @@ import { prisma } from '@app/prisma';
 @Injectable()
 export class MenuService {
   list({ name, ...rest }: ListMenuQuery, user: any) {
-    return prisma.sys_menu.page({
-      ...rest,
-      where: {
-        name: {
-          contains: name,
+    return prisma.sys_menu.page(
+      {
+        ...rest,
+        where: {
+          name: {
+            contains: name,
+          },
+          deleted: false,
         },
-        deleted: false
       },
-    }, user)
+      user,
+    );
   }
   delete(id: string, user: any) {
     return prisma.sys_menu.update({
       where: {
-        id
+        id,
       },
       data: {
         deleted: true,
-        update_by: user?.id
-      }
-    })
+        update_by: user?.id,
+      },
+    });
   }
   async update(id: string, body, user: any) {
     const data = {
-      ...body
-    }
+      ...body,
+    };
     if (!!user) {
       data.update_by = user.id;
     }
     return prisma.sys_menu.update({
       where: {
-        id
+        id,
       },
       data: {
         ...body,
-      }
-    })
+      },
+    });
   }
   async create(body, user?: sys_user) {
     const data = {
@@ -52,7 +55,7 @@ export class MenuService {
       data.update_by = user.id;
     }
     return await prisma.sys_menu.create({
-      data
-    })
+      data,
+    });
   }
 }

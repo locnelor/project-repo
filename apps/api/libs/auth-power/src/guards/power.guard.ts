@@ -1,5 +1,10 @@
 // 导入必要的依赖
-import { ExecutionContext, Injectable, UnauthorizedException, ForbiddenException } from '@nestjs/common';
+import {
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthPowerEnum } from '../enums/auth-power.enum';
 

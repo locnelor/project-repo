@@ -5,7 +5,7 @@ import { prisma } from '@app/prisma';
 
 export interface JwtPayload {
   sub: string;
-  crypto: string
+  crypto: string;
 }
 
 @Injectable()
@@ -13,13 +13,12 @@ export class AuthPowerService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly hashService: HashService,
-  ) { }
-
+  ) {}
 
   async validate({ sub, crypto }: JwtPayload) {
     const user = await prisma.sys_user.findUnique({
       where: {
-        id: sub
+        id: sub,
       },
       include: {
         // roles: {
@@ -35,9 +34,9 @@ export class AuthPowerService {
         //     }
         //   }
         // },
-        department: true
-      }
-    })
+        department: true,
+      },
+    });
     if (!user) return null;
     if (!this.comparePassword(user.password!, crypto)) return null;
     return user;
@@ -48,7 +47,7 @@ export class AuthPowerService {
   generateToken(user: any) {
     const payload: JwtPayload = {
       sub: user.uid,
-      crypto: this.hashPassword(user.passport)
+      crypto: this.hashPassword(user.passport),
     };
     return this.jwtService.sign(payload);
   }
@@ -58,7 +57,7 @@ export class AuthPowerService {
    */
   hashPassword(password: string) {
     const { salt, hash } = this.hashService.cryptoPassword(password);
-    return `${salt}:${hash}`
+    return `${salt}:${hash}`;
   }
 
   /**

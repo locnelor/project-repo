@@ -12,7 +12,7 @@
 推荐使用以下工具之一进行 Node.js 版本管理：
 
 - **nvm** (Node Version Manager)
-- **fnm** (Fast Node Manager)  
+- **fnm** (Fast Node Manager)
 - **pnpm** (也可用于 Node.js 版本管理)
 
 ### 验证环境
@@ -43,6 +43,7 @@ pnpm install
 ```
 
 ::: warning 注意事项
+
 - 项目只支持使用 **pnpm** 进行依赖安装
 - 默认会使用 **corepack** 来安装指定版本的 pnpm
 - 如果网络环境无法访问 npm 源，可以设置环境变量：
@@ -50,7 +51,7 @@ pnpm install
   export COREPACK_NPM_REGISTRY=https://registry.npmmirror.com
   ```
   然后再执行 `pnpm install`
-:::
+  :::
 
 ### 3. 运行项目
 
@@ -63,7 +64,7 @@ pnpm dev
 ```
 Select the app you need to run [dev]:
 │  ● @web/admin
-│  ○ @web/api  
+│  ○ @web/api
 │  ○ @web/next-alpha
 │  ○ @repo/docs
 ```

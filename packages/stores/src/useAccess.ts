@@ -39,9 +39,7 @@ export const useAccessStore = defineStore(
       //   },
       // }).sort((a: any, b: any) => a.orderNum - b.orderNum);
     };
-    const generateMenu = (menu: any[]) => {
-
-    }
+    const generateMenu = (menu: any[]) => {};
     // 返回状态
     return {
       menuList,
@@ -59,7 +57,14 @@ export const useAccessStore = defineStore(
     persist: {
       key: "access-store",
       storage: localStorage,
-      pick: ["accessToken", "menuTree", "menuList", "permsList", "userInfo", "orgId"],
+      pick: [
+        "accessToken",
+        "menuTree",
+        "menuList",
+        "permsList",
+        "userInfo",
+        "orgId",
+      ],
     },
-  }
+  },
 );

@@ -12,7 +12,6 @@ try {
     .command("[script]")
     .usage(`Run turbo interactively.`)
     .action(async (command: string, rest) => {
-
       // 检查是否提供了脚本名称
       if (!command) {
         console.error("Please provide a script name.");
@@ -63,8 +62,8 @@ try {
         paramStr += ` --${key}`;
         if (!!value) paramStr += ` ${value}`;
       }
-      const trueCommand = `pnpm --filter=${selectPkg.toString()} run ${command}${paramStr}`
-      console.log(trueCommand)
+      const trueCommand = `pnpm --filter=${selectPkg.toString()} run ${command}${paramStr}`;
+      console.log(trueCommand);
       // 执行命令
       execaCommand(trueCommand, {
         stdio: "inherit",

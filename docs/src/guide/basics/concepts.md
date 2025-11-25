@@ -32,9 +32,9 @@ project-monorepo/
 ```yaml
 # pnpm-workspace.yaml
 packages:
-  - 'apps/*'
-  - 'packages/*'
-  - 'internal/*'
+  - "apps/*"
+  - "packages/*"
+  - "internal/*"
 ```
 
 ### 包引用
@@ -176,13 +176,13 @@ pnpm --filter admin dev
 ```typescript
 // 导出类型
 export interface User {
-  id: string
-  name: string
-  email: string
+  id: string;
+  name: string;
+  email: string;
 }
 
 // 使用类型
-import type { User } from '@internal/types'
+import type { User } from "@internal/types";
 ```
 
 ## 样式系统
@@ -213,19 +213,19 @@ packages/styles/
 使用 Pinia 进行状态管理：
 
 ```typescript
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
-export const useUserStore = defineStore('user', {
+export const useUserStore = defineStore("user", {
   state: () => ({
-    user: null as User | null
+    user: null as User | null,
   }),
-  
+
   actions: {
     async fetchUser() {
       // 获取用户信息
-    }
-  }
-})
+    },
+  },
+});
 ```
 
 ### 状态共享
@@ -239,14 +239,14 @@ export const useUserStore = defineStore('user', {
 使用 Vue Router 进行路由管理：
 
 ```typescript
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     // 路由配置
-  ]
-})
+  ],
+});
 ```
 
 ### 路由组织

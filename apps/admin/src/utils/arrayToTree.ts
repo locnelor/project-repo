@@ -10,10 +10,10 @@ export function arrayToTree(
     id?: string;
     parentId?: string;
     children?: string;
-  } = {}
+  } = {},
 ): any[] {
-  const { id = 'id', parentId = 'parentId', children = 'children' } = options;
-  
+  const { id = "id", parentId = "parentId", children = "children" } = options;
+
   if (!Array.isArray(array)) {
     return [];
   }
@@ -23,15 +23,15 @@ export function arrayToTree(
   const result: any[] = [];
 
   // 第一遍遍历，创建所有节点的映射
-  array.forEach(item => {
+  array.forEach((item) => {
     map.set(item[id], { ...item, [children]: [] });
   });
 
   // 第二遍遍历，建立父子关系
-  array.forEach(item => {
+  array.forEach((item) => {
     const node = map.get(item[id]);
     const parent = map.get(item[parentId]);
-    
+
     if (parent) {
       // 有父节点，添加到父节点的children中
       parent[children].push(node);

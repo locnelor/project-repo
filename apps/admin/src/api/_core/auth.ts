@@ -35,7 +35,7 @@ export const userScanTheCodeLogin = (opts: any) => {
   return request.post(
     `/api/authentication/wx-mini-app/open/scanTheCode/login`,
     opts,
-    { headers: loginHeaders }
+    { headers: loginHeaders },
   );
 };
 
@@ -51,7 +51,7 @@ export const userScanTheCodeConfirmUserLogin = (opts: any) => {
   return request.post(
     `/api/authentication/wx-mini-app/open/scanTheCode/confirmUser/login`,
     opts,
-    { headers: loginHeaders }
+    { headers: loginHeaders },
   );
 };
 

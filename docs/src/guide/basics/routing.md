@@ -12,32 +12,32 @@ Qiyun-Repo 使用 Vue Router 4 作为路由管理器，支持现代化的路由�
 
 ```typescript
 // apps/admin/src/router/index.ts
-import { createRouter, createWebHistory } from 'vue-router'
-import type { RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
+import type { RouteRecordRaw } from "vue-router";
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
-    name: 'Home',
-    component: () => import('@/views/Home.vue')
+    path: "/",
+    name: "Home",
+    component: () => import("@/views/Home.vue"),
   },
   {
-    path: '/users',
-    name: 'Users',
-    component: () => import('@/views/Users.vue'),
+    path: "/users",
+    name: "Users",
+    component: () => import("@/views/Users.vue"),
     meta: {
-      title: '用户管理',
-      requiresAuth: true
-    }
-  }
-]
+      title: "用户管理",
+      requiresAuth: true,
+    },
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
 ```
 
 ### 路由模式配置
@@ -46,14 +46,15 @@ export default router
 
 ```typescript
 // 根据环境变量选择路由模式
-const history = import.meta.env.VITE_ROUTER_HISTORY === "hash"
-  ? createWebHashHistory(import.meta.env.VITE_BASE)
-  : createWebHistory(import.meta.env.VITE_BASE)
+const history =
+  import.meta.env.VITE_ROUTER_HISTORY === "hash"
+    ? createWebHashHistory(import.meta.env.VITE_BASE)
+    : createWebHistory(import.meta.env.VITE_BASE);
 
 const router = createRouter({
   history,
-  routes
-})
+  routes,
+});
 ```
 
 ## 嵌套路由
@@ -65,22 +66,22 @@ const router = createRouter({
 ```typescript
 const routes: RouteRecordRaw[] = [
   {
-    path: '/admin',
+    path: "/admin",
     component: AdminLayout,
     children: [
       {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: () => import('@/views/Dashboard.vue')
+        path: "dashboard",
+        name: "Dashboard",
+        component: () => import("@/views/Dashboard.vue"),
       },
       {
-        path: 'users',
-        name: 'Users',
-        component: () => import('@/views/Users.vue')
-      }
-    ]
-  }
-]
+        path: "users",
+        name: "Users",
+        component: () => import("@/views/Users.vue"),
+      },
+    ],
+  },
+];
 ```
 
 ### 布局组件
@@ -106,12 +107,12 @@ const routes: RouteRecordRaw[] = [
 ```typescript
 const routes: RouteRecordRaw[] = [
   {
-    path: '/user/:id',
-    name: 'UserDetail',
-    component: () => import('@/views/UserDetail.vue'),
-    props: true // 将路由参数作为 props 传递
-  }
-]
+    path: "/user/:id",
+    name: "UserDetail",
+    component: () => import("@/views/UserDetail.vue"),
+    props: true, // 将路由参数作为 props 传递
+  },
+];
 ```
 
 ### 在组件中使用
@@ -124,10 +125,10 @@ const routes: RouteRecordRaw[] = [
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { useRoute } from "vue-router";
 
-const route = useRoute()
-const userId = route.params.id
+const route = useRoute();
+const userId = route.params.id;
 </script>
 ```
 
@@ -136,37 +137,37 @@ const userId = route.params.id
 ### 全局前置守卫
 
 ```typescript
-import { useUserStore } from '@internal/stores'
+import { useUserStore } from "@internal/stores";
 
 router.beforeEach(async (to, from, next) => {
-  const userStore = useUserStore()
-  
+  const userStore = useUserStore();
+
   // 检查是否需要认证
   if (to.meta.requiresAuth && !userStore.isAuthenticated) {
-    next('/login')
-    return
+    next("/login");
+    return;
   }
-  
+
   // 检查权限
   if (to.meta.permissions && !userStore.hasPermissions(to.meta.permissions)) {
-    next('/403')
-    return
+    next("/403");
+    return;
   }
-  
-  next()
-})
+
+  next();
+});
 ```
 
 ### 路由元信息
 
 ```typescript
-declare module 'vue-router' {
+declare module "vue-router" {
   interface RouteMeta {
-    title?: string
-    requiresAuth?: boolean
-    permissions?: string[]
-    icon?: string
-    hidden?: boolean
+    title?: string;
+    requiresAuth?: boolean;
+    permissions?: string[];
+    icon?: string;
+    hidden?: boolean;
   }
 }
 ```
@@ -180,25 +181,27 @@ declare module 'vue-router' {
 ```typescript
 // 菜单配置类型
 interface MenuItem {
-  key: string
-  title: string
-  icon?: string
-  path?: string
-  children?: MenuItem[]
-  hidden?: boolean
+  key: string;
+  title: string;
+  icon?: string;
+  path?: string;
+  children?: MenuItem[];
+  hidden?: boolean;
 }
 
 // 从路由生成菜单
 function generateMenuFromRoutes(routes: RouteRecordRaw[]): MenuItem[] {
   return routes
-    .filter(route => !route.meta?.hidden)
-    .map(route => ({
+    .filter((route) => !route.meta?.hidden)
+    .map((route) => ({
       key: route.name as string,
-      title: route.meta?.title || route.name as string,
+      title: route.meta?.title || (route.name as string),
       icon: route.meta?.icon,
       path: route.path,
-      children: route.children ? generateMenuFromRoutes(route.children) : undefined
-    }))
+      children: route.children
+        ? generateMenuFromRoutes(route.children)
+        : undefined,
+    }));
 }
 ```
 
@@ -208,25 +211,21 @@ function generateMenuFromRoutes(routes: RouteRecordRaw[]): MenuItem[] {
 <template>
   <nav class="navigation">
     <ul class="menu">
-      <MenuItem 
-        v-for="item in menuItems" 
-        :key="item.key"
-        :item="item"
-      />
+      <MenuItem v-for="item in menuItems" :key="item.key" :item="item" />
     </ul>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-import MenuItem from './MenuItem.vue'
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+import MenuItem from "./MenuItem.vue";
 
-const router = useRouter()
+const router = useRouter();
 
 const menuItems = computed(() => {
-  return generateMenuFromRoutes(router.getRoutes())
-})
+  return generateMenuFromRoutes(router.getRoutes());
+});
 </script>
 ```
 
@@ -235,7 +234,7 @@ const menuItems = computed(() => {
 ```vue
 <template>
   <li class="menu-item">
-    <router-link 
+    <router-link
       v-if="item.path && !item.children"
       :to="item.path"
       class="menu-link"
@@ -244,14 +243,14 @@ const menuItems = computed(() => {
       <Icon v-if="item.icon" :name="item.icon" />
       <span>{{ item.title }}</span>
     </router-link>
-    
+
     <div v-else class="menu-group">
       <div class="menu-group-title">
         <Icon v-if="item.icon" :name="item.icon" />
         <span>{{ item.title }}</span>
       </div>
       <ul v-if="item.children" class="submenu">
-        <MenuItem 
+        <MenuItem
           v-for="child in item.children"
           :key="child.key"
           :item="child"
@@ -263,10 +262,10 @@ const menuItems = computed(() => {
 
 <script setup lang="ts">
 interface Props {
-  item: MenuItem
+  item: MenuItem;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 </script>
 ```
 
@@ -277,13 +276,13 @@ defineProps<Props>()
 ```vue
 <template>
   <nav class="breadcrumb">
-    <router-link 
+    <router-link
       v-for="(item, index) in breadcrumbItems"
       :key="item.path"
       :to="item.path"
       :class="[
         'breadcrumb-item',
-        { 'active': index === breadcrumbItems.length - 1 }
+        { active: index === breadcrumbItems.length - 1 },
       ]"
     >
       {{ item.title }}
@@ -292,19 +291,19 @@ defineProps<Props>()
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 
-const route = useRoute()
+const route = useRoute();
 
 const breadcrumbItems = computed(() => {
-  const matched = route.matched.filter(item => item.meta?.title)
-  
-  return matched.map(item => ({
-    title: item.meta?.title || item.name as string,
-    path: item.path
-  }))
-})
+  const matched = route.matched.filter((item) => item.meta?.title);
+
+  return matched.map((item) => ({
+    title: item.meta?.title || (item.name as string),
+    path: item.path,
+  }));
+});
 </script>
 ```
 
@@ -315,27 +314,29 @@ const breadcrumbItems = computed(() => {
 ```typescript
 const routes: RouteRecordRaw[] = [
   {
-    path: '/dashboard',
-    name: 'Dashboard',
+    path: "/dashboard",
+    name: "Dashboard",
     // 使用动态导入实现懒加载
-    component: () => import('@/views/Dashboard.vue')
-  }
-]
+    component: () => import("@/views/Dashboard.vue"),
+  },
+];
 ```
 
 ### 路由分组
 
 ```typescript
 // 将相关路由分组到同一个 chunk
-const UserManagement = () => import(
-  /* webpackChunkName: "user-management" */ 
-  '@/views/UserManagement.vue'
-)
+const UserManagement = () =>
+  import(
+    /* webpackChunkName: "user-management" */
+    "@/views/UserManagement.vue"
+  );
 
-const UserList = () => import(
-  /* webpackChunkName: "user-management" */ 
-  '@/views/UserList.vue'
-)
+const UserList = () =>
+  import(
+    /* webpackChunkName: "user-management" */
+    "@/views/UserList.vue"
+  );
 ```
 
 ## 路由缓存
@@ -352,17 +353,17 @@ const UserList = () => import(
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 
-const route = useRoute()
+const route = useRoute();
 
 const cachedViews = computed(() => {
   // 根据路由配置决定哪些页面需要缓存
   return route.matched
-    .filter(item => item.meta?.keepAlive)
-    .map(item => item.name)
-})
+    .filter((item) => item.meta?.keepAlive)
+    .map((item) => item.name);
+});
 </script>
 ```
 
@@ -373,10 +374,7 @@ const cachedViews = computed(() => {
 ```vue
 <template>
   <router-view v-slot="{ Component, route }">
-    <transition 
-      :name="getTransitionName(route)"
-      mode="out-in"
-    >
+    <transition :name="getTransitionName(route)" mode="out-in">
       <component :is="Component" :key="route.fullPath" />
     </transition>
   </router-view>
@@ -384,7 +382,7 @@ const cachedViews = computed(() => {
 
 <script setup lang="ts">
 function getTransitionName(route: RouteLocationNormalized) {
-  return route.meta?.transition || 'fade'
+  return route.meta?.transition || "fade";
 }
 </script>
 

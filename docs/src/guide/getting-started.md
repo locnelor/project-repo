@@ -47,7 +47,7 @@ pnpm install --registry https://registry.npmmirror.com
 # API 服务环境配置
 cp apps/api/.env.example apps/api/.env
 
-# 管理后台环境配置  
+# 管理后台环境配置
 cp apps/admin/.env.example apps/admin/.env.development
 
 # 数据库配置

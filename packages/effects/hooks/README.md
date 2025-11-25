@@ -15,20 +15,21 @@ pnpm add @repo/hooks
 ### 使用
 
 ```ts
-import { useContentSpinner, useNProgress } from '@repo/hooks';
+import { useContentSpinner, useNProgress } from "@repo/hooks";
 ```
 
 ## Hook 列表
 
 ### useContentSpinner
+
 内容和页面加载状态管理 Hook。
 
 ```ts
-const { 
-  contentSpinner, 
-  pageSpinner, 
-  contentSpinnerCallback, 
-  pageSpinnerCallback 
+const {
+  contentSpinner,
+  pageSpinner,
+  contentSpinnerCallback,
+  pageSpinnerCallback,
 } = useContentSpinner();
 
 // 使用页面加载回调
@@ -43,6 +44,7 @@ await contentSpinnerCallback(async () => {
 ```
 
 ### useNProgress
+
 NProgress 进度条管理 Hook，提供更现代的 Composition API 接口。
 
 ```ts
@@ -62,15 +64,16 @@ await done();
 
 // 监听加载状态
 watch(isLoading, (loading) => {
-  console.log('Loading:', loading);
+  console.log("Loading:", loading);
 });
 ```
 
 #### 兼容性导出
+
 为了向后兼容，仍然提供原有的函数式接口：
 
 ```ts
-import { startProgress, stopProgress } from '@repo/hooks';
+import { startProgress, stopProgress } from "@repo/hooks";
 
 await startProgress();
 await stopProgress();

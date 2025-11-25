@@ -32,14 +32,17 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (exception instanceof HttpException) {
       status = exception.getStatus();
       const exceptionResponse = exception.getResponse();
-      
+
       if (typeof exceptionResponse === 'string') {
         message = exceptionResponse;
-      } else if (typeof exceptionResponse === 'object' && exceptionResponse !== null) {
+      } else if (
+        typeof exceptionResponse === 'object' &&
+        exceptionResponse !== null
+      ) {
         const responseObj = exceptionResponse as any;
         message = responseObj.message || responseObj.error || exception.message;
         error = responseObj.error;
-        
+
         // 处理验证错误
         if (Array.isArray(responseObj.message)) {
           message = responseObj.message.join(', ');
@@ -51,7 +54,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       status = HttpStatus.INTERNAL_SERVER_ERROR;
       message = '服务器内部错误';
       error = exception.message;
-      
+
       // 记录未知错误
       this.logger.error(
         `Unexpected error: ${exception.message}`,
@@ -62,7 +65,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       status = HttpStatus.INTERNAL_SERVER_ERROR;
       message = '未知错误';
       error = String(exception);
-      
+
       this.logger.error(
         `Unknown exception: ${String(exception)}`,
         undefined,

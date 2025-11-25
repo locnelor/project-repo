@@ -4,7 +4,7 @@ export class RequestApi<T> {
   private params = {};
   constructor(
     private readonly action: RequestAction<T>,
-    private options: Required<Omit<RequestOptions<T>, "defaultValue">>
+    private options: Required<Omit<RequestOptions<T>, "defaultValue">>,
   ) {
     if (options.defaultParams) {
       this.params = options.defaultParams;
@@ -31,7 +31,7 @@ export class RequestApi<T> {
 }
 export const useRequest = <T>(
   action: RequestAction<T>,
-  options = {} as RequestOptions<T>
+  options = {} as RequestOptions<T>,
 ) => {
   const loading = ref(false);
   const data = ref<T>(options.defaultValue);

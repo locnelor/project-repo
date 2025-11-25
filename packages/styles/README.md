@@ -42,29 +42,31 @@ import "@repo/styles";
 import { cn } from "@repo/styles";
 
 // 基础用法
-const className = cn('px-2 py-1', 'text-red-500');
+const className = cn("px-2 py-1", "text-red-500");
 
 // 条件类名
-const className = cn('px-2 py-1', {
-  'text-red-500': isError,
-  'text-green-500': isSuccess
+const className = cn("px-2 py-1", {
+  "text-red-500": isError,
+  "text-green-500": isSuccess,
 });
 
 // TailwindCSS 类名冲突处理（px-4 会覆盖 px-2）
-const className = cn('px-2 py-1', 'px-4'); // => 'py-1 px-4'
+const className = cn("px-2 py-1", "px-4"); // => 'py-1 px-4'
 
 // 在组件中使用
-<div className={cn(
-  'base-styles',
-  'px-4 py-2',
-  {
-    'bg-red-500': isError,
-    'bg-green-500': isSuccess
-  },
-  className // 外部传入的类名
-)}>
+<div
+  className={cn(
+    "base-styles",
+    "px-4 py-2",
+    {
+      "bg-red-500": isError,
+      "bg-green-500": isSuccess,
+    },
+    className, // 外部传入的类名
+  )}
+>
   内容
-</div>
+</div>;
 ```
 
 ### 3. 使用主题色

@@ -3,9 +3,7 @@ import { AuthService } from './auth.service';
 import { AuthPowerModule } from '@app/auth-power';
 
 @Module({
-  imports:[
-    AuthPowerModule
-  ],
-  providers: [AuthService]
+  imports: [AuthPowerModule],
+  providers: [AuthService],
 })
 export class AuthModule {}

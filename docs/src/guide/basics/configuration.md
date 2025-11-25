@@ -35,17 +35,17 @@ JWT_EXPIRES_IN=7d
 ```typescript
 // types/env.d.ts
 interface ImportMetaEnv {
-  readonly VITE_API_BASE_URL: string
-  readonly VITE_APP_TITLE: string
-  readonly VITE_ROUTER_HISTORY: 'web' | 'hash'
-  readonly VITE_BASE: string
-  readonly VITE_ENABLE_MOCK: string
-  readonly VITE_BUILD_COMPRESS: string
-  readonly VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE: string
+  readonly VITE_API_BASE_URL: string;
+  readonly VITE_APP_TITLE: string;
+  readonly VITE_ROUTER_HISTORY: "web" | "hash";
+  readonly VITE_BASE: string;
+  readonly VITE_ENABLE_MOCK: string;
+  readonly VITE_BUILD_COMPRESS: string;
+  readonly VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE: string;
 }
 
 interface ImportMeta {
-  readonly env: ImportMetaEnv
+  readonly env: ImportMetaEnv;
 }
 ```
 
@@ -53,21 +53,21 @@ interface ImportMeta {
 
 ```typescript
 // utils/env.ts
-import { z } from 'zod'
+import { z } from "zod";
 
 const envSchema = z.object({
   VITE_API_BASE_URL: z.string().url(),
   VITE_APP_TITLE: z.string().min(1),
-  VITE_ROUTER_HISTORY: z.enum(['web', 'hash']),
+  VITE_ROUTER_HISTORY: z.enum(["web", "hash"]),
   VITE_BASE: z.string(),
-})
+});
 
 export function validateEnv() {
   try {
-    return envSchema.parse(import.meta.env)
+    return envSchema.parse(import.meta.env);
   } catch (error) {
-    console.error('Environment validation failed:', error)
-    throw new Error('Invalid environment configuration')
+    console.error("Environment validation failed:", error);
+    throw new Error("Invalid environment configuration");
   }
 }
 ```
@@ -78,82 +78,84 @@ export function validateEnv() {
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { resolve } from 'path'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { resolve } from "path";
 
 export default defineConfig({
   plugins: [vue()],
-  
+
   // 路径别名
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
-      '@internal': resolve(__dirname, '../../packages')
-    }
+      "@": resolve(__dirname, "src"),
+      "@internal": resolve(__dirname, "../../packages"),
+    },
   },
-  
+
   // 服务器配置
   server: {
     port: 3000,
     host: true,
     proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
+      "/api": {
+        target: "http://localhost:8080",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
   },
-  
+
   // 构建配置
   build: {
-    outDir: 'dist',
+    outDir: "dist",
     sourcemap: false,
     rollupOptions: {
       output: {
-        chunkFileNames: 'js/[name]-[hash].js',
-        entryFileNames: 'js/[name]-[hash].js',
-        assetFileNames: '[ext]/[name]-[hash].[ext]'
-      }
-    }
+        chunkFileNames: "js/[name]-[hash].js",
+        entryFileNames: "js/[name]-[hash].js",
+        assetFileNames: "[ext]/[name]-[hash].[ext]",
+      },
+    },
   },
-  
+
   // 环境变量
   define: {
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
-    __BUILD_TIME__: JSON.stringify(new Date().toISOString())
-  }
-})
+    __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+  },
+});
 ```
 
 ### 多环境配置
 
 ```typescript
 // vite.config.ts
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv } from "vite";
 
 export default defineConfig(({ command, mode }) => {
-  const env = loadEnv(mode, process.cwd(), '')
-  
+  const env = loadEnv(mode, process.cwd(), "");
+
   return {
     plugins: [vue()],
-    
+
     server: {
       port: Number(env.VITE_PORT) || 3000,
-      proxy: env.VITE_API_BASE_URL ? {
-        '/api': {
-          target: env.VITE_API_BASE_URL,
-          changeOrigin: true
-        }
-      } : undefined
+      proxy: env.VITE_API_BASE_URL
+        ? {
+            "/api": {
+              target: env.VITE_API_BASE_URL,
+              changeOrigin: true,
+            },
+          }
+        : undefined,
     },
-    
+
     build: {
-      sourcemap: mode === 'development'
-    }
-  }
-})
+      sourcemap: mode === "development",
+    },
+  };
+});
 ```
 
 ## TypeScript 配置
@@ -169,7 +171,7 @@ export default defineConfig(({ command, mode }) => {
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -177,13 +179,13 @@ export default defineConfig(({ command, mode }) => {
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    
+
     /* Path mapping */
     "baseUrl": ".",
     "paths": {
@@ -191,15 +193,8 @@ export default defineConfig(({ command, mode }) => {
       "@internal/*": ["../../packages/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-  ],
-  "references": [
-    { "path": "./tsconfig.node.json" }
-  ]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
 ```
 
@@ -227,87 +222,87 @@ export default defineConfig(({ command, mode }) => {
 // config/index.ts
 interface AppConfig {
   app: {
-    title: string
-    version: string
-    description: string
-  }
+    title: string;
+    version: string;
+    description: string;
+  };
   api: {
-    baseURL: string
-    timeout: number
-  }
+    baseURL: string;
+    timeout: number;
+  };
   router: {
-    history: 'web' | 'hash'
-    base: string
-  }
+    history: "web" | "hash";
+    base: string;
+  };
   theme: {
-    primaryColor: string
-    darkMode: boolean
-  }
+    primaryColor: string;
+    darkMode: boolean;
+  };
 }
 
 class ConfigManager {
-  private config: AppConfig
+  private config: AppConfig;
 
   constructor() {
-    this.config = this.loadConfig()
+    this.config = this.loadConfig();
   }
 
   private loadConfig(): AppConfig {
     return {
       app: {
-        title: import.meta.env.VITE_APP_TITLE || 'Qiyun Admin',
+        title: import.meta.env.VITE_APP_TITLE || "Qiyun Admin",
         version: __APP_VERSION__,
-        description: 'Qiyun 管理系统'
+        description: "Qiyun 管理系统",
       },
       api: {
-        baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
-        timeout: 10000
+        baseURL: import.meta.env.VITE_API_BASE_URL || "/api",
+        timeout: 10000,
       },
       router: {
-        history: import.meta.env.VITE_ROUTER_HISTORY || 'web',
-        base: import.meta.env.VITE_BASE || '/'
+        history: import.meta.env.VITE_ROUTER_HISTORY || "web",
+        base: import.meta.env.VITE_BASE || "/",
       },
       theme: {
-        primaryColor: '#1890ff',
-        darkMode: false
-      }
-    }
+        primaryColor: "#1890ff",
+        darkMode: false,
+      },
+    };
   }
 
   get<K extends keyof AppConfig>(key: K): AppConfig[K] {
-    return this.config[key]
+    return this.config[key];
   }
 
   set<K extends keyof AppConfig>(key: K, value: AppConfig[K]): void {
-    this.config[key] = value
+    this.config[key] = value;
   }
 
   getAll(): AppConfig {
-    return { ...this.config }
+    return { ...this.config };
   }
 }
 
-export const configManager = new ConfigManager()
-export { type AppConfig }
+export const configManager = new ConfigManager();
+export { type AppConfig };
 ```
 
 ### 配置使用
 
 ```typescript
 // 在组件中使用配置
-import { configManager } from '@/config'
+import { configManager } from "@/config";
 
 export default {
   setup() {
-    const appConfig = configManager.get('app')
-    const apiConfig = configManager.get('api')
-    
+    const appConfig = configManager.get("app");
+    const apiConfig = configManager.get("api");
+
     return {
       appTitle: appConfig.title,
-      apiBaseURL: apiConfig.baseURL
-    }
-  }
-}
+      apiBaseURL: apiConfig.baseURL,
+    };
+  },
+};
 ```
 
 ## 主题配置
@@ -321,37 +316,37 @@ export default {
   --color-primary: #1890ff;
   --color-primary-light: #40a9ff;
   --color-primary-dark: #096dd9;
-  
+
   /* 辅助色 */
   --color-success: #52c41a;
   --color-warning: #faad14;
   --color-error: #f5222d;
   --color-info: #1890ff;
-  
+
   /* 中性色 */
   --color-text-primary: #262626;
   --color-text-secondary: #595959;
   --color-text-disabled: #bfbfbf;
-  
+
   /* 背景色 */
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #fafafa;
   --color-bg-disabled: #f5f5f5;
-  
+
   /* 边框色 */
   --color-border: #d9d9d9;
   --color-border-light: #f0f0f0;
-  
+
   /* 阴影 */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  
+
   /* 圆角 */
   --border-radius-sm: 2px;
   --border-radius-md: 6px;
   --border-radius-lg: 8px;
-  
+
   /* 间距 */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
@@ -374,39 +369,48 @@ export default {
 
 ```typescript
 // composables/useTheme.ts
-import { ref, watch } from 'vue'
+import { ref, watch } from "vue";
 
-const isDark = ref(false)
+const isDark = ref(false);
 
 export function useTheme() {
   const toggleTheme = () => {
-    isDark.value = !isDark.value
-  }
+    isDark.value = !isDark.value;
+  };
 
   const setTheme = (dark: boolean) => {
-    isDark.value = dark
-  }
+    isDark.value = dark;
+  };
 
   // 监听主题变化
-  watch(isDark, (dark) => {
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light')
-    localStorage.setItem('theme', dark ? 'dark' : 'light')
-  }, { immediate: true })
+  watch(
+    isDark,
+    (dark) => {
+      document.documentElement.setAttribute(
+        "data-theme",
+        dark ? "dark" : "light",
+      );
+      localStorage.setItem("theme", dark ? "dark" : "light");
+    },
+    { immediate: true },
+  );
 
   // 初始化主题
   const initTheme = () => {
-    const savedTheme = localStorage.getItem('theme')
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    
-    isDark.value = savedTheme ? savedTheme === 'dark' : prefersDark
-  }
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+
+    isDark.value = savedTheme ? savedTheme === "dark" : prefersDark;
+  };
 
   return {
     isDark: readonly(isDark),
     toggleTheme,
     setTheme,
-    initTheme
-  }
+    initTheme,
+  };
 }
 ```
 
@@ -416,48 +420,48 @@ export function useTheme() {
 
 ```typescript
 // vite.config.prod.ts
-import { defineConfig } from 'vite'
-import { visualizer } from 'rollup-plugin-visualizer'
-import { compression } from 'vite-plugin-compression'
+import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+import { compression } from "vite-plugin-compression";
 
 export default defineConfig({
   plugins: [
     // Gzip 压缩
     compression({
-      algorithm: 'gzip',
-      deleteOriginFile: false
+      algorithm: "gzip",
+      deleteOriginFile: false,
     }),
-    
+
     // 包分析
     visualizer({
-      filename: 'dist/stats.html',
+      filename: "dist/stats.html",
       open: true,
-      gzipSize: true
-    })
+      gzipSize: true,
+    }),
   ],
-  
+
   build: {
     // 代码分割
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['vue', 'vue-router', 'pinia'],
-          antd: ['ant-design-vue'],
-          utils: ['lodash-es', 'dayjs']
-        }
-      }
+          vendor: ["vue", "vue-router", "pinia"],
+          antd: ["ant-design-vue"],
+          utils: ["lodash-es", "dayjs"],
+        },
+      },
     },
-    
+
     // 压缩配置
-    minify: 'terser',
+    minify: "terser",
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true
-      }
-    }
-  }
-})
+        drop_debugger: true,
+      },
+    },
+  },
+});
 ```
 
 ### 开发环境配置
@@ -467,28 +471,28 @@ export default defineConfig({
 export default defineConfig({
   server: {
     hmr: {
-      overlay: false
+      overlay: false,
     },
-    
+
     // 开发服务器代理
     proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
+      "/api": {
+        target: "http://localhost:8080",
         changeOrigin: true,
         configure: (proxy, options) => {
-          proxy.on('error', (err, req, res) => {
-            console.log('proxy error', err)
-          })
-        }
-      }
-    }
+          proxy.on("error", (err, req, res) => {
+            console.log("proxy error", err);
+          });
+        },
+      },
+    },
   },
-  
+
   // 开发工具
   define: {
-    __DEV__: true
-  }
-})
+    __DEV__: true,
+  },
+});
 ```
 
 ## 配置最佳实践

@@ -22,12 +22,10 @@ pnpm add @ant-design/icons-vue
     <UserOutlined />
     <SettingOutlined />
     <HomeOutlined />
-    
+
     <!-- 带样式的图标 -->
-    <UserOutlined 
-      :style="{ fontSize: '16px', color: '#1890ff' }" 
-    />
-    
+    <UserOutlined :style="{ fontSize: '16px', color: '#1890ff' }" />
+
     <!-- 使用 spin 属性 -->
     <LoadingOutlined spin />
   </div>
@@ -38,8 +36,8 @@ import {
   UserOutlined,
   SettingOutlined,
   HomeOutlined,
-  LoadingOutlined
-} from '@ant-design/icons-vue'
+  LoadingOutlined,
+} from "@ant-design/icons-vue";
 </script>
 ```
 
@@ -47,7 +45,7 @@ import {
 
 ```typescript
 // plugins/icons.ts
-import type { App } from 'vue'
+import type { App } from "vue";
 import {
   UserOutlined,
   SettingOutlined,
@@ -66,8 +64,8 @@ import {
   ExclamationCircleOutlined,
   InfoCircleOutlined,
   QuestionCircleOutlined,
-  WarningOutlined
-} from '@ant-design/icons-vue'
+  WarningOutlined,
+} from "@ant-design/icons-vue";
 
 const icons = {
   UserOutlined,
@@ -87,32 +85,32 @@ const icons = {
   ExclamationCircleOutlined,
   InfoCircleOutlined,
   QuestionCircleOutlined,
-  WarningOutlined
-}
+  WarningOutlined,
+};
 
 export function setupIcons(app: App) {
-  Object.keys(icons).forEach(key => {
-    app.component(key, icons[key as keyof typeof icons])
-  })
+  Object.keys(icons).forEach((key) => {
+    app.component(key, icons[key as keyof typeof icons]);
+  });
 }
 
-export { icons }
+export { icons };
 ```
 
 ### 在 main.ts 中注册
 
 ```typescript
 // main.ts
-import { createApp } from 'vue'
-import App from './App.vue'
-import { setupIcons } from './plugins/icons'
+import { createApp } from "vue";
+import App from "./App.vue";
+import { setupIcons } from "./plugins/icons";
 
-const app = createApp(App)
+const app = createApp(App);
 
 // 注册图标
-setupIcons(app)
+setupIcons(app);
 
-app.mount('#app')
+app.mount("#app");
 ```
 
 ## 自定义 SVG 图标
@@ -122,7 +120,7 @@ app.mount('#app')
 ```vue
 <!-- components/Icon/SvgIcon.vue -->
 <template>
-  <svg 
+  <svg
     :class="['svg-icon', className]"
     :style="{ width: size, height: size, color }"
     aria-hidden="true"
@@ -133,17 +131,17 @@ app.mount('#app')
 
 <script setup lang="ts">
 interface Props {
-  name: string
-  size?: string
-  color?: string
-  className?: string
+  name: string;
+  size?: string;
+  color?: string;
+  className?: string;
 }
 
 withDefaults(defineProps<Props>(), {
-  size: '1em',
-  color: 'currentColor',
-  className: ''
-})
+  size: "1em",
+  color: "currentColor",
+  className: "",
+});
 </script>
 
 <style scoped>
@@ -160,24 +158,24 @@ withDefaults(defineProps<Props>(), {
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import path from 'path'
+import { defineConfig } from "vite";
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import path from "path";
 
 export default defineConfig({
   plugins: [
     createSvgIconsPlugin({
       // 指定需要缓存的图标文件夹
-      iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+      iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
       // 指定symbolId格式
-      symbolId: 'icon-[dir]-[name]',
+      symbolId: "icon-[dir]-[name]",
       // 自定义插入位置
-      inject: 'body-last',
+      inject: "body-last",
       // 自定义dom id
-      customDomId: '__svg__icons__dom__'
-    })
-  ]
-})
+      customDomId: "__svg__icons__dom__",
+    }),
+  ],
+});
 ```
 
 ### 图标管理器
@@ -185,67 +183,68 @@ export default defineConfig({
 ```typescript
 // utils/iconManager.ts
 interface IconInfo {
-  name: string
-  category: string
-  tags: string[]
-  size?: string
+  name: string;
+  category: string;
+  tags: string[];
+  size?: string;
 }
 
 class IconManager {
-  private icons: Map<string, IconInfo> = new Map()
+  private icons: Map<string, IconInfo> = new Map();
 
   // 注册图标
-  register(name: string, info: Omit<IconInfo, 'name'>) {
-    this.icons.set(name, { name, ...info })
+  register(name: string, info: Omit<IconInfo, "name">) {
+    this.icons.set(name, { name, ...info });
   }
 
   // 获取图标信息
   getIcon(name: string): IconInfo | undefined {
-    return this.icons.get(name)
+    return this.icons.get(name);
   }
 
   // 搜索图标
   search(keyword: string): IconInfo[] {
-    const results: IconInfo[] = []
-    
-    this.icons.forEach(icon => {
+    const results: IconInfo[] = [];
+
+    this.icons.forEach((icon) => {
       if (
         icon.name.includes(keyword) ||
-        icon.tags.some(tag => tag.includes(keyword))
+        icon.tags.some((tag) => tag.includes(keyword))
       ) {
-        results.push(icon)
+        results.push(icon);
       }
-    })
-    
-    return results
+    });
+
+    return results;
   }
 
   // 按分类获取图标
   getByCategory(category: string): IconInfo[] {
-    return Array.from(this.icons.values())
-      .filter(icon => icon.category === category)
+    return Array.from(this.icons.values()).filter(
+      (icon) => icon.category === category,
+    );
   }
 
   // 获取所有分类
   getCategories(): string[] {
-    const categories = new Set<string>()
-    this.icons.forEach(icon => categories.add(icon.category))
-    return Array.from(categories)
+    const categories = new Set<string>();
+    this.icons.forEach((icon) => categories.add(icon.category));
+    return Array.from(categories);
   }
 }
 
-export const iconManager = new IconManager()
+export const iconManager = new IconManager();
 
 // 注册常用图标
-iconManager.register('user', {
-  category: 'user',
-  tags: ['用户', '人员', 'person']
-})
+iconManager.register("user", {
+  category: "user",
+  tags: ["用户", "人员", "person"],
+});
 
-iconManager.register('setting', {
-  category: 'system',
-  tags: ['设置', '配置', 'config']
-})
+iconManager.register("setting", {
+  category: "system",
+  tags: ["设置", "配置", "config"],
+});
 ```
 
 ## 通用图标组件
@@ -255,7 +254,7 @@ iconManager.register('setting', {
 ```vue
 <!-- components/Icon/Icon.vue -->
 <template>
-  <component 
+  <component
     :is="iconComponent"
     v-bind="iconProps"
     :class="['app-icon', className]"
@@ -264,71 +263,72 @@ iconManager.register('setting', {
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue'
-import SvgIcon from './SvgIcon.vue'
+import { computed, defineAsyncComponent } from "vue";
+import SvgIcon from "./SvgIcon.vue";
 
 interface Props {
-  name: string
-  type?: 'antd' | 'svg' | 'custom'
-  size?: string | number
-  color?: string
-  className?: string
-  spin?: boolean
+  name: string;
+  type?: "antd" | "svg" | "custom";
+  size?: string | number;
+  color?: string;
+  className?: string;
+  spin?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  type: 'antd',
-  size: '1em',
-  color: 'currentColor',
-  className: '',
-  spin: false
-})
+  type: "antd",
+  size: "1em",
+  color: "currentColor",
+  className: "",
+  spin: false,
+});
 
 // 动态加载 Ant Design 图标
 const loadAntdIcon = (name: string) => {
-  return defineAsyncComponent(() => 
-    import('@ant-design/icons-vue').then(module => {
-      const iconName = name.charAt(0).toUpperCase() + name.slice(1) + 'Outlined'
-      return module[iconName] || module.QuestionCircleOutlined
-    })
-  )
-}
+  return defineAsyncComponent(() =>
+    import("@ant-design/icons-vue").then((module) => {
+      const iconName =
+        name.charAt(0).toUpperCase() + name.slice(1) + "Outlined";
+      return module[iconName] || module.QuestionCircleOutlined;
+    }),
+  );
+};
 
 const iconComponent = computed(() => {
   switch (props.type) {
-    case 'svg':
-      return SvgIcon
-    case 'antd':
-      return loadAntdIcon(props.name)
+    case "svg":
+      return SvgIcon;
+    case "antd":
+      return loadAntdIcon(props.name);
     default:
-      return props.name
+      return props.name;
   }
-})
+});
 
 const iconProps = computed(() => {
-  if (props.type === 'svg') {
+  if (props.type === "svg") {
     return {
       name: props.name,
-      size: typeof props.size === 'number' ? `${props.size}px` : props.size,
-      color: props.color
-    }
+      size: typeof props.size === "number" ? `${props.size}px` : props.size,
+      color: props.color,
+    };
   }
-  
+
   return {
-    spin: props.spin
-  }
-})
+    spin: props.spin,
+  };
+});
 
 const iconStyle = computed(() => {
-  if (props.type === 'antd') {
+  if (props.type === "antd") {
     return {
-      fontSize: typeof props.size === 'number' ? `${props.size}px` : props.size,
-      color: props.color
-    }
+      fontSize: typeof props.size === "number" ? `${props.size}px` : props.size,
+      color: props.color,
+    };
   }
-  
-  return {}
-})
+
+  return {};
+});
 </script>
 
 <style scoped>
@@ -355,9 +355,9 @@ const iconStyle = computed(() => {
         <SearchOutlined />
       </template>
     </a-input>
-    
+
     <a-tabs v-model:activeKey="activeCategory" class="icon-tabs">
-      <a-tab-pane 
+      <a-tab-pane
         v-for="category in categories"
         :key="category"
         :tab="category"
@@ -379,54 +379,54 @@ const iconStyle = computed(() => {
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { SearchOutlined } from '@ant-design/icons-vue'
-import Icon from './Icon.vue'
-import { iconManager } from '@/utils/iconManager'
+import { ref, computed } from "vue";
+import { SearchOutlined } from "@ant-design/icons-vue";
+import Icon from "./Icon.vue";
+import { iconManager } from "@/utils/iconManager";
 
 interface Props {
-  modelValue?: string
-  iconType?: 'antd' | 'svg'
+  modelValue?: string;
+  iconType?: "antd" | "svg";
 }
 
 interface Emits {
-  (e: 'update:modelValue', value: string): void
-  (e: 'select', value: string): void
+  (e: "update:modelValue", value: string): void;
+  (e: "select", value: string): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  iconType: 'antd'
-})
+  iconType: "antd",
+});
 
-const emit = defineEmits<Emits>()
+const emit = defineEmits<Emits>();
 
-const searchKeyword = ref('')
-const activeCategory = ref('')
-const selectedIcon = ref(props.modelValue)
+const searchKeyword = ref("");
+const activeCategory = ref("");
+const selectedIcon = ref(props.modelValue);
 
-const categories = computed(() => iconManager.getCategories())
+const categories = computed(() => iconManager.getCategories());
 
 const filteredIcons = computed(() => {
-  let icons = activeCategory.value 
+  let icons = activeCategory.value
     ? iconManager.getByCategory(activeCategory.value)
-    : Array.from(iconManager.getIcons())
-    
+    : Array.from(iconManager.getIcons());
+
   if (searchKeyword.value) {
-    icons = iconManager.search(searchKeyword.value)
+    icons = iconManager.search(searchKeyword.value);
   }
-  
-  return icons
-})
+
+  return icons;
+});
 
 const selectIcon = (iconName: string) => {
-  selectedIcon.value = iconName
-  emit('update:modelValue', iconName)
-  emit('select', iconName)
-}
+  selectedIcon.value = iconName;
+  emit("update:modelValue", iconName);
+  emit("select", iconName);
+};
 
 // 初始化第一个分类
 if (categories.value.length > 0) {
-  activeCategory.value = categories.value[0]
+  activeCategory.value = categories.value[0];
 }
 </script>
 
@@ -485,52 +485,52 @@ if (categories.value.length > 0) {
 // utils/iconUtils.ts
 export class IconUtils {
   // 获取图标 URL
-  static getIconUrl(name: string, type: 'svg' | 'png' = 'svg'): string {
-    return `/src/assets/icons/${name}.${type}`
+  static getIconUrl(name: string, type: "svg" | "png" = "svg"): string {
+    return `/src/assets/icons/${name}.${type}`;
   }
 
   // 预加载图标
   static preloadIcon(name: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      const img = new Image()
-      img.onload = () => resolve()
-      img.onerror = reject
-      img.src = this.getIconUrl(name, 'png')
-    })
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = reject;
+      img.src = this.getIconUrl(name, "png");
+    });
   }
 
   // 批量预加载图标
   static async preloadIcons(names: string[]): Promise<void> {
-    const promises = names.map(name => this.preloadIcon(name))
-    await Promise.all(promises)
+    const promises = names.map((name) => this.preloadIcon(name));
+    await Promise.all(promises);
   }
 
   // 检查图标是否存在
   static async checkIconExists(name: string): Promise<boolean> {
     try {
-      await this.preloadIcon(name)
-      return true
+      await this.preloadIcon(name);
+      return true;
     } catch {
-      return false
+      return false;
     }
   }
 
   // 获取图标尺寸
   static getIconSize(size: string | number): string {
-    if (typeof size === 'number') {
-      return `${size}px`
+    if (typeof size === "number") {
+      return `${size}px`;
     }
-    
+
     const sizeMap: Record<string, string> = {
-      xs: '12px',
-      sm: '14px',
-      md: '16px',
-      lg: '20px',
-      xl: '24px',
-      xxl: '32px'
-    }
-    
-    return sizeMap[size] || size
+      xs: "12px",
+      sm: "14px",
+      md: "16px",
+      lg: "20px",
+      xl: "24px",
+      xxl: "32px",
+    };
+
+    return sizeMap[size] || size;
   }
 }
 ```
@@ -539,39 +539,39 @@ export class IconUtils {
 
 ```typescript
 // composables/useIcon.ts
-import { ref, computed } from 'vue'
-import { IconUtils } from '@/utils/iconUtils'
+import { ref, computed } from "vue";
+import { IconUtils } from "@/utils/iconUtils";
 
 export function useIcon() {
-  const loadingIcons = ref<Set<string>>(new Set())
-  const loadedIcons = ref<Set<string>>(new Set())
-  const failedIcons = ref<Set<string>>(new Set())
+  const loadingIcons = ref<Set<string>>(new Set());
+  const loadedIcons = ref<Set<string>>(new Set());
+  const failedIcons = ref<Set<string>>(new Set());
 
-  const isIconLoading = (name: string) => loadingIcons.value.has(name)
-  const isIconLoaded = (name: string) => loadedIcons.value.has(name)
-  const isIconFailed = (name: string) => failedIcons.value.has(name)
+  const isIconLoading = (name: string) => loadingIcons.value.has(name);
+  const isIconLoaded = (name: string) => loadedIcons.value.has(name);
+  const isIconFailed = (name: string) => failedIcons.value.has(name);
 
   const loadIcon = async (name: string) => {
     if (isIconLoaded(name) || isIconFailed(name)) {
-      return
+      return;
     }
 
-    loadingIcons.value.add(name)
+    loadingIcons.value.add(name);
 
     try {
-      await IconUtils.preloadIcon(name)
-      loadedIcons.value.add(name)
+      await IconUtils.preloadIcon(name);
+      loadedIcons.value.add(name);
     } catch {
-      failedIcons.value.add(name)
+      failedIcons.value.add(name);
     } finally {
-      loadingIcons.value.delete(name)
+      loadingIcons.value.delete(name);
     }
-  }
+  };
 
   const preloadIcons = async (names: string[]) => {
-    const promises = names.map(name => loadIcon(name))
-    await Promise.all(promises)
-  }
+    const promises = names.map((name) => loadIcon(name));
+    await Promise.all(promises);
+  };
 
   return {
     loadingIcons: computed(() => Array.from(loadingIcons.value)),
@@ -581,8 +581,8 @@ export function useIcon() {
     isIconLoaded,
     isIconFailed,
     loadIcon,
-    preloadIcons
-  }
+    preloadIcons,
+  };
 }
 ```
 
@@ -596,14 +596,14 @@ export function useIcon() {
 
 ```typescript
 // 好的命名
-'user-add'
-'setting-general'
-'file-download'
+"user-add";
+"setting-general";
+"file-download";
 
 // 不好的命名
-'usr-add'
-'set-gen'
-'dl-file'
+"usr-add";
+"set-gen";
+"dl-file";
 ```
 
 ### 2. 图标尺寸规范
@@ -613,22 +613,32 @@ export function useIcon() {
 const ICON_SIZES = {
   xs: 12,
   sm: 14,
-  md: 16,    // 默认尺寸
+  md: 16, // 默认尺寸
   lg: 20,
   xl: 24,
-  xxl: 32
-} as const
+  xxl: 32,
+} as const;
 ```
 
 ### 3. 图标颜色规范
 
 ```css
 /* 使用 CSS 变量定义图标颜色 */
-.icon-primary { color: var(--color-primary); }
-.icon-success { color: var(--color-success); }
-.icon-warning { color: var(--color-warning); }
-.icon-error { color: var(--color-error); }
-.icon-disabled { color: var(--color-text-disabled); }
+.icon-primary {
+  color: var(--color-primary);
+}
+.icon-success {
+  color: var(--color-success);
+}
+.icon-warning {
+  color: var(--color-warning);
+}
+.icon-error {
+  color: var(--color-error);
+}
+.icon-disabled {
+  color: var(--color-text-disabled);
+}
 ```
 
 ### 4. 性能优化
@@ -644,10 +654,10 @@ const ICON_SIZES = {
 <template>
   <!-- 装饰性图标 -->
   <Icon name="user" aria-hidden="true" />
-  
+
   <!-- 功能性图标 -->
-  <Icon 
-    name="close" 
+  <Icon
+    name="close"
     :aria-label="$t('common.close')"
     role="button"
     tabindex="0"

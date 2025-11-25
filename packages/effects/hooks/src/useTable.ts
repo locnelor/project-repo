@@ -20,7 +20,7 @@ export type UseTableAction<T> = (() => T[] | Ref<T[]>) | T[] | Ref<T[]>;
 
 export const useTableDataSource = <T>(
   data?: UseTableAction<T>,
-  makeTree = false
+  makeTree = false,
 ) => {
   return computed(() => {
     const source = unref(data);

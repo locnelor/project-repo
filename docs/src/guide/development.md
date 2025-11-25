@@ -135,24 +135,27 @@ git push origin feature/user-management
 ### 命名规范
 
 #### 文件命名
+
 - **组件文件**: PascalCase (如 `UserList.vue`)
 - **工具文件**: camelCase (如 `formatDate.ts`)
 - **常量文件**: SCREAMING_SNAKE_CASE (如 `API_ENDPOINTS.ts`)
 
 #### 变量命名
+
 ```typescript
 // ✅ 推荐
-const userName = 'john'
-const isUserActive = true
-const userList = []
+const userName = "john";
+const isUserActive = true;
+const userList = [];
 
 // ❌ 不推荐
-const user_name = 'john'
-const UserActive = true
-const list = []
+const user_name = "john";
+const UserActive = true;
+const list = [];
 ```
 
 #### 函数命名
+
 ```typescript
 // ✅ 推荐
 function getUserById(id: string) {}
@@ -168,27 +171,29 @@ function validate() {}
 ### TypeScript 规范
 
 #### 类型定义
+
 ```typescript
 // ✅ 推荐 - 使用接口定义对象类型
 interface User {
-  id: string
-  name: string
-  email: string
-  createdAt: Date
+  id: string;
+  name: string;
+  email: string;
+  createdAt: Date;
 }
 
 // ✅ 推荐 - 使用联合类型
-type Status = 'pending' | 'approved' | 'rejected'
+type Status = "pending" | "approved" | "rejected";
 
 // ✅ 推荐 - 使用泛型
 interface ApiResponse<T> {
-  data: T
-  message: string
-  code: number
+  data: T;
+  message: string;
+  code: number;
 }
 ```
 
 #### 函数类型
+
 ```typescript
 // ✅ 推荐 - 明确的参数和返回值类型
 function createUser(userData: CreateUserDto): Promise<User> {
@@ -198,12 +203,13 @@ function createUser(userData: CreateUserDto): Promise<User> {
 // ✅ 推荐 - 使用箭头函数类型
 const handleClick: (event: MouseEvent) => void = (event) => {
   // 处理点击
-}
+};
 ```
 
 ### Vue 组件规范
 
 #### 组件结构
+
 ```vue
 <template>
   <!-- 模板内容 -->
@@ -211,48 +217,48 @@ const handleClick: (event: MouseEvent) => void = (event) => {
 
 <script setup lang="ts">
 // 1. 导入
-import { ref, computed, onMounted } from 'vue'
-import type { User } from '@repo/types'
+import { ref, computed, onMounted } from "vue";
+import type { User } from "@repo/types";
 
 // 2. Props 定义
 interface Props {
-  userId: string
-  showActions?: boolean
+  userId: string;
+  showActions?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
-  showActions: true
-})
+  showActions: true,
+});
 
 // 3. Emits 定义
 interface Emits {
-  update: [user: User]
-  delete: [id: string]
+  update: [user: User];
+  delete: [id: string];
 }
-const emit = defineEmits<Emits>()
+const emit = defineEmits<Emits>();
 
 // 4. 响应式数据
-const user = ref<User | null>(null)
-const loading = ref(false)
+const user = ref<User | null>(null);
+const loading = ref(false);
 
 // 5. 计算属性
 const displayName = computed(() => {
-  return user.value?.name || '未知用户'
-})
+  return user.value?.name || "未知用户";
+});
 
 // 6. 方法
 const fetchUser = async () => {
-  loading.value = true
+  loading.value = true;
   try {
     // 获取用户数据
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 
 // 7. 生命周期
 onMounted(() => {
-  fetchUser()
-})
+  fetchUser();
+});
 </script>
 
 <style scoped>
@@ -261,21 +267,22 @@ onMounted(() => {
 ```
 
 #### 组件命名
+
 ```typescript
 // ✅ 推荐 - 多词组件名
 export default defineComponent({
-  name: 'UserList'
-})
+  name: "UserList",
+});
 
 // ✅ 推荐 - 基础组件前缀
 export default defineComponent({
-  name: 'BaseButton'
-})
+  name: "BaseButton",
+});
 
 // ❌ 不推荐 - 单词组件名
 export default defineComponent({
-  name: 'User'
-})
+  name: "User",
+});
 ```
 
 ---
@@ -286,46 +293,46 @@ export default defineComponent({
 
 ```typescript
 // user.test.ts
-import { describe, it, expect } from 'vitest'
-import { formatUserName } from '../utils/user'
+import { describe, it, expect } from "vitest";
+import { formatUserName } from "../utils/user";
 
-describe('formatUserName', () => {
-  it('should format user name correctly', () => {
-    const result = formatUserName('john', 'doe')
-    expect(result).toBe('John Doe')
-  })
+describe("formatUserName", () => {
+  it("should format user name correctly", () => {
+    const result = formatUserName("john", "doe");
+    expect(result).toBe("John Doe");
+  });
 
-  it('should handle empty names', () => {
-    const result = formatUserName('', '')
-    expect(result).toBe('Unknown User')
-  })
-})
+  it("should handle empty names", () => {
+    const result = formatUserName("", "");
+    expect(result).toBe("Unknown User");
+  });
+});
 ```
 
 ### 组件测试
 
 ```typescript
 // UserCard.test.ts
-import { mount } from '@vue/test-utils'
-import { describe, it, expect } from 'vitest'
-import UserCard from '../UserCard.vue'
+import { mount } from "@vue/test-utils";
+import { describe, it, expect } from "vitest";
+import UserCard from "../UserCard.vue";
 
-describe('UserCard', () => {
-  it('should render user information', () => {
+describe("UserCard", () => {
+  it("should render user information", () => {
     const wrapper = mount(UserCard, {
       props: {
         user: {
-          id: '1',
-          name: 'John Doe',
-          email: 'john@example.com'
-        }
-      }
-    })
+          id: "1",
+          name: "John Doe",
+          email: "john@example.com",
+        },
+      },
+    });
 
-    expect(wrapper.text()).toContain('John Doe')
-    expect(wrapper.text()).toContain('john@example.com')
-  })
-})
+    expect(wrapper.text()).toContain("John Doe");
+    expect(wrapper.text()).toContain("john@example.com");
+  });
+});
 ```
 
 ---
@@ -337,15 +344,21 @@ describe('UserCard', () => {
 ```vue
 <template>
   <!-- ✅ 推荐 - 使用语义化的类名组合 -->
-  <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-md">
+  <div
+    class="flex items-center justify-between p-4 bg-white rounded-lg shadow-md"
+  >
     <h2 class="text-lg font-semibold text-gray-900">标题</h2>
-    <button class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <button
+      class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
       操作
     </button>
   </div>
 
   <!-- ❌ 不推荐 - 过长的类名 -->
-  <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200">
+  <div
+    class="flex items-center justify-between p-4 bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200"
+  >
     <!-- 内容 -->
   </div>
 </template>
@@ -397,24 +410,24 @@ interface ApiResponse<T> {
 ```typescript
 // ✅ 推荐的错误处理
 try {
-  const user = await userService.findById(id)
+  const user = await userService.findById(id);
   return {
     code: 200,
-    message: 'success',
+    message: "success",
     data: user,
-    timestamp: Date.now()
-  }
+    timestamp: Date.now(),
+  };
 } catch (error) {
   if (error instanceof NotFoundError) {
     return {
       code: 404,
-      message: '用户不存在',
+      message: "用户不存在",
       data: null,
-      timestamp: Date.now()
-    }
+      timestamp: Date.now(),
+    };
   }
-  
-  throw error
+
+  throw error;
 }
 ```
 
@@ -493,43 +506,43 @@ git pull origin main
 
 ```typescript
 // ✅ 使用 console.log 进行调试
-console.log('用户数据:', user)
-console.table(userList)
-console.group('API 调用')
-console.log('请求参数:', params)
-console.log('响应数据:', response)
-console.groupEnd()
+console.log("用户数据:", user);
+console.table(userList);
+console.group("API 调用");
+console.log("请求参数:", params);
+console.log("响应数据:", response);
+console.groupEnd();
 
 // ✅ 使用 Vue DevTools
 // 在组件中添加调试信息
 const debugInfo = computed(() => ({
   props: props,
   state: { user, loading },
-  computed: { displayName }
-}))
+  computed: { displayName },
+}));
 ```
 
 ### 后端调试
 
 ```typescript
 // ✅ 使用 Logger 进行调试
-import { Logger } from '@nestjs/common'
+import { Logger } from "@nestjs/common";
 
-@Controller('users')
+@Controller("users")
 export class UsersController {
-  private readonly logger = new Logger(UsersController.name)
+  private readonly logger = new Logger(UsersController.name);
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    this.logger.log(`查找用户: ${id}`)
-    
+  @Get(":id")
+  async findOne(@Param("id") id: string) {
+    this.logger.log(`查找用户: ${id}`);
+
     try {
-      const user = await this.usersService.findOne(id)
-      this.logger.log(`找到用户: ${user.name}`)
-      return user
+      const user = await this.usersService.findOne(id);
+      this.logger.log(`找到用户: ${user.name}`);
+      return user;
     } catch (error) {
-      this.logger.error(`查找用户失败: ${error.message}`)
-      throw error
+      this.logger.error(`查找用户失败: ${error.message}`);
+      throw error;
     }
   }
 }

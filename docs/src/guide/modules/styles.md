@@ -126,9 +126,10 @@ packages/styles/
   --spacing-2xl: 3rem;
 
   // 字体
-  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-family-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
-  
+  --font-family-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+
   // 字体大小
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -233,8 +234,10 @@ packages/styles/
 }
 
 @mixin hover-lift($scale: 1.02, $shadow: var(--shadow-lg)) {
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+
   &:hover {
     transform: translateY(-2px) scale($scale);
     box-shadow: $shadow;
@@ -380,7 +383,7 @@ packages/styles/
 
     &::after {
       @apply absolute inset-0 flex items-center justify-center;
-      content: '';
+      content: "";
       width: 1rem;
       height: 1rem;
       border: 2px solid currentColor;
@@ -467,12 +470,12 @@ packages/styles/
 
   &--required::after {
     @apply text-red-500 ml-1;
-    content: '*';
+    content: "*";
   }
 
   &--optional::after {
     @apply text-gray-400 ml-1 text-xs;
-    content: '(可选)';
+    content: "(可选)";
   }
 }
 
@@ -688,13 +691,21 @@ packages/styles/
 
 // 关键帧动画
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes slideInUp {
@@ -793,7 +804,10 @@ packages/styles/
 }
 
 .transition-colors {
-  transition: color var(--transition-normal), background-color var(--transition-normal), border-color var(--transition-normal);
+  transition:
+    color var(--transition-normal),
+    background-color var(--transition-normal),
+    border-color var(--transition-normal);
 }
 
 .transition-transform {
@@ -968,29 +982,29 @@ packages/styles/
 
 ```javascript
 // tailwind.config.js
-const colors = require('tailwindcss/colors')
+const colors = require("tailwindcss/colors");
 
 module.exports = {
   content: [
-    './src/**/*.{vue,js,ts,jsx,tsx}',
-    './apps/**/*.{vue,js,ts,jsx,tsx}',
-    './packages/**/*.{vue,js,ts,jsx,tsx}',
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+    "./apps/**/*.{vue,js,ts,jsx,tsx}",
+    "./packages/**/*.{vue,js,ts,jsx,tsx}",
   ],
-  darkMode: ['class', '[data-theme="dark"]'],
+  darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
         primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+          50: "#eff6ff",
+          100: "#dbeafe",
+          200: "#bfdbfe",
+          300: "#93c5fd",
+          400: "#60a5fa",
+          500: "#3b82f6",
+          600: "#2563eb",
+          700: "#1d4ed8",
+          800: "#1e40af",
+          900: "#1e3a8a",
         },
         gray: colors.slate,
         success: colors.emerald,
@@ -999,94 +1013,95 @@ module.exports = {
         info: colors.cyan,
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        sans: ["Inter", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "Fira Code", "monospace"],
       },
       fontSize: {
-        '2xs': ['0.625rem', { lineHeight: '0.75rem' }],
+        "2xs": ["0.625rem", { lineHeight: "0.75rem" }],
       },
       spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
+        18: "4.5rem",
+        88: "22rem",
       },
       borderRadius: {
-        '4xl': '2rem',
+        "4xl": "2rem",
       },
       boxShadow: {
-        'inner-lg': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.1)',
-        'glow': '0 0 20px rgba(59, 130, 246, 0.5)',
-        'glow-lg': '0 0 40px rgba(59, 130, 246, 0.3)',
+        "inner-lg": "inset 0 2px 4px 0 rgba(0, 0, 0, 0.1)",
+        glow: "0 0 20px rgba(59, 130, 246, 0.5)",
+        "glow-lg": "0 0 40px rgba(59, 130, 246, 0.3)",
       },
       animation: {
-        'fade-in': 'fadeIn 0.3s ease-in-out',
-        'slide-up': 'slideUp 0.3s ease-out',
-        'bounce-in': 'bounceIn 0.6s ease-out',
-        'pulse-slow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        "fade-in": "fadeIn 0.3s ease-in-out",
+        "slide-up": "slideUp 0.3s ease-out",
+        "bounce-in": "bounceIn 0.6s ease-out",
+        "pulse-slow": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
         fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
         slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
         bounceIn: {
-          '0%': { opacity: '0', transform: 'scale(0.3)' },
-          '50%': { opacity: '1', transform: 'scale(1.05)' },
-          '70%': { transform: 'scale(0.9)' },
-          '100%': { opacity: '1', transform: 'scale(1)' },
+          "0%": { opacity: "0", transform: "scale(0.3)" },
+          "50%": { opacity: "1", transform: "scale(1.05)" },
+          "70%": { transform: "scale(0.9)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
         },
       },
       backdropBlur: {
-        xs: '2px',
+        xs: "2px",
       },
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/container-queries'),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/container-queries"),
     // 自定义插件
-    function({ addUtilities, addComponents, theme }) {
+    function ({ addUtilities, addComponents, theme }) {
       // 添加自定义工具类
       addUtilities({
-        '.text-gradient': {
-          'background': 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-          '-webkit-background-clip': 'text',
-          '-webkit-text-fill-color': 'transparent',
-          'background-clip': 'text',
+        ".text-gradient": {
+          background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+          "-webkit-background-clip": "text",
+          "-webkit-text-fill-color": "transparent",
+          "background-clip": "text",
         },
-        '.glass-morphism': {
-          'background': 'rgba(255, 255, 255, 0.1)',
-          'backdrop-filter': 'blur(10px)',
-          'border': '1px solid rgba(255, 255, 255, 0.2)',
+        ".glass-morphism": {
+          background: "rgba(255, 255, 255, 0.1)",
+          "backdrop-filter": "blur(10px)",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
         },
-      })
+      });
 
       // 添加自定义组件
       addComponents({
-        '.card': {
-          '@apply bg-white rounded-lg shadow-md p-6': {},
-          '@apply dark:bg-gray-800 dark:shadow-gray-900/20': {},
+        ".card": {
+          "@apply bg-white rounded-lg shadow-md p-6": {},
+          "@apply dark:bg-gray-800 dark:shadow-gray-900/20": {},
         },
-        '.badge': {
-          '@apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium': {},
+        ".badge": {
+          "@apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium":
+            {},
         },
-      })
+      });
     },
   ],
-}
+};
 ```
 
 ### 5. 构建配置
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite'
-import { resolve } from 'path'
+import { defineConfig } from "vite";
+import { resolve } from "path";
 
 export default defineConfig({
   css: {
@@ -1100,28 +1115,28 @@ export default defineConfig({
     },
     postcss: {
       plugins: [
-        require('tailwindcss'),
-        require('autoprefixer'),
-        require('cssnano')({
-          preset: 'default',
+        require("tailwindcss"),
+        require("autoprefixer"),
+        require("cssnano")({
+          preset: "default",
         }),
       ],
     },
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.scss'),
-      name: 'QiyunStyles',
-      formats: ['es'],
-      fileName: 'styles',
+      entry: resolve(__dirname, "src/index.scss"),
+      name: "QiyunStyles",
+      formats: ["es"],
+      fileName: "styles",
     },
     rollupOptions: {
       output: {
-        assetFileNames: 'styles.[ext]',
+        assetFileNames: "styles.[ext]",
       },
     },
   },
-})
+});
 ```
 
 ## 使用方法
@@ -1132,24 +1147,16 @@ export default defineConfig({
 <template>
   <div class="container">
     <!-- 使用预定义组件样式 -->
-    <button class="btn btn--primary btn--lg">
-      主要按钮
-    </button>
-    
+    <button class="btn btn--primary btn--lg">主要按钮</button>
+
     <!-- 使用 TailwindCSS 工具类 -->
     <div class="bg-white rounded-lg shadow-md p-6">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">
-        标题
-      </h2>
-      <p class="text-gray-600 leading-relaxed">
-        内容文本
-      </p>
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">标题</h2>
+      <p class="text-gray-600 leading-relaxed">内容文本</p>
     </div>
-    
+
     <!-- 使用自定义工具类 -->
-    <div class="glass-morphism p-6 rounded-xl">
-      玻璃态效果
-    </div>
+    <div class="glass-morphism p-6 rounded-xl">玻璃态效果</div>
   </div>
 </template>
 
@@ -1172,33 +1179,27 @@ export default defineConfig({
 ```vue
 <template>
   <div>
-    <button @click="toggleTheme" class="btn btn--secondary">
-      切换主题
-    </button>
-    
+    <button @click="toggleTheme" class="btn btn--secondary">切换主题</button>
+
     <div class="theme-demo">
-      <div class="bg-primary text-white p-4 rounded">
-        主色调背景
-      </div>
-      <div class="bg-secondary text-primary p-4 rounded">
-        次要色调背景
-      </div>
+      <div class="bg-primary text-white p-4 rounded">主色调背景</div>
+      <div class="bg-secondary text-primary p-4 rounded">次要色调背景</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const isDark = ref(false)
+const isDark = ref(false);
 
 const toggleTheme = () => {
-  isDark.value = !isDark.value
+  isDark.value = !isDark.value;
   document.documentElement.setAttribute(
-    'data-theme', 
-    isDark.value ? 'dark' : 'light'
-  )
-}
+    "data-theme",
+    isDark.value ? "dark" : "light",
+  );
+};
 </script>
 
 <style scoped>
@@ -1231,7 +1232,7 @@ const toggleTheme = () => {
         {{ item.title }}
       </div>
     </div>
-    
+
     <!-- 响应式导航 -->
     <nav class="navbar">
       <div class="navbar__brand">Logo</div>
@@ -1240,10 +1241,7 @@ const toggleTheme = () => {
         <a href="#" class="navbar__link">产品</a>
         <a href="#" class="navbar__link">关于</a>
       </div>
-      <button 
-        class="navbar__toggle md:hidden"
-        @click="menuOpen = !menuOpen"
-      >
+      <button class="navbar__toggle md:hidden" @click="menuOpen = !menuOpen">
         ☰
       </button>
     </nav>
@@ -1301,30 +1299,28 @@ const toggleTheme = () => {
 <template>
   <div class="animation-demo">
     <!-- 入场动画 -->
-    <div 
-      v-for="(item, index) in items" 
+    <div
+      v-for="(item, index) in items"
       :key="item.id"
       class="animate-slide-in-up card"
       :style="{ animationDelay: `${index * 100}ms` }"
     >
       {{ item.title }}
     </div>
-    
+
     <!-- 交互动画 -->
-    <button class="btn btn--primary hover-lift hover-glow">
-      悬停效果
-    </button>
-    
+    <button class="btn btn--primary hover-lift hover-glow">悬停效果</button>
+
     <!-- 加载动画 -->
     <div v-if="loading" class="loading-spinner">
-      <div class="animate-rotate w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+      <div
+        class="animate-rotate w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full"
+      ></div>
     </div>
-    
+
     <!-- 过渡动画 -->
     <transition name="fade" mode="out-in">
-      <div v-if="showContent" class="content">
-        内容区域
-      </div>
+      <div v-if="showContent" class="content">内容区域</div>
     </transition>
   </div>
 </template>
@@ -1384,34 +1380,34 @@ const toggleTheme = () => {
 .component {
   // 基础样式
   @apply block relative;
-  
+
   // 布局样式
   @apply w-full p-4;
-  
+
   // 视觉样式
   @apply bg-white rounded-lg shadow-md;
-  
+
   // 交互样式
   @apply hover:shadow-lg transition-shadow;
-  
+
   // 状态样式
   &--active {
     @apply bg-blue-50 border-blue-200;
   }
-  
+
   &--disabled {
     @apply opacity-50 pointer-events-none;
   }
-  
+
   // 子元素样式
   &__header {
     @apply flex items-center justify-between mb-4;
   }
-  
+
   &__title {
     @apply text-lg font-semibold text-gray-900;
   }
-  
+
   &__content {
     @apply text-gray-600 leading-relaxed;
   }
@@ -1427,12 +1423,12 @@ const toggleTheme = () => {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   border-color: var(--border-primary);
-  
+
   // 使用 transform 而不是改变 layout 属性
   &:hover {
     transform: translateY(-2px);
   }
-  
+
   // 使用 will-change 提示浏览器优化
   &.animating {
     will-change: transform, opacity;
@@ -1468,15 +1464,15 @@ const toggleTheme = () => {
   &__input {
     // 输入框样式
   }
-  
+
   &__button {
     // 按钮样式
-    
+
     &--primary {
       // 主要按钮变体
     }
   }
-  
+
   &--compact {
     // 紧凑型表单修饰符
   }

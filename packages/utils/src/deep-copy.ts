@@ -1,6 +1,6 @@
 export const deepCopy = <T>(target: T): T => {
   // 如果是基本类型或null，直接返回
-  if (target === null || typeof target !== 'object') {
+  if (target === null || typeof target !== "object") {
     return target;
   }
 

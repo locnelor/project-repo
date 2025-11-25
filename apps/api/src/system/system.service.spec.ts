@@ -6,14 +6,14 @@ describe('SystemService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [SystemService]
+      providers: [SystemService],
     }).compile();
 
     service = module.get<SystemService>(SystemService);
   });
-  it("createUser", async () => {
-    await service.createUser()
-  })
+  it('createUser', async () => {
+    await service.createUser();
+  });
   it('should be defined', () => {
     expect(service).toBeDefined();
   });

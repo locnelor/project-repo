@@ -18,13 +18,13 @@ export class RequestClient {
   }
   addRequestInterceptor(
     fulfilled: InterceptorRequestFulfilled,
-    rejected = (error: any) => error
+    rejected = (error: any) => error,
   ) {
     this.instance.interceptors.request.use(fulfilled, rejected);
   }
   addResponseInterceptor(
     fulfilled: InterceptorResponseFulfilled,
-    rejected = (error: any) => error
+    rejected = (error: any) => error,
   ) {
     this.instance.interceptors.response.use(fulfilled, rejected);
   }
@@ -49,7 +49,7 @@ export class RequestClient {
   public post<T = any>(
     url: string,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<T> {
     return this.request<T>(url, { ...config, data, method: "POST" });
   }
@@ -60,7 +60,7 @@ export class RequestClient {
   public put<T = any>(
     url: string,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<T> {
     return this.request<T>(url, { ...config, data, method: "PUT" });
   }

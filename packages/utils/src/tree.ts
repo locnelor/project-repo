@@ -28,7 +28,7 @@ export const array2tree = <T>(arr: T[], options: Array2treeOptions<T> = {}) => {
         ...item,
       };
       if (clearEmptyChildren && result.children && !result.children.length) {
-        delete result.children
+        delete result.children;
       }
       return result;
     });
@@ -36,12 +36,11 @@ export const array2tree = <T>(arr: T[], options: Array2treeOptions<T> = {}) => {
   return buildTree(defaultParentId) as T[];
 };
 
-
 /**
  * 获取树结构中的第一个叶节点
  * @param nodes 树节点数组
  * @returns 第一个叶节点，如果没有找到则返回 undefined
- * 
+ *
  * @example
  * // 示例1: 基本用法
  * const tree = [
@@ -49,18 +48,18 @@ export const array2tree = <T>(arr: T[], options: Array2treeOptions<T> = {}) => {
  *   { children: [3, 4] }
  * ];
  * getFirstLeafNode(tree); // 返回 1
- * 
+ *
  * @example
  * // 示例2: 对象节点
  * const tree = [
- *   { 
+ *   {
  *     name: 'parent1',
  *     children: [
  *       { name: 'leaf1', children: [] },
  *       { name: 'leaf2', children: [] }
  *     ]
  *   },
- *   { 
+ *   {
  *     name: 'parent2',
  *     children: [
  *       { name: 'leaf3', children: [] }
@@ -69,7 +68,9 @@ export const array2tree = <T>(arr: T[], options: Array2treeOptions<T> = {}) => {
  * ];
  * getFirstLeafNode(tree); // 返回 { name: 'leaf1', children: [] }
  */
-export function getFirstLeafNode<T = any>(nodes: TreeNode<T>[]): T | TreeNode<T> | undefined {
+export function getFirstLeafNode<T = any>(
+  nodes: TreeNode<T>[],
+): T | TreeNode<T> | undefined {
   if (!nodes || nodes.length === 0) {
     return undefined;
   }
@@ -82,9 +83,9 @@ export function getFirstLeafNode<T = any>(nodes: TreeNode<T>[]): T | TreeNode<T>
 
     // 如果 children 存在且不为空，递归查找第一个叶节点
     const firstChild = node.children[0];
-    
+
     // 如果第一个子节点是基本类型（非对象），直接返回
-    if (typeof firstChild !== 'object' || firstChild === null) {
+    if (typeof firstChild !== "object" || firstChild === null) {
       return firstChild;
     }
 
@@ -103,7 +104,9 @@ export function getFirstLeafNode<T = any>(nodes: TreeNode<T>[]): T | TreeNode<T>
  * @param nodes 树节点数组
  * @returns 所有叶节点的数组
  */
-export function getAllLeafNodes<T = any>(nodes: TreeNode<T>[]): (T | TreeNode<T>)[] {
+export function getAllLeafNodes<T = any>(
+  nodes: TreeNode<T>[],
+): (T | TreeNode<T>)[] {
   const leafNodes: (T | TreeNode<T>)[] = [];
 
   function traverse(currentNodes: TreeNode<T>[]) {
@@ -113,7 +116,7 @@ export function getAllLeafNodes<T = any>(nodes: TreeNode<T>[]): (T | TreeNode<T>
       } else {
         // 检查子节点是否为基本类型
         for (const child of node.children) {
-          if (typeof child !== 'object' || child === null) {
+          if (typeof child !== "object" || child === null) {
             leafNodes.push(child);
           } else {
             traverse([child as TreeNode<T>]);
@@ -153,5 +156,3 @@ export const treeMap = <T extends TreeNode>(
     return cbk?.(child);
   });
 };
-
-
