@@ -11,7 +11,8 @@ generator client {
 
 datasource db {
   // provider = "postgresql"
-  provider     = "mysql"
+  provider = "mysql"
+  // provider     = "sqlite"
   relationMode = "prisma"
 }
 
@@ -126,7 +127,7 @@ model sys_dept {
   sort Int @default(10)
 
   // 自引用关系
-  parent   sys_dept?  @relation("DeptParent", fields: [pid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parent   sys_dept?  @relation("DeptParent", fields: [pid], references: [id], onDelete: Restrict, onUpdate: Restrict)
   children sys_dept[] @relation("DeptParent")
 
   /// 用户
@@ -167,7 +168,7 @@ model sys_menu {
   /// 父菜单ID
   pid String?
 
-  parent   sys_menu?  @relation("SysMenuParent", fields: [pid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parent   sys_menu?  @relation("SysMenuParent", fields: [pid], references: [id], onDelete: Restrict, onUpdate: Restrict)
   children sys_menu[] @relation("SysMenuParent")
 
   /// 菜单名称
