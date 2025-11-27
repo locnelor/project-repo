@@ -1,15 +1,11 @@
 {
   "name": "@repo/database",
   "version": "1.0.0",
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
     }
   },
   "scripts": {
@@ -19,8 +15,7 @@
     "db:pull": "prisma db pull",
     "format": "prisma format",
     "generate": "prisma generate",
-    "push": "prisma db push",
-    "stub": "pnpm unbuild --stub"
+    "push": "prisma db push"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.0.1",
