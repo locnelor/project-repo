@@ -31,6 +31,7 @@
     "@nestjs/swagger": "^11.2.0",
     "@repo/database": "workspace:*",
     "@types/multer": "^2.0.0",
+    "@types/sm-crypto": "^0.3.4",
     "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
     "class-transformer": "^0.5.1",
@@ -43,7 +44,9 @@
     "raw-body": "^3.0.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "ts-morph": "^25.0.0"
+    "sm-crypto": "^0.3.13",
+    "ts-morph": "^25.0.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
