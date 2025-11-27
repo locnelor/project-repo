@@ -6,6 +6,8 @@ import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { HashService } from '@app/hash';
+import { DecryptMiddleware } from './common/middleware/decrypt.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -18,7 +20,13 @@ async function bootstrap() {
     //     }
     //     : undefined,
     rawBody: true,
+    bodyParser: false,
   });
+
+  const decryptMiddleware = new DecryptMiddleware(app.get(HashService));
+  app.use(decryptMiddleware.use.bind(decryptMiddleware));
+
+
   const configService: any = app.get(ConfigService);
   app.enableCors({
     origin: (origin, callback) => {
@@ -40,14 +48,16 @@ async function bootstrap() {
   app.useStaticAssets('resource');
   app.useStaticAssets('public');
 
-  const options = new DocumentBuilder()
-    .setTitle(<string>configService.get('TITLE'))
-    .setDescription(<string>configService.get('DESCRIPTION'))
-    .setVersion(<string>configService.get('VERSION'))
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
+  if (configService.get("SWAGGER") === 'true') {
+    const options = new DocumentBuilder()
+      .setTitle(<string>configService.get('TITLE'))
+      .setDescription(<string>configService.get('DESCRIPTION'))
+      .setVersion(<string>configService.get('VERSION'))
+      .build();
+    const document = SwaggerModule.createDocument(app, options);
 
-  SwaggerModule.setup('docs', app, document);
+    SwaggerModule.setup('docs', app, document);
+  }
   const port = configService.get('PORT');
   console.log(`Server running on port ${port}`);
   app.listen(port);

@@ -22,6 +22,7 @@
     "@app/prisma": "<rootDir>/../libs/prisma/src",
     "@app/prisma/(.*)": "<rootDir>/../libs/prisma/src/$1",
     "@app/redis-cache": "<rootDir>/../libs/redis-cache/src",
-    "@app/redis-cache/(.*)": "<rootDir>/../libs/redis-cache/src/$1"
+    "@app/redis-cache/(.*)": "<rootDir>/../libs/redis-cache/src/$1",
+    "^@app/website(|/.*)$": "<rootDir>/../libs/website/src/$1"
   }
 }

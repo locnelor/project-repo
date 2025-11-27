@@ -11,7 +11,7 @@ generator client {
 
 datasource db {
   // provider = "postgresql"
-  provider = "mysql"
+  provider     = "mysql"
   // provider     = "sqlite"
   relationMode = "prisma"
 }
@@ -47,8 +47,8 @@ model sys_user {
   job_no String?
 
   logs         sys_log[]
-  sysDept      sys_dept?       @relation(fields: [sys_deptId], references: [id])
-  sys_deptId   String?
+  dept         sys_dept?       @relation(fields: [dept_id], references: [id])
+  dept_id      String?
   sysRoleUsers sys_role_user[]
 }
 
@@ -113,9 +113,6 @@ model sys_dept {
 
   /// PID
   pid String? @db.VarChar(32)
-
-  /// 组织机构code
-  org_code String @db.VarChar(32)
 
   /// 部门名称
   name String @db.VarChar(255)

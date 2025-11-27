@@ -34,7 +34,7 @@ export class AuthPowerService {
         //     }
         //   }
         // },
-        department: true,
+        dept: true,
       },
     });
     if (!user) return null;

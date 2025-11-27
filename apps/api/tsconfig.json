@@ -53,6 +53,12 @@
       ],
       "@app/redis-cache/*": [
         "libs/redis-cache/src/*"
+      ],
+      "@app/website": [
+        "libs/website/src"
+      ],
+      "@app/website/*": [
+        "libs/website/src/*"
       ]
     }
   }

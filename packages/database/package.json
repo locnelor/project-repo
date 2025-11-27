@@ -23,9 +23,9 @@
     "stub": "pnpm unbuild --stub"
   },
   "dependencies": {
+    "@prisma/adapter-mariadb": "^7.0.1",
     "@prisma/client": "^7.0.0",
-    "dotenv": "^17.2.3",
-    "prisma": "^7.0.0",
+    "prisma": "^7.0.1",
     "rimraf": "^6.1.2"
   }
 }

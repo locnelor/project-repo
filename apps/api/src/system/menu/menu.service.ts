@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { sys_user } from '@repo/database';
+import { sys_menu, sys_user } from '@repo/database';
 import { ListMenuQuery } from './dto/list-menu.dto';
 import { prisma } from '@app/prisma';
 
@@ -15,8 +15,7 @@ export class MenuService {
           },
           deleted: false,
         },
-      },
-      user,
+      }
     );
   }
   delete(id: string, user: any) {
@@ -37,11 +36,13 @@ export class MenuService {
     if (!!user) {
       data.update_by = user.id;
     }
-    return prisma.sys_menu.update({
+    return await prisma.sys_menu.update({
       where: {
         id,
       },
       data: {
+        deleted: true,
+        update_by: user?.id,
         ...body,
       },
     });

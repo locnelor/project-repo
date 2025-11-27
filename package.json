@@ -5,16 +5,18 @@
     "build": "turbo-run build",
     "dev": "turbo-run dev",
     "lint": "turbo-run lint",
+    "db:generate": "turbo run generate",
     "clean": "node ./scripts/clean.mjs",
+    "postinstall": "pnpm -r run stub --if-present",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types",
-    "postinstall": "pnpm -r run stub --if-present"
+    "check-types": "turbo run check-types"
   },
   "devDependencies": {
     "@internal/tsconfig": "workspace:*",
     "@scripts/turbo-run": "workspace:*",
     "prettier": "^3.6.2",
     "turbo": "^2.6.1",
+    "dotenv": "^17.2.3",
     "typescript": "5.9.2",
     "@types/node": "^24.10.1"
   },

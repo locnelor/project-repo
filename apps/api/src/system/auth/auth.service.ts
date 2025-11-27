@@ -10,8 +10,8 @@ export class AuthService {
     const user = await prisma.sys_user.findUnique({
       where: { username },
     });
-    if (!user || !user.status) {
-      throw new UnauthorizedException('账号不存在或已被禁用');
+    if (!user) {
+      throw new UnauthorizedException('账号不存在');
     }
 
     // 验证密码

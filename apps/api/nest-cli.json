@@ -60,6 +60,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/redis-cache/tsconfig.lib.json"
       }
+    },
+    "website": {
+      "type": "library",
+      "root": "libs/website",
+      "entryFile": "index",
+      "sourceRoot": "libs/website/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/website/tsconfig.lib.json"
+      }
     }
   }
 }
