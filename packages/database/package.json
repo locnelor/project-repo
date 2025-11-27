@@ -1,11 +1,16 @@
 {
   "name": "@repo/database",
   "version": "1.0.0",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./src/index.ts",
   "type": "module",
   "exports": {
     ".": {
       "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
     }
   },
   "scripts": {
@@ -15,6 +20,9 @@
     "db:pull": "prisma db pull",
     "format": "prisma format",
     "generate": "prisma generate",
+    "prebuild": "pnpm run generate",
+    "build": "unbuild",
+    "stub": "pnpm run build",
     "push": "prisma db push"
   },
   "dependencies": {

@@ -9,7 +9,8 @@
     "internal/vite-config/*.json",
     "internal/vite-config/src/**/*.ts",
     "scripts/*/src/**/*.ts",
-    "scripts/*/src/**/*.json"
+    "scripts/*/src/**/*.json",
+    "packages/*/package.json"
   ],
   "tasks": {
     "build": {

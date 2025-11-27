@@ -26,6 +26,6 @@ const prismaInstance = new PrismaClient({
 
 export const prisma = prismaInstance
     .$extends(prismaClientExtends)
-    .$extends(pageExtension(prismaInstance));
+    .$extends(pageExtension);
 
 export type ExtendedPrismaClient = typeof prisma;

@@ -1,5 +1,11 @@
 {
   "extends": "@internal/tsconfig/prisma.json",
+  "compilerOptions": {
+    // Use bundler-style resolution to allow extensionless relative imports in TS
+    "moduleResolution": "bundler",
+    // Align with bundler ESM semantics; build is handled by unbuild/mkdist
+    "module": "ESNext"
+  },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "ts.config.ts"],
   "exclude": ["node_modules"]
 }

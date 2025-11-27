@@ -8,7 +8,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello() {
-    return prisma.sys_user.count()
+  async getHello() {
+    return await prisma.sys_user.count() + 'count'
   }
 }
