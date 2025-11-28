@@ -1,0 +1,603 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "app"
+        ]
+      }
+    },
+    "/test": {
+      "get": {
+        "operationId": "AppController_test",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestResult"
+                }
+              }
+            }
+          }
+        },
+        "summary": "测试接口",
+        "tags": [
+          "app"
+        ]
+      }
+    },
+    "/test2": {
+      "get": {
+        "operationId": "AppController_test2",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/BaseApiResponse"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/TestResult"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "测试接口2",
+        "tags": [
+          "app"
+        ]
+      }
+    },
+    "/api/sys/user": {
+      "post": {
+        "operationId": "UserController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SysUserModel"
+                }
+              }
+            }
+          }
+        },
+        "summary": "创建用户",
+        "tags": [
+          "用户管理",
+          "用户"
+        ]
+      },
+      "get": {
+        "operationId": "UserController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "用户管理",
+          "用户"
+        ]
+      }
+    },
+    "/api/sys/user/{id}": {
+      "get": {
+        "operationId": "UserController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "用户管理",
+          "用户"
+        ]
+      },
+      "patch": {
+        "operationId": "UserController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "用户管理",
+          "用户"
+        ]
+      },
+      "delete": {
+        "operationId": "UserController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "用户管理",
+          "用户"
+        ]
+      }
+    },
+    "/role": {
+      "post": {
+        "operationId": "RoleController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Role"
+        ]
+      },
+      "get": {
+        "operationId": "RoleController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Role"
+        ]
+      }
+    },
+    "/role/{id}": {
+      "get": {
+        "operationId": "RoleController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Role"
+        ]
+      },
+      "patch": {
+        "operationId": "RoleController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Role"
+        ]
+      },
+      "delete": {
+        "operationId": "RoleController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Role"
+        ]
+      }
+    },
+    "/api/sys/menu": {
+      "post": {
+        "operationId": "MenuController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMenuDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "创建菜单",
+        "tags": [
+          "系统菜单"
+        ]
+      },
+      "get": {
+        "operationId": "MenuController_list",
+        "parameters": [
+          {
+            "name": "pageNo",
+            "required": false,
+            "in": "query",
+            "description": "当前页码",
+            "schema": {
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "每页数据条数",
+            "schema": {
+              "default": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "name",
+            "required": false,
+            "in": "query",
+            "description": "菜单名称",
+            "schema": {
+              "default": "",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "查询菜单列表",
+        "tags": [
+          "系统菜单"
+        ]
+      }
+    },
+    "/api/sys/menu/{id}": {
+      "put": {
+        "operationId": "MenuController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMenuDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "更新菜单",
+        "tags": [
+          "系统菜单"
+        ]
+      },
+      "delete": {
+        "operationId": "MenuController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "菜单ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "删除菜单",
+        "tags": [
+          "系统菜单"
+        ]
+      }
+    }
+  },
+  "info": {
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "TestObj": {
+        "type": "object",
+        "properties": {
+          "User_Name": {
+            "type": "string",
+            "description": "用户姓名"
+          }
+        },
+        "required": [
+          "User_Name"
+        ]
+      },
+      "TestResult": {
+        "type": "object",
+        "properties": {
+          "Result": {
+            "type": "string",
+            "description": "测试结果"
+          },
+          "Obj": {
+            "description": "测试对象",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TestObj"
+              }
+            ]
+          }
+        },
+        "required": [
+          "Result",
+          "Obj"
+        ]
+      },
+      "BaseApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "description": "状态码"
+          },
+          "msg": {
+            "type": "string",
+            "description": "消息"
+          },
+          "now": {
+            "type": "number",
+            "description": "请求时间"
+          }
+        },
+        "required": [
+          "code",
+          "msg",
+          "now"
+        ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "用户姓名"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "SysUserModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "主键ID"
+          },
+          "create_time": {
+            "format": "date-time",
+            "type": "string",
+            "description": "创建时间"
+          },
+          "update_time": {
+            "format": "date-time",
+            "type": "string",
+            "description": "更新时间"
+          },
+          "create_by": {
+            "type": "object",
+            "description": "创建人"
+          },
+          "update_by": {
+            "type": "object",
+            "description": "更新人"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "是否已删除"
+          },
+          "username": {
+            "type": "string",
+            "description": "用户名"
+          },
+          "password": {
+            "type": "object",
+            "description": "密码"
+          },
+          "nickname": {
+            "type": "object",
+            "description": "昵称"
+          },
+          "real_name": {
+            "type": "object",
+            "description": "真实姓名"
+          },
+          "email": {
+            "type": "object",
+            "description": "邮箱"
+          },
+          "phone": {
+            "type": "object",
+            "description": "手机号"
+          },
+          "job_no": {
+            "type": "object",
+            "description": "工号"
+          },
+          "dept_id": {
+            "type": "object",
+            "description": "部门ID"
+          }
+        },
+        "required": [
+          "id",
+          "create_time",
+          "update_time",
+          "deleted",
+          "username"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "用户姓名"
+          }
+        }
+      },
+      "CreateRoleDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateRoleDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateMenuDto": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  }
+}

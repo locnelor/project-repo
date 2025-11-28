@@ -10,12 +10,21 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SysUserModel } from 'src/common/models/sys_user';
 
 @Controller('api/sys/user')
+@ApiTags("用户管理", "用户")
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post()
+  @ApiOperation({
+    summary: "创建用户"
+  })
+  @ApiResponse({
+    type: SysUserModel
+  })
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }

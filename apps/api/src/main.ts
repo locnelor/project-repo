@@ -1,6 +1,6 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ValidationPipe } from '@nestjs/common';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
@@ -8,6 +8,7 @@ import { ResponseInterceptor } from './common/interceptors/response.interceptor'
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { HashService } from '@app/hash';
 import { DecryptMiddleware } from './common/middleware/decrypt.middleware';
+import { writeFileSync } from 'fs';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -28,7 +29,7 @@ async function bootstrap() {
 
 
   const configService: any = app.get(ConfigService);
-  app.enableCors({
+  app.enableCors({ 
     origin: (origin, callback) => {
       callback(null, origin); // 允许任意来源
     },
@@ -38,7 +39,15 @@ async function bootstrap() {
   app.useBodyParser('raw');
   app.useBodyParser('json', { limit: '10mb' });
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    transform: true,
+    transformOptions: {
+      enableImplicitConversion: true
+    }
+  }));
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(new Reflector()))
+  
   app.useGlobalInterceptors(new ResponseInterceptor());
   app.useGlobalFilters(new HttpExceptionFilter());
   // set prefix
@@ -48,6 +57,7 @@ async function bootstrap() {
   app.useStaticAssets('resource');
   app.useStaticAssets('public');
 
+  console.log(configService.get("SWAGGER") === 'true', 'swagger')
   if (configService.get("SWAGGER") === 'true') {
     const options = new DocumentBuilder()
       .setTitle(<string>configService.get('TITLE'))
@@ -57,10 +67,16 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options);
 
     SwaggerModule.setup('docs', app, document);
+
+    // 保存为 JSON 文件
+    writeFileSync('./swagger.json', JSON.stringify(document, null, 2));
   }
+  const host = configService.get('SERVER_HOST');
   const port = configService.get('PORT');
-  console.log(`Server running on port ${port}`);
-  app.listen(port);
+  await app.listen(port, host, () => {
+    console.log(`listener: http://${host}:${port}`);
+    console.log(`docs: http://${host}:${port}/docs`);
+  });
 }
 
 bootstrap();
