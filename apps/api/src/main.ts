@@ -29,7 +29,7 @@ async function bootstrap() {
 
 
   const configService: any = app.get(ConfigService);
-  app.enableCors({ 
+  app.enableCors({
     origin: (origin, callback) => {
       callback(null, origin); // 允许任意来源
     },
@@ -46,8 +46,7 @@ async function bootstrap() {
       enableImplicitConversion: true
     }
   }));
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(new Reflector()))
-  
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.useGlobalInterceptors(new ResponseInterceptor());
   app.useGlobalFilters(new HttpExceptionFilter());
   // set prefix

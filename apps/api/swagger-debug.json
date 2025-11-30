@@ -382,6 +382,9 @@
     }
   },
   "info": {
+    "title": "Test",
+    "description": "Test",
+    "version": "1.0",
     "contact": {}
   },
   "tags": [],

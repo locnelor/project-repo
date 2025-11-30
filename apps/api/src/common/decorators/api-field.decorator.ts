@@ -15,18 +15,11 @@ export type ApiExposeDecoratorOptions = ApiPropertyOptions & {
 /**
  * 集成 Swagger ApiProperty + class-transformer Expose + 可选固定值
  */
-export function ApiField(description: string, options: ApiExposeDecoratorOptions = {}) {
+export function ApiField(options: ApiExposeDecoratorOptions = {}) {
     return function (target: any, propertyKey: string) {
         const { outputKey, fixedValue, ...swaggerOptions } = options;
-
+        const description = typeof swaggerOptions.type === "function" ? undefined : swaggerOptions.description;
         ApiProperty({ ...swaggerOptions, name: outputKey ?? propertyKey, description })(target, propertyKey);
-
-        if ((swaggerOptions as any).type) {
-            const raw = (swaggerOptions as any).type;
-            const typeFn = raw && raw.prototype ? () => raw : raw;
-            Type(typeFn)(target, propertyKey);
-        }
-
         Expose({ name: outputKey })(target, propertyKey);
         Transform(({ obj, value }) => {
             if (fixedValue !== undefined) return fixedValue;
