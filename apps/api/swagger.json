@@ -175,7 +175,7 @@
         ]
       }
     },
-    "/role": {
+    "/api/sys/role": {
       "post": {
         "operationId": "RoleController_create",
         "parameters": [],
@@ -190,12 +190,20 @@
           }
         },
         "responses": {
-          "201": {
-            "description": ""
+          "200": {
+            "description": "创建角色",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysRoleModel"
+                }
+              }
+            }
           }
         },
+        "summary": "创建角色",
         "tags": [
-          "Role"
+          "角色管理"
         ]
       },
       "get": {
@@ -203,15 +211,23 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "查询所有角色",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysRoleModelArray"
+                }
+              }
+            }
           }
         },
+        "summary": "查询所有角色",
         "tags": [
-          "Role"
+          "角色管理"
         ]
       }
     },
-    "/role/{id}": {
+    "/api/sys/role/{id}": {
       "get": {
         "operationId": "RoleController_findOne",
         "parameters": [
@@ -226,11 +242,19 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "查询角色详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysRoleModel"
+                }
+              }
+            }
           }
         },
+        "summary": "查询角色详情",
         "tags": [
-          "Role"
+          "角色管理"
         ]
       },
       "patch": {
@@ -257,11 +281,19 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "更新角色",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysRoleModel"
+                }
+              }
+            }
           }
         },
+        "summary": "更新角色",
         "tags": [
-          "Role"
+          "角色管理"
         ]
       },
       "delete": {
@@ -278,11 +310,19 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "删除角色",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysRoleModel"
+                }
+              }
+            }
           }
         },
+        "summary": "删除角色",
         "tags": [
-          "Role"
+          "角色管理"
         ]
       }
     },
@@ -599,11 +639,125 @@
       },
       "CreateRoleDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "角色名称",
+            "maxLength": 255,
+            "example": "管理员"
+          },
+          "description": {
+            "type": "string",
+            "description": "角色描述",
+            "maxLength": 500,
+            "example": "系统管理员角色"
+          }
+        }
+      },
+      "SysRoleModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "主键ID"
+          },
+          "create_time": {
+            "format": "date-time",
+            "type": "string",
+            "description": "创建时间"
+          },
+          "update_time": {
+            "format": "date-time",
+            "type": "string",
+            "description": "更新时间"
+          },
+          "create_by": {
+            "type": "string",
+            "description": "创建人"
+          },
+          "update_by": {
+            "type": "string",
+            "description": "更新人"
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "是否已删除"
+          },
+          "name": {
+            "type": "string",
+            "description": "角色名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "角色描述"
+          }
+        }
+      },
+      "CustomResponseDto_SysRoleModel": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "description": "状态码"
+          },
+          "msg": {
+            "type": "string",
+            "description": "消息"
+          },
+          "now": {
+            "type": "number",
+            "description": "请求时间"
+          },
+          "data": {
+            "$ref": "#/components/schemas/SysRoleModel"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "CustomResponseDto_SysRoleModelArray": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "description": "状态码"
+          },
+          "msg": {
+            "type": "string",
+            "description": "消息"
+          },
+          "now": {
+            "type": "number",
+            "description": "请求时间"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SysRoleModel"
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
       },
       "UpdateRoleDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "角色名称",
+            "maxLength": 255,
+            "example": "管理员"
+          },
+          "description": {
+            "type": "string",
+            "description": "角色描述",
+            "maxLength": 500,
+            "example": "系统管理员角色"
+          }
+        }
       },
       "CreateMenuDto": {
         "type": "object",
