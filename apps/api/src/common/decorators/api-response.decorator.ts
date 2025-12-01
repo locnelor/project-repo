@@ -6,13 +6,15 @@ import { BaseApiResponse } from "../dto/BaseApiResponse.dto";
 import { ApiField } from "./api-field.decorator";
 
 
-export function ApiResponseJson<T>(dto: Type<T>, option?: string | Partial<OperationObject>) {
-  const interceptor = new TransformInterceptor(dto);
+export function ApiResponseJson<T>(dto: Type<T> | [Type<T>], option?: string | Partial<OperationObject>) {
+  const isArray = Array.isArray(dto);
+  const dtoClass = isArray ? (dto as [Type<T>])[0] : (dto as Type<T>);
+  const interceptor = new TransformInterceptor(dtoClass);
   class CustomResponseDto extends BaseApiResponse {
-    @ApiField({ type: () => dto })
-    declare data: T;
+    @ApiField({ type: () => isArray ? [dtoClass] : dtoClass, required: true })
+    declare data: T | T[];
   }
-  Object.defineProperty(CustomResponseDto, 'name', { value: `CustomResponseDto_${dto.name}` });
+  Object.defineProperty(CustomResponseDto, 'name', { value: `CustomResponseDto_${dtoClass.name}${isArray ? 'Array' : ''}` });
   return applyDecorators(
     ApiOkResponse({
       description: typeof option === 'string' ? option : option?.summary,

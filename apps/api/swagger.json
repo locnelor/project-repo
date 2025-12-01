@@ -60,9 +60,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "查询所有用户",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysUserModelArray"
+                }
+              }
+            }
           }
         },
+        "summary": "查询所有用户",
         "tags": [
           "用户管理"
         ]
@@ -83,9 +91,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "查询用户详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysUserModel"
+                }
+              }
+            }
           }
         },
+        "summary": "查询用户详情",
         "tags": [
           "用户管理"
         ]
@@ -114,9 +130,17 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "更新用户",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysUserModel"
+                }
+              }
+            }
           }
         },
+        "summary": "更新用户",
         "tags": [
           "用户管理"
         ]
@@ -135,9 +159,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "删除用户",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysUserModel"
+                }
+              }
+            }
           }
         },
+        "summary": "删除用户",
         "tags": [
           "用户管理"
         ]
@@ -395,10 +427,7 @@
             "type": "string",
             "description": "用户姓名"
           }
-        },
-        "required": [
-          "UserName"
-        ]
+        }
       },
       "TestResult1": {
         "type": "object",
@@ -410,11 +439,7 @@
           "Obj": {
             "$ref": "#/components/schemas/TestObj1"
           }
-        },
-        "required": [
-          "Result",
-          "Obj"
-        ]
+        }
       },
       "CustomResponseDto_TestResult1": {
         "type": "object",
@@ -436,9 +461,6 @@
           }
         },
         "required": [
-          "code",
-          "msg",
-          "now",
           "data"
         ]
       },
@@ -472,11 +494,11 @@
             "description": "更新时间"
           },
           "create_by": {
-            "type": "object",
+            "type": "string",
             "description": "创建人"
           },
           "update_by": {
-            "type": "object",
+            "type": "string",
             "description": "更新人"
           },
           "deleted": {
@@ -488,41 +510,34 @@
             "description": "用户名"
           },
           "password": {
-            "type": "object",
+            "type": "string",
             "description": "密码"
           },
           "nickname": {
-            "type": "object",
+            "type": "string",
             "description": "昵称"
           },
           "real_name": {
-            "type": "object",
+            "type": "string",
             "description": "真实姓名"
           },
           "email": {
-            "type": "object",
+            "type": "string",
             "description": "邮箱"
           },
           "phone": {
-            "type": "object",
+            "type": "string",
             "description": "手机号"
           },
           "job_no": {
-            "type": "object",
+            "type": "string",
             "description": "工号"
           },
           "dept_id": {
-            "type": "object",
+            "type": "string",
             "description": "部门ID"
           }
-        },
-        "required": [
-          "id",
-          "create_time",
-          "update_time",
-          "deleted",
-          "username"
-        ]
+        }
       },
       "CustomResponseDto_SysUserModel": {
         "type": "object",
@@ -544,9 +559,32 @@
           }
         },
         "required": [
-          "code",
-          "msg",
-          "now",
+          "data"
+        ]
+      },
+      "CustomResponseDto_SysUserModelArray": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "description": "状态码"
+          },
+          "msg": {
+            "type": "string",
+            "description": "消息"
+          },
+          "now": {
+            "type": "number",
+            "description": "请求时间"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SysUserModel"
+            }
+          }
+        },
+        "required": [
           "data"
         ]
       },

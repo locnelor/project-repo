@@ -10,6 +10,10 @@ export type ApiExposeDecoratorOptions = ApiPropertyOptions & {
      * 输出值，默认使用类属性值
      */
     fixedValue?: any;
+    /**
+     * 是否暴露该字段，默认为 true
+     */
+    expose?: boolean;
 }
 
 /**
@@ -17,10 +21,18 @@ export type ApiExposeDecoratorOptions = ApiPropertyOptions & {
  */
 export function ApiField(options: ApiExposeDecoratorOptions = {}) {
     return function (target: any, propertyKey: string) {
-        const { outputKey, fixedValue, ...swaggerOptions } = options;
+        const { outputKey, fixedValue, expose = true, ...swaggerOptions } = options;
         const description = typeof swaggerOptions.type === "function" ? undefined : swaggerOptions.description;
-        ApiProperty({ ...swaggerOptions, name: outputKey ?? propertyKey, description })(target, propertyKey);
-        Expose({ name: outputKey })(target, propertyKey);
+        
+        // 默认为非必填 (required: false)，除非显示指定 required: true
+        const required = swaggerOptions.required ?? false;
+
+        ApiProperty({ ...swaggerOptions, required: required as any, name: outputKey ?? propertyKey, description })(target, propertyKey);
+        
+        if (expose) {
+            Expose({ name: outputKey })(target, propertyKey);
+        }
+
         Transform(({ obj, value }) => {
             if (fixedValue !== undefined) return fixedValue;
             // 如果 Expose 已经通过 name 映射到了值，则直接使用
