@@ -4,20 +4,29 @@ import { TestResult1 } from './app.dto';
 import { ApiResponseJson } from './common/decorators/api-response.decorator';
 import { AuthController } from './common/decorators/authController.decorator';
 import { ApiAuthGuard } from './common/guards';
+import { ApiAuth, ApiPermissions, PublicApi } from './common/decorators/api-auth.decorator';
 
 
 @AuthController({
   tag: "app",
-  url: "app"
+  url: "app",
+  auth: {
+    // required: true,
+    // ignore: true,
+  },
+  permissions: {
+    // ignore: true,
+    // permissions: ['app:test2']
+  }
 })
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
-  @Get("test2")
+  @Get("test3")
   @ApiResponseJson(TestResult1, {
-    description: "测试接口2",
+    description: "测试接口2"
   })
-  @UseGuards(ApiAuthGuard)
+  @ApiAuth()
   test2() {
     return {
       result: "123",

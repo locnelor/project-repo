@@ -1,5 +1,6 @@
 import { SetMetadata, UseGuards, applyDecorators } from '@nestjs/common';
 import type { CanActivate } from '@nestjs/common';
+import { ApiAuthGuard } from '../guards';
 
 /**
  * 鉴权配置接口
@@ -67,9 +68,10 @@ export const ApiAuth = (config: ApiAuthConfig = {}) => {
   const shouldAuth = config.required !== false && !config.ignore && !config.authIgnore;
   
   if (shouldAuth) {
+    guards.unshift(ApiAuthGuard)
     // 延迟导入 Guard 以避免循环依赖
-    const ApiAuthGuard = require('../guards/api-auth.guard').ApiAuthGuard;
-    guards.unshift(ApiAuthGuard);
+    // const ApiAuthGuard = require('../guards/api-auth.guard').ApiAuthGuard;
+    // guards.unshift(ApiAuthGuard);
   }
   
   return applyDecorators(
