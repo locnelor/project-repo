@@ -1,3 +1,4 @@
+import type { RouteRecordRaw } from 'vue-router';
 
 // 固定路由（默认路由）
 export const constantRoutes: RouteRecordRaw[] = [
