@@ -10,12 +10,14 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiTags } from '@nestjs/swagger';
 import { SysUserModel } from 'src/common/models/sys_user';
 import { ApiResponseJson } from 'src/common/decorators/api-response.decorator';
+import { AuthController } from 'src/common/decorators/authController.decorator';
 
-@Controller('api/sys/user')
-@ApiTags("用户管理")
+@AuthController({
+  url: "/api/sys/user",
+  tag: "用户管理"
+})
 export class UserController {
   constructor(private readonly userService: UserService) { }
 

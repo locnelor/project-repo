@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/test2": {
+    "/app/test2": {
       "get": {
         "description": "测试接口2",
         "operationId": "AppController_test2",

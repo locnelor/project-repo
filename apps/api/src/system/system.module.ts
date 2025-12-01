@@ -6,6 +6,7 @@ import { DeptModule } from './dept/dept.module';
 import { SystemService } from './system.service';
 import { MenuModule } from './menu/menu.module';
 import { RoleModule } from './role/role.module';
+import { DictModule } from './dict/dict.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { RoleModule } from './role/role.module';
     OrgModule,
     DeptModule,
     MenuModule,
+    DictModule,
   ],
   providers: [SystemService],
 })

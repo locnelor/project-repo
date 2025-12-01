@@ -6,7 +6,6 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthPowerEnum } from '../enums/auth-power.enum';
 
 // 用户实体类型定义
 interface SysUserEntity {
@@ -76,7 +75,7 @@ const handleRequest = (user: SysUserEntity, perms: string) => {
 export class AuthPowerGuard extends AuthGuard('jwt') {
   constructor(
     private readonly perms: string,
-    private readonly power: AuthPowerEnum[],
+    private readonly power: string[],
   ) {
     super();
   }
