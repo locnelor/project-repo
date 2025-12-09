@@ -1,12 +1,13 @@
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
-import { PrismaClient } from "./generated/prisma/client";
 import { prismaClientExtends } from "./extends/autoTimestampAndUUID";
 import { pageExtension } from "./extends/pageExtends";
 export * from "@prisma/client/runtime/client"
 import 'dotenv/config'
-export * from "./generated/prisma/client"
-export * from "@prisma/adapter-mariadb";
+import { PrismaClient } from "./generated/client";
 
+export * from "./generated/client";
+export * from "@prisma/adapter-mariadb";
+export * from "./types"
 console.log({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
@@ -23,9 +24,14 @@ const prismaInstance = new PrismaClient({
         connectionLimit: 5
     }),
 });
-
+// export const DMMF = getDMMF({
+//     datamodel:
+// })
 export const prisma = prismaInstance
     .$extends(prismaClientExtends)
     .$extends(pageExtension);
 
 export type ExtendedPrismaClient = typeof prisma;
+
+
+

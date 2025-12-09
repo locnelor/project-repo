@@ -10,5 +10,6 @@
     }
   },
   "dependencies": {
+    "vee-validate": "^4.15.1"
   }
 }

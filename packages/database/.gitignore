@@ -1,2 +1,2 @@
 # Ignore generated Prisma sources in this package
-src/generated/
+generated

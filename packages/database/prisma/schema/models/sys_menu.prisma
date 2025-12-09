@@ -1,0 +1,59 @@
+// 系统菜单表 - 用于前端菜单和权限管理
+model sys_menu {
+  id          String   @id @default(uuid())
+  create_time DateTime @default(now())
+  update_time DateTime @default(now()) @updatedAt
+  create_by   String?
+  update_by   String?
+  deleted     Boolean  @default(false)
+
+  /// 父菜单ID
+  pid String?
+
+  parent   sys_menu?  @relation("SysMenuParent", fields: [pid], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  children sys_menu[] @relation("SysMenuParent")
+
+  /// 菜单名称
+  name String?
+
+  /// 菜单URL
+  url String?
+
+  /// 授权（多个用逗号分隔，如： user:list,user:create
+  perms String?
+
+  /// 类型 0:目录 1:菜单 2:按钮
+  type Int @default(0)
+
+  /// 模式：pc，app
+  mode String?
+
+  /// 菜单图标
+  icon String?
+
+  /// 颜色
+  color String?
+
+  /// 路由地址
+  routeUrl String?
+
+  /// 是否显示面包屑
+  breadCrumb String?
+
+  /// 组件路径
+  componentName String?
+
+  /// 组件名称
+  componentPath String?
+
+  /// 排序
+  orderNum Int @default(0)
+
+  /// 是否显示
+  display Boolean @default(true)
+
+  /// 菜单角色关联
+  role_menus sys_role_menu[]
+
+  @@index([pid])
+}

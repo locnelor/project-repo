@@ -1,0 +1,17 @@
+// 系统角色绑定菜单表
+model sys_role_menu {
+  id          String    @id @db.Char(32)
+  create_by   String?   @db.VarChar(32)
+  create_time DateTime?
+  deleted     Boolean   @default(false)
+
+  role_id String? @db.VarChar(32) /// 角色id
+  menu_id String? @db.VarChar(32) /// 菜单id
+
+  // 关联关系
+  role sys_role? @relation(fields: [role_id], references: [id])
+  menu sys_menu? @relation(fields: [menu_id], references: [id])
+
+  @@index([role_id])
+  @@index([menu_id])
+}

@@ -1,4 +1,5 @@
-import { Prisma } from "../generated/prisma/client";
+import { Prisma } from "../generated/client";
+
 const makeUUID = () => {
     return crypto.randomUUID().toString().split('-').join('');
 };

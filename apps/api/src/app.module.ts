@@ -8,6 +8,7 @@ import { SystemModule } from './system/system.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: ['.env', '../../.env'],
     }),
     SystemModule,
   ],

@@ -1,0 +1,49 @@
+/// 日志类型
+enum log_type {
+  INFO // 信息
+  WARN // 警告
+  ERROR // 错误
+}
+
+/// 日志表
+model sys_log {
+  id          String   @id @default(uuid())
+  create_time DateTime @default(now())
+
+  /// 请求唯一码
+  request_unique String? @db.VarChar(32)
+
+  /// 日志描述
+  description String? @db.VarChar(255)
+
+  /// 日志类型
+  log_type log_type?
+
+  /// 请求方法
+  method String? @db.VarChar(255)
+
+  /// 请求参数
+  params String? @db.Text
+
+  /// 请求IP
+  request_ip String? @db.VarChar(255)
+
+  /// 耗时
+  time BigInt?
+
+  /// 用户ID
+  user_id String? @db.VarChar(32)
+
+  /// 用户名称
+  user_name String? @db.VarChar(50)
+
+  /// 地址
+  address String? @db.VarChar(255)
+
+  /// 异常信息
+  exception_detail String? @db.Text
+
+  user sys_user? @relation(fields: [user_id], references: [id]) /// 用户
+
+  @@index([user_id])
+}

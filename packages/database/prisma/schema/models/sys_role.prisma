@@ -1,0 +1,21 @@
+// 系统角色表
+model sys_role {
+  id          String    @id @db.Char(32)
+  create_time DateTime?
+  update_time DateTime?
+  create_by   String?   @db.VarChar(32)
+  update_by   String?   @db.VarChar(32)
+  deleted     Boolean   @default(false)
+
+  /// 角色名称
+  name String? @db.VarChar(100)
+
+  /// 角色描述
+  description String? @db.VarChar(200)
+
+  /// 角色菜单关联
+  menus sys_role_menu[]
+
+  /// 角色用户关联
+  users sys_role_user[]
+}

@@ -11,7 +11,7 @@ import { findUpSync } from "find-up";
  * @param cwd
  */
 function findMonorepoRoot(cwd: string = process.cwd()) {
-  const lockFile = findUpSync("pnpm-lock.yaml", {
+  const lockFile = findUpSync("pnpm-workspace.yaml", {
     cwd,
     type: "file",
   });
