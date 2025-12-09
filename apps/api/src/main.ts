@@ -56,14 +56,30 @@ async function bootstrap() {
   app.useStaticAssets('resource');
   app.useStaticAssets('public');
 
-  console.log(configService.get("SWAGGER") === 'true', 'swagger')
   if (configService.get("SWAGGER") === 'true') {
     const options = new DocumentBuilder()
       .setTitle(<string>configService.get('TITLE'))
       .setDescription(<string>configService.get('DESCRIPTION'))
       .setVersion(<string>configService.get('VERSION'))
+      .addBearerAuth(
+        {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+          name: 'Authorization',
+          in: 'header',
+        },
+        'Authorization',
+      )
       .build();
     const document = SwaggerModule.createDocument(app, options);
+    document.components = {
+      ...document.components,
+      securitySchemes: {
+        ...document.components?.securitySchemes,
+      },
+    }
+    document.security = [{ Authorization: [] }];
 
     SwaggerModule.setup('docs', app, document);
 

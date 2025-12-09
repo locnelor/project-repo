@@ -1,26 +1,17 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/app/test3": {
+    "/app": {
       "get": {
-        "description": "测试接口2",
-        "operationId": "AppController_test2",
+        "operationId": "AppController_getHello",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CustomResponseDto_TestResult1"
-                }
-              }
-            }
+            "description": ""
           }
         },
-        "summary": "",
         "tags": [
-          "app"
+          "appTag"
         ]
       }
     },
@@ -451,6 +442,36 @@
           "系统菜单"
         ]
       }
+    },
+    "/test/getToken": {
+      "get": {
+        "operationId": "TestController_getToken",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "获取测试token",
+        "tags": [
+          "test"
+        ]
+      }
+    },
+    "/test/checkPermission": {
+      "get": {
+        "operationId": "TestController_checkPermission",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "检查权限",
+        "tags": [
+          "test"
+        ]
+      }
     }
   },
   "info": {
@@ -459,51 +480,16 @@
   "tags": [],
   "servers": [],
   "components": {
+    "securitySchemes": {
+      "Authorization": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "Authorization",
+        "in": "header"
+      }
+    },
     "schemas": {
-      "TestObj1": {
-        "type": "object",
-        "properties": {
-          "UserName": {
-            "type": "string",
-            "description": "用户姓名"
-          }
-        }
-      },
-      "TestResult1": {
-        "type": "object",
-        "properties": {
-          "Result": {
-            "type": "string",
-            "description": "测试结果"
-          },
-          "Obj": {
-            "$ref": "#/components/schemas/TestObj1"
-          }
-        }
-      },
-      "CustomResponseDto_TestResult1": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "number",
-            "description": "状态码"
-          },
-          "msg": {
-            "type": "string",
-            "description": "消息"
-          },
-          "now": {
-            "type": "number",
-            "description": "请求时间"
-          },
-          "data": {
-            "$ref": "#/components/schemas/TestResult1"
-          }
-        },
-        "required": [
-          "data"
-        ]
-      },
       "CreateUserDto": {
         "type": "object",
         "properties": {
@@ -764,5 +750,10 @@
         "properties": {}
       }
     }
-  }
+  },
+  "security": [
+    {
+      "Authorization": []
+    }
+  ]
 }

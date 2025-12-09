@@ -1,17 +1,41 @@
-/**
- * 权限常量定义
- * 用于统一管理系统中所有的权限前缀
- * 
- * 权限格式：模块:资源:操作
- * 例如：sys:menu:add, sys:user:update
- */
 
 import { SYS_PERMISSIONS } from "./sys";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * 系统模块权限前缀
  */
-export const PERMISSIONS = {
+export const Permission = {
     SYSTEM: SYS_PERMISSIONS
 } as const;
 
@@ -25,33 +49,6 @@ export const PERMISSIONS = {
 export const hasPermission = (permission: string, permissions: string[]) => {
 
 }
-/**
- * 
- * 一个用户所拥有的权限：
- * [
- * a:b:c, // 表示一个功能
- * a:*,c, // 表示a模块下的所有模块拥有c功能
- * a:b:* // 表示a模块下的b模块的所有c功能
- * *:b:c // 表示所有权限都有b模块的c功能
- * *:*,c // 表示所有权限都有c功能
- * *:*:* // 表示所有权限都有所有功能
- * * 表示所有功能
- * ]
- * 
- * 需要判断的权限:
- * [
- * a,b,c
- * &
- * a1,b1,c1
- * ]
- * 
- * 
- * 
- * 
- * 
- * 
- */
-
 
 
 

@@ -24,9 +24,6 @@ const prismaInstance = new PrismaClient({
         connectionLimit: 5
     }),
 });
-// export const DMMF = getDMMF({
-//     datamodel:
-// })
 export const prisma = prismaInstance
     .$extends(prismaClientExtends)
     .$extends(pageExtension);

@@ -13,7 +13,7 @@ export class HashService {
   constructor(
     // @Inject("MODULE_OPTIONS_TOKEN") private options: HashModuleOptions,
     private readonly config: ConfigService,
-  ) {}
+  ) { }
   /**
    * 加密
    * @param data 待加密的数据
@@ -50,7 +50,7 @@ export class HashService {
   // 使用PBKDF2加密密码
   public cryptoPassword(password: BinaryLike) {
     const salt = randomBytes(16).toString('hex');
-    const iterations = 1000; // 增加迭代次数以提高安全性
+    const iterations = 1000;
     const keyLength = 64;
     const hash = pbkdf2Sync(
       `password=${String(password as string)}&SECRET_KEY=${this.secret}`,
@@ -59,7 +59,7 @@ export class HashService {
       keyLength,
       'sha512',
     ).toString('hex');
-    return { salt, hash, iterations }; // 返回迭代次数以便验证
+    return { salt, hash }; // 返回迭代次数以便验证
   }
 
   // 验证密码
@@ -67,8 +67,8 @@ export class HashService {
     password: BinaryLike,
     salt: string,
     storedHash: string,
-    iterations = 1000, // 默认使用新的迭代次数，但支持旧的密码验证
   ): boolean {
+    const iterations = 1000;
     const keyLength = 64;
     const hash = pbkdf2Sync(
       `password=${String(password as string)}&SECRET_KEY=${this.secret}`,

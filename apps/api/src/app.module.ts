@@ -3,6 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { SystemModule } from './system/system.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from '@app/auth-power';
+import { TestModule } from './test/test.module';
 
 @Module({
   imports: [
@@ -11,8 +14,14 @@ import { SystemModule } from './system/system.module';
       envFilePath: ['.env', '../../.env'],
     }),
     SystemModule,
+    TestModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard
+    },
+    AppService],
 })
 export class AppModule { }

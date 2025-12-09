@@ -1,7 +1,10 @@
+import { DMMF } from '@repo/database';
+
+
 // import { Project, IndentationText, QuoteKind } from 'ts-morph';
 // import * as fs from 'fs';
 // import * as path from 'path';
-// import { execSync } from 'child_process';
+// import { execSync } from 'child_process'
 
 // // Path to the schema directory (now a folder)
 // const schemaDir = path.resolve(__dirname, '../../../packages/database/prisma/schema');
