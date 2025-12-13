@@ -4,4 +4,3 @@ packages:
   - "packages/effects/*"
   - "internal/*"
   - "scripts/*"
-  - "docs"

@@ -57,15 +57,43 @@ export const hasPermission = (permission: string, permissions: string[]) => {
  * 配合权限前缀使用，通过 AuthPowerEnum 定义
  */
 export enum PermissionAction {
-    ALL = 'all', //全部
-    QUERY = 'query', //查询
-    ADD = 'add', //添加
-    UPDATE = 'update', //更新
-    CHANGE = 'change', //变更
-    DELETE = 'delete', //删除
-    EXPORT = 'export', //导出
-    IMPORT = 'import', //导入
-    STATISTIC = 'statistic', //统计
-    EXPORT_TEMPLATE = 'export_template', //导出模板
-    CUSTOM = 'custom', //自定义
+    /**
+     * 获取详情
+     */
+    get = 'get',
+
+    /**
+     * 获取列表
+     */
+    list = 'list',
+
+    /**
+     * 创建
+     */
+    create = 'create',
+
+    /**
+     * 更新
+     */
+    update = 'update',
+
+    /**
+     * 删除
+     */
+    delete = 'delete',
+
+    /**
+     * 导出
+     */
+    export = 'export',
+
+    /**
+     * 导入
+     */
+    import = 'import',
+
+    /**
+     * 自定义操作
+     */
+    custom = 'custom',
 }

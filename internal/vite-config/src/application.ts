@@ -2,6 +2,7 @@ import { defineConfig, mergeConfig, type UserConfig, type Plugin } from "vite";
 import vuePlugin from "@vitejs/plugin-vue";
 // import tailwindcss from "@tailwindcss/vite"
 import path from "node:path";
+import { getPackagesSync } from "@internal/pkg-utils";
 
 // 创建自动添加@source指令的插件
 // tailwind4x
@@ -52,7 +53,7 @@ import path from "node:path";
 //   }
 // }
 
-const { packages } = getPackagesSync(process.cwd());
+const { packages } = getPackagesSync();
 const tailwindPackages: string[] = [];
 
 packages.forEach((pkg) => {

@@ -1,4 +1,4 @@
-import { PermissionMetaKey, IgnorePermissionMetaKey } from "@app/auth-power/constants";
+import { PermissionMetaKey, IgnorePermissionMetaKey, PermissionAction } from "@app/auth-power/constants";
 import { SetMetadata } from "@nestjs/common";
 
 
@@ -23,47 +23,6 @@ export const CheckPermission = (permissions: string | string[], requireAll: bool
     return SetMetadata(PermissionMetaKey, { permissions, requireAll });
 }
 
-export enum PermissionAction {
-    /**
-     * 获取详情
-     */
-    get = 'get',
-
-    /**
-     * 获取列表
-     */
-    list = 'list',
-
-    /**
-     * 创建
-     */
-    create = 'create',
-
-    /**
-     * 更新
-     */
-    update = 'update',
-
-    /**
-     * 删除
-     */
-    delete = 'delete',
-
-    /**
-     * 导出
-     */
-    export = 'export',
-
-    /**
-     * 导入
-     */
-    import = 'import',
-
-    /**
-     * 自定义操作
-     */
-    custom = 'custom',
-}
 /**
  * 操作权限校验装饰器
  * 用于检查当前用户是否有指定操作权限

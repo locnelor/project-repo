@@ -29,10 +29,10 @@
     "packages/*",
     "packages/effects/*",
     "internal/*",
-    "scripts/*",
-    "docs"
+    "scripts/*"
   ],
   "dependencies": {
-    "unbuild": "^3.6.1"
+    "unbuild": "^3.6.1",
+    "vite": "^7.2.7"
   }
 }
