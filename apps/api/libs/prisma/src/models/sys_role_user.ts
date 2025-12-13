@@ -8,17 +8,17 @@ export class SysRoleUserModel implements sys_role_user {
   id: string;
   @ApiProperty({description:'',required:false})
   @Expose()
-  create_by?: string;
+  create_by: string;
   @ApiProperty({description:'',required:false})
   @Expose()
-  create_time?: Date;
+  create_time: Date;
   @ApiProperty({description:''})
   @Expose()
   deleted: boolean;
   @ApiProperty({description:'角色id',required:false})
   @Expose()
-  role_id?: string;
+  role_id: string;
   @ApiProperty({description:'用户id',required:false})
   @Expose()
-  user_id?: string;
+  user_id: string;
 }

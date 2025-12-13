@@ -1,6 +1,27 @@
-import { DMMF } from '@repo/database';
+/**
+ * Beat
+ * 生成 prisma 模型
+ */
+import { prisma } from "@repo/database";
+import { Project,IndentationText,QuoteKind } from "ts-morph";
 
+ 
+// @ts-ignore
+const {models} = prisma._runtimeDataModel
 
+interface Field {
+    name: string
+    kind: 'scalar' | 'object'
+    type: 'string' | 'int' | 'float' | 'boolean' | 'datetime' | 'json' | 'bytes' | 'enum' | 'object'
+    relationName?: string
+}
+interface Model {
+    name: string;
+    fields: Field[]
+}
+console.log(models.sys_user)
+
+    
 // import { Project, IndentationText, QuoteKind } from 'ts-morph';
 // import * as fs from 'fs';
 // import * as path from 'path';

@@ -8,17 +8,17 @@ export class SysRoleMenuModel implements sys_role_menu {
   id: string;
   @ApiProperty({description:'',required:false})
   @Expose()
-  create_by?: string;
+  create_by: string;
   @ApiProperty({description:'',required:false})
   @Expose()
-  create_time?: Date;
+  create_time: Date;
   @ApiProperty({description:''})
   @Expose()
   deleted: boolean;
   @ApiProperty({description:'',required:false})
   @Expose()
-  role_id?: string;
+  role_id: string;
   @ApiProperty({description:'',required:false})
   @Expose()
-  menu_id?: string;
+  menu_id: string;
 }

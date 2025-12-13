@@ -12,11 +12,12 @@
   "exports": {
     ".": {
       "types": "./src/index.ts",
-      "development": "./src/index.ts",
-      "default": "./dist/styles.css"
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
     }
   },
   "dependencies": {
+    "@internal/vite-config": "workspace: *",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.5.4"
   }

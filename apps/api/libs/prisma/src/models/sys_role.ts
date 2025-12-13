@@ -8,23 +8,23 @@ export class SysRoleModel implements sys_role {
   id: string;
   @ApiProperty({description:'',required:false})
   @Expose()
-  create_time?: Date;
+  create_time: Date;
   @ApiProperty({description:'',required:false})
   @Expose()
-  update_time?: Date;
+  update_time: Date;
   @ApiProperty({description:'',required:false})
   @Expose()
-  create_by?: string;
+  create_by: string;
   @ApiProperty({description:'',required:false})
   @Expose()
-  update_by?: string;
+  update_by: string;
   @ApiProperty({description:''})
   @Expose()
   deleted: boolean;
   @ApiProperty({description:'角色名称',required:false})
   @Expose()
-  name?: string;
+  name: string;
   @ApiProperty({description:'角色描述',required:false})
   @Expose()
-  description?: string;
+  description: string;
 }

@@ -15,10 +15,10 @@ export class SysUserModel implements sys_user {
   update_time: Date;
   @ApiProperty({description:'',required:false})
   @Expose()
-  create_by?: string;
+  create_by: string;
   @ApiProperty({description:'',required:false})
   @Expose()
-  update_by?: string;
+  update_by: string;
   @ApiProperty({description:''})
   @Expose()
   deleted: boolean;
@@ -27,23 +27,23 @@ export class SysUserModel implements sys_user {
   username: string;
   @ApiProperty({description:'密码',required:false})
   @Expose()
-  password?: string;
+  password: string;
   @ApiProperty({description:'昵称',required:false})
   @Expose()
-  nickname?: string;
+  nickname: string;
   @ApiProperty({description:'真实姓名',required:false})
   @Expose()
-  real_name?: string;
+  real_name: string;
   @ApiProperty({description:'邮箱',required:false})
   @Expose()
-  email?: string;
+  email: string;
   @ApiProperty({description:'手机号',required:false})
   @Expose()
-  phone?: string;
+  phone: string;
   @ApiProperty({description:'工号',required:false})
   @Expose()
-  job_no?: string;
+  job_no: string;
   @ApiProperty({description:'',required:false})
   @Expose()
-  dept_id?: string;
+  dept_id: string;
 }

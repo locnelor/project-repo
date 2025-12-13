@@ -1,0 +1,24 @@
+{
+  "name": "@internal/vite-config",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "scripts": {
+    "stub": "pnpm unbuild --stub"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "dependencies": {
+    "@internal/pkg-utils": "workspace:*",
+    "@vitejs/plugin-vue": "^6.0.0"
+  }
+}

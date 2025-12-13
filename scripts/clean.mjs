@@ -34,7 +34,7 @@ const recursiveCleanDirectories = (directoryPath, targetDirs) => {
 
 // 主函数
 (() => {
-  const directoriesToClean = ['node_modules', 'dist', '.turbo']
+  const directoriesToClean = ['node_modules', 'dist', '.turbo', 'bun.lock', 'pnpm-lock.yaml']
   console.log('开始清理目录...')
   console.log(`需要清理的目录: ${directoriesToClean.join(', ')}`)
 

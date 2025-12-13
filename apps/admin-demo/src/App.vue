@@ -3,7 +3,7 @@ const envs = import.meta.env
 </script>
 
 <template>
-  <div>
+  <div class="bg-red-500">
     {{envs}}
   </div>
 </template>
