@@ -11,6 +11,7 @@
     "react-library.json",
     "library.json",
     "web.json",
-    "prisma.json"
+    "prisma.json",
+    "vue.json"
   ]
 }
