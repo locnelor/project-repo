@@ -1,4 +1,4 @@
-import { ApiField } from "../decorators/api-field.decorator";
+import { ApiField } from "../decorators";
 
 
 
@@ -15,4 +15,15 @@ export class BaseApiResponse {
     // 移除基类中的 data 定义，由子类覆盖
     // @ApiField({ description: "数据" })
     // data: T;
+}
+
+export class BaseApiPaginationResponse {
+    @ApiField({description: "数量"})
+    total: number;
+    
+    @ApiField({description: "页码"})
+    pageNo: number;
+    
+    @ApiField({description: "页大小"})
+    pageSize: number;
 }

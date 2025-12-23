@@ -1,6 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { AUTH_CONFIG_KEY, PERMISSIONS_CONFIG_KEY, ApiAuthConfig, ApiPermissionsConfig } from '../decorators/api-auth.decorator';
+import { AUTH_CONFIG_KEY, PERMISSIONS_CONFIG_KEY, ApiAuthConfig, ApiPermissionsConfig } from '../decorators/api.auth.decorator';
 /**
  * API 鉴权 Guard
  * 负责处理接口的鉴权和权限检查

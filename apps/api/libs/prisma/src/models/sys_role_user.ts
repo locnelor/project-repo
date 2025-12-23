@@ -1,24 +1,28 @@
 import { sys_role_user } from '@repo/database';
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
+import { ApiField } from '@app/api-kit';
+import { SysRoleModel } from './sys_role';
+import { SysUserModel } from './sys_user';
 
 export class SysRoleUserModel implements sys_role_user {
-  @ApiProperty({description:''})
-  @Expose()
+  @ApiField({ description: '主键ID', type: String, required: true })
   id: string;
-  @ApiProperty({description:'',required:false})
-  @Expose()
-  create_by: string;
-  @ApiProperty({description:'',required:false})
-  @Expose()
-  create_time: Date;
-  @ApiProperty({description:''})
-  @Expose()
+
+  @ApiField({ description: '创建人', type: String, nullable: true })
+  create_by: string | null;
+
+  @ApiField({ description: '创建时间', type: Date, nullable: true })
+  create_time: Date | null;
+
+  @ApiField({ description: '是否已删除', type: Boolean, required: true })
   deleted: boolean;
-  @ApiProperty({description:'角色id',required:false})
-  @Expose()
-  role_id: string;
-  @ApiProperty({description:'用户id',required:false})
-  @Expose()
-  user_id: string;
+
+  @ApiField({ description: '角色id', type: String, nullable: true })
+  role_id: string | null;
+
+  @ApiField({ description: '用户id', type: String, nullable: true })
+  user_id: string | null;
+
+  role?: SysRoleModel;
+
+  user?: SysUserModel;
 }

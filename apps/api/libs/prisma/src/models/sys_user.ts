@@ -1,49 +1,55 @@
 import { sys_user } from '@repo/database';
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
+import { ApiField } from '@app/api-kit';
+import { SysLogModel } from './sys_log';
+import { SysDeptModel } from './sys_dept';
+import { SysRoleUserModel } from './sys_role_user';
 
-/** 用户表 */
 export class SysUserModel implements sys_user {
-  @ApiProperty({description:''})
-  @Expose()
+  @ApiField({ description: '主键ID', type: String, required: true })
   id: string;
-  @ApiProperty({description:''})
-  @Expose()
+
+  @ApiField({ description: '创建时间', type: Date, required: true })
   create_time: Date;
-  @ApiProperty({description:''})
-  @Expose()
+
+  @ApiField({ description: '修改时间', type: Date, required: true })
   update_time: Date;
-  @ApiProperty({description:'',required:false})
-  @Expose()
-  create_by: string;
-  @ApiProperty({description:'',required:false})
-  @Expose()
-  update_by: string;
-  @ApiProperty({description:''})
-  @Expose()
+
+  @ApiField({ description: '创建人', type: String, nullable: true })
+  create_by: string | null;
+
+  @ApiField({ description: '修改人', type: String, nullable: true })
+  update_by: string | null;
+
+  @ApiField({ description: '是否已删除', type: Boolean, required: true })
   deleted: boolean;
-  @ApiProperty({description:'用户名'})
-  @Expose()
+
+  @ApiField({ description: '用户名', type: String, required: true })
   username: string;
-  @ApiProperty({description:'密码',required:false})
-  @Expose()
-  password: string;
-  @ApiProperty({description:'昵称',required:false})
-  @Expose()
-  nickname: string;
-  @ApiProperty({description:'真实姓名',required:false})
-  @Expose()
-  real_name: string;
-  @ApiProperty({description:'邮箱',required:false})
-  @Expose()
-  email: string;
-  @ApiProperty({description:'手机号',required:false})
-  @Expose()
-  phone: string;
-  @ApiProperty({description:'工号',required:false})
-  @Expose()
-  job_no: string;
-  @ApiProperty({description:'',required:false})
-  @Expose()
-  dept_id: string;
+
+  @ApiField({ description: '密码', type: String, nullable: true })
+  password: string | null;
+
+  @ApiField({ description: '昵称', type: String, nullable: true })
+  nickname: string | null;
+
+  @ApiField({ description: '真实姓名', type: String, nullable: true })
+  real_name: string | null;
+
+  @ApiField({ description: '邮箱', type: String, nullable: true })
+  email: string | null;
+
+  @ApiField({ description: '手机号', type: String, nullable: true })
+  phone: string | null;
+
+  @ApiField({ description: '工号', type: String, nullable: true })
+  job_no: string | null;
+
+  logs?: SysLogModel[];
+
+  dept?: SysDeptModel;
+
+  @ApiField({ description: '', type: String, nullable: true })
+  dept_id: string | null;
+
+  sysRoleUsers?: SysRoleUserModel[];
 }

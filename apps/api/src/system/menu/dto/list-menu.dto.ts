@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
-import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { PaginationDto } from '@app/api-kit/dto/pagination.dto';
 
 export class ListMenuQuery extends PaginationDto {
   @ApiProperty({

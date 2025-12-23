@@ -1,5 +1,5 @@
 import { sys_role } from "@repo/database";
-import { ApiField } from "../decorators/api-field.decorator";
+import { ApiField } from "../../../libs/api-kit/src/decorators/api-field.decorator";
 
 export class SysRoleModel implements sys_role {
     @ApiField({ description: '主键ID' })

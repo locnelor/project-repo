@@ -5,3 +5,4 @@ export * from "./prisma.module"
 // export * from "./models"
 
 export { prisma }
+export * from './models'

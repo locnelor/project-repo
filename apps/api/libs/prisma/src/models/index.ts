@@ -1,3 +1,4 @@
+export * from './sys_test';
 export * from './sys_dept';
 export * from './sys_file';
 export * from './sys_log';
@@ -6,4 +7,3 @@ export * from './sys_role';
 export * from './sys_role_menu';
 export * from './sys_role_user';
 export * from './sys_user';
-export * from './sys_test';

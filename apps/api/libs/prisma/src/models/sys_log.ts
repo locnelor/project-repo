@@ -1,59 +1,46 @@
-import { sys_log } from '@repo/database';
-import { log_type } from '@repo/database';
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
+import { log_type, sys_log } from '@repo/database';
+import { ApiField } from '@app/api-kit';
+import { SysUserModel } from './sys_user';
 
-/** 日志表 */
 export class SysLogModel implements sys_log {
-  @ApiProperty({description:''})
-  @Expose()
+  @ApiField({ description: '主键ID', type: String, required: true })
   id: string;
-  
-  @ApiProperty({description:''})
-  @Expose()
+
+  @ApiField({ description: '创建时间', type: Date, required: true })
   create_time: Date;
-  
-  @ApiProperty({description:'请求唯一码',required:false})
-  @Expose()
-  request_unique: string;
-  
-  @ApiProperty({description:'日志描述',required:false})
-  @Expose()
-  description: string;
-  
-  @ApiProperty({description:'日志类型',required:false})
-  @Expose()
-  log_type: log_type;
-  
-  @ApiProperty({description:'请求方法',required:false})
-  @Expose()
-  method: string;
-  
-  @ApiProperty({description:'请求参数',required:false})
-  @Expose()
-  params: string;
-  
-  @ApiProperty({description:'请求IP',required:false})
-  @Expose()
-  request_ip: string;
-  
-  @ApiProperty({description:'耗时',required:false})
-  @Expose()
-  time: bigint;
-  
-  @ApiProperty({description:'用户ID',required:false})
-  @Expose()
-  user_id: string;
-  
-  @ApiProperty({description:'用户名称',required:false})
-  @Expose()
-  user_name: string;
-  
-  @ApiProperty({description:'地址',required:false})
-  @Expose()
-  address: string;
-  
-  @ApiProperty({description:'异常信息',required:false})
-  @Expose()
-  exception_detail: string;
+
+  @ApiField({ description: '请求唯一码', type: String, nullable: true })
+  request_unique: string | null;
+
+  @ApiField({ description: '日志描述', type: String, nullable: true })
+  description: string | null;
+
+  @ApiField({ description: '日志类型', nullable: true, enum: log_type })
+  log_type: log_type | null;
+
+  @ApiField({ description: '请求方法', type: String, nullable: true })
+  method: string | null;
+
+  @ApiField({ description: '请求参数', type: String, nullable: true })
+  params: string | null;
+
+  @ApiField({ description: '请求IP', type: String, nullable: true })
+  request_ip: string | null;
+
+  @ApiField({ description: '耗时', nullable: true })
+  time: bigint | null;
+
+  @ApiField({ description: '用户ID', type: String, nullable: true })
+  user_id: string | null;
+
+  @ApiField({ description: '用户名称', type: String, nullable: true })
+  user_name: string | null;
+
+  @ApiField({ description: '地址', type: String, nullable: true })
+  address: string | null;
+
+  @ApiField({ description: '异常信息', type: String, nullable: true })
+  exception_detail: string | null;
+
+  user?: SysUserModel;
 }

@@ -1,5 +1,5 @@
 import { ApiPropertyOptions, ApiProperty } from "@nestjs/swagger";
-import { Expose, Transform, Type } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 
 export type ApiExposeDecoratorOptions = ApiPropertyOptions & {
     /**
@@ -34,6 +34,7 @@ export function ApiField(options: ApiExposeDecoratorOptions = {}) {
         }
 
         Transform(({ obj, value }) => {
+            // console.log(obj,value,'123123',fixedValue)
             if (fixedValue !== undefined) return fixedValue;
             // 如果 Expose 已经通过 name 映射到了值，则直接使用
             if (value !== undefined) return value;

@@ -8,13 +8,13 @@ import { ApiField } from "./api-field.decorator";
 /**
  * ApiResponseJson 配置接口
  */
-export interface ApiResponseJsonOptions extends Partial<OperationObject> {
+export interface ApiResultOptions extends Partial<OperationObject> {
   /** 是否启用 API 信息 Guard（仅开发环境） */
   enableInfoGuard?: boolean;
 }
-export const ApiResponseJson = <T>(
+export const ApiResult = <T>(
   dto: Type<T> | [Type<T>],
-  option?: string | ApiResponseJsonOptions
+  option?: string | ApiResultOptions
 ) => {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     const isArray = Array.isArray(dto);

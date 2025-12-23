@@ -1,6 +1,6 @@
-import { ApiProperty, getSchemaPath } from "@nestjs/swagger"
+import { ApiProperty } from "@nestjs/swagger"
 import { Expose } from "class-transformer"
-import { ApiField } from "./common/decorators/api-field.decorator"
+import { ApiField } from "../libs/api-kit/src/decorators/api-field.decorator"
 
 export class TestObj {
     @ApiProperty({ description: "用户姓名" })

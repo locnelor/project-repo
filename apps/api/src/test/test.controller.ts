@@ -2,6 +2,8 @@ import { Controller, Get } from '@nestjs/common';
 import { TestService } from './test.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CheckPermission, CurrentUser, IgnorePermission } from '@app/auth-power';
+import { ApiResult } from '@app/api-kit';
+import { TestDto } from './dto/test.dto';
 
 @Controller('test')
 @ApiTags("test")
@@ -24,4 +26,11 @@ export class TestController {
   ) {
     return user
   }
+
+  @Get("test")
+  @ApiResult(TestDto, "测试接口")
+  test() {
+    return {}
+  }
 }
+

@@ -1,66 +1,71 @@
 import { sys_menu } from '@repo/database';
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
+import { ApiField } from '@app/api-kit';
+import { SysRoleMenuModel } from './sys_role_menu';
 
 export class SysMenuModel implements sys_menu {
-  @ApiProperty({description:''})
-  @Expose()
+  @ApiField({ description: '主键ID', type: String, required: true })
   id: string;
-  @ApiProperty({description:''})
-  @Expose()
+
+  @ApiField({ description: '创建时间', type: Date, required: true })
   create_time: Date;
-  @ApiProperty({description:''})
-  @Expose()
+
+  @ApiField({ description: '修改时间', type: Date, required: true })
   update_time: Date;
-  @ApiProperty({description:'',required:false})
-  @Expose()
-  create_by: string;
-  @ApiProperty({description:'',required:false})
-  @Expose()
-  update_by: string;
-  @ApiProperty({description:''})
-  @Expose()
+
+  @ApiField({ description: '创建人', type: String, nullable: true })
+  create_by: string | null;
+
+  @ApiField({ description: '修改人', type: String, nullable: true })
+  update_by: string | null;
+
+  @ApiField({ description: '是否已删除', type: Boolean, required: true })
   deleted: boolean;
-  @ApiProperty({description:'父菜单ID',required:false})
-  @Expose()
-  pid: string;
-  @ApiProperty({description:'菜单名称',required:false})
-  @Expose()
-  name: string;
-  @ApiProperty({description:'菜单URL',required:false})
-  @Expose()
-  url: string;
-  @ApiProperty({description:'授权（多个用逗号分隔，如： user:list,user:create',required:false})
-  @Expose()
-  perms: string;
-  @ApiProperty({description:'类型 0:目录 1:菜单 2:按钮'})
-  @Expose()
+
+  @ApiField({ description: '父菜单ID', type: String, nullable: true })
+  pid: string | null;
+
+  parent?: SysMenuModel;
+
+  children?: SysMenuModel[];
+
+  @ApiField({ description: '菜单名称', type: String, nullable: true })
+  name: string | null;
+
+  @ApiField({ description: '菜单URL', type: String, nullable: true })
+  url: string | null;
+
+  @ApiField({ description: '授权（多个用逗号分隔，如： user:list,user:create', type: String, nullable: true })
+  perms: string | null;
+
+  @ApiField({ description: '类型 0:目录 1:菜单 2:按钮', type: Number, required: true })
   type: number;
-  @ApiProperty({description:'模式：pc，app',required:false})
-  @Expose()
-  mode: string;
-  @ApiProperty({description:'菜单图标',required:false})
-  @Expose()
-  icon: string;
-  @ApiProperty({description:'颜色',required:false})
-  @Expose()
-  color: string;
-  @ApiProperty({description:'路由地址',required:false})
-  @Expose()
-  routeUrl: string;
-  @ApiProperty({description:'是否显示面包屑',required:false})
-  @Expose()
-  breadCrumb: string;
-  @ApiProperty({description:'组件路径',required:false})
-  @Expose()
-  componentName: string;
-  @ApiProperty({description:'组件名称',required:false})
-  @Expose()
-  componentPath: string;
-  @ApiProperty({description:'排序'})
-  @Expose()
+
+  @ApiField({ description: '模式：pc，app', type: String, nullable: true })
+  mode: string | null;
+
+  @ApiField({ description: '菜单图标', type: String, nullable: true })
+  icon: string | null;
+
+  @ApiField({ description: '颜色', type: String, nullable: true })
+  color: string | null;
+
+  @ApiField({ description: '路由地址', type: String, nullable: true })
+  routeUrl: string | null;
+
+  @ApiField({ description: '是否显示面包屑', type: String, nullable: true })
+  breadCrumb: string | null;
+
+  @ApiField({ description: '组件路径', type: String, nullable: true })
+  componentName: string | null;
+
+  @ApiField({ description: '组件名称', type: String, nullable: true })
+  componentPath: string | null;
+
+  @ApiField({ description: '排序', type: Number, required: true })
   orderNum: number;
-  @ApiProperty({description:'是否显示'})
-  @Expose()
+
+  @ApiField({ description: '是否显示', type: Boolean, required: true })
   display: boolean;
+
+  role_menus?: SysRoleMenuModel[];
 }

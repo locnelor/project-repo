@@ -1,6 +1,6 @@
 import { applyDecorators, Controller, SetMetadata } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { ApiAuthConfig, ApiPermissionsConfig, AUTH_CONFIG_KEY, PERMISSIONS_CONFIG_KEY } from './api-auth.decorator';
+import { ApiAuthConfig, ApiPermissionsConfig, AUTH_CONFIG_KEY, PERMISSIONS_CONFIG_KEY } from './api.auth.decorator';
 
 
 export interface AuthControllerOptions {

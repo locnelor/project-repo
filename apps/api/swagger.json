@@ -48,14 +48,35 @@
       },
       "get": {
         "operationId": "UserController_findAll",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "pageNo",
+            "required": false,
+            "in": "query",
+            "description": "当前页码",
+            "schema": {
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "每页数据条数",
+            "schema": {
+              "default": 10,
+              "type": "number"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "查询所有用户",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CustomResponseDto_SysUserModelArray"
+                  "$ref": "#/components/schemas/CustomResponseDto_PaginationResultDto"
                 }
               }
             }
@@ -181,18 +202,10 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "创建角色",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CustomResponseDto_SysRoleModel"
-                }
-              }
-            }
+          "201": {
+            "description": ""
           }
         },
-        "summary": "创建角色",
         "tags": [
           "角色管理"
         ]
@@ -202,17 +215,9 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "查询所有角色",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CustomResponseDto_SysRoleModelArray"
-                }
-              }
-            }
+            "description": ""
           }
         },
-        "summary": "查询所有角色",
         "tags": [
           "角色管理"
         ]
@@ -233,17 +238,9 @@
         ],
         "responses": {
           "200": {
-            "description": "查询角色详情",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CustomResponseDto_SysRoleModel"
-                }
-              }
-            }
+            "description": ""
           }
         },
-        "summary": "查询角色详情",
         "tags": [
           "角色管理"
         ]
@@ -272,17 +269,9 @@
         },
         "responses": {
           "200": {
-            "description": "更新角色",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CustomResponseDto_SysRoleModel"
-                }
-              }
-            }
+            "description": ""
           }
         },
-        "summary": "更新角色",
         "tags": [
           "角色管理"
         ]
@@ -301,17 +290,9 @@
         ],
         "responses": {
           "200": {
-            "description": "删除角色",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CustomResponseDto_SysRoleModel"
-                }
-              }
-            }
+            "description": ""
           }
         },
-        "summary": "删除角色",
         "tags": [
           "角色管理"
         ]
@@ -472,6 +453,28 @@
           "test"
         ]
       }
+    },
+    "/test/test": {
+      "get": {
+        "operationId": "TestController_test",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "测试接口",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_TestDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "测试接口",
+        "tags": [
+          "test"
+        ]
+      }
     }
   },
   "info": {
@@ -493,77 +496,76 @@
       "CreateUserDto": {
         "type": "object",
         "properties": {
-          "name": {
+          "username": {
             "type": "string",
-            "description": "用户姓名"
+            "description": "用户名"
           }
-        },
-        "required": [
-          "name"
-        ]
+        }
       },
       "SysUserModel": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "description": "主键ID"
+            "type": "string"
           },
           "create_time": {
             "format": "date-time",
-            "type": "string",
-            "description": "创建时间"
+            "type": "string"
           },
           "update_time": {
             "format": "date-time",
-            "type": "string",
-            "description": "更新时间"
+            "type": "string"
           },
           "create_by": {
             "type": "string",
-            "description": "创建人"
+            "nullable": true
           },
           "update_by": {
             "type": "string",
-            "description": "更新人"
+            "nullable": true
           },
           "deleted": {
-            "type": "boolean",
-            "description": "是否已删除"
+            "type": "boolean"
           },
           "username": {
-            "type": "string",
-            "description": "用户名"
+            "type": "string"
           },
           "password": {
             "type": "string",
-            "description": "密码"
+            "nullable": true
           },
           "nickname": {
             "type": "string",
-            "description": "昵称"
+            "nullable": true
           },
           "real_name": {
             "type": "string",
-            "description": "真实姓名"
+            "nullable": true
           },
           "email": {
             "type": "string",
-            "description": "邮箱"
+            "nullable": true
           },
           "phone": {
             "type": "string",
-            "description": "手机号"
+            "nullable": true
           },
           "job_no": {
             "type": "string",
-            "description": "工号"
+            "nullable": true
           },
           "dept_id": {
             "type": "string",
-            "description": "部门ID"
+            "nullable": true
           }
-        }
+        },
+        "required": [
+          "id",
+          "create_time",
+          "update_time",
+          "deleted",
+          "username"
+        ]
       },
       "CustomResponseDto_SysUserModel": {
         "type": "object",
@@ -588,7 +590,32 @@
           "data"
         ]
       },
-      "CustomResponseDto_SysUserModelArray": {
+      "PaginationResultDto": {
+        "type": "object",
+        "properties": {
+          "pageNo": {
+            "type": "number",
+            "description": "当前页码",
+            "default": 1
+          },
+          "pageSize": {
+            "type": "number",
+            "description": "每页数据条数",
+            "default": 10
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SysUserModel"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "总条数"
+          }
+        }
+      },
+      "CustomResponseDto_PaginationResultDto": {
         "type": "object",
         "properties": {
           "code": {
@@ -604,10 +631,7 @@
             "description": "请求时间"
           },
           "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SysUserModel"
-            }
+            "$ref": "#/components/schemas/PaginationResultDto"
           }
         },
         "required": [
@@ -617,9 +641,9 @@
       "UpdateUserDto": {
         "type": "object",
         "properties": {
-          "name": {
+          "username": {
             "type": "string",
-            "description": "用户姓名"
+            "description": "用户名"
           }
         }
       },
@@ -639,94 +663,6 @@
             "example": "系统管理员角色"
           }
         }
-      },
-      "SysRoleModel": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "主键ID"
-          },
-          "create_time": {
-            "format": "date-time",
-            "type": "string",
-            "description": "创建时间"
-          },
-          "update_time": {
-            "format": "date-time",
-            "type": "string",
-            "description": "更新时间"
-          },
-          "create_by": {
-            "type": "string",
-            "description": "创建人"
-          },
-          "update_by": {
-            "type": "string",
-            "description": "更新人"
-          },
-          "deleted": {
-            "type": "boolean",
-            "description": "是否已删除"
-          },
-          "name": {
-            "type": "string",
-            "description": "角色名称"
-          },
-          "description": {
-            "type": "string",
-            "description": "角色描述"
-          }
-        }
-      },
-      "CustomResponseDto_SysRoleModel": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "number",
-            "description": "状态码"
-          },
-          "msg": {
-            "type": "string",
-            "description": "消息"
-          },
-          "now": {
-            "type": "number",
-            "description": "请求时间"
-          },
-          "data": {
-            "$ref": "#/components/schemas/SysRoleModel"
-          }
-        },
-        "required": [
-          "data"
-        ]
-      },
-      "CustomResponseDto_SysRoleModelArray": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "number",
-            "description": "状态码"
-          },
-          "msg": {
-            "type": "string",
-            "description": "消息"
-          },
-          "now": {
-            "type": "number",
-            "description": "请求时间"
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SysRoleModel"
-            }
-          }
-        },
-        "required": [
-          "data"
-        ]
       },
       "UpdateRoleDto": {
         "type": "object",
@@ -748,6 +684,33 @@
       "CreateMenuDto": {
         "type": "object",
         "properties": {}
+      },
+      "TestDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CustomResponseDto_TestDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "description": "状态码"
+          },
+          "msg": {
+            "type": "string",
+            "description": "消息"
+          },
+          "now": {
+            "type": "number",
+            "description": "请求时间"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TestDto"
+          }
+        },
+        "required": [
+          "data"
+        ]
       }
     }
   },

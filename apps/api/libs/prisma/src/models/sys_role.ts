@@ -1,30 +1,34 @@
 import { sys_role } from '@repo/database';
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
+import { ApiField } from '@app/api-kit';
+import { SysRoleMenuModel } from './sys_role_menu';
+import { SysRoleUserModel } from './sys_role_user';
 
 export class SysRoleModel implements sys_role {
-  @ApiProperty({description:''})
-  @Expose()
+  @ApiField({ description: '主键ID', type: String, required: true })
   id: string;
-  @ApiProperty({description:'',required:false})
-  @Expose()
-  create_time: Date;
-  @ApiProperty({description:'',required:false})
-  @Expose()
-  update_time: Date;
-  @ApiProperty({description:'',required:false})
-  @Expose()
-  create_by: string;
-  @ApiProperty({description:'',required:false})
-  @Expose()
-  update_by: string;
-  @ApiProperty({description:''})
-  @Expose()
+
+  @ApiField({ description: '创建时间', type: Date, nullable: true })
+  create_time: Date | null;
+
+  @ApiField({ description: '修改时间', type: Date, nullable: true })
+  update_time: Date | null;
+
+  @ApiField({ description: '创建人', type: String, nullable: true })
+  create_by: string | null;
+
+  @ApiField({ description: '修改人', type: String, nullable: true })
+  update_by: string | null;
+
+  @ApiField({ description: '是否已删除', type: Boolean, required: true })
   deleted: boolean;
-  @ApiProperty({description:'角色名称',required:false})
-  @Expose()
-  name: string;
-  @ApiProperty({description:'角色描述',required:false})
-  @Expose()
-  description: string;
+
+  @ApiField({ description: '角色名称', type: String, nullable: true })
+  name: string | null;
+
+  @ApiField({ description: '角色描述', type: String, nullable: true })
+  description: string | null;
+
+  menus?: SysRoleMenuModel[];
+
+  users?: SysRoleUserModel[];
 }

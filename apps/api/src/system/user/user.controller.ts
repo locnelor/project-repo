@@ -1,18 +1,18 @@
 import {
-  Controller,
   Get,
   Post,
   Body,
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { SysUserModel } from 'src/common/models/sys_user';
-import { ApiResponseJson } from 'src/common/decorators/api-response.decorator';
-import { AuthController } from 'src/common/decorators/authController.decorator';
+import { AuthController } from '@app/auth-power';
+import { ApiResult, Pagination, PaginationDto } from '@app/api-kit';
+import { prisma, SysUserModel } from '@app/prisma';
 
 @AuthController({
   url: "/api/sys/user",
@@ -22,32 +22,45 @@ export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Post()
-  @ApiResponseJson(SysUserModel, { summary: "创建用户" })
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  @ApiResult(SysUserModel, { summary: "创建用户" })
+  create(@Body() data: CreateUserDto) {
+    console.log(data,)
+    return
+    return this.userService.create({
+      data
+    })
   }
 
   @Get()
-  @ApiResponseJson([SysUserModel], { summary: "查询所有用户" })
-  findAll() {
-    return this.userService.findAll();
+  @ApiResult(Pagination(SysUserModel), { summary: "查询所有用户" })
+  async findAll(@Query() { pageNo, pageSize }: PaginationDto) {
+    const result = await this.userService.page({
+      pageNo,
+      pageSize,
+    })
+    return result
   }
 
   @Get(':id')
-  @ApiResponseJson(SysUserModel, { summary: "查询用户详情" })
+  @ApiResult(SysUserModel, { summary: "查询用户详情" })
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userService.findOne({
+      where: { id }
+    })
   }
 
   @Patch(':id')
-  @ApiResponseJson(SysUserModel, { summary: "更新用户" })
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @ApiResult(SysUserModel, { summary: "更新用户" })
+  update(@Param('id') id: string, @Body() data: UpdateUserDto) {
+    return this.userService.update({
+      where: { id },
+      data
+    })
   }
 
   @Delete(':id')
-  @ApiResponseJson(SysUserModel, { summary: "删除用户" })
+  @ApiResult(SysUserModel, { summary: "删除用户" })
   remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    return this.userService.delete({ where: { id } })
   }
 }

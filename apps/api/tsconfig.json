@@ -18,6 +18,12 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+      "@app/api-kit": [
+        "libs/api-kit/src"
+      ],
+      "@app/api-kit/*": [
+        "libs/api-kit/src/*"
+      ],
       "@app/auth-power": [
         "libs/auth-power/src"
       ],

@@ -1,46 +1,41 @@
 import { sys_dept } from '@repo/database';
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
+import { ApiField } from '@app/api-kit';
+import { SysUserModel } from './sys_user';
 
-/** 部门表 */
 export class SysDeptModel implements sys_dept {
-  @ApiProperty({ description: '' })
-  @Expose()
+  @ApiField({ description: '主键ID', type: String, required: true })
   id: string;
 
-  @ApiProperty({ description: '' })
-  @Expose()
+  @ApiField({ description: '创建时间', type: Date, required: true })
   create_time: Date;
 
-  @ApiProperty({ description: '' })
-  @Expose()
+  @ApiField({ description: '修改时间', type: Date, required: true })
   update_time: Date;
 
-  @ApiProperty({ description: '', required: false })
-  @Expose()
-  create_by: string;
+  @ApiField({ description: '创建人', type: String, nullable: true })
+  create_by: string | null;
 
-  @ApiProperty({ description: '', required: false })
-  @Expose()
-  update_by: string;
+  @ApiField({ description: '修改人', type: String, nullable: true })
+  update_by: string | null;
 
-  @ApiProperty({ description: '' })
-  @Expose()
+  @ApiField({ description: '是否已删除', type: Boolean, required: true })
   deleted: boolean;
 
-  @ApiProperty({ description: 'PID', required: false })
-  @Expose()
-  pid: string;
+  @ApiField({ description: 'PID', type: String, nullable: true })
+  pid: string | null;
 
-  @ApiProperty({ description: '部门名称' })
-  @Expose()
+  @ApiField({ description: '部门名称', type: String, required: true })
   name: string;
 
-  @ApiProperty({ description: '是否显示' })
-  @Expose()
+  @ApiField({ description: '是否显示', type: Boolean, required: true })
   display: boolean;
 
-  @ApiProperty({ description: '排序' })
-  @Expose()
+  @ApiField({ description: '排序', type: Number, required: true })
   sort: number;
+
+  parent?: SysDeptModel;
+
+  children?: SysDeptModel[];
+
+  users?: SysUserModel[];
 }

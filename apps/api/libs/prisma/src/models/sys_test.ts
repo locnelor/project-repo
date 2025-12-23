@@ -1,18 +1,16 @@
 import { sys_test } from '@repo/database';
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
+import { ApiField } from '@app/api-kit';
 
 export class SysTestModel implements sys_test {
-  @ApiProperty({description:''})
-  @Expose()
+  @ApiField({ description: '主键ID', type: String, required: true })
   id: string;
-  @ApiProperty({description:''})
-  @Expose()
+
+  @ApiField({ description: '创建时间', type: Date, required: true })
   create_time: Date;
-  @ApiProperty({description:''})
-  @Expose()
+
+  @ApiField({ description: '修改时间', type: Date, required: true })
   update_time: Date;
-  @ApiProperty({description:''})
-  @Expose()
+
+  @ApiField({ description: '', type: String, required: true })
   name: string;
 }

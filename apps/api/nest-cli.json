@@ -7,6 +7,15 @@
     "webpack": true
   },
   "projects": {
+    "api-kit": {
+      "type": "library",
+      "root": "libs/api-kit",
+      "entryFile": "index",
+      "sourceRoot": "libs/api-kit/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/api-kit/tsconfig.lib.json"
+      }
+    },
     "auth-power": {
       "type": "library",
       "root": "libs/auth-power",

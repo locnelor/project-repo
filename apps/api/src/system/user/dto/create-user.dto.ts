@@ -1,6 +1,8 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiField } from "@app/api-kit";
+import { IsString } from "class-validator";
 
 export class CreateUserDto {
-    @ApiProperty({ description: '用户姓名' })
-    name: string
+    @ApiField({ description: "用户名" })
+    @IsString()
+    username: string;
 }
