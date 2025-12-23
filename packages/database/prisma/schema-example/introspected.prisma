@@ -1,0 +1,252 @@
+
+model sys_client {
+  id                   BigInt    @id @default(autoincrement())
+  client_id            String    @db.VarChar(50)
+  client_type          String    @db.VarChar(50)
+  auth_type            Json
+  active_timeout       BigInt    @default(-1)
+  timeout              BigInt    @default(2592000)
+  is_concurrent        Boolean   @default(dbgenerated("b'1'")) @db.Bit(1)
+  replaced_range       String?   @db.VarChar(20)
+  max_login_count      Int       @default(-1)
+  overflow_logout_mode String?   @db.VarChar(20)
+  status               Int       @default(1) @db.UnsignedTinyInt
+  create_user          BigInt
+  create_time          DateTime  @db.DateTime(0)
+  update_user          BigInt?
+  update_time          DateTime? @db.DateTime(0)
+  deleted              BigInt    @default(0)
+
+  @@unique([client_id, deleted], map: "uk_client_id")
+  @@index([create_user], map: "idx_create_user")
+  @@index([deleted], map: "idx_deleted")
+  @@index([update_user], map: "idx_update_user")
+}
+
+
+model sys_dict {
+  id          BigInt    @id @default(autoincrement())
+  name        String    @db.VarChar(30)
+  code        String    @db.VarChar(30)
+  description String?   @db.VarChar(200)
+  is_system   Boolean   @default(dbgenerated("b'0'")) @db.Bit(1)
+  create_user BigInt
+  create_time DateTime  @db.DateTime(0)
+  update_user BigInt?
+  update_time DateTime? @db.DateTime(0)
+  deleted     BigInt    @default(0)
+
+  @@unique([code, deleted], map: "uk_code")
+  @@unique([name, deleted], map: "uk_name")
+  @@index([deleted], map: "idx_deleted")
+}
+
+
+model sys_dict_item {
+  id          BigInt    @id @default(autoincrement())
+  label       String    @db.VarChar(30)
+  value       String    @db.VarChar(30)
+  color       String?   @db.VarChar(30)
+  sort        Int       @default(999)
+  description String?   @db.VarChar(200)
+  status      Int       @default(1) @db.UnsignedTinyInt
+  dict_id     BigInt
+  create_user BigInt
+  create_time DateTime  @db.DateTime(0)
+  update_user BigInt?
+  update_time DateTime? @db.DateTime(0)
+  deleted     BigInt    @default(0)
+
+  @@unique([value, dict_id, deleted], map: "uk_value_dict_id")
+  @@index([create_user], map: "idx_create_user")
+  @@index([deleted], map: "idx_deleted")
+  @@index([dict_id], map: "idx_dict_id")
+  @@index([update_user], map: "idx_update_user")
+}
+
+
+model sys_message {
+  id          BigInt    @id @default(autoincrement())
+  title       String    @db.VarChar(50)
+  content     String?   @db.Text
+  type        Int       @default(1) @db.UnsignedTinyInt
+  path        String?   @db.VarChar(255)
+  scope       Int       @default(1) @db.UnsignedTinyInt
+  users       Json?
+  create_time DateTime  @db.DateTime(0)
+  update_time DateTime? @db.DateTime(0)
+  deleted     BigInt    @default(0)
+
+  @@index([deleted], map: "idx_deleted")
+}
+
+
+model sys_message_log {
+  message_id BigInt
+  user_id    BigInt
+  read_time  DateTime? @db.DateTime(0)
+
+  @@id([message_id, user_id])
+}
+
+
+model sys_notice {
+  id             BigInt    @id @default(autoincrement())
+  title          String    @db.VarChar(150)
+  content        String    @db.MediumText
+  type           String    @db.VarChar(30)
+  notice_scope   Int       @default(1) @db.UnsignedTinyInt
+  notice_users   Json?
+  notice_methods Json?
+  is_timing      Boolean   @default(dbgenerated("b'0'")) @db.Bit(1)
+  publish_time   DateTime? @db.DateTime(0)
+  is_top         Boolean   @default(dbgenerated("b'0'")) @db.Bit(1)
+  status         Int       @default(1) @db.UnsignedTinyInt
+  create_user    BigInt
+  create_time    DateTime  @db.DateTime(0)
+  update_user    BigInt?
+  update_time    DateTime? @db.DateTime(0)
+  deleted        BigInt    @default(0)
+
+  @@index([create_user], map: "idx_create_user")
+  @@index([deleted], map: "idx_deleted")
+  @@index([update_user], map: "idx_update_user")
+}
+
+
+model sys_notice_log {
+  notice_id BigInt
+  user_id   BigInt
+  read_time DateTime? @db.DateTime(0)
+
+  @@id([notice_id, user_id])
+}
+
+
+model sys_option {
+  id            BigInt    @id @default(autoincrement())
+  category      String    @db.VarChar(50)
+  name          String    @db.VarChar(50)
+  code          String    @db.VarChar(100)
+  value         String?   @db.LongText
+  default_value String?   @db.LongText
+  description   String?   @db.VarChar(200)
+  update_user   BigInt?
+  update_time   DateTime? @db.DateTime(0)
+
+  @@unique([category, code], map: "uk_category_code")
+}
+
+
+model sys_role_dept {
+  role_id BigInt
+  dept_id BigInt
+
+  @@id([role_id, dept_id])
+}
+
+
+model sys_sms_config {
+  id              BigInt    @id @default(autoincrement())
+  name            String    @db.VarChar(100)
+  supplier        String    @db.VarChar(50)
+  access_key      String    @db.VarChar(255)
+  secret_key      String    @db.VarChar(255)
+  signature       String?   @db.VarChar(100)
+  template_id     String?   @db.VarChar(50)
+  weight          Int?
+  retry_interval  Int?
+  max_retries     Int?
+  maximum         Int?
+  supplier_config String?   @db.Text
+  is_default      Boolean   @default(dbgenerated("b'0'")) @db.Bit(1)
+  status          Int       @default(1) @db.UnsignedTinyInt
+  create_user     BigInt
+  create_time     DateTime  @db.DateTime(0)
+  update_user     BigInt?
+  update_time     DateTime? @db.DateTime(0)
+  deleted         BigInt    @default(0)
+
+  @@index([create_user], map: "idx_create_user")
+  @@index([deleted], map: "idx_deleted")
+  @@index([update_user], map: "idx_update_user")
+}
+
+
+model sys_sms_log {
+  id          BigInt   @id @default(autoincrement())
+  config_id   BigInt
+  phone       String   @db.VarChar(25)
+  params      String?  @db.Text
+  status      Int      @default(1) @db.UnsignedTinyInt
+  res_msg     String?  @db.Text
+  create_user BigInt
+  create_time DateTime @db.DateTime(0)
+
+  @@index([config_id], map: "idx_config_id")
+  @@index([create_user], map: "idx_create_user")
+}
+
+
+model sys_storage {
+  id                  BigInt    @id @default(autoincrement())
+  name                String    @db.VarChar(100)
+  code                String    @db.VarChar(30)
+  type                Int       @default(1) @db.UnsignedTinyInt
+  access_key          String?   @db.VarChar(255)
+  secret_key          String?   @db.VarChar(255)
+  endpoint            String?   @db.VarChar(255)
+  bucket_name         String    @db.VarChar(255)
+  domain              String?   @db.VarChar(255)
+  recycle_bin_enabled Boolean   @default(dbgenerated("b'1'")) @db.Bit(1)
+  recycle_bin_path    String?   @db.VarChar(255)
+  description         String?   @db.VarChar(200)
+  is_default          Boolean   @default(dbgenerated("b'0'")) @db.Bit(1)
+  sort                Int       @default(999)
+  status              Int       @default(1) @db.UnsignedTinyInt
+  create_user         BigInt
+  create_time         DateTime  @db.DateTime(0)
+  update_user         BigInt?
+  update_time         DateTime? @db.DateTime(0)
+  deleted             BigInt    @default(0)
+
+  @@unique([code, deleted], map: "uk_code")
+  @@index([create_user], map: "idx_create_user")
+  @@index([deleted], map: "idx_deleted")
+  @@index([update_user], map: "idx_update_user")
+}
+
+
+model sys_user_password_history {
+  id          BigInt   @id @default(autoincrement())
+  user_id     BigInt
+  password    String   @db.VarChar(255)
+  create_time DateTime @db.DateTime(0)
+
+  @@index([user_id], map: "idx_user_id")
+}
+
+
+model sys_user_role {
+  id      BigInt @id @default(autoincrement())
+  user_id BigInt
+  role_id BigInt
+
+  @@unique([user_id, role_id], map: "uk_user_id_role_id")
+}
+
+
+model sys_user_social {
+  id              BigInt    @id @default(autoincrement())
+  source          String    @db.VarChar(255)
+  open_id         String    @db.VarChar(255)
+  user_id         BigInt
+  meta_json       String?   @db.Text
+  last_login_time DateTime? @db.DateTime(0)
+  create_time     DateTime  @db.DateTime(0)
+  update_time     DateTime? @db.DateTime(0)
+  deleted         BigInt    @default(0)
+
+  @@unique([source, open_id, deleted], map: "uk_source_open_id")
+  @@index([deleted], map: "idx_deleted")
+}
