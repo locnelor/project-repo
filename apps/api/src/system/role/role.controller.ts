@@ -11,7 +11,6 @@ import { ApiTags } from '@nestjs/swagger';
 import { RoleService } from './role.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
-import { SysRoleModel } from '../../common/models/sys_role';
 
 @Controller('api/sys/role')
 @ApiTags('角色管理')

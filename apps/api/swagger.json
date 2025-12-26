@@ -489,7 +489,8 @@
         "bearerFormat": "JWT",
         "type": "http",
         "name": "Authorization",
-        "in": "header"
+        "in": "header",
+        "description": "请输入 JWT 令牌"
       }
     },
     "schemas": {

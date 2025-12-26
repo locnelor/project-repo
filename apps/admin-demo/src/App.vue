@@ -1,10 +1,9 @@
 <script setup lang="ts">
-const envs = import.meta.env
 </script>
 
 <template>
   <div class="bg-red-500">
-    {{envs}}
+
   </div>
 </template>
 

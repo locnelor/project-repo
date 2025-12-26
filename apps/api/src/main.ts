@@ -68,6 +68,7 @@ async function bootstrap() {
           bearerFormat: 'JWT',
           name: 'Authorization',
           in: 'header',
+          description: '请输入 JWT 令牌',
         },
         'Authorization',
       )
@@ -81,7 +82,12 @@ async function bootstrap() {
     }
     document.security = [{ Authorization: [] }];
 
-    SwaggerModule.setup('docs', app, document);
+    SwaggerModule.setup('docs', app, document, {
+      swaggerOptions: {
+        persistAuthorization: true,
+      },
+      customJs: '/swagger-auto-auth.js',
+    });
 
     // 保存为 JSON 文件
     writeFileSync('./swagger.json', JSON.stringify(document, null, 2));
