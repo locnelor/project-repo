@@ -1,0 +1,23 @@
+/// 系统字典详情表
+model sys_dict_detail {
+    id          String    @id @db.Char(32)
+    create_by   String?   @db.VarChar(32)
+    update_by   String?   @db.VarChar(32)
+    update_time DateTime? @default(now()) @updatedAt
+    create_time DateTime? @default(now())
+    deleted     Boolean   @default(false)
+
+    /// 字典id
+    dict_id String?   @db.VarChar(32)
+    dict    sys_dict? @relation(fields: [dict_id], references: [id])
+    /// 标签
+    label   String?   @db.VarChar(128)
+    /// 编码
+    code    String?   @db.VarChar(128)
+    /// 排序
+    sort    Int?      @default(10)
+    /// 标记
+    tab     String?   @db.VarChar(100)
+
+    @@index([dict_id])
+}

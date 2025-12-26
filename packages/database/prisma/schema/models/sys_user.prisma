@@ -32,4 +32,7 @@ model sys_user {
   dept         sys_dept?       @relation(fields: [dept_id], references: [id])
   dept_id      String?
   sysRoleUsers sys_role_user[]
+
+  @@index([dept_id])
+  @@index([username, deleted])
 }

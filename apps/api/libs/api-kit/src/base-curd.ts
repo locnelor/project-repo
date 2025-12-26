@@ -12,7 +12,6 @@ export class BaseCrudService<
     },
 > {
     constructor(protected readonly model: TDelegate) { }
-
     findOne<
         TArgs extends Prisma.Args<TDelegate, 'findUnique'>
     >(

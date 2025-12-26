@@ -12,7 +12,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthController } from '@app/auth-power';
 import { ApiResult, Pagination, PaginationDto } from '@app/api-kit';
-import { prisma, SysUserModel } from '@app/prisma';
+import { SysUserModel } from '@app/prisma';
 
 @AuthController({
   url: "/api/sys/user",

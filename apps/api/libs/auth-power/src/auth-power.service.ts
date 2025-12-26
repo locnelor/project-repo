@@ -1,7 +1,6 @@
 import { HashService } from '@app/hash';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { prisma } from '@app/prisma';
 
 export interface JwtPayload {
   sub: string;

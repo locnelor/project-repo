@@ -8,6 +8,7 @@ import { LoginDto } from './dto/LoginDto';
 import { CurrentUser, IgnorePermission } from '@app/auth-power';
 import { SysUserModel } from '@app/prisma';
 import { RegisterDto } from './dto/RegisterDto';
+import { UserInfoDto } from './dto/UserInfoDto';
 
 @Controller('auth')
 @ApiTags("认证模块")
@@ -25,7 +26,7 @@ export class AuthController {
     }
 
     @Post("login")
-    @ApiResult(AuthUserDto, { summary: "账号密码登录" })
+    @ApiResult(UserInfoDto, { summary: "账号密码登录" })
     @IgnorePermission()
     login(@Body() loginDto: LoginDto) {
         return this.authService.login(loginDto)
@@ -40,7 +41,7 @@ export class AuthController {
     }
 
     @Post("register")
-    @ApiResult(SysUserModel, { summary: "注册用户" })
+    @ApiResult(UserInfoDto, { summary: "注册用户" })
     register(@Body() registerDto: RegisterDto) {
         return this.authService.register(registerDto)
     }

@@ -1,9 +1,9 @@
 import { AuthPowerService } from '@app/auth-power';
 import { AccountOrPasswordError } from '@app/error/http.error';
-import { prisma } from '@app/prisma';
 import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { LoginDto } from './dto/LoginDto';
 import { RegisterDto } from './dto/RegisterDto';
+import { prisma } from '@repo/database';
 
 @Injectable()
 export class AuthService {
@@ -46,12 +46,11 @@ export class AuthService {
     }
 
     // 生成令牌
-    const access_token = this.authPowerService.generateToken(user);
+    const token = this.authPowerService.generateToken(user);
 
     return {
       ...user,
-      password: '',
-      access_token,
+      token,
     };
   }
 }

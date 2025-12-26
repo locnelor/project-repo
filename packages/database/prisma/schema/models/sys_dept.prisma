@@ -25,4 +25,6 @@ model sys_dept {
 
   /// 用户
   users sys_user[]
+
+  @@index([pid])
 }

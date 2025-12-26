@@ -1,0 +1,17 @@
+/// 系统字典表
+model sys_dict {
+    id          String    @id @db.Char(32)
+    create_by   String?   @db.VarChar(32)
+    update_by   String?   @db.VarChar(32)
+    update_time DateTime? @default(now()) @updatedAt
+    create_time DateTime? @default(now())
+    deleted     Boolean   @default(false)
+
+    /// 字典名称
+    name        String?           @db.VarChar(128)
+    /// 字典描述
+    description String?           @db.VarChar(200)
+    children    sys_dict_detail[]
+
+    @@index([name])
+}

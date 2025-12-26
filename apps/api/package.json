@@ -14,6 +14,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "generate": "ts-node scripts/generate-prisma.ts",
+    "swagger": "ts-node scripts/generate-swagger.ts",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
