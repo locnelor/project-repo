@@ -1,6 +1,20 @@
 {
   "openapi": "3.0.0",
   "paths": {
+    "/app": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "appTag"
+        ]
+      }
+    },
     "/auth/verifyCode": {
       "get": {
         "operationId": "AuthController_verifyCode",
@@ -108,17 +122,540 @@
           "认证模块"
         ]
       }
+    },
+    "/api/sys/user": {
+      "post": {
+        "operationId": "UserController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "创建用户",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysUserModel"
+                }
+              }
+            }
+          }
+        },
+        "summary": "创建用户",
+        "tags": [
+          "用户管理"
+        ]
+      },
+      "get": {
+        "operationId": "UserController_findAll",
+        "parameters": [
+          {
+            "name": "pageNo",
+            "required": false,
+            "in": "query",
+            "description": "当前页码",
+            "schema": {
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "每页数据条数",
+            "schema": {
+              "default": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "查询所有用户",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_PaginationResultDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "查询所有用户",
+        "tags": [
+          "用户管理"
+        ]
+      }
+    },
+    "/api/sys/user/{id}": {
+      "get": {
+        "operationId": "UserController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "查询用户详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysUserModel"
+                }
+              }
+            }
+          }
+        },
+        "summary": "查询用户详情",
+        "tags": [
+          "用户管理"
+        ]
+      },
+      "patch": {
+        "operationId": "UserController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "更新用户",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysUserModel"
+                }
+              }
+            }
+          }
+        },
+        "summary": "更新用户",
+        "tags": [
+          "用户管理"
+        ]
+      },
+      "delete": {
+        "operationId": "UserController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除用户",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysUserModel"
+                }
+              }
+            }
+          }
+        },
+        "summary": "删除用户",
+        "tags": [
+          "用户管理"
+        ]
+      }
+    },
+    "/api/sys/role": {
+      "post": {
+        "operationId": "RoleController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "角色管理"
+        ]
+      },
+      "get": {
+        "operationId": "RoleController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "角色管理"
+        ]
+      }
+    },
+    "/api/sys/role/{id}": {
+      "get": {
+        "operationId": "RoleController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "角色管理"
+        ]
+      },
+      "patch": {
+        "operationId": "RoleController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "角色管理"
+        ]
+      },
+      "delete": {
+        "operationId": "RoleController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "角色管理"
+        ]
+      }
+    },
+    "/sys/menu/{id}/detail": {
+      "get": {
+        "description": "获取菜单详情",
+        "operationId": "MenuController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysMenuModel"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "系统菜单"
+        ]
+      }
+    },
+    "/sys/menu/list": {
+      "get": {
+        "description": "获取菜单列表",
+        "operationId": "MenuController_findList",
+        "parameters": [
+          {
+            "name": "pageNo",
+            "required": false,
+            "in": "query",
+            "description": "当前页码",
+            "schema": {
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "每页数据条数",
+            "schema": {
+              "default": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_PaginationResultDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "系统菜单"
+        ]
+      }
+    },
+    "/sys/menu": {
+      "post": {
+        "description": "创建菜单",
+        "operationId": "MenuController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMenuDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysMenuModel"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "系统菜单"
+        ]
+      }
+    },
+    "/sys/menu/{id}": {
+      "put": {
+        "description": "更新菜单",
+        "operationId": "MenuController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMenuDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysMenuModel"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "系统菜单"
+        ]
+      },
+      "delete": {
+        "description": "删除菜单",
+        "operationId": "MenuController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_SysMenuModel"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "系统菜单"
+        ]
+      }
+    },
+    "/test/getToken": {
+      "get": {
+        "operationId": "TestController_getToken",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "获取测试token",
+        "tags": [
+          "test"
+        ]
+      }
+    },
+    "/test/checkPermission": {
+      "get": {
+        "operationId": "TestController_checkPermission",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "检查权限",
+        "tags": [
+          "test"
+        ]
+      }
+    },
+    "/test/test": {
+      "get": {
+        "operationId": "TestController_test",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "测试接口",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomResponseDto_TestDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "测试接口",
+        "tags": [
+          "test"
+        ]
+      }
     }
   },
   "info": {
-    "title": "",
-    "description": "",
-    "version": "1.0.0",
     "contact": {}
   },
   "tags": [],
   "servers": [],
   "components": {
+    "securitySchemes": {
+      "Authorization": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "Authorization",
+        "in": "header",
+        "description": "请输入 JWT 令牌"
+      }
+    },
     "schemas": {
       "VerifyCodeDto": {
         "type": "object",
@@ -349,8 +886,271 @@
             "description": "密码"
           }
         }
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "用户名"
+          },
+          "phone": {
+            "type": "string",
+            "description": "手机号"
+          },
+          "email": {
+            "type": "string",
+            "description": "邮箱"
+          }
+        }
+      },
+      "PaginationResultDto": {
+        "type": "object",
+        "properties": {
+          "pageNo": {
+            "type": "number",
+            "description": "当前页码",
+            "default": 1
+          },
+          "pageSize": {
+            "type": "number",
+            "description": "每页数据条数",
+            "default": 10
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SysUserModel"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "总条数"
+          }
+        }
+      },
+      "CustomResponseDto_PaginationResultDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "description": "状态码"
+          },
+          "msg": {
+            "type": "string",
+            "description": "消息"
+          },
+          "now": {
+            "type": "number",
+            "description": "请求时间"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PaginationResultDto"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "用户名"
+          },
+          "phone": {
+            "type": "string",
+            "description": "手机号"
+          },
+          "email": {
+            "type": "string",
+            "description": "邮箱"
+          }
+        }
+      },
+      "CreateRoleDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "角色名称",
+            "maxLength": 255,
+            "example": "管理员"
+          },
+          "description": {
+            "type": "string",
+            "description": "角色描述",
+            "maxLength": 500,
+            "example": "系统管理员角色"
+          }
+        }
+      },
+      "UpdateRoleDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "角色名称",
+            "maxLength": 255,
+            "example": "管理员"
+          },
+          "description": {
+            "type": "string",
+            "description": "角色描述",
+            "maxLength": 500,
+            "example": "系统管理员角色"
+          }
+        }
+      },
+      "SysMenuModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "create_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "update_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "create_by": {
+            "type": "string",
+            "nullable": true
+          },
+          "update_by": {
+            "type": "string",
+            "nullable": true
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "pid": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "perms": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "number"
+          },
+          "mode": {
+            "type": "string",
+            "nullable": true
+          },
+          "icon": {
+            "type": "string",
+            "nullable": true
+          },
+          "color": {
+            "type": "string",
+            "nullable": true
+          },
+          "routeUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "breadCrumb": {
+            "type": "string",
+            "nullable": true
+          },
+          "componentName": {
+            "type": "string",
+            "nullable": true
+          },
+          "componentPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "orderNum": {
+            "type": "number"
+          },
+          "display": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "create_time",
+          "update_time",
+          "deleted",
+          "type",
+          "orderNum",
+          "display"
+        ]
+      },
+      "CustomResponseDto_SysMenuModel": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "description": "状态码"
+          },
+          "msg": {
+            "type": "string",
+            "description": "消息"
+          },
+          "now": {
+            "type": "number",
+            "description": "请求时间"
+          },
+          "data": {
+            "$ref": "#/components/schemas/SysMenuModel"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "CreateMenuDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "TestDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CustomResponseDto_TestDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "description": "状态码"
+          },
+          "msg": {
+            "type": "string",
+            "description": "消息"
+          },
+          "now": {
+            "type": "number",
+            "description": "请求时间"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TestDto"
+          }
+        },
+        "required": [
+          "data"
+        ]
       }
-    },
-    "securitySchemes": {}
-  }
+    }
+  },
+  "security": [
+    {
+      "Authorization": []
+    }
+  ]
 }

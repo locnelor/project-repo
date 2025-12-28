@@ -38,10 +38,6 @@ export class CreateMenuDto {
   routeUrl?: string; // 路由地址
 
   @IsOptional()
-  @IsBoolean()
-  breadCrumb?: boolean; // 是否显示面包屑
-
-  @IsOptional()
   @IsString()
   componentPath?: string; // 组件路径
 

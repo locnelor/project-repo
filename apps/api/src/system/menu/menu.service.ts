@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { prisma, sys_menu, sys_user } from '@repo/database';
 import { ListMenuQuery } from './dto/list-menu.dto';
-import { BaseCurd } from '@app/api-kit';
+import { BaseCrud } from '@app/api-kit';
 
 @Injectable()
-export class MenuService extends BaseCurd(prisma.sys_menu) {
+export class MenuService extends BaseCrud(prisma.sys_menu) {
 
   
   // list({ name, ...rest }: ListMenuQuery, user: any) {
