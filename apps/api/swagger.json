@@ -618,9 +618,19 @@
       }
     },
     "/test/test": {
-      "get": {
+      "post": {
         "operationId": "TestController_test",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "测试接口",
@@ -1121,7 +1131,16 @@
       },
       "TestDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "TestField": {
+            "type": "string",
+            "description": "测试字段"
+          },
+          "test_field2": {
+            "type": "string",
+            "description": "hello"
+          }
+        }
       },
       "CustomResponseDto_TestDto": {
         "type": "object",

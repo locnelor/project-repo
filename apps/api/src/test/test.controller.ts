@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { TestService } from './test.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CheckPermission, CurrentUser, IgnorePermission } from '@app/auth-power';
@@ -27,10 +27,17 @@ export class TestController {
     return user
   }
 
-  @Get("test")
+  @Post("test")
   @ApiResult(TestDto, "测试接口")
-  test() {
-    return {}
+  @IgnorePermission()
+  test(
+    @Body() body: TestDto
+  ) {
+    console.log(body, 'body')
+    return {
+      test_field: '123',
+      test_field2: '444'
+    }
   }
 }
 
