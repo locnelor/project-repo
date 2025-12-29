@@ -1,0 +1,30 @@
+/// 部门表
+model sys_dept {
+  id          String   @id @default(uuid())
+  create_time DateTime @default(now())
+  update_time DateTime @default(now()) @updatedAt
+  create_by   String?
+  update_by   String?
+  deleted     Boolean  @default(false)
+
+  /// PID
+  pid String? @db.VarChar(32)
+
+  /// 部门名称
+  name String @db.VarChar(255)
+
+  /// 是否显示
+  display Boolean @default(true)
+
+  /// 排序
+  sort Int @default(10)
+
+  // 自引用关系
+  parent   sys_dept?  @relation("DeptParent", fields: [pid], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  children sys_dept[] @relation("DeptParent")
+
+  /// 用户
+  users sys_user[]
+
+  @@index([pid])
+}

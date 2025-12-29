@@ -1,30 +1,40 @@
 /// 部门表
-model sys_dept {
-  id          String   @id @default(uuid())
-  create_time DateTime @default(now())
-  update_time DateTime @default(now()) @updatedAt
-  create_by   String?
-  update_by   String?
-  deleted     Boolean  @default(false)
-
-  /// PID
-  pid String? @db.VarChar(32)
-
-  /// 部门名称
-  name String @db.VarChar(255)
-
-  /// 是否显示
-  display Boolean @default(true)
-
+model SysDept {
+  /// ID
+  id          BigInt    @id @default(autoincrement())
+  /// 名称
+  name        String    @db.VarChar(30)
+  /// 上级部门ID
+  parentId    BigInt    @default(0) @map("parent_id")
+  /// 祖级列表
+  ancestors   String    @default("") @db.VarChar(512)
+  /// 描述
+  description String?   @db.VarChar(200)
   /// 排序
-  sort Int @default(10)
+  sort        Int       @default(999)
+  /// 状态（1：启用；2：禁用）
+  status      Int       @default(1) @db.TinyInt
+  /// 是否为系统内置数据
+  isSystem    Boolean   @default(false) @map("is_system")
+  /// 创建人
+  createUser  BigInt    @map("create_user")
+  /// 创建时间
+  createTime  DateTime  @map("create_time")
+  /// 修改人
+  updateUser  BigInt?   @map("update_user")
+  /// 修改时间
+  updateTime  DateTime? @map("update_time")
+  /// 是否已删除（0：否；id：是）
+  deleted     BigInt    @default(0)
 
-  // 自引用关系
-  parent   sys_dept?  @relation("DeptParent", fields: [pid], references: [id], onDelete: Restrict, onUpdate: Restrict)
-  children sys_dept[] @relation("DeptParent")
+  // Relations
+  roles SysRoleDept[]
+  users SysUser[]
 
-  /// 用户
-  users sys_user[]
-
-  @@index([pid])
+  @@map("sys_dept")
+  @@unique([name, parentId, deleted], map: "uk_name_parent_id")
+  @@index([parentId], map: "idx_parent_id")
+  @@index([createUser], map: "idx_create_user")
+  @@index([updateUser], map: "idx_update_user")
+  @@index([deleted], map: "idx_deleted")
 }

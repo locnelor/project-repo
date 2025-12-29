@@ -1,0 +1,17 @@
+// 系统附件表
+model sys_file {
+  id          String    @id @db.VarChar(32)
+  create_by   String?   @default("") @db.VarChar(32)
+  create_time DateTime?
+
+  /// 文件名称
+  name String @default("") @db.VarChar(128)
+
+  /// 文件存放路径
+  path String @default("") @db.VarChar(255)
+
+  /// 文件md5
+  md5 String @default("") @db.VarChar(32)
+
+  @@index([md5])
+}

@@ -1,6 +1,12 @@
-
 model sys_client {
   id                   BigInt    @id @default(autoincrement())
+  create_user          BigInt
+  create_time          DateTime  @db.DateTime(0)
+  update_user          BigInt?
+  update_time          DateTime? @db.DateTime(0)
+  deleted              BigInt    @default(0)
+
+
   client_id            String    @db.VarChar(50)
   client_type          String    @db.VarChar(50)
   auth_type            Json
@@ -11,18 +17,12 @@ model sys_client {
   max_login_count      Int       @default(-1)
   overflow_logout_mode String?   @db.VarChar(20)
   status               Int       @default(1) @db.UnsignedTinyInt
-  create_user          BigInt
-  create_time          DateTime  @db.DateTime(0)
-  update_user          BigInt?
-  update_time          DateTime? @db.DateTime(0)
-  deleted              BigInt    @default(0)
 
   @@unique([client_id, deleted], map: "uk_client_id")
   @@index([create_user], map: "idx_create_user")
   @@index([deleted], map: "idx_deleted")
   @@index([update_user], map: "idx_update_user")
 }
-
 
 model sys_dict {
   id          BigInt    @id @default(autoincrement())
@@ -40,7 +40,6 @@ model sys_dict {
   @@unique([name, deleted], map: "uk_name")
   @@index([deleted], map: "idx_deleted")
 }
-
 
 model sys_dict_item {
   id          BigInt    @id @default(autoincrement())
@@ -64,7 +63,6 @@ model sys_dict_item {
   @@index([update_user], map: "idx_update_user")
 }
 
-
 model sys_message {
   id          BigInt    @id @default(autoincrement())
   title       String    @db.VarChar(50)
@@ -80,7 +78,6 @@ model sys_message {
   @@index([deleted], map: "idx_deleted")
 }
 
-
 model sys_message_log {
   message_id BigInt
   user_id    BigInt
@@ -88,7 +85,6 @@ model sys_message_log {
 
   @@id([message_id, user_id])
 }
-
 
 model sys_notice {
   id             BigInt    @id @default(autoincrement())
@@ -113,7 +109,6 @@ model sys_notice {
   @@index([update_user], map: "idx_update_user")
 }
 
-
 model sys_notice_log {
   notice_id BigInt
   user_id   BigInt
@@ -121,7 +116,6 @@ model sys_notice_log {
 
   @@id([notice_id, user_id])
 }
-
 
 model sys_option {
   id            BigInt    @id @default(autoincrement())
@@ -137,14 +131,12 @@ model sys_option {
   @@unique([category, code], map: "uk_category_code")
 }
 
-
 model sys_role_dept {
   role_id BigInt
   dept_id BigInt
 
   @@id([role_id, dept_id])
 }
-
 
 model sys_sms_config {
   id              BigInt    @id @default(autoincrement())
@@ -172,7 +164,6 @@ model sys_sms_config {
   @@index([update_user], map: "idx_update_user")
 }
 
-
 model sys_sms_log {
   id          BigInt   @id @default(autoincrement())
   config_id   BigInt
@@ -186,7 +177,6 @@ model sys_sms_log {
   @@index([config_id], map: "idx_config_id")
   @@index([create_user], map: "idx_create_user")
 }
-
 
 model sys_storage {
   id                  BigInt    @id @default(autoincrement())
@@ -216,7 +206,6 @@ model sys_storage {
   @@index([update_user], map: "idx_update_user")
 }
 
-
 model sys_user_password_history {
   id          BigInt   @id @default(autoincrement())
   user_id     BigInt
@@ -226,7 +215,6 @@ model sys_user_password_history {
   @@index([user_id], map: "idx_user_id")
 }
 
-
 model sys_user_role {
   id      BigInt @id @default(autoincrement())
   user_id BigInt
@@ -234,7 +222,6 @@ model sys_user_role {
 
   @@unique([user_id, role_id], map: "uk_user_id_role_id")
 }
-
 
 model sys_user_social {
   id              BigInt    @id @default(autoincrement())

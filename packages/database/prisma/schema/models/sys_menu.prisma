@@ -1,59 +1,53 @@
-// 系统菜单表 - 用于前端菜单和权限管理
-model sys_menu {
-  id          String   @id @default(uuid())
-  create_time DateTime @default(now())
-  update_time DateTime @default(now()) @updatedAt
-  create_by   String?
-  update_by   String?
-  deleted     Boolean  @default(false)
-
-  /// 父菜单ID
-  pid String?
-
-  parent   sys_menu?  @relation("SysMenuParent", fields: [pid], references: [id], onDelete: Restrict, onUpdate: Restrict)
-  children sys_menu[] @relation("SysMenuParent")
-
-  /// 菜单名称
-  name String?
-
-  /// 菜单URL
-  url String?
-
-  /// 授权（多个用逗号分隔，如： user:list,user:create
-  perms String?
-
-  /// 类型 0:目录 1:菜单 2:按钮
-  type Int @default(0)
-
-  /// 模式：pc，app
-  mode String?
-
-  /// 菜单图标
-  icon String?
-
-  /// 颜色
-  color String?
-
+/// 菜单表
+model SysMenu {
+  /// ID
+  id          BigInt    @id @default(autoincrement())
+  /// 标题
+  title       String    @db.VarChar(30)
+  /// 上级菜单ID
+  parentId    BigInt    @default(0) @map("parent_id")
+  /// 类型（1：目录；2：菜单；3：按钮）
+  type        Int       @default(1) @db.TinyInt // 1:目录 2:菜单 3:按钮
   /// 路由地址
-  routeUrl String?
-
-  /// 是否显示面包屑
-  breadCrumb String?
-
-  /// 组件路径
-  componentName String?
-
+  path        String?   @db.VarChar(255)
   /// 组件名称
-  componentPath String?
-
+  name        String?   @db.VarChar(50)
+  /// 组件路径
+  component   String?   @db.VarChar(255)
+  /// 重定向地址
+  redirect    String?   @db.VarChar(255)
+  /// 图标
+  icon        String?   @db.VarChar(50)
+  /// 是否外链
+  isExternal  Boolean?  @default(false) @map("is_external")
+  /// 是否缓存
+  isCache     Boolean?  @default(false) @map("is_cache")
+  /// 是否隐藏
+  isHidden    Boolean?  @default(false) @map("is_hidden")
+  /// 权限标识
+  permission  String?   @db.VarChar(100)
   /// 排序
-  orderNum Int @default(0)
+  sort        Int       @default(999)
+  /// 状态（1：启用；2：禁用）
+  status      Int       @default(1) @db.TinyInt // 1:启用 2:禁用
+  /// 创建人
+  createUser  BigInt    @map("create_user")
+  /// 创建时间
+  createTime  DateTime  @map("create_time")
+  /// 修改人
+  updateUser  BigInt?   @map("update_user")
+  /// 修改时间
+  updateTime  DateTime? @map("update_time")
+  /// 是否已删除（0：否；id：是）
+  deleted     BigInt    @default(0)
 
-  /// 是否显示
-  display Boolean @default(true)
+  // Relations
+  roles SysRoleMenu[]
 
-  /// 菜单角色关联
-  role_menus sys_role_menu[]
-
-  @@index([pid])
+  @@map("sys_menu")
+  @@unique([title, parentId, deleted], map: "uk_title_parent_id")
+  @@index([parentId], map: "idx_parent_id")
+  @@index([createUser], map: "idx_create_user")
+  @@index([updateUser], map: "idx_update_user")
+  @@index([deleted], map: "idx_deleted")
 }

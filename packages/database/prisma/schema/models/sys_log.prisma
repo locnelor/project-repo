@@ -1,49 +1,49 @@
-/// 日志类型
-enum log_type {
-  INFO // 信息
-  WARN // 警告
-  ERROR // 错误
-}
-
-/// 日志表
-model sys_log {
-  id          String   @id @default(uuid())
-  create_time DateTime @default(now())
-
-  /// 请求唯一码
-  request_unique String? @db.VarChar(32)
-
+/// 系统日志表
+model SysLog {
+  /// ID
+  id              BigInt   @id @default(autoincrement())
+  /// 链路ID
+  traceId         String?  @map("trace_id") @db.VarChar(255)
   /// 日志描述
-  description String? @db.VarChar(255)
+  description     String   @db.VarChar(255)
+  /// 所属模块
+  module          String   @db.VarChar(100)
+  /// 请求URL
+  requestUrl      String   @map("request_url") @db.VarChar(512)
+  /// 请求方式
+  requestMethod   String   @map("request_method") @db.VarChar(10)
+  /// 请求头
+  requestHeaders  String?  @map("request_headers") @db.Text
+  /// 请求体
+  requestBody     String?  @map("request_body") @db.Text
+  /// 状态码
+  statusCode      Int      @map("status_code")
+  /// 响应头
+  responseHeaders String?  @map("response_headers") @db.Text
+  /// 响应体
+  responseBody    String?  @map("response_body") @db.MediumText
+  /// 耗时（ms）
+  timeTaken       BigInt   @map("time_taken")
+  /// IP
+  ip              String?  @db.VarChar(100)
+  /// IP归属地
+  address         String?  @db.VarChar(255)
+  /// 浏览器
+  browser         String?  @db.VarChar(100)
+  /// 操作系统
+  os              String?  @db.VarChar(100)
+  /// 状态（1：成功；2：失败）
+  status          Int      @default(1) @db.TinyInt
+  /// 错误信息
+  errorMsg        String?  @map("error_msg") @db.Text
+  /// 创建人
+  createUser      BigInt?  @map("create_user")
+  /// 创建时间
+  createTime      DateTime @map("create_time")
 
-  /// 日志类型
-  log_type log_type?
-
-  /// 请求方法
-  method String? @db.VarChar(255)
-
-  /// 请求参数
-  params String? @db.Text
-
-  /// 请求IP
-  request_ip String? @db.VarChar(255)
-
-  /// 耗时
-  time BigInt?
-
-  /// 用户ID
-  user_id String? @db.VarChar(32)
-
-  /// 用户名称
-  user_name String? @db.VarChar(50)
-
-  /// 地址
-  address String? @db.VarChar(255)
-
-  /// 异常信息
-  exception_detail String? @db.Text
-
-  user sys_user? @relation(fields: [user_id], references: [id]) /// 用户
-
-  @@index([user_id])
+  @@map("sys_log")
+  @@index([module], map: "idx_module")
+  @@index([ip], map: "idx_ip")
+  @@index([address], map: "idx_address")
+  @@index([createTime], map: "idx_create_time")
 }

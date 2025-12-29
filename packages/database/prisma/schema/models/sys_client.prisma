@@ -1,0 +1,41 @@
+/// 客户端表
+model SysClient {
+  /// ID
+  id                 BigInt    @id @default(autoincrement())
+  /// 客户端ID
+  clientId           String    @map("client_id") @db.VarChar(50)
+  /// 客户端类型
+  clientType         String    @map("client_type") @db.VarChar(50)
+  /// 认证类型
+  authType           Json      @map("auth_type")
+  /// Token最低活跃频率（单位：秒，-1：不限制，永不冻结）
+  activeTimeout      BigInt    @default(-1) @map("active_timeout")
+  /// Token有效期（单位：秒，-1：永不过期）
+  timeout            BigInt    @default(2592000)
+  /// 是否允许同一账号多地同时登录（true：允许；false：新登录挤掉旧登录）
+  isConcurrent       Boolean   @default(true) @map("is_concurrent")
+  /// 顶人下线的范围（CURR_DEVICE_TYPE：当前客户端类型；ALL_DEVICE_TYPE：所有客户端类型）
+  replacedRange      String?   @map("replaced_range") @db.VarChar(20)
+  /// 同一账号最大登录数量（-1：不限制，只有在 isConcurrent=true，isShare=false 时才有效）
+  maxLoginCount      Int       @default(-1) @map("max_login_count")
+  /// 溢出人数的下线方式（LOGOUT：注销下线；KICKOUT：踢人下线；REPLACED：顶人下线）
+  overflowLogoutMode String?   @map("overflow_logout_mode") @db.VarChar(20)
+  /// 状态（1：启用；2：禁用）
+  status             Int       @default(1) @db.TinyInt
+  /// 创建人
+  createUser         BigInt    @map("create_user")
+  /// 创建时间
+  createTime         DateTime  @map("create_time")
+  /// 修改人
+  updateUser         BigInt?   @map("update_user")
+  /// 修改时间
+  updateTime         DateTime? @map("update_time")
+  /// 是否已删除（0：否；id：是）
+  deleted            BigInt    @default(0)
+
+  @@map("sys_client")
+  @@unique([clientId, deleted], map: "uk_client_id")
+  @@index([createUser], map: "idx_create_user")
+  @@index([updateUser], map: "idx_update_user")
+  @@index([deleted], map: "idx_deleted")
+}

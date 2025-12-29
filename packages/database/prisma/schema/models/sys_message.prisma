@@ -1,0 +1,44 @@
+/// 消息表
+model SysMessage {
+  /// ID
+  id         BigInt    @id @default(autoincrement())
+  /// 标题
+  title      String    @db.VarChar(50)
+  /// 内容
+  content    String?   @db.Text
+  /// 类型（1：系统消息；2：安全消息）
+  type       Int       @default(1) @db.TinyInt
+  /// 跳转路径
+  path       String?   @db.VarChar(255)
+  /// 通知范围（1：所有人；2：指定用户）
+  scope      Int       @default(1) @db.TinyInt
+  /// 通知用户
+  users      Json?
+  /// 创建时间
+  createTime DateTime  @map("create_time")
+  /// 修改时间
+  updateTime DateTime? @map("update_time")
+  /// 是否已删除（0：否；id：是）
+  deleted    BigInt    @default(0)
+
+  logs SysMessageLog[]
+
+  @@map("sys_message")
+  @@index([deleted], map: "idx_deleted")
+}
+
+/// 消息日志表
+model SysMessageLog {
+  /// 消息ID
+  messageId BigInt    @map("message_id")
+  /// 用户ID
+  userId    BigInt    @map("user_id")
+  /// 读取时间
+  readTime  DateTime? @map("read_time")
+
+  message SysMessage @relation(fields: [messageId], references: [id])
+  user    SysUser    @relation(fields: [userId], references: [id])
+
+  @@id([messageId, userId])
+  @@map("sys_message_log")
+}

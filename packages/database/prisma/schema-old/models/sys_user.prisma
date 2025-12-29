@@ -1,0 +1,30 @@
+/// 用户表
+model sys_user {
+  id          String   @id @default(uuid())
+  create_time DateTime @default(now())
+  update_time DateTime @default(now()) @updatedAt
+  create_by   String?
+  update_by   String?
+  deleted     Boolean  @default(false)
+
+  /// 账号
+  username String @unique
+
+  /// 昵称
+  name String?
+
+  /// 邮箱
+  email String?
+
+  /// 手机号
+  phone String?
+
+  logs             sys_log[]
+  dept             sys_dept?                   @relation(fields: [dept_id], references: [id])
+  dept_id          String?
+  roles            sys_role_user[]
+  password_history sys_user_password_history[]
+
+  @@index([dept_id])
+  @@index([username, deleted])
+}

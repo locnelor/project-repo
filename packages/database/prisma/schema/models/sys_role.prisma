@@ -1,21 +1,71 @@
-// 系统角色表
-model sys_role {
-  id          String    @id @db.Char(32)
-  create_time DateTime?
-  update_time DateTime?
-  create_by   String?   @db.VarChar(32)
-  update_by   String?   @db.VarChar(32)
-  deleted     Boolean   @default(false)
+/// 角色表
+model SysRole {
+  /// ID
+  id                BigInt    @id @default(autoincrement())
+  /// 名称
+  name              String    @db.VarChar(30)
+  /// 编码
+  code              String    @db.VarChar(30)
+  /// 数据权限（1：全部数据权限；2：本部门及以下数据权限；3：本部门数据权限；4：仅本人数据权限；5：自定义数据权限）
+  dataScope         Int       @default(4) @map("data_scope") @db.TinyInt
+  /// 描述
+  description       String?   @db.VarChar(200)
+  /// 排序
+  sort              Int       @default(999)
+  /// 是否为系统内置数据
+  isSystem          Boolean   @default(false) @map("is_system")
+  /// 菜单选择是否父子节点关联
+  menuCheckStrictly Boolean?  @default(true) @map("menu_check_strictly")
+  /// 部门选择是否父子节点关联
+  deptCheckStrictly Boolean?  @default(true) @map("dept_check_strictly")
+  /// 创建人
+  createUser        BigInt    @map("create_user")
+  /// 创建时间
+  createTime        DateTime  @map("create_time")
+  /// 修改人
+  updateUser        BigInt?   @map("update_user")
+  /// 修改时间
+  updateTime        DateTime? @map("update_time")
+  /// 是否已删除（0：否；id：是）
+  deleted           BigInt    @default(0)
 
-  /// 角色名称
-  name String? @db.VarChar(100)
+  // Relations
+  users SysUserRole[]
+  menus SysRoleMenu[]
+  depts SysRoleDept[]
 
-  /// 角色描述
-  description String? @db.VarChar(200)
+  @@map("sys_role")
+  @@unique([name, deleted], map: "uk_name")
+  @@unique([code, deleted], map: "uk_code")
+  @@index([createUser], map: "idx_create_user")
+  @@index([updateUser], map: "idx_update_user")
+  @@index([deleted], map: "idx_deleted")
+}
 
-  /// 角色菜单关联
-  menus sys_role_menu[]
+/// 角色和菜单关联表
+model SysRoleMenu {
+  /// 角色ID
+  roleId BigInt @map("role_id")
+  /// 菜单ID
+  menuId BigInt @map("menu_id")
 
-  /// 角色用户关联
-  users sys_role_user[]
+  role SysRole @relation(fields: [roleId], references: [id])
+  menu SysMenu @relation(fields: [menuId], references: [id])
+
+  @@id([roleId, menuId])
+  @@map("sys_role_menu")
+}
+
+/// 角色和部门关联表
+model SysRoleDept {
+  /// 角色ID
+  roleId BigInt @map("role_id")
+  /// 部门ID
+  deptId BigInt @map("dept_id")
+
+  role SysRole @relation(fields: [roleId], references: [id])
+  dept SysDept @relation(fields: [deptId], references: [id])
+
+  @@id([roleId, deptId])
+  @@map("sys_role_dept")
 }

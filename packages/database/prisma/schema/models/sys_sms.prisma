@@ -1,0 +1,74 @@
+/// 短信配置表
+model SysSmsConfig {
+  /// ID
+  id             BigInt    @id @default(autoincrement())
+  /// 名称
+  name           String    @db.VarChar(100)
+  /// 厂商
+  supplier       String    @db.VarChar(50)
+  /// Access Key
+  accessKey      String    @map("access_key") @db.VarChar(255)
+  /// Secret Key
+  secretKey      String    @map("secret_key") @db.VarChar(255)
+  /// 短信签名
+  signature      String?   @db.VarChar(100)
+  /// 模板ID
+  templateId     String?   @map("template_id") @db.VarChar(50)
+  /// 负载均衡权重
+  weight         Int?
+  /// 重试间隔（单位：秒）
+  retryInterval  Int?      @map("retry_interval")
+  /// 重试次数
+  maxRetries     Int?      @map("max_retries")
+  /// 发送上限
+  maximum        Int?
+  /// 各个厂商独立配置
+  supplierConfig String?   @map("supplier_config") @db.Text
+  /// 是否为默认配置
+  isDefault      Boolean   @default(false) @map("is_default")
+  /// 状态（1：启用；2：禁用）
+  status         Int       @default(1) @db.TinyInt
+  /// 创建人
+  createUser     BigInt    @map("create_user")
+  /// 创建时间
+  createTime     DateTime  @map("create_time")
+  /// 修改人
+  updateUser     BigInt?   @map("update_user")
+  /// 修改时间
+  updateTime     DateTime? @map("update_time")
+  /// 是否已删除（0：否；id：是）
+  deleted        BigInt    @default(0)
+
+  logs SysSmsLog[]
+
+  @@map("sys_sms_config")
+  @@index([createUser], map: "idx_create_user")
+  @@index([updateUser], map: "idx_update_user")
+  @@index([deleted], map: "idx_deleted")
+}
+
+/// 短信日志表
+model SysSmsLog {
+  /// ID
+  id         BigInt   @id @default(autoincrement())
+  /// 配置ID
+  configId   BigInt   @map("config_id")
+  /// 手机号
+  phone      String   @db.VarChar(25)
+  /// 参数配置
+  params     String?  @db.Text
+  /// 发送状态（1：成功；2：失败）
+  status     Int      @default(1) @db.TinyInt
+  /// 返回数据
+  resMsg     String?  @map("res_msg") @db.Text
+  /// 创建人
+  createUser BigInt   @map("create_user")
+  /// 创建时间
+  createTime DateTime @map("create_time")
+
+  config SysSmsConfig @relation(fields: [configId], references: [id])
+
+  @@map("sys_sms_log")
+  @@index([configId], map: "idx_config_id")
+  @@index([createUser], map: "idx_create_user")
+}

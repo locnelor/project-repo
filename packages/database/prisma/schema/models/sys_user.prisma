@@ -1,30 +1,118 @@
 /// 用户表
-model sys_user {
-  id          String   @id @default(uuid())
-  create_time DateTime @default(now())
-  update_time DateTime @default(now()) @updatedAt
-  create_by   String?
-  update_by   String?
-  deleted     Boolean  @default(false)
+model SysUser {
+  /// ID
+  id         BigInt    @id @default(autoincrement())
+  /// 创建人
+  createUser BigInt?   @map("create_user")
+  /// 创建时间
+  createTime DateTime  @map("create_time")
+  /// 修改人
+  updateUser BigInt?   @map("update_user")
+  /// 修改时间
+  updateTime DateTime? @map("update_time")
+  /// 是否已删除（0：否；id：是）
+  deleted    BigInt    @default(0)
 
-  /// 账号
-  username String @unique
-
+  /// 用户名
+  username     String    @db.VarChar(64)
   /// 昵称
-  name String?
-
+  nickname     String    @db.VarChar(30)
+  /// 密码
+  password     String?   @db.VarChar(255)
+  /// 性别（0：未知；1：男；2：女）
+  gender       Int       @default(0) @db.TinyInt
   /// 邮箱
-  email String?
+  email        String?   @db.VarChar(255)
+  /// 手机号码
+  phone        String?   @db.VarChar(255)
+  /// 头像
+  avatar       String?   @db.LongText
+  /// 描述
+  description  String?   @db.VarChar(200)
+  /// 状态（1：启用；2：禁用）
+  status       Int       @default(1) @db.TinyInt
+  /// 是否为系统内置数据
+  isSystem     Boolean   @default(false) @map("is_system")
+  /// 最后一次修改密码时间
+  pwdResetTime DateTime? @map("pwd_reset_time")
+  /// 部门ID
+  deptId       BigInt    @map("dept_id")
 
-  /// 手机号
-  phone String?
+  // Relations
+  dept            SysDept                  @relation(fields: [deptId], references: [id])
+  roles           SysUserRole[]
+  socials         SysUserSocial[]
+  passwordHistory SysUserPasswordHistory[]
+  messageLogs     SysMessageLog[]
+  noticeLogs      SysNoticeLog[]
 
-  logs             sys_log[]
-  dept             sys_dept?                   @relation(fields: [dept_id], references: [id])
-  dept_id          String?
-  roles            sys_role_user[]
-  password_history sys_user_password_history[]
+  @@unique([username, deleted], map: "uk_username")
+  @@unique([email, deleted], map: "uk_email")
+  @@unique([phone, deleted], map: "uk_phone")
+  @@index([deptId], map: "idx_dept_id")
+  @@index([createUser], map: "idx_create_user")
+  @@index([updateUser], map: "idx_update_user")
+  @@index([deleted], map: "idx_deleted")
+  @@map("sys_user")
+}
 
-  @@index([dept_id])
-  @@index([username, deleted])
+/// 用户历史密码表
+model SysUserPasswordHistory {
+  /// ID
+  id         BigInt   @id @default(autoincrement())
+  /// 用户ID
+  userId     BigInt   @map("user_id")
+  /// 密码
+  password   String   @db.VarChar(255)
+  /// 创建时间
+  createTime DateTime @map("create_time")
+
+  user SysUser @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "idx_user_id")
+  @@map("sys_user_password_history")
+}
+
+/// 用户社会化关联表
+model SysUserSocial {
+  /// ID
+  id            BigInt    @id @default(autoincrement())
+  /// 来源
+  source        String    @db.VarChar(255)
+  /// 开放ID
+  openId        String    @map("open_id") @db.VarChar(255)
+  /// 用户ID
+  userId        BigInt    @map("user_id")
+  /// 附加信息
+  metaJson      String?   @map("meta_json") @db.Text
+  /// 最后登录时间
+  lastLoginTime DateTime? @map("last_login_time")
+  /// 创建时间
+  createTime    DateTime  @map("create_time")
+  /// 修改时间
+  updateTime    DateTime? @map("update_time")
+  /// 是否已删除（0：否；id：是）
+  deleted       BigInt    @default(0)
+
+  user SysUser @relation(fields: [userId], references: [id])
+
+  @@unique([source, openId, deleted], map: "uk_source_open_id")
+  @@index([deleted], map: "idx_deleted")
+  @@map("sys_user_social")
+}
+
+/// 用户和角色关联表
+model SysUserRole {
+  /// ID
+  id     BigInt @id @default(autoincrement())
+  /// 用户ID
+  userId BigInt @map("user_id")
+  /// 角色ID
+  roleId BigInt @map("role_id")
+
+  user SysUser @relation(fields: [userId], references: [id])
+  role SysRole @relation(fields: [roleId], references: [id])
+
+  @@unique([userId, roleId], map: "uk_user_id_role_id")
+  @@map("sys_user_role")
 }
