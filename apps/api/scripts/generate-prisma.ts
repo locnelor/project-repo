@@ -34,14 +34,6 @@ const project = new Project({
     },
 });
 
-function toPascalCase(str: string): string {
-    return str
-        .toLowerCase()
-        .split('_')
-        .filter(Boolean)
-        .map(s => s[0].toUpperCase() + s.slice(1))
-        .join('')
-}
 
 const getFieldType = (field: any) => {
     if (!!TypeMap[field.type]) return TypeMap[field.type] + (field.isRequired ? '' : ' | null');
@@ -56,7 +48,7 @@ const getFieldType = (field: any) => {
     }
 }
 const getModelClassName = (modelName: string) => {
-    return toPascalCase(modelName) + 'Model'
+    return modelName + 'Model'
 }
 
 const addProperty = (classDeclaration: ClassDeclaration, field: any, index: number) => {
@@ -101,11 +93,13 @@ const main = async () => {
     )
     for (const model of dmmf.datamodel.models) {
         const modelName = model.name;
+        // 创建源文件 [tableName].ts
         const sourceFile = project.createSourceFile(
             path.join(outputDir, `${modelName}.ts`),
             '',
             { overwrite: true }
         );
+
         const databaseImports = new Set<string>();
         for (const field of model.fields) {
             if (field.kind === 'enum') {
@@ -113,7 +107,6 @@ const main = async () => {
             }
         }
         databaseImports.add(modelName)
-
         // 添加对应表
         sourceFile.addImportDeclaration({
             moduleSpecifier: '@repo/database',
@@ -143,7 +136,6 @@ const main = async () => {
             isExported: true,
             implements: [modelName],
         })
-
         // 添加项
         for (let i = 0; i < model.fields.length; i++) {
             const field = model.fields[i];
