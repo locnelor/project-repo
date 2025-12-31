@@ -35,18 +35,29 @@ const project = new Project({
 });
 
 const generateArgument = (field: any) => {
-    return `{ description: '${defaultDescription[field.name] || field.documentation || ''}'` +
-        (field.relationName ? `, type: () => ${getModelClassName(field.type)}` : '') +
-        (field.type === 'String' ? `, type: String` : '') +
-        (field.type === 'Int' ? `, type: Number` : '') +
-        (field.type === 'BigInt' ? `, type: BigInt` : '') +
-        (field.type === 'Boolean' ? `, type: Boolean` : '') +
-        (field.type === 'DateTime' ? `, type: Date` : '') +
-        (!field.isRequired ? `, nullable: true` : '') +
-        (field.isList ? `, isArray: true` : '') +
-        (field.isRequired && !field.relationName ? `, required: true` : ``) +
-        (field.kind === 'enum' ? `, enum: ${field.type}` : ``) +
-        ` }`
+    const props: string[] = [];
+    const description = defaultDescription[field.name] || field.documentation || '';
+    props.push(`description: '${description}'`);
+    if (field.relationName) {
+        props.push(`type: () => ${getModelClassName(field.type)}`);
+    } else {
+        const typeMap: Record<string, string> = {
+            'String': 'String',
+            'Int': 'Number',
+            'BigInt': 'BigInt',
+            'Boolean': 'Boolean',
+            'DateTime': 'Date'
+        };
+        if (typeMap[field.type]) {
+            props.push(`type: ${typeMap[field.type]}`);
+        }
+    }
+    if (!field.isRequired) props.push('nullable: true');
+    if (field.isList) props.push('isArray: true');
+    if (field.isRequired && !field.relationName) props.push('required: true');
+    if (field.kind === 'enum') props.push(`enum: ${field.type}`);
+
+    return `{ ${props.join(', ')} }`;
 }
 
 
