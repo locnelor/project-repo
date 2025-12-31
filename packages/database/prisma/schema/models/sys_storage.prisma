@@ -1,51 +1,52 @@
 /// 存储表
 model SysStorage {
   /// ID
-  id                BigInt    @id @default(autoincrement())
-  /// 名称
-  name              String    @db.VarChar(100)
-  /// 编码
-  code              String    @db.VarChar(30)
-  /// 类型（1：本地存储；2：对象存储）
-  type              Int       @default(1) @db.TinyInt
-  /// Access Key
-  accessKey         String?   @map("access_key") @db.VarChar(255)
-  /// Secret Key
-  secretKey         String?   @map("secret_key") @db.VarChar(255)
-  /// Endpoint
-  endpoint          String?   @db.VarChar(255)
-  /// Bucket
-  bucketName        String    @map("bucket_name") @db.VarChar(255)
-  /// 域名
-  domain            String?   @db.VarChar(255)
-  /// 启用回收站
-  recycleBinEnabled Boolean   @default(true) @map("recycle_bin_enabled")
-  /// 回收站路径
-  recycleBinPath    String?   @map("recycle_bin_path") @db.VarChar(255)
-  /// 描述
-  description       String?   @db.VarChar(200)
-  /// 是否为默认存储
-  isDefault         Boolean   @default(false) @map("is_default")
-  /// 排序
-  sort              Int       @default(999)
-  /// 状态（1：启用；2：禁用）
-  status            Int       @default(1) @db.TinyInt
+  id         BigInt    @id @default(autoincrement())
   /// 创建人
-  createUser        BigInt    @map("create_user")
+  createUser BigInt    @map("create_user")
   /// 创建时间
-  createTime        DateTime  @map("create_time")
+  createTime DateTime  @map("create_time")
   /// 修改人
-  updateUser        BigInt?   @map("update_user")
+  updateUser BigInt?   @map("update_user")
   /// 修改时间
-  updateTime        DateTime? @map("update_time")
+  updateTime DateTime? @map("update_time")
   /// 是否已删除（0：否；id：是）
-  deleted           BigInt    @default(0)
+  deleted    BigInt    @default(0)
+  /// 状态（1：启用；2：禁用）
+  status     Int       @default(1) @db.TinyInt
+
+  /// 名称
+  name              String  @db.VarChar(100)
+  /// 编码
+  code              String  @db.VarChar(30)
+  /// 类型（1：本地存储；2：对象存储）
+  type              Int     @default(1) @db.TinyInt
+  /// Access Key
+  accessKey         String? @map("access_key") @db.VarChar(255)
+  /// Secret Key
+  secretKey         String? @map("secret_key") @db.VarChar(255)
+  /// Endpoint
+  endpoint          String? @db.VarChar(255)
+  /// Bucket
+  bucketName        String  @map("bucket_name") @db.VarChar(255)
+  /// 域名
+  domain            String? @db.VarChar(255)
+  /// 启用回收站
+  recycleBinEnabled Boolean @default(true) @map("recycle_bin_enabled")
+  /// 回收站路径
+  recycleBinPath    String? @map("recycle_bin_path") @db.VarChar(255)
+  /// 描述
+  description       String? @db.VarChar(200)
+  /// 是否为默认存储
+  isDefault         Boolean @default(false) @map("is_default")
+  /// 排序
+  sort              Int     @default(999)
 
   files SysFile[]
 
-  @@map("sys_storage")
   @@unique([code, deleted], map: "uk_code")
   @@index([createUser], map: "idx_create_user")
   @@index([updateUser], map: "idx_update_user")
   @@index([deleted], map: "idx_deleted")
+  @@map("sys_storage")
 }

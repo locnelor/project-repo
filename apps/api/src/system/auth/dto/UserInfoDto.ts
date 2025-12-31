@@ -3,7 +3,7 @@ import { SysUserModel } from "@app/prisma";
 import { OmitType } from "@nestjs/swagger";
 
 
-export class UserInfoDto extends OmitType(SysUserModel, ['password', 'deleted', 'create_by', 'email', 'phone']) {
+export class UserInfoDto extends OmitType(SysUserModel, ['password', 'deleted', 'createUser', 'email', 'phone']) {
     @ApiField({ description: '密钥' })
     token: string
 

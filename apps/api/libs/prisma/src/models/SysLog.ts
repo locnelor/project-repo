@@ -2,8 +2,14 @@ import { SysLog } from '@repo/database';
 import { ApiField } from '@app/api-kit';
 
 export class SysLogModel implements SysLog {
-  @ApiField({ description: '主键ID', required: true })
+  @ApiField({ description: '主键ID', type: BigInt, required: true })
   id: bigint;
+
+  @ApiField({ description: '创建人', type: BigInt, nullable: true })
+  createUser: bigint | null;
+
+  @ApiField({ description: '创建时间', type: Date, required: true })
+  createTime: Date;
 
   @ApiField({ description: '链路ID', type: String, nullable: true })
   traceId: string | null;
@@ -35,7 +41,7 @@ export class SysLogModel implements SysLog {
   @ApiField({ description: '响应体', type: String, nullable: true })
   responseBody: string | null;
 
-  @ApiField({ description: '耗时（ms）', required: true })
+  @ApiField({ description: '耗时（ms）', type: BigInt, required: true })
   timeTaken: bigint;
 
   @ApiField({ description: 'IP', type: String, nullable: true })
@@ -55,10 +61,4 @@ export class SysLogModel implements SysLog {
 
   @ApiField({ description: '错误信息', type: String, nullable: true })
   errorMsg: string | null;
-
-  @ApiField({ description: '创建人', nullable: true })
-  createUser: bigint | null;
-
-  @ApiField({ description: '创建时间', type: Date, required: true })
-  createTime: Date;
 }

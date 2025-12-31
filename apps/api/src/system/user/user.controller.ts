@@ -26,9 +26,6 @@ export class UserController {
   create(@Body() data: CreateUserDto) {
     console.log(data,)
     return
-    return this.userService.create({
-      data
-    })
   }
 
   @Get()
@@ -43,7 +40,7 @@ export class UserController {
 
   @Get(':id')
   @ApiResult(SysUserModel, { summary: "查询用户详情" })
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.userService.findOne({
       where: { id }
     })
@@ -51,7 +48,7 @@ export class UserController {
 
   @Patch(':id')
   @ApiResult(SysUserModel, { summary: "更新用户" })
-  update(@Param('id') id: string, @Body() data: UpdateUserDto) {
+  update(@Param('id') id: number, @Body() data: UpdateUserDto) {
     return this.userService.update({
       where: { id },
       data
@@ -60,7 +57,7 @@ export class UserController {
 
   @Delete(':id')
   @ApiResult(SysUserModel, { summary: "删除用户" })
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.userService.delete({ where: { id } })
   }
 }

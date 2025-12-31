@@ -1,45 +1,46 @@
 /// 角色表
 model SysRole {
   /// ID
-  id                BigInt    @id @default(autoincrement())
-  /// 名称
-  name              String    @db.VarChar(30)
-  /// 编码
-  code              String    @db.VarChar(30)
-  /// 数据权限（1：全部数据权限；2：本部门及以下数据权限；3：本部门数据权限；4：仅本人数据权限；5：自定义数据权限）
-  dataScope         Int       @default(4) @map("data_scope") @db.TinyInt
-  /// 描述
-  description       String?   @db.VarChar(200)
-  /// 排序
-  sort              Int       @default(999)
-  /// 是否为系统内置数据
-  isSystem          Boolean   @default(false) @map("is_system")
-  /// 菜单选择是否父子节点关联
-  menuCheckStrictly Boolean?  @default(true) @map("menu_check_strictly")
-  /// 部门选择是否父子节点关联
-  deptCheckStrictly Boolean?  @default(true) @map("dept_check_strictly")
+  id         BigInt    @id @default(autoincrement())
   /// 创建人
-  createUser        BigInt    @map("create_user")
+  createUser BigInt    @map("create_user")
   /// 创建时间
-  createTime        DateTime  @map("create_time")
+  createTime DateTime  @map("create_time")
   /// 修改人
-  updateUser        BigInt?   @map("update_user")
+  updateUser BigInt?   @map("update_user")
   /// 修改时间
-  updateTime        DateTime? @map("update_time")
+  updateTime DateTime? @map("update_time")
   /// 是否已删除（0：否；id：是）
-  deleted           BigInt    @default(0)
+  deleted    BigInt    @default(0)
+
+  /// 名称
+  name              String   @db.VarChar(30)
+  /// 编码
+  code              String   @db.VarChar(30)
+  /// 数据权限（1：全部数据权限；2：本部门及以下数据权限；3：本部门数据权限；4：仅本人数据权限；5：自定义数据权限）
+  dataScope         Int      @default(4) @map("data_scope") @db.TinyInt
+  /// 描述
+  description       String?  @db.VarChar(200)
+  /// 排序
+  sort              Int      @default(999)
+  /// 是否为系统内置数据
+  isSystem          Boolean  @default(false) @map("is_system")
+  /// 菜单选择是否父子节点关联
+  menuCheckStrictly Boolean? @default(true) @map("menu_check_strictly")
+  /// 部门选择是否父子节点关联
+  deptCheckStrictly Boolean? @default(true) @map("dept_check_strictly")
 
   // Relations
   users SysUserRole[]
   menus SysRoleMenu[]
   depts SysRoleDept[]
 
-  @@map("sys_role")
   @@unique([name, deleted], map: "uk_name")
   @@unique([code, deleted], map: "uk_code")
   @@index([createUser], map: "idx_create_user")
   @@index([updateUser], map: "idx_update_user")
   @@index([deleted], map: "idx_deleted")
+  @@map("sys_role")
 }
 
 /// 角色和菜单关联表

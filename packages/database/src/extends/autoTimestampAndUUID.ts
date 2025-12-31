@@ -9,33 +9,6 @@ type GenerateOption = {
     generateUpdateTime?: boolean;// 是否格式化update_time（自动创建当前时间）
 }
 const injectOption = (args: any, options: GenerateOption) => {
-    /**
-     * args的类型为创建｜修改时的数据，内容大致为：
-     * T为基本表对象
-     * {
-     *  ...T
-     * 关联表:{
-     *          create: T
-     *          createMany: {
-     *              data:T[]
-     *          }
-     *          connectOrCreate: {
-     *              create: T
-     *          }
-     *          update: T
-     *          updateMany:{
-     *              where:{},
-     *              data:T
-     *          }
-     *          upsert:{
-     *              create: T
-     *              update: T
-     *          }
-     *      }
-     * }
-     * 
-     * 
-     */
     const data = { ...args };
     const {
         generateId = false,
@@ -43,7 +16,7 @@ const injectOption = (args: any, options: GenerateOption) => {
         generateUpdateTime = false
     } = options;
     if (generateId) {
-        data.id = makeUUID();
+        // data.id = makeUUID();
     }
     if (generateCreateTime) {
         data.create_time = new Date();

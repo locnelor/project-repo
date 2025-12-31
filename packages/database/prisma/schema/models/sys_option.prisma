@@ -1,24 +1,25 @@
 /// 参数表
 model SysOption {
   /// ID
-  id           BigInt    @id @default(autoincrement())
-  /// 类别
-  category     String    @db.VarChar(50)
-  /// 名称
-  name         String    @db.VarChar(50)
-  /// 键
-  code         String    @db.VarChar(100)
-  /// 值
-  value        String?   @db.LongText
-  /// 默认值
-  defaultValue String?   @map("default_value") @db.LongText
-  /// 描述
-  description  String?   @db.VarChar(200)
+  id         BigInt    @id @default(autoincrement())
   /// 修改人
-  updateUser   BigInt?   @map("update_user")
+  updateUser BigInt?   @map("update_user")
   /// 修改时间
-  updateTime   DateTime? @map("update_time")
+  updateTime DateTime? @map("update_time")
 
-  @@map("sys_option")
+  /// 类别
+  category     String  @db.VarChar(50)
+  /// 名称
+  name         String  @db.VarChar(50)
+  /// 键
+  code         String  @db.VarChar(100)
+  /// 值
+  value        String? @db.LongText
+  /// 默认值
+  defaultValue String? @map("default_value") @db.LongText
+  /// 描述
+  description  String? @db.VarChar(200)
+
   @@unique([category, code], map: "uk_category_code")
+  @@map("sys_option")
 }

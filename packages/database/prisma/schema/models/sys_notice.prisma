@@ -1,7 +1,20 @@
 /// 公告表
 model SysNotice {
   /// ID
-  id            BigInt    @id @default(autoincrement())
+  id         BigInt    @id @default(autoincrement())
+  /// 创建人
+  createUser BigInt    @map("create_user")
+  /// 创建时间
+  createTime DateTime  @map("create_time")
+  /// 修改人
+  updateUser BigInt?   @map("update_user")
+  /// 修改时间
+  updateTime DateTime? @map("update_time")
+  /// 是否已删除（0：否；id：是）
+  deleted    BigInt    @default(0)
+  /// 状态（1：草稿；2：待发布；3：已发布）
+  status     Int       @default(1) @db.TinyInt
+
   /// 标题
   title         String    @db.VarChar(150)
   /// 内容
@@ -20,25 +33,13 @@ model SysNotice {
   publishTime   DateTime? @map("publish_time")
   /// 是否置顶
   isTop         Boolean   @default(false) @map("is_top")
-  /// 状态（1：草稿；2：待发布；3：已发布）
-  status        Int       @default(1) @db.TinyInt
-  /// 创建人
-  createUser    BigInt    @map("create_user")
-  /// 创建时间
-  createTime    DateTime  @map("create_time")
-  /// 修改人
-  updateUser    BigInt?   @map("update_user")
-  /// 修改时间
-  updateTime    DateTime? @map("update_time")
-  /// 是否已删除（0：否；id：是）
-  deleted       BigInt    @default(0)
 
   logs SysNoticeLog[]
 
-  @@map("sys_notice")
   @@index([createUser], map: "idx_create_user")
   @@index([updateUser], map: "idx_update_user")
   @@index([deleted], map: "idx_deleted")
+  @@map("sys_notice")
 }
 
 /// 公告日志表

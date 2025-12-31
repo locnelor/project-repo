@@ -8,22 +8,22 @@ import { SysMessageLogModel } from './SysMessageLog';
 import { SysNoticeLogModel } from './SysNoticeLog';
 
 export class SysUserModel implements SysUser {
-  @ApiField({ description: '主键ID', required: true })
+  @ApiField({ description: '主键ID', type: BigInt, required: true })
   id: bigint;
 
-  @ApiField({ description: '创建人', nullable: true })
+  @ApiField({ description: '创建人', type: BigInt, nullable: true })
   createUser: bigint | null;
 
   @ApiField({ description: '创建时间', type: Date, required: true })
   createTime: Date;
 
-  @ApiField({ description: '修改人', nullable: true })
+  @ApiField({ description: '修改人', type: BigInt, nullable: true })
   updateUser: bigint | null;
 
   @ApiField({ description: '修改时间', type: Date, nullable: true })
   updateTime: Date | null;
 
-  @ApiField({ description: '是否已删除', required: true })
+  @ApiField({ description: '是否已删除', type: BigInt, required: true })
   deleted: bigint;
 
   @ApiField({ description: '用户名', type: String, required: true })
@@ -59,7 +59,7 @@ export class SysUserModel implements SysUser {
   @ApiField({ description: '最后一次修改密码时间', type: Date, nullable: true })
   pwdResetTime: Date | null;
 
-  @ApiField({ description: '部门ID', required: true })
+  @ApiField({ description: '部门ID', type: BigInt, required: true })
   deptId: bigint;
 
   dept?: SysDeptModel;

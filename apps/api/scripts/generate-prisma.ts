@@ -34,6 +34,21 @@ const project = new Project({
     },
 });
 
+const generateArgument = (field: any) => {
+    return `{ description: '${defaultDescription[field.name] || field.documentation || ''}'` +
+        (field.relationName ? `, type: () => ${getModelClassName(field.type)}` : '') +
+        (field.type === 'String' ? `, type: String` : '') +
+        (field.type === 'Int' ? `, type: Number` : '') +
+        (field.type === 'BigInt' ? `, type: BigInt` : '') +
+        (field.type === 'Boolean' ? `, type: Boolean` : '') +
+        (field.type === 'DateTime' ? `, type: Date` : '') +
+        (!field.isRequired ? `, nullable: true` : '') +
+        (field.isList ? `, isArray: true` : '') +
+        (field.isRequired && !field.relationName ? `, required: true` : ``) +
+        (field.kind === 'enum' ? `, enum: ${field.type}` : ``) +
+        ` }`
+}
+
 
 const getFieldType = (field: any) => {
     if (!!TypeMap[field.type]) return TypeMap[field.type] + (field.isRequired ? '' : ' | null');
@@ -62,17 +77,7 @@ const addProperty = (classDeclaration: ClassDeclaration, field: any, index: numb
     declaration.addDecorator({
         name: 'ApiField',
         arguments: [
-            `{ description: '${defaultDescription[field.name] || field.documentation || ''}'` +
-            (field.relationName ? `, type: () => ${getModelClassName(field.type)}` : '') +
-            (field.type === 'String' ? `, type: String` : '') +
-            (field.type === 'Int' ? `, type: Number` : '') +
-            (field.type === 'Boolean' ? `, type: Boolean` : '') +
-            (field.type === 'DateTime' ? `, type: Date` : '') +
-            (!field.isRequired ? `, nullable: true` : '') +
-            (field.isList ? `, isArray: true` : '') +
-            (field.isRequired && !field.relationName ? `, required: true` : ``) +
-            (field.kind === 'enum' ? `, enum: ${field.type}` : ``) +
-            ` }`
+            generateArgument(field)
         ]
     })
 }

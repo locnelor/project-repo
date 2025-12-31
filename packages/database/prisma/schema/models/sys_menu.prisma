@@ -1,53 +1,54 @@
 /// 菜单表
 model SysMenu {
   /// ID
-  id          BigInt    @id @default(autoincrement())
-  /// 标题
-  title       String    @db.VarChar(30)
-  /// 上级菜单ID
-  parentId    BigInt    @default(0) @map("parent_id")
-  /// 类型（1：目录；2：菜单；3：按钮）
-  type        Int       @default(1) @db.TinyInt // 1:目录 2:菜单 3:按钮
-  /// 路由地址
-  path        String?   @db.VarChar(255)
-  /// 组件名称
-  name        String?   @db.VarChar(50)
-  /// 组件路径
-  component   String?   @db.VarChar(255)
-  /// 重定向地址
-  redirect    String?   @db.VarChar(255)
-  /// 图标
-  icon        String?   @db.VarChar(50)
-  /// 是否外链
-  isExternal  Boolean?  @default(false) @map("is_external")
-  /// 是否缓存
-  isCache     Boolean?  @default(false) @map("is_cache")
-  /// 是否隐藏
-  isHidden    Boolean?  @default(false) @map("is_hidden")
-  /// 权限标识
-  permission  String?   @db.VarChar(100)
-  /// 排序
-  sort        Int       @default(999)
-  /// 状态（1：启用；2：禁用）
-  status      Int       @default(1) @db.TinyInt // 1:启用 2:禁用
+  id         BigInt    @id @default(autoincrement())
   /// 创建人
-  createUser  BigInt    @map("create_user")
+  createUser BigInt    @map("create_user")
   /// 创建时间
-  createTime  DateTime  @map("create_time")
+  createTime DateTime  @map("create_time")
   /// 修改人
-  updateUser  BigInt?   @map("update_user")
+  updateUser BigInt?   @map("update_user")
   /// 修改时间
-  updateTime  DateTime? @map("update_time")
+  updateTime DateTime? @map("update_time")
   /// 是否已删除（0：否；id：是）
-  deleted     BigInt    @default(0)
+  deleted    BigInt    @default(0)
+  /// 状态（1：启用；2：禁用）
+  status     Int       @default(1) @db.TinyInt // 1:启用 2:禁用
+
+  /// 标题
+  title      String   @db.VarChar(30)
+  /// 上级菜单ID
+  parentId   BigInt   @default(0) @map("parent_id")
+  /// 类型（1：目录；2：菜单；3：按钮）
+  type       Int      @default(1) @db.TinyInt // 1:目录 2:菜单 3:按钮
+  /// 路由地址
+  path       String?  @db.VarChar(255)
+  /// 组件名称
+  name       String?  @db.VarChar(50)
+  /// 组件路径
+  component  String?  @db.VarChar(255)
+  /// 重定向地址
+  redirect   String?  @db.VarChar(255)
+  /// 图标
+  icon       String?  @db.VarChar(50)
+  /// 是否外链
+  isExternal Boolean? @default(false) @map("is_external")
+  /// 是否缓存
+  isCache    Boolean? @default(false) @map("is_cache")
+  /// 是否隐藏
+  isHidden   Boolean? @default(false) @map("is_hidden")
+  /// 权限标识
+  permission String?  @db.VarChar(100)
+  /// 排序
+  sort       Int      @default(999)
 
   // Relations
   roles SysRoleMenu[]
 
-  @@map("sys_menu")
   @@unique([title, parentId, deleted], map: "uk_title_parent_id")
   @@index([parentId], map: "idx_parent_id")
   @@index([createUser], map: "idx_create_user")
   @@index([updateUser], map: "idx_update_user")
   @@index([deleted], map: "idx_deleted")
+  @@map("sys_menu")
 }

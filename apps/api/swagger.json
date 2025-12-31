@@ -205,7 +205,7 @@
             "required": true,
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           }
         ],
@@ -234,7 +234,7 @@
             "required": true,
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           }
         ],
@@ -273,7 +273,7 @@
             "required": true,
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           }
         ],
@@ -416,7 +416,7 @@
             "required": true,
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           }
         ],
@@ -525,7 +525,7 @@
             "required": true,
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           }
         ],
@@ -565,7 +565,7 @@
             "required": true,
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           }
         ],
@@ -720,17 +720,21 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "format": "int64",
+            "type": "integer",
+            "description": "主键ID"
           },
-          "create_time": {
+          "createTime": {
             "format": "date-time",
             "type": "string"
           },
-          "update_time": {
-            "format": "date-time",
-            "type": "string"
+          "updateUser": {
+            "type": "object",
+            "description": "修改人",
+            "nullable": true
           },
-          "update_by": {
+          "updateTime": {
+            "format": "date-time",
             "type": "string",
             "nullable": true
           },
@@ -738,20 +742,34 @@
             "type": "string"
           },
           "nickname": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "number"
+          },
+          "avatar": {
             "type": "string",
             "nullable": true
           },
-          "real_name": {
+          "description": {
             "type": "string",
             "nullable": true
           },
-          "job_no": {
+          "status": {
+            "type": "number"
+          },
+          "isSystem": {
+            "type": "boolean"
+          },
+          "pwdResetTime": {
+            "format": "date-time",
             "type": "string",
             "nullable": true
           },
-          "dept_id": {
-            "type": "string",
-            "nullable": true
+          "deptId": {
+            "format": "int64",
+            "type": "integer",
+            "description": "部门ID"
           },
           "token": {
             "type": "string",
@@ -768,9 +786,13 @@
         },
         "required": [
           "id",
-          "create_time",
-          "update_time",
-          "username"
+          "createTime",
+          "username",
+          "nickname",
+          "gender",
+          "status",
+          "isSystem",
+          "deptId"
         ]
       },
       "CustomResponseDto_UserInfoDto": {
@@ -800,41 +822,46 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "format": "int64",
+            "type": "integer",
+            "description": "主键ID"
           },
-          "create_time": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "update_time": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "create_by": {
-            "type": "string",
+          "createUser": {
+            "type": "object",
+            "description": "创建人",
             "nullable": true
           },
-          "update_by": {
+          "createTime": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateUser": {
+            "type": "object",
+            "description": "修改人",
+            "nullable": true
+          },
+          "updateTime": {
+            "format": "date-time",
             "type": "string",
             "nullable": true
           },
           "deleted": {
-            "type": "boolean"
+            "format": "int64",
+            "type": "integer",
+            "description": "是否已删除"
           },
           "username": {
+            "type": "string"
+          },
+          "nickname": {
             "type": "string"
           },
           "password": {
             "type": "string",
             "nullable": true
           },
-          "nickname": {
-            "type": "string",
-            "nullable": true
-          },
-          "real_name": {
-            "type": "string",
-            "nullable": true
+          "gender": {
+            "type": "number"
           },
           "email": {
             "type": "string",
@@ -844,21 +871,41 @@
             "type": "string",
             "nullable": true
           },
-          "job_no": {
+          "avatar": {
             "type": "string",
             "nullable": true
           },
-          "dept_id": {
+          "description": {
             "type": "string",
             "nullable": true
+          },
+          "status": {
+            "type": "number"
+          },
+          "isSystem": {
+            "type": "boolean"
+          },
+          "pwdResetTime": {
+            "format": "date-time",
+            "type": "string",
+            "nullable": true
+          },
+          "deptId": {
+            "format": "int64",
+            "type": "integer",
+            "description": "部门ID"
           }
         },
         "required": [
           "id",
-          "create_time",
-          "update_time",
+          "createTime",
           "deleted",
-          "username"
+          "username",
+          "nickname",
+          "gender",
+          "status",
+          "isSystem",
+          "deptId"
         ]
       },
       "CustomResponseDto_SysUserModel": {
@@ -1017,28 +1064,49 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "format": "int64",
+            "type": "integer",
+            "description": "主键ID"
           },
-          "create_time": {
+          "createUser": {
+            "format": "int64",
+            "type": "integer",
+            "description": "创建人"
+          },
+          "createTime": {
             "format": "date-time",
             "type": "string"
           },
-          "update_time": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "create_by": {
-            "type": "string",
+          "updateUser": {
+            "type": "object",
+            "description": "修改人",
             "nullable": true
           },
-          "update_by": {
+          "updateTime": {
+            "format": "date-time",
             "type": "string",
             "nullable": true
           },
           "deleted": {
-            "type": "boolean"
+            "format": "int64",
+            "type": "integer",
+            "description": "是否已删除"
           },
-          "pid": {
+          "status": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "parentId": {
+            "format": "int64",
+            "type": "integer",
+            "description": "上级菜单ID"
+          },
+          "type": {
+            "type": "number"
+          },
+          "path": {
             "type": "string",
             "nullable": true
           },
@@ -1046,18 +1114,11 @@
             "type": "string",
             "nullable": true
           },
-          "url": {
+          "component": {
             "type": "string",
             "nullable": true
           },
-          "perms": {
-            "type": "string",
-            "nullable": true
-          },
-          "type": {
-            "type": "number"
-          },
-          "mode": {
+          "redirect": {
             "type": "string",
             "nullable": true
           },
@@ -1065,41 +1126,36 @@
             "type": "string",
             "nullable": true
           },
-          "color": {
+          "isExternal": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "isCache": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "isHidden": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "permission": {
             "type": "string",
             "nullable": true
           },
-          "routeUrl": {
-            "type": "string",
-            "nullable": true
-          },
-          "breadCrumb": {
-            "type": "string",
-            "nullable": true
-          },
-          "componentName": {
-            "type": "string",
-            "nullable": true
-          },
-          "componentPath": {
-            "type": "string",
-            "nullable": true
-          },
-          "orderNum": {
+          "sort": {
             "type": "number"
-          },
-          "display": {
-            "type": "boolean"
           }
         },
         "required": [
           "id",
-          "create_time",
-          "update_time",
+          "createUser",
+          "createTime",
           "deleted",
+          "status",
+          "title",
+          "parentId",
           "type",
-          "orderNum",
-          "display"
+          "sort"
         ]
       },
       "CustomResponseDto_SysMenuModel": {

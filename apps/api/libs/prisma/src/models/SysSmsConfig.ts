@@ -3,8 +3,26 @@ import { ApiField } from '@app/api-kit';
 import { SysSmsLogModel } from './SysSmsLog';
 
 export class SysSmsConfigModel implements SysSmsConfig {
-  @ApiField({ description: '主键ID', required: true })
+  @ApiField({ description: '主键ID', type: BigInt, required: true })
   id: bigint;
+
+  @ApiField({ description: '创建人', type: BigInt, required: true })
+  createUser: bigint;
+
+  @ApiField({ description: '创建时间', type: Date, required: true })
+  createTime: Date;
+
+  @ApiField({ description: '修改人', type: BigInt, nullable: true })
+  updateUser: bigint | null;
+
+  @ApiField({ description: '修改时间', type: Date, nullable: true })
+  updateTime: Date | null;
+
+  @ApiField({ description: '是否已删除', type: BigInt, required: true })
+  deleted: bigint;
+
+  @ApiField({ description: '状态（1：启用；2：禁用）', type: Number, required: true })
+  status: number;
 
   @ApiField({ description: '名称', type: String, required: true })
   name: string;
@@ -41,24 +59,6 @@ export class SysSmsConfigModel implements SysSmsConfig {
 
   @ApiField({ description: '是否为默认配置', type: Boolean, required: true })
   isDefault: boolean;
-
-  @ApiField({ description: '状态（1：启用；2：禁用）', type: Number, required: true })
-  status: number;
-
-  @ApiField({ description: '创建人', required: true })
-  createUser: bigint;
-
-  @ApiField({ description: '创建时间', type: Date, required: true })
-  createTime: Date;
-
-  @ApiField({ description: '修改人', nullable: true })
-  updateUser: bigint | null;
-
-  @ApiField({ description: '修改时间', type: Date, nullable: true })
-  updateTime: Date | null;
-
-  @ApiField({ description: '是否已删除', required: true })
-  deleted: bigint;
 
   logs?: SysSmsLogModel[];
 }

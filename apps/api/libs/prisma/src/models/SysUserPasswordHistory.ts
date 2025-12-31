@@ -3,10 +3,10 @@ import { ApiField } from '@app/api-kit';
 import { SysUserModel } from './SysUser';
 
 export class SysUserPasswordHistoryModel implements SysUserPasswordHistory {
-  @ApiField({ description: '主键ID', required: true })
+  @ApiField({ description: '主键ID', type: BigInt, required: true })
   id: bigint;
 
-  @ApiField({ description: '用户ID', required: true })
+  @ApiField({ description: '用户ID', type: BigInt, required: true })
   userId: bigint;
 
   @ApiField({ description: '密码', type: String, required: true })

@@ -4,10 +4,10 @@ import { SysMessageModel } from './SysMessage';
 import { SysUserModel } from './SysUser';
 
 export class SysMessageLogModel implements SysMessageLog {
-  @ApiField({ description: '消息ID', required: true })
+  @ApiField({ description: '消息ID', type: BigInt, required: true })
   messageId: bigint;
 
-  @ApiField({ description: '用户ID', required: true })
+  @ApiField({ description: '用户ID', type: BigInt, required: true })
   userId: bigint;
 
   @ApiField({ description: '读取时间', type: Date, nullable: true })

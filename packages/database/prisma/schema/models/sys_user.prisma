@@ -76,7 +76,14 @@ model SysUserPasswordHistory {
 /// 用户社会化关联表
 model SysUserSocial {
   /// ID
-  id            BigInt    @id @default(autoincrement())
+  id         BigInt    @id @default(autoincrement())
+  /// 创建时间
+  createTime DateTime  @map("create_time")
+  /// 修改时间
+  updateTime DateTime? @map("update_time")
+  /// 是否已删除（0：否；id：是）
+  deleted    BigInt    @default(0)
+
   /// 来源
   source        String    @db.VarChar(255)
   /// 开放ID
@@ -87,12 +94,6 @@ model SysUserSocial {
   metaJson      String?   @map("meta_json") @db.Text
   /// 最后登录时间
   lastLoginTime DateTime? @map("last_login_time")
-  /// 创建时间
-  createTime    DateTime  @map("create_time")
-  /// 修改时间
-  updateTime    DateTime? @map("update_time")
-  /// 是否已删除（0：否；id：是）
-  deleted       BigInt    @default(0)
 
   user SysUser @relation(fields: [userId], references: [id])
 

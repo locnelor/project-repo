@@ -3,8 +3,17 @@ import { ApiField } from '@app/api-kit';
 import { SysMessageLogModel } from './SysMessageLog';
 
 export class SysMessageModel implements SysMessage {
-  @ApiField({ description: '主键ID', required: true })
+  @ApiField({ description: '主键ID', type: BigInt, required: true })
   id: bigint;
+
+  @ApiField({ description: '创建时间', type: Date, required: true })
+  createTime: Date;
+
+  @ApiField({ description: '修改时间', type: Date, nullable: true })
+  updateTime: Date | null;
+
+  @ApiField({ description: '是否已删除', type: BigInt, required: true })
+  deleted: bigint;
 
   @ApiField({ description: '标题', type: String, required: true })
   title: string;
@@ -23,15 +32,6 @@ export class SysMessageModel implements SysMessage {
 
   @ApiField({ description: '通知用户', nullable: true })
   users;
-
-  @ApiField({ description: '创建时间', type: Date, required: true })
-  createTime: Date;
-
-  @ApiField({ description: '修改时间', type: Date, nullable: true })
-  updateTime: Date | null;
-
-  @ApiField({ description: '是否已删除', required: true })
-  deleted: bigint;
 
   logs?: SysMessageLogModel[];
 }

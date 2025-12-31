@@ -1,69 +1,71 @@
 /// 字典表
 model SysDict {
   /// ID
-  id          BigInt    @id @default(autoincrement())
-  /// 名称
-  name        String    @db.VarChar(30)
-  /// 编码
-  code        String    @db.VarChar(30)
-  /// 描述
-  description String?   @db.VarChar(200)
-  /// 是否为系统内置数据
-  isSystem    Boolean   @default(false) @map("is_system")
+  id         BigInt    @id @default(autoincrement())
   /// 创建人
-  createUser  BigInt    @map("create_user")
+  createUser BigInt    @map("create_user")
   /// 创建时间
-  createTime  DateTime  @map("create_time")
+  createTime DateTime  @map("create_time")
   /// 修改人
-  updateUser  BigInt?   @map("update_user")
+  updateUser BigInt?   @map("update_user")
   /// 修改时间
-  updateTime  DateTime? @map("update_time")
+  updateTime DateTime? @map("update_time")
   /// 是否已删除（0：否；id：是）
-  deleted     BigInt    @default(0)
+  deleted    BigInt    @default(0)
+
+  /// 名称
+  name        String  @db.VarChar(30)
+  /// 编码
+  code        String  @db.VarChar(30)
+  /// 描述
+  description String? @db.VarChar(200)
+  /// 是否为系统内置数据
+  isSystem    Boolean @default(false) @map("is_system")
 
   items SysDictItem[]
 
-  @@map("sys_dict")
   @@unique([name, deleted], map: "uk_name")
   @@unique([code, deleted], map: "uk_code")
   @@index([deleted], map: "idx_deleted")
+  @@map("sys_dict")
 }
 
 /// 字典项表
 model SysDictItem {
   /// ID
-  id          BigInt    @id @default(autoincrement())
-  /// 标签
-  label       String    @db.VarChar(30)
-  /// 值
-  value       String    @db.VarChar(30)
-  /// 标签颜色
-  color       String?   @db.VarChar(30)
-  /// 排序
-  sort        Int       @default(999)
-  /// 描述
-  description String?   @db.VarChar(200)
-  /// 状态（1：启用；2：禁用）
-  status      Int       @default(1) @db.TinyInt
-  /// 字典ID
-  dictId      BigInt    @map("dict_id")
+  id         BigInt    @id @default(autoincrement())
   /// 创建人
-  createUser  BigInt    @map("create_user")
+  createUser BigInt    @map("create_user")
   /// 创建时间
-  createTime  DateTime  @map("create_time")
+  createTime DateTime  @map("create_time")
   /// 修改人
-  updateUser  BigInt?   @map("update_user")
+  updateUser BigInt?   @map("update_user")
   /// 修改时间
-  updateTime  DateTime? @map("update_time")
+  updateTime DateTime? @map("update_time")
   /// 是否已删除（0：否；id：是）
-  deleted     BigInt    @default(0)
+  deleted    BigInt    @default(0)
+
+  /// 标签
+  label       String  @db.VarChar(30)
+  /// 值
+  value       String  @db.VarChar(30)
+  /// 标签颜色
+  color       String? @db.VarChar(30)
+  /// 排序
+  sort        Int     @default(999)
+  /// 描述
+  description String? @db.VarChar(200)
+  /// 状态（1：启用；2：禁用）
+  status      Int     @default(1) @db.TinyInt
+  /// 字典ID
+  dictId      BigInt  @map("dict_id")
 
   dict SysDict @relation(fields: [dictId], references: [id])
 
-  @@map("sys_dict_item")
   @@unique([value, dictId, deleted], map: "uk_value_dict_id")
   @@index([dictId], map: "idx_dict_id")
   @@index([createUser], map: "idx_create_user")
   @@index([updateUser], map: "idx_update_user")
   @@index([deleted], map: "idx_deleted")
+  @@map("sys_dict_item")
 }

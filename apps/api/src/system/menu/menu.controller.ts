@@ -22,7 +22,7 @@ export class MenuController {
   
   @ApiResult(SysMenuModel, { description: "获取菜单详情" })
   @Get(`:id/detail`)
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.menuService.findOne({ where: { id } });
   }
 
@@ -41,34 +41,21 @@ export class MenuController {
     @Body() { pid, ...data }: CreateMenuDto,
     @CurrentUser() user
   ) {
-    return this.menuService.create({
-      data: {
-        ...data,
-        parent: !!pid ? { connect: { id: pid } } : undefined
-      },
-    }, user);
   }
 
   @Put(':id')
   @ApiResult(SysMenuModel, { description: '更新菜单' })
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() { pid, ...data }: CreateMenuDto,
     @CurrentUser() user
   ) {
-    return this.menuService.update({
-      where: { id },
-      data: {
-        ...data,
-        parent: !!pid ? { connect: { id: pid } } : undefined
-      },
-    }, user);
   }
 
   @Delete(':id')
   @ApiResult(SysMenuModel, { description: '删除菜单' })
   delete(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @CurrentUser() user
   ) {
     return this.menuService.softDelete({ where: { id } }, user);

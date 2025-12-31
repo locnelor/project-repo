@@ -3,8 +3,23 @@ import { ApiField } from '@app/api-kit';
 import { SysStorageModel } from './SysStorage';
 
 export class SysFileModel implements SysFile {
-  @ApiField({ description: '主键ID', required: true })
+  @ApiField({ description: '主键ID', type: BigInt, required: true })
   id: bigint;
+
+  @ApiField({ description: '创建人', type: BigInt, required: true })
+  createUser: bigint;
+
+  @ApiField({ description: '创建时间', type: Date, required: true })
+  createTime: Date;
+
+  @ApiField({ description: '修改人', type: BigInt, nullable: true })
+  updateUser: bigint | null;
+
+  @ApiField({ description: '修改时间', type: Date, nullable: true })
+  updateTime: Date | null;
+
+  @ApiField({ description: '是否已删除', type: BigInt, required: true })
+  deleted: bigint;
 
   @ApiField({ description: '名称', type: String, required: true })
   name: string;
@@ -12,7 +27,7 @@ export class SysFileModel implements SysFile {
   @ApiField({ description: '原始名称', type: String, required: true })
   originalName: string;
 
-  @ApiField({ description: '大小（字节）', nullable: true })
+  @ApiField({ description: '大小（字节）', type: BigInt, nullable: true })
   size: bigint | null;
 
   @ApiField({ description: '上级目录', type: String, required: true })
@@ -39,29 +54,14 @@ export class SysFileModel implements SysFile {
   @ApiField({ description: '缩略图名称', type: String, nullable: true })
   thumbnailName: string | null;
 
-  @ApiField({ description: '缩略图大小（字节)', nullable: true })
+  @ApiField({ description: '缩略图大小（字节)', type: BigInt, nullable: true })
   thumbnailSize: bigint | null;
 
   @ApiField({ description: '缩略图元数据', type: String, nullable: true })
   thumbnailMetadata: string | null;
 
-  @ApiField({ description: '存储ID', required: true })
+  @ApiField({ description: '存储ID', type: BigInt, required: true })
   storageId: bigint;
-
-  @ApiField({ description: '创建人', required: true })
-  createUser: bigint;
-
-  @ApiField({ description: '创建时间', type: Date, required: true })
-  createTime: Date;
-
-  @ApiField({ description: '修改人', nullable: true })
-  updateUser: bigint | null;
-
-  @ApiField({ description: '修改时间', type: Date, nullable: true })
-  updateTime: Date | null;
-
-  @ApiField({ description: '是否已删除', required: true })
-  deleted: bigint;
 
   storage?: SysStorageModel;
 }

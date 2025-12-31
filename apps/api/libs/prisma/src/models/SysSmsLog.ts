@@ -3,10 +3,16 @@ import { ApiField } from '@app/api-kit';
 import { SysSmsConfigModel } from './SysSmsConfig';
 
 export class SysSmsLogModel implements SysSmsLog {
-  @ApiField({ description: '主键ID', required: true })
+  @ApiField({ description: '主键ID', type: BigInt, required: true })
   id: bigint;
 
-  @ApiField({ description: '配置ID', required: true })
+  @ApiField({ description: '创建人', type: BigInt, required: true })
+  createUser: bigint;
+
+  @ApiField({ description: '创建时间', type: Date, required: true })
+  createTime: Date;
+
+  @ApiField({ description: '配置ID', type: BigInt, required: true })
   configId: bigint;
 
   @ApiField({ description: '手机号', type: String, required: true })
@@ -20,12 +26,6 @@ export class SysSmsLogModel implements SysSmsLog {
 
   @ApiField({ description: '返回数据', type: String, nullable: true })
   resMsg: string | null;
-
-  @ApiField({ description: '创建人', required: true })
-  createUser: bigint;
-
-  @ApiField({ description: '创建时间', type: Date, required: true })
-  createTime: Date;
 
   config?: SysSmsConfigModel;
 }

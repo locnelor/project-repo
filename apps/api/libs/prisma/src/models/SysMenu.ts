@@ -3,13 +3,31 @@ import { ApiField } from '@app/api-kit';
 import { SysRoleMenuModel } from './SysRoleMenu';
 
 export class SysMenuModel implements SysMenu {
-  @ApiField({ description: '主键ID', required: true })
+  @ApiField({ description: '主键ID', type: BigInt, required: true })
   id: bigint;
+
+  @ApiField({ description: '创建人', type: BigInt, required: true })
+  createUser: bigint;
+
+  @ApiField({ description: '创建时间', type: Date, required: true })
+  createTime: Date;
+
+  @ApiField({ description: '修改人', type: BigInt, nullable: true })
+  updateUser: bigint | null;
+
+  @ApiField({ description: '修改时间', type: Date, nullable: true })
+  updateTime: Date | null;
+
+  @ApiField({ description: '是否已删除', type: BigInt, required: true })
+  deleted: bigint;
+
+  @ApiField({ description: '状态（1：启用；2：禁用）', type: Number, required: true })
+  status: number;
 
   @ApiField({ description: '标题', type: String, required: true })
   title: string;
 
-  @ApiField({ description: '上级菜单ID', required: true })
+  @ApiField({ description: '上级菜单ID', type: BigInt, required: true })
   parentId: bigint;
 
   @ApiField({ description: '类型（1：目录；2：菜单；3：按钮）', type: Number, required: true })
@@ -44,24 +62,6 @@ export class SysMenuModel implements SysMenu {
 
   @ApiField({ description: '排序', type: Number, required: true })
   sort: number;
-
-  @ApiField({ description: '状态（1：启用；2：禁用）', type: Number, required: true })
-  status: number;
-
-  @ApiField({ description: '创建人', required: true })
-  createUser: bigint;
-
-  @ApiField({ description: '创建时间', type: Date, required: true })
-  createTime: Date;
-
-  @ApiField({ description: '修改人', nullable: true })
-  updateUser: bigint | null;
-
-  @ApiField({ description: '修改时间', type: Date, nullable: true })
-  updateTime: Date | null;
-
-  @ApiField({ description: '是否已删除', required: true })
-  deleted: bigint;
 
   roles?: SysRoleMenuModel[];
 }

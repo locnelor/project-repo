@@ -4,10 +4,10 @@ import { SysRoleModel } from './SysRole';
 import { SysMenuModel } from './SysMenu';
 
 export class SysRoleMenuModel implements SysRoleMenu {
-  @ApiField({ description: '角色ID', required: true })
+  @ApiField({ description: '角色ID', type: BigInt, required: true })
   roleId: bigint;
 
-  @ApiField({ description: '菜单ID', required: true })
+  @ApiField({ description: '菜单ID', type: BigInt, required: true })
   menuId: bigint;
 
   role?: SysRoleModel;

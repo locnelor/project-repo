@@ -1,49 +1,50 @@
 /// 系统日志表
 model SysLog {
   /// ID
-  id              BigInt   @id @default(autoincrement())
-  /// 链路ID
-  traceId         String?  @map("trace_id") @db.VarChar(255)
-  /// 日志描述
-  description     String   @db.VarChar(255)
-  /// 所属模块
-  module          String   @db.VarChar(100)
-  /// 请求URL
-  requestUrl      String   @map("request_url") @db.VarChar(512)
-  /// 请求方式
-  requestMethod   String   @map("request_method") @db.VarChar(10)
-  /// 请求头
-  requestHeaders  String?  @map("request_headers") @db.Text
-  /// 请求体
-  requestBody     String?  @map("request_body") @db.Text
-  /// 状态码
-  statusCode      Int      @map("status_code")
-  /// 响应头
-  responseHeaders String?  @map("response_headers") @db.Text
-  /// 响应体
-  responseBody    String?  @map("response_body") @db.MediumText
-  /// 耗时（ms）
-  timeTaken       BigInt   @map("time_taken")
-  /// IP
-  ip              String?  @db.VarChar(100)
-  /// IP归属地
-  address         String?  @db.VarChar(255)
-  /// 浏览器
-  browser         String?  @db.VarChar(100)
-  /// 操作系统
-  os              String?  @db.VarChar(100)
-  /// 状态（1：成功；2：失败）
-  status          Int      @default(1) @db.TinyInt
-  /// 错误信息
-  errorMsg        String?  @map("error_msg") @db.Text
+  id         BigInt   @id @default(autoincrement())
   /// 创建人
-  createUser      BigInt?  @map("create_user")
+  createUser BigInt?  @map("create_user")
   /// 创建时间
-  createTime      DateTime @map("create_time")
+  createTime DateTime @map("create_time")
 
-  @@map("sys_log")
+  /// 链路ID
+  traceId         String? @map("trace_id") @db.VarChar(255)
+  /// 日志描述
+  description     String  @db.VarChar(255)
+  /// 所属模块
+  module          String  @db.VarChar(100)
+  /// 请求URL
+  requestUrl      String  @map("request_url") @db.VarChar(512)
+  /// 请求方式
+  requestMethod   String  @map("request_method") @db.VarChar(10)
+  /// 请求头
+  requestHeaders  String? @map("request_headers") @db.Text
+  /// 请求体
+  requestBody     String? @map("request_body") @db.Text
+  /// 状态码
+  statusCode      Int     @map("status_code")
+  /// 响应头
+  responseHeaders String? @map("response_headers") @db.Text
+  /// 响应体
+  responseBody    String? @map("response_body") @db.MediumText
+  /// 耗时（ms）
+  timeTaken       BigInt  @map("time_taken")
+  /// IP
+  ip              String? @db.VarChar(100)
+  /// IP归属地
+  address         String? @db.VarChar(255)
+  /// 浏览器
+  browser         String? @db.VarChar(100)
+  /// 操作系统
+  os              String? @db.VarChar(100)
+  /// 状态（1：成功；2：失败）
+  status          Int     @default(1) @db.TinyInt
+  /// 错误信息
+  errorMsg        String? @map("error_msg") @db.Text
+
   @@index([module], map: "idx_module")
   @@index([ip], map: "idx_ip")
   @@index([address], map: "idx_address")
   @@index([createTime], map: "idx_create_time")
+  @@map("sys_log")
 }
