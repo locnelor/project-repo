@@ -648,6 +648,85 @@
           "test"
         ]
       }
+    },
+    "/test-crud": {
+      "get": {
+        "operationId": "Test1Controller_list",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "分页列表",
+        "tags": [
+          "Test Crud"
+        ]
+      },
+      "post": {
+        "operationId": "Test1Controller_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "新增",
+        "tags": [
+          "Test Crud"
+        ]
+      }
+    },
+    "/test-crud/{id}": {
+      "get": {
+        "operationId": "Test1Controller_detail",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "详情",
+        "tags": [
+          "Test Crud"
+        ]
+      },
+      "patch": {
+        "operationId": "Test1Controller_update",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "修改",
+        "tags": [
+          "Test Crud"
+        ]
+      },
+      "delete": {
+        "operationId": "Test1Controller_remove",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "删除",
+        "tags": [
+          "Test Crud"
+        ]
+      }
     }
   },
   "info": {
@@ -721,16 +800,15 @@
         "properties": {
           "id": {
             "format": "int64",
-            "type": "integer",
-            "description": "主键ID"
+            "type": "integer"
           },
           "createTime": {
             "format": "date-time",
             "type": "string"
           },
           "updateUser": {
-            "type": "object",
-            "description": "修改人",
+            "format": "int64",
+            "type": "integer",
             "nullable": true
           },
           "updateTime": {
@@ -768,8 +846,7 @@
           },
           "deptId": {
             "format": "int64",
-            "type": "integer",
-            "description": "部门ID"
+            "type": "integer"
           },
           "token": {
             "type": "string",
@@ -823,12 +900,11 @@
         "properties": {
           "id": {
             "format": "int64",
-            "type": "integer",
-            "description": "主键ID"
+            "type": "integer"
           },
           "createUser": {
-            "type": "object",
-            "description": "创建人",
+            "format": "int64",
+            "type": "integer",
             "nullable": true
           },
           "createTime": {
@@ -836,8 +912,8 @@
             "type": "string"
           },
           "updateUser": {
-            "type": "object",
-            "description": "修改人",
+            "format": "int64",
+            "type": "integer",
             "nullable": true
           },
           "updateTime": {
@@ -847,8 +923,7 @@
           },
           "deleted": {
             "format": "int64",
-            "type": "integer",
-            "description": "是否已删除"
+            "type": "integer"
           },
           "username": {
             "type": "string"
@@ -892,8 +967,7 @@
           },
           "deptId": {
             "format": "int64",
-            "type": "integer",
-            "description": "部门ID"
+            "type": "integer"
           }
         },
         "required": [
@@ -1065,21 +1139,19 @@
         "properties": {
           "id": {
             "format": "int64",
-            "type": "integer",
-            "description": "主键ID"
+            "type": "integer"
           },
           "createUser": {
             "format": "int64",
-            "type": "integer",
-            "description": "创建人"
+            "type": "integer"
           },
           "createTime": {
             "format": "date-time",
             "type": "string"
           },
           "updateUser": {
-            "type": "object",
-            "description": "修改人",
+            "format": "int64",
+            "type": "integer",
             "nullable": true
           },
           "updateTime": {
@@ -1089,8 +1161,7 @@
           },
           "deleted": {
             "format": "int64",
-            "type": "integer",
-            "description": "是否已删除"
+            "type": "integer"
           },
           "status": {
             "type": "number"
@@ -1100,8 +1171,7 @@
           },
           "parentId": {
             "format": "int64",
-            "type": "integer",
-            "description": "上级菜单ID"
+            "type": "integer"
           },
           "type": {
             "type": "number"
