@@ -1,3 +1,3 @@
-export * from "./useContentSpinner";
-export * from "./useNProgress";
-export * from "./useTable";
+export * from './useContentSpinner'
+export * from './useNProgress'
+export * from './useTable'

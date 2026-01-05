@@ -40,9 +40,9 @@
 </template>
 
 <script setup lang="ts">
-import FileRightMenu from './FileRightMenu.vue'
 import type { FileItem } from '@/apis/system'
 import has from '@/utils/has'
+import FileRightMenu from './FileRightMenu.vue'
 
 const props = withDefaults(defineProps<Props>(), {
   data: () => [], // 文件数据

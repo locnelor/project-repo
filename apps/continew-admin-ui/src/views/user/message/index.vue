@@ -24,14 +24,14 @@
 
 <script setup lang="tsx">
 import { useRoute, useRouter } from 'vue-router'
-import MyMessage from './components/MyMessage.vue'
-import MyNotice from './components/MyNotice.vue'
-import { useDevice } from '@/hooks'
 import {
   getUnreadMessageCount,
   getUnreadNoticeCount,
 } from '@/apis'
+import { useDevice } from '@/hooks'
 import mittBus from '@/utils/mitt'
+import MyMessage from './components/MyMessage.vue'
+import MyNotice from './components/MyNotice.vue'
 
 defineOptions({ name: 'UserMessage' })
 
@@ -103,7 +103,7 @@ const change = (key: string | number) => {
 </script>
 
 <style scoped lang="scss">
-.tab-pane-item{
+.tab-pane-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -144,7 +144,9 @@ const change = (key: string | number) => {
 }
 
 :deep(.arco-tabs .arco-tabs-nav-type-card-gutter .arco-tabs-tab-active) {
-  box-shadow: inset 0 2px 0 rgb(var(--primary-6)), inset -1px 0 0 var(--color-border-2),
+  box-shadow:
+    inset 0 2px 0 rgb(var(--primary-6)),
+    inset -1px 0 0 var(--color-border-2),
     inset 1px 0 0 var(--color-border-2);
   position: relative;
 }
@@ -170,11 +172,11 @@ const change = (key: string | number) => {
   overflow: visible;
 }
 
-:deep(.arco-tabs-nav-type-rounded .arco-tabs-tab){
+:deep(.arco-tabs-nav-type-rounded .arco-tabs-tab) {
   border-radius: 8px;
 }
 
-:deep(.arco-tabs-tab-title){
+:deep(.arco-tabs-tab-title) {
   width: 100%;
 }
 </style>

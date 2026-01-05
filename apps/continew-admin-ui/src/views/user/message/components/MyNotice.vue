@@ -51,7 +51,8 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
-import { type NoticeQuery, type NoticeResp, listUserNotice } from '@/apis/system'
+import type { NoticeQuery, NoticeResp } from '@/apis/system'
+import { listUserNotice } from '@/apis/system'
 import { useTable } from '@/hooks'
 import { useDict } from '@/hooks/app'
 

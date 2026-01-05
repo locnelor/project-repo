@@ -1,5 +1,5 @@
-import { ref } from 'vue'
 import type { TreeNodeData } from '@arco-design/web-vue'
+import { ref } from 'vue'
 import { listMenuDictTree } from '@/apis/system'
 import { listTenantPackageMenu } from '@/apis/tenant/package'
 

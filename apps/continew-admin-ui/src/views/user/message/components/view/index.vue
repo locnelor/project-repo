@@ -37,10 +37,10 @@
 </template>
 
 <script setup lang="ts">
-import AiEditor from './components/index.vue'
 import { getUserNotice } from '@/apis/system/user-message'
-import { useTabsStore } from '@/stores'
 import { useResetReactive } from '@/hooks'
+import { useTabsStore } from '@/stores'
+import AiEditor from './components/index.vue'
 
 defineOptions({ name: 'UserNotice' })
 
@@ -77,16 +77,16 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .detail_content {
-    .title {
-        text-align: center;
-    }
+  .title {
+    text-align: center;
+  }
 
-    .info {
-        text-align: center;
-    }
+  .info {
+    text-align: center;
+  }
 
-    .icon {
-      margin-right: 3px;
-    }
+  .icon {
+    margin-right: 3px;
+  }
 }
 </style>

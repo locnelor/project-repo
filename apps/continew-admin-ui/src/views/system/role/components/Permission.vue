@@ -55,12 +55,14 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue'
-import { Message, type TableInstance, type TreeNodeData } from '@arco-design/web-vue'
-import { isMobile } from '@/utils'
+import type { TableInstance, TreeNodeData } from '@arco-design/web-vue'
+import type { RolePermissionResp } from '@/apis/system/role'
 import type GiTable from '@/components/GiTable/index.vue'
+import { Message } from '@arco-design/web-vue'
+import { nextTick, ref, watch } from 'vue'
+import { getRole, listRolePermissionTree, updateRolePermission } from '@/apis/system/role'
 import { useTable } from '@/hooks'
-import { type RolePermissionResp, getRole, listRolePermissionTree, updateRolePermission } from '@/apis/system/role'
+import { isMobile } from '@/utils'
 import has from '@/utils/has'
 
 const props = withDefaults(defineProps<Props>(), {

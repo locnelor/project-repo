@@ -30,16 +30,16 @@
 </template>
 
 <script setup lang="ts">
+import { useDevice } from '@/hooks'
+import { useLevelMenu } from '@/layout/hooks/useLevelMenu'
+import { useAppStore } from '@/stores'
+import { getToken } from '@/utils/auth'
+import NoticePopup from '@/views/user/message/components/NoticePopup.vue'
 import Header from './components/Header/index.vue'
 import Main from './components/Main.vue'
 import Menu from './components/Menu/index.vue'
 import OneLevelMenu from './components/OneLevelMenu/index.vue'
 import Tabs from './components/Tabs/index.vue'
-import { useAppStore } from '@/stores'
-import { useLevelMenu } from '@/layout/hooks/useLevelMenu'
-import { useDevice } from '@/hooks'
-import NoticePopup from '@/views/user/message/components/NoticePopup.vue'
-import { getToken } from '@/utils/auth'
 
 defineOptions({ name: 'LayoutColumns' })
 

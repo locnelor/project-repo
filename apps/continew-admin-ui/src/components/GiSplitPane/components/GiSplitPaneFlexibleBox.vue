@@ -5,7 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import { type CSSProperties, computed, ref } from 'vue'
+import type { CSSProperties } from 'vue'
+import { computed, ref } from 'vue'
 import { useBreakpoint } from '@/hooks'
 
 interface Props {

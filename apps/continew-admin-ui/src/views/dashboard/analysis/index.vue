@@ -30,12 +30,12 @@
 </template>
 
 <script setup lang="ts">
+import AccessTimeslot from './components/AccessTimeslot.vue'
+import Browser from './components/Browser.vue'
 import DataOverview from './components/DataOverview/index.vue'
 import Geo from './components/Geo.vue'
-import Os from './components/Os.vue'
-import Browser from './components/Browser.vue'
 import Module from './components/Module.vue'
-import AccessTimeslot from './components/AccessTimeslot.vue'
+import Os from './components/Os.vue'
 
 defineOptions({ name: 'Analysis' })
 </script>

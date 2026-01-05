@@ -15,15 +15,15 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import GiFooter from '@/components/GiFooter/index.vue'
+import { useDevice } from '@/hooks'
+import { useAppStore } from '@/stores'
+import { getToken } from '@/utils/auth'
+import NoticePopup from '@/views/user/message/components/NoticePopup.vue'
 import Asider from './components/Asider/index.vue'
 import Header from './components/Header/index.vue'
 import Main from './components/Main.vue'
 import Tabs from './components/Tabs/index.vue'
-import GiFooter from '@/components/GiFooter/index.vue'
-import NoticePopup from '@/views/user/message/components/NoticePopup.vue'
-import { useAppStore } from '@/stores'
-import { useDevice } from '@/hooks'
-import { getToken } from '@/utils/auth'
 
 defineOptions({ name: 'LayoutDefault' })
 const appStore = useAppStore()

@@ -1,6 +1,19 @@
+shellEmulator: true
+
+trustPolicy: no-downgrade
+
 packages:
-  - "apps/*"
-  - "packages/*"
-  - "packages/effects/*"
-  - "internal/*"
-  - "scripts/*"
+  - 'apps/*'
+  - 'packages/*'
+  - 'packages/effects/*'
+  - 'internal/*'
+  - 'scripts/*'
+onlyBuiltDependencies:
+  - '@vue-office/docx'
+  - '@vue-office/excel'
+  - '@vue-office/pdf'
+  - core-js
+  - es5-ext
+  - esbuild
+  - vue-demi
+  - vue-echarts

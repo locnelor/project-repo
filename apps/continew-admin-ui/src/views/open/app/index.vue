@@ -87,12 +87,10 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
+import type { AppQuery, AppResp } from '@/apis/open/app'
 import { Message, Modal } from '@arco-design/web-vue'
-import AddModal from './AddModal.vue'
-import DetailDrawer from './DetailDrawer.vue'
 import {
-  type AppQuery,
-  type AppResp,
+
   deleteApp,
   exportApp,
   getAppSecret,
@@ -102,6 +100,8 @@ import {
 import { useDownload, useTable } from '@/hooks'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
+import AddModal from './AddModal.vue'
+import DetailDrawer from './DetailDrawer.vue'
 
 defineOptions({ name: 'OpenApp' })
 

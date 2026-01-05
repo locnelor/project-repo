@@ -1,7 +1,7 @@
 // import { defineConfig } from 'vite'
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 
-import { defineConfig } from "@internal/vite-config";
+import { defineConfig } from '@internal/vite-config'
 
 export default defineConfig({
   build: {
@@ -9,15 +9,15 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'styles',
       fileName: 'design',
-      formats: ['es']
+      formats: ['es'],
     },
     rollupOptions: {
       output: {
-        assetFileNames: 'design.css'
-      }
+        assetFileNames: 'design.css',
+      },
     },
-    cssCodeSplit: false
-  }
+    cssCodeSplit: false,
+  },
 })
 
 // export default defineConfig();

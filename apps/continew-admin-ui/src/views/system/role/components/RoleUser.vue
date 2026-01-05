@@ -62,12 +62,13 @@
 
 <script lang='tsx' setup>
 import type { TableInstance } from '@arco-design/web-vue'
+import type { RoleUserQuery, RoleUserResp } from '@/apis/system/role'
 import { Message, Modal } from '@arco-design/web-vue'
-import AssignModal from '../AssignModal.vue'
+import { listRoleUser, unassignFromUsers } from '@/apis/system/role'
 import { useResetReactive, useTable } from '@/hooks'
-import { type RoleUserQuery, type RoleUserResp, listRoleUser, unassignFromUsers } from '@/apis/system/role'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
+import AssignModal from '../AssignModal.vue'
 
 const props = withDefaults(defineProps<Props>(), {
   roleId: '',

@@ -18,8 +18,8 @@
 
 <script setup lang="ts">
 import LeftBox from './BasicInfo.vue'
-import RightBox from './Social.vue'
 import PasswordPolicy from './Security.vue'
+import RightBox from './Social.vue'
 
 defineOptions({ name: 'UserProfile' })
 </script>

@@ -1,10 +1,10 @@
 import { readdirSync, rm } from 'node:fs'
-import { join } from 'node:path';
+import { join } from 'node:path'
 
 // 递归清理指定目录下的目标文件夹
 const recursiveCleanDirectories = (directoryPath, targetDirs) => {
   try {
-    const entries = readdirSync(directoryPath);
+    const entries = readdirSync(directoryPath)
 
     for (const entry of entries) {
       const fullPath = join(directoryPath, entry)

@@ -103,8 +103,8 @@
 
 <script setup lang="ts">
 import type { RouteLocationNormalized } from 'vue-router'
-import ReloadIcon from './ReloadIcon.vue'
 import { useAppStore, useTabsStore } from '@/stores'
+import ReloadIcon from './ReloadIcon.vue'
 
 defineOptions({ name: 'Tabs' })
 

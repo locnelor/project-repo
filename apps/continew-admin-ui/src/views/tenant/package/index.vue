@@ -51,17 +51,17 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
-import AddModal from './AddModal.vue'
-import DetailDrawer from './DetailDrawer.vue'
+import type { TenantPackageQuery, TenantPackageResp } from '@/apis/tenant/package'
 import {
-  type TenantPackageQuery,
-  type TenantPackageResp,
   deleteTenantPackage,
   listTenantPackage,
+
 } from '@/apis/tenant/package'
 import { useTable } from '@/hooks'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
+import AddModal from './AddModal.vue'
+import DetailDrawer from './DetailDrawer.vue'
 
 defineOptions({ name: 'TenantPackage' })
 

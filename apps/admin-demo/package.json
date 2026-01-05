@@ -1,8 +1,11 @@
 {
   "name": "admin-demo",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "imports": {
+    "#/*": "./src/*"
+  },
   "scripts": {
     "dev": "vite",
     "dev:example": "vite --mode example",
@@ -10,9 +13,6 @@
     "build:dev": "vue-tsc -b && vite build --mode development",
     "build:example": "vue-tsc -b && vite build --mode example",
     "preview": "vite preview"
-  },
-  "imports": {
-    "#/*": "./src/*"
   },
   "dependencies": {
     "@internal/tailwind-config": "workspace:*",

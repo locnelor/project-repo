@@ -1,6 +1,7 @@
+import type { RouteLocationNormalized, RouteRecordName } from 'vue-router'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { type RouteLocationNormalized, type RouteRecordName, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import _XEUtils_ from 'xe-utils'
 import { useRouteStore } from '@/stores'
 

@@ -178,10 +178,11 @@
 </template>
 
 <script setup lang="ts">
-import { type ColProps, type FormInstance, Message } from '@arco-design/web-vue'
+import type { ColProps, FormInstance } from '@arco-design/web-vue'
+import type { LabelValueState } from '@/types/global'
+import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
 import { addJob, listGroup, updateJob } from '@/apis/schedule/job'
-import type { LabelValueState } from '@/types/global'
 import { useResetReactive } from '@/hooks'
 import { useDict } from '@/hooks/app'
 

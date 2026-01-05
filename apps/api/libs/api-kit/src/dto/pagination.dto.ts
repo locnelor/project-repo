@@ -1,6 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger'
-import { Expose, Type } from 'class-transformer'
-import { IsInt, IsOptional, Min } from 'class-validator'
 import { ApiField } from '../decorators'
 
 export class PaginationDto {
@@ -10,7 +7,7 @@ export class PaginationDto {
   // @IsOptional()
   // @Type(() => Number)
   // @Expose()
-  @ApiField({ description: "当前页码", default: 1 })
+  @ApiField({ description: '当前页码', default: 1 })
   pageNo: number = 1
 
   // @ApiProperty({ description: '每页数据条数', default: 10, required: false })
@@ -19,7 +16,7 @@ export class PaginationDto {
   // @IsOptional()
   // @Type(() => Number)
   // @Expose()
-  @ApiField({ description: "每页数据条数", default: 10 })
+  @ApiField({ description: '每页数据条数', default: 10 })
   pageSize: number = 10
 }
 
@@ -28,12 +25,12 @@ export const Pagination = <T>(type: new () => T) => {
     // @ApiProperty({ type: () => [type] })
     // @Type(() => type)
     // @Expose()
-    @ApiField({ description: "查询结果", type: () => [type] })
+    @ApiField({ description: '查询结果', type: () => [type] })
     records!: T[]
 
     // @ApiProperty({ description: '总条数' })
     // @Expose()
-    @ApiField({ description: "总条数" })
+    @ApiField({ description: '总条数' })
     total: number
   }
 

@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, MaxLength } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger'
+import { IsOptional, IsString, MaxLength } from 'class-validator'
 
 export class CreateRoleDto {
   @ApiProperty({
@@ -11,7 +11,7 @@ export class CreateRoleDto {
   @IsOptional()
   @IsString({ message: '角色名称必须是字符串' })
   @MaxLength(255, { message: '角色名称最大长度为255' })
-  name?: string;
+  name?: string
 
   @ApiProperty({
     description: '角色描述',
@@ -22,5 +22,5 @@ export class CreateRoleDto {
   @IsOptional()
   @IsString({ message: '角色描述必须是字符串' })
   @MaxLength(500, { message: '角色描述最大长度为500' })
-  description?: string;
+  description?: string
 }

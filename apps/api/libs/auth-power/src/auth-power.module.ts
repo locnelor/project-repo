@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
-import { AuthPowerService } from './auth-power.service';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { JwtStrategy } from './jwt.strategy';
-import { ConfigService } from '@nestjs/config';
-import { HashModule } from '@app/hash';
+import { HashModule } from '@app/hash'
+import { Module } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { JwtModule } from '@nestjs/jwt'
+import { AuthPowerService } from './auth-power.service'
+import { JwtAuthGuard } from './guards/jwt-auth.guard'
+import { JwtStrategy } from './jwt.strategy'
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { HashModule } from '@app/hash';
           signOptions: {
             expiresIn: configService.getOrThrow('JWT_EXPIRATION'),
           },
-        };
+        }
       },
       inject: [ConfigService],
     }),

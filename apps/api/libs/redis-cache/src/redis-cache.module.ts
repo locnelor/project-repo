@@ -1,7 +1,7 @@
-import { Global, Module } from '@nestjs/common';
-import { RedisCacheService } from './redis-cache.service';
-import { RedisModule } from '@nestjs-modules/ioredis';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { RedisModule } from '@nestjs-modules/ioredis'
+import { Global, Module } from '@nestjs/common'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { RedisCacheService } from './redis-cache.service'
 
 @Global()
 @Module({
@@ -17,7 +17,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
             port: configService.get('REDIS_PORT'),
             password: configService.get('REDIS_PASSWORD'),
           },
-        };
+        }
       },
     }),
   ],

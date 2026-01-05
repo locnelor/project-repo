@@ -39,10 +39,11 @@
 </template>
 
 <script setup lang="ts">
+import type { ClientDetailResp } from '@/apis/system/client'
 import { useWindowSize } from '@vueuse/core'
-import { type ClientDetailResp, getClient as getDetail } from '@/apis/system/client'
-import { useDict } from '@/hooks/app'
+import { getClient as getDetail } from '@/apis/system/client'
 import GiCellTag from '@/components/GiCell/GiCellTag.vue'
+import { useDict } from '@/hooks/app'
 
 const {
   client_type,

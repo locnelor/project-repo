@@ -1,21 +1,20 @@
-import { HashService } from '@app/hash';
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { Inject, Injectable } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import { HashService } from '@app/hash'
 
 export interface JwtPayload {
-  sub: string;
-  crypto: string;
+  sub: string
+  crypto: string
 }
 
 @Injectable()
 export class AuthPowerService {
   constructor(
-    private readonly jwtService: JwtService,
-    private readonly hashService: HashService,
+    @Inject(JwtService) private readonly jwtService: JwtService,
+    @Inject(HashService) private readonly hashService: HashService,
   ) {}
 
   async validate({ sub, crypto }: JwtPayload) {
-
     if (sub === 'test') {
       console.log(this.comparePassword('123456', crypto))
       return this.comparePassword('123456', crypto)
@@ -23,7 +22,7 @@ export class AuthPowerService {
     return {
       id: sub,
       crypto,
-    };
+    }
     // const user = await prisma.sys_user.findUnique({
     //   where: {
     //     id: sub,
@@ -49,6 +48,7 @@ export class AuthPowerService {
     // if (!this.comparePassword(user.password!, crypto)) return null;
     // return user;
   }
+
   /**
    * 生成JWT Token
    */
@@ -56,23 +56,23 @@ export class AuthPowerService {
     const payload: JwtPayload = {
       sub: user.id,
       crypto: this.hashPassword(user.password),
-    };
-    return this.jwtService.sign(payload);
+    }
+    return this.jwtService.sign(payload)
   }
 
   /**
    * 密码加密
    */
   hashPassword(password: string) {
-    const { salt, hash } = this.hashService.cryptoPassword(password);
-    return `${salt}:${hash}`;
+    const { salt, hash } = this.hashService.cryptoPassword(password)
+    return `${salt}:${hash}`
   }
 
   /**
    * 密码验证
    */
   comparePassword(password: string, hashedPassword: string) {
-    const [salt, hash] = hashedPassword.split(':');
-    return this.hashService.verifyPassword(password, salt, hash);
+    const [salt, hash] = hashedPassword.split(':')
+    return this.hashService.verifyPassword(password, salt, hash)
   }
 }

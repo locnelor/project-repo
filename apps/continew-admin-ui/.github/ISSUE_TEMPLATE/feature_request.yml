@@ -1,7 +1,7 @@
-name: "\U0001F680 新 Feature 建议"
+name: 🚀 新 Feature 建议
 description: 我希望增加 xxx 功能；现有的 xxx 功能不好用...
-title: "[Feature] "
-labels: ["feature"]
+title: '[Feature] '
+labels: [feature]
 body:
   - type: markdown
     attributes:

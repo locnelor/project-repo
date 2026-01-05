@@ -120,11 +120,13 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
+import type { FieldConfigResp, GeneratorConfigResp } from '@/apis/code/generator'
+import type { ColumnItem } from '@/components/GiForm'
+import type { LabelValueState } from '@/types/global'
 import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
-import { type FieldConfigResp, type GeneratorConfigResp, getGenConfig, listFieldConfig, listFieldConfigDict, saveGenConfig } from '@/apis/code/generator'
-import type { LabelValueState } from '@/types/global'
-import { type ColumnItem, GiForm } from '@/components/GiForm'
+import { getGenConfig, listFieldConfig, listFieldConfigDict, saveGenConfig } from '@/apis/code/generator'
+import { GiForm } from '@/components/GiForm'
 import { useResetReactive } from '@/hooks'
 import { useDict } from '@/hooks/app'
 

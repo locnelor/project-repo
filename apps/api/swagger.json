@@ -41,16 +41,6 @@
       "post": {
         "operationId": "AuthController_login",
         "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "账号密码登录",
@@ -95,16 +85,6 @@
       "post": {
         "operationId": "AuthController_register",
         "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "注册用户",
@@ -127,16 +107,6 @@
       "post": {
         "operationId": "UserController_create",
         "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUserDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "创建用户",
@@ -156,28 +126,7 @@
       },
       "get": {
         "operationId": "UserController_findAll",
-        "parameters": [
-          {
-            "name": "pageNo",
-            "required": false,
-            "in": "query",
-            "description": "当前页码",
-            "schema": {
-              "default": 1,
-              "type": "number"
-            }
-          },
-          {
-            "name": "pageSize",
-            "required": false,
-            "in": "query",
-            "description": "每页数据条数",
-            "schema": {
-              "default": 10,
-              "type": "number"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "查询所有用户",
@@ -238,16 +187,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateUserDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "更新用户",
@@ -299,16 +238,6 @@
       "post": {
         "operationId": "RoleController_create",
         "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateRoleDto"
-              }
-            }
-          }
-        },
         "responses": {
           "201": {
             "description": ""
@@ -365,16 +294,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateRoleDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": ""
@@ -442,28 +361,7 @@
       "get": {
         "description": "获取菜单列表",
         "operationId": "MenuController_findList",
-        "parameters": [
-          {
-            "name": "pageNo",
-            "required": false,
-            "in": "query",
-            "description": "当前页码",
-            "schema": {
-              "default": 1,
-              "type": "number"
-            }
-          },
-          {
-            "name": "pageSize",
-            "required": false,
-            "in": "query",
-            "description": "每页数据条数",
-            "schema": {
-              "default": 10,
-              "type": "number"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "",
@@ -487,16 +385,6 @@
         "description": "创建菜单",
         "operationId": "MenuController_create",
         "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateMenuDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "",
@@ -529,16 +417,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateMenuDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "",
@@ -778,23 +656,6 @@
           "data"
         ]
       },
-      "LoginDto": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string",
-            "description": "用户名"
-          },
-          "password": {
-            "type": "string",
-            "description": "密码"
-          }
-        },
-        "required": [
-          "username",
-          "password"
-        ]
-      },
       "UserInfoDto": {
         "type": "object",
         "properties": {
@@ -1005,36 +866,6 @@
           "data"
         ]
       },
-      "RegisterDto": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string",
-            "description": "用户名"
-          },
-          "password": {
-            "type": "string",
-            "description": "密码"
-          }
-        }
-      },
-      "CreateUserDto": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string",
-            "description": "用户名"
-          },
-          "phone": {
-            "type": "string",
-            "description": "手机号"
-          },
-          "email": {
-            "type": "string",
-            "description": "邮箱"
-          }
-        }
-      },
       "PaginationResultDto": {
         "type": "object",
         "properties": {
@@ -1082,57 +913,6 @@
         "required": [
           "data"
         ]
-      },
-      "UpdateUserDto": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string",
-            "description": "用户名"
-          },
-          "phone": {
-            "type": "string",
-            "description": "手机号"
-          },
-          "email": {
-            "type": "string",
-            "description": "邮箱"
-          }
-        }
-      },
-      "CreateRoleDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "角色名称",
-            "maxLength": 255,
-            "example": "管理员"
-          },
-          "description": {
-            "type": "string",
-            "description": "角色描述",
-            "maxLength": 500,
-            "example": "系统管理员角色"
-          }
-        }
-      },
-      "UpdateRoleDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "角色名称",
-            "maxLength": 255,
-            "example": "管理员"
-          },
-          "description": {
-            "type": "string",
-            "description": "角色描述",
-            "maxLength": 500,
-            "example": "系统管理员角色"
-          }
-        }
       },
       "SysMenuModel": {
         "type": "object",
@@ -1251,10 +1031,6 @@
           "data"
         ]
       },
-      "CreateMenuDto": {
-        "type": "object",
-        "properties": {}
-      },
       "TestDto": {
         "type": "object",
         "properties": {
@@ -1290,6 +1066,23 @@
         "required": [
           "data"
         ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "用户名"
+          },
+          "phone": {
+            "type": "string",
+            "description": "手机号"
+          },
+          "email": {
+            "type": "string",
+            "description": "邮箱"
+          }
+        }
       }
     }
   },

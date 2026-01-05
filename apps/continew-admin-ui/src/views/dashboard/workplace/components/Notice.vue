@@ -34,7 +34,8 @@
 </template>
 
 <script setup lang="ts">
-import { type DashboardNoticeResp, listDashboardNotice } from '@/apis'
+import type { DashboardNoticeResp } from '@/apis'
+import { listDashboardNotice } from '@/apis'
 
 const dataList = ref<DashboardNoticeResp[]>([])
 const loading = ref(false)

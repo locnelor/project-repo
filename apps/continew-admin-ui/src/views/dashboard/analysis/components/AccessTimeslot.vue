@@ -7,10 +7,12 @@
 </template>
 
 <script setup lang="ts">
-import { type EChartsOption, graphic } from 'echarts'
-import { useChart } from '@/hooks'
-import { type DashboardChartCommonResp, getAnalysisTimeslot as getData } from '@/apis/common'
+import type { EChartsOption } from 'echarts'
+import type { DashboardChartCommonResp } from '@/apis/common'
+import { graphic } from 'echarts'
+import { getAnalysisTimeslot as getData } from '@/apis/common'
 import handleIcon from '@/assets/icons/slider.svg'
+import { useChart } from '@/hooks'
 
 // 提示框
 const tooltipItemsHtmlString = (items) => {

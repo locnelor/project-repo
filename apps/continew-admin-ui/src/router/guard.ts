@@ -1,6 +1,6 @@
+import type { Router } from 'vue-router'
 import { Button, Message, Notification, Space } from '@arco-design/web-vue'
 import NProgress from 'nprogress'
-import type { Router } from 'vue-router'
 import { useRouteStore, useUserStore } from '@/stores'
 import { getToken } from '@/utils/auth'
 import { isHttp } from '@/utils/validate'

@@ -1,34 +1,34 @@
-import { SysUserSocial } from '@repo/database';
-import { ApiField } from '@app/api-kit';
-import { SysUserModel } from './SysUser';
+import type { SysUserSocial } from '@repo/database'
+import type { SysUserModel } from './SysUser'
+import { ApiField } from '@app/api-kit'
 
 export class SysUserSocialModel implements SysUserSocial {
   @ApiField({ description: '主键ID', type: BigInt, required: true })
-  id: bigint;
+  id: bigint
 
   @ApiField({ description: '创建时间', type: Date, required: true })
-  createTime: Date;
+  createTime: Date
 
   @ApiField({ description: '修改时间', type: Date, nullable: true })
-  updateTime: Date | null;
+  updateTime: Date | null
 
   @ApiField({ description: '是否已删除', type: BigInt, required: true })
-  deleted: bigint;
+  deleted: bigint
 
   @ApiField({ description: '来源', type: String, required: true })
-  source: string;
+  source: string
 
   @ApiField({ description: '开放ID', type: String, required: true })
-  openId: string;
+  openId: string
 
   @ApiField({ description: '用户ID', type: BigInt, required: true })
-  userId: bigint;
+  userId: bigint
 
   @ApiField({ description: '附加信息', type: String, nullable: true })
-  metaJson: string | null;
+  metaJson: string | null
 
   @ApiField({ description: '最后登录时间', type: Date, nullable: true })
-  lastLoginTime: Date | null;
+  lastLoginTime: Date | null
 
-  user?: SysUserModel;
+  user?: SysUserModel
 }

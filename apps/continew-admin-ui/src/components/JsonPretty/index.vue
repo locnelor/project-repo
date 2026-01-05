@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import JsonViewer from 'vue-json-viewer'
 import { useTheme } from '@arco-design/web-vue/es/watermark/hooks/use-theme'
+import JsonViewer from 'vue-json-viewer'
 import { copyText } from '@/utils'
 
 defineOptions({ name: 'JsonPretty', inheritAttrs: false })
@@ -27,7 +27,7 @@ const currentThemeClass = computed(() => (theme.value === 'dark' ? 'vscode-dark'
 </script>
 
 <style scoped lang="scss">
-@use "./json-them.scss";
+@use './json-them.scss';
 .json_pretty_container {
   width: 100%;
   height: 100%;

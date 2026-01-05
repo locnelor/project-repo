@@ -1,16 +1,16 @@
-import { SysRoleMenu } from '@repo/database';
-import { ApiField } from '@app/api-kit';
-import { SysRoleModel } from './SysRole';
-import { SysMenuModel } from './SysMenu';
+import type { SysRoleMenu } from '@repo/database'
+import type { SysMenuModel } from './SysMenu'
+import type { SysRoleModel } from './SysRole'
+import { ApiField } from '@app/api-kit'
 
 export class SysRoleMenuModel implements SysRoleMenu {
   @ApiField({ description: '角色ID', type: BigInt, required: true })
-  roleId: bigint;
+  roleId: bigint
 
   @ApiField({ description: '菜单ID', type: BigInt, required: true })
-  menuId: bigint;
+  menuId: bigint
 
-  role?: SysRoleModel;
+  role?: SysRoleModel
 
-  menu?: SysMenuModel;
+  menu?: SysMenuModel
 }

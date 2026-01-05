@@ -1,6 +1,6 @@
-import { defineConfig, env } from 'prisma/config'
+import path from 'node:path'
 import dotenv from 'dotenv'
-import path from 'path'
+import { defineConfig, env } from 'prisma/config'
 
 dotenv.config({ path: path.join(__dirname, '.env') })
 dotenv.config({ path: path.join(__dirname, '../../.env') })

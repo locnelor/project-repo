@@ -104,11 +104,12 @@
 </template>
 
 <script setup lang="ts">
+import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios from 'axios'
 import dayjs from 'dayjs'
-import 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios'
 import qs from 'query-string'
+import 'dayjs/locale/zh-cn'
 
 dayjs.extend(relativeTime)
 dayjs.locale('zh-cn')

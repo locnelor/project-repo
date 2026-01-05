@@ -76,8 +76,8 @@ import {
   checkBehaviorCaptcha,
   getBehaviorCaptcha,
 } from '@/apis/common/captcha'
-import { resetSize } from '@/utils/verify'
 import { encryptByAes } from '@/utils/encrypt'
+import { resetSize } from '@/utils/verify'
 
 export default {
   name: 'VerifyPoints',
@@ -225,9 +225,9 @@ export default {
           // 发送后端请求
           const captchaVerification = secretKey.value
             ? encryptByAes(
-                  `${backToken.value}---${JSON.stringify(checkPosArr)}`,
-                  secretKey.value,
-            )
+                `${backToken.value}---${JSON.stringify(checkPosArr)}`,
+                secretKey.value,
+              )
             : `${backToken.value}---${JSON.stringify(checkPosArr)}`
           const data = {
             captchaType: captchaType.value,

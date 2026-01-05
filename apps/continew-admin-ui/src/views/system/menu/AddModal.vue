@@ -140,13 +140,15 @@
 </template>
 
 <script setup lang="ts">
-import { type ColProps, type FormInstance, Message, type TreeNodeData } from '@arco-design/web-vue'
+import type { ColProps, FormInstance, TreeNodeData } from '@arco-design/web-vue'
+import type { MenuResp } from '@/apis/system/menu'
+import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
 import { mapTree } from 'xe-utils'
-import { type MenuResp, addMenu, getMenu, updateMenu } from '@/apis/system/menu'
+import { addMenu, getMenu, updateMenu } from '@/apis/system/menu'
 import { useResetReactive } from '@/hooks'
-import { filterTree, transformPathToName } from '@/utils'
 import { useComponentPaths } from '@/hooks/modules/useComponentPaths'
+import { filterTree, transformPathToName } from '@/utils'
 
 interface Props {
   menus: MenuResp[]

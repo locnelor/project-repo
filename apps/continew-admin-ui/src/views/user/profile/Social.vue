@@ -44,10 +44,10 @@
 </template>
 
 <script setup lang="ts">
-import { Message } from '@arco-design/web-vue'
 import type { ModeItem } from '../type'
-import VerifyModel from '../components/VerifyModel.vue'
+import { Message } from '@arco-design/web-vue'
 import { listUserSocial, socialAuth, unbindSocialAccount } from '@/apis'
+import VerifyModel from '../components/VerifyModel.vue'
 
 const socialList = ref<any>([])
 const modeList = ref<ModeItem[]>([])

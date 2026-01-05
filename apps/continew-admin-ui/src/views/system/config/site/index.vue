@@ -122,16 +122,18 @@
 </template>
 
 <script setup lang="ts">
-import { type FileItem, type FormInstance, Message, Modal, type RequestOption } from '@arco-design/web-vue'
+import type { FileItem, FormInstance, RequestOption } from '@arco-design/web-vue'
+import type { OptionResp, SiteConfig } from '@/apis/system'
+import { Message, Modal } from '@arco-design/web-vue'
 import {
-  type OptionResp,
-  type SiteConfig,
   listOption,
+
   resetOptionValue,
+
   updateOption,
 } from '@/apis/system'
-import { useAppStore } from '@/stores'
 import { useResetReactive } from '@/hooks'
+import { useAppStore } from '@/stores'
 import { fileToBase64 } from '@/utils'
 
 defineOptions({ name: 'SystemSiteConfig' })
@@ -241,15 +243,13 @@ const handleUploadFavicon = (options: RequestOption) => {
     if (!fileItem.file) {
       return
     }
-    fileToBase64(fileItem.file).then()
-      .then((res) => {
-        onSuccess()
-        form.SITE_FAVICON = res
-        Message.success('上传成功')
-      })
-      .catch((error) => {
-        onError(error)
-      })
+    fileToBase64(fileItem.file).then().then((res) => {
+      onSuccess()
+      form.SITE_FAVICON = res
+      Message.success('上传成功')
+    }).catch((error) => {
+      onError(error)
+    })
   })()
   return {
     abort() {
@@ -272,15 +272,13 @@ const handleUploadLogo = (options: RequestOption) => {
     if (!fileItem.file) {
       return
     }
-    fileToBase64(fileItem.file).then()
-      .then((res) => {
-        onSuccess()
-        form.SITE_LOGO = res
-        Message.success('上传成功')
-      })
-      .catch((error) => {
-        onError(error)
-      })
+    fileToBase64(fileItem.file).then().then((res) => {
+      onSuccess()
+      form.SITE_LOGO = res
+      Message.success('上传成功')
+    }).catch((error) => {
+      onError(error)
+    })
   })()
   return {
     abort() {

@@ -10,8 +10,9 @@
 
 <script setup lang="ts">
 import type { EChartsOption } from 'echarts'
+import type { DashboardChartCommonResp } from '@/apis/common'
+import { getAnalysisModule as getData } from '@/apis/common'
 import { useChart } from '@/hooks'
-import { type DashboardChartCommonResp, getAnalysisModule as getData } from '@/apis/common'
 
 const yAxis = ref<string[]>([])
 const chartData = ref([])

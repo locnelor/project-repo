@@ -17,11 +17,11 @@
 </template>
 
 <script setup lang="ts">
-import Menu from '../Menu/index.vue'
-import Logo from '../Logo.vue'
-import WwAds from '../WwAds.vue'
-import { useAppStore } from '@/stores'
 import { useDevice } from '@/hooks'
+import { useAppStore } from '@/stores'
+import Logo from '../Logo.vue'
+import Menu from '../Menu/index.vue'
+import WwAds from '../WwAds.vue'
 
 defineOptions({ name: 'Asider' })
 const appStore = useAppStore()
@@ -34,7 +34,6 @@ const handleCollapse = (isCollapsed: boolean) => {
 
 <style scoped lang="scss">
 :deep(.arco-menu.arco-menu-vertical.arco-menu-collapsed) {
-
   // Menu菜单组件修改
   .arco-menu-icon {
     margin-right: 0;

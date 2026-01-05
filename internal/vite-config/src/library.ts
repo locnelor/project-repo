@@ -1,6 +1,5 @@
-import { defineConfig, mergeConfig, type UserConfig } from "vite"
-
-
+import type { UserConfig } from 'vite'
+import { defineConfig, mergeConfig } from 'vite'
 
 export const defineLibraryConfig = (userConfig: UserConfig = {}) => {
   const config = defineConfig({

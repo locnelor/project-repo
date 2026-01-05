@@ -28,7 +28,7 @@ appStore.initSiteConfig()
 
 <style scoped lang="scss">
 .loading-icon {
-  animation: arco-loading-circle 1s infinite cubic-bezier(0,0,1,1);
+  animation: arco-loading-circle 1s infinite cubic-bezier(0, 0, 1, 1);
 }
 
 :deep(.arco-empty-image) img {

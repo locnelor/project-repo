@@ -42,8 +42,9 @@
 </template>
 
 <script setup lang="ts">
-import { type FormInstance, Message } from '@arco-design/web-vue'
+import type { FormInstance } from '@arco-design/web-vue'
 import type { BehaviorCaptchaReq } from '@/apis'
+import { Message } from '@arco-design/web-vue'
 // import { type BehaviorCaptchaReq, getEmailCaptcha } from '@/apis'
 import { useTabsStore, useTenantStore, useUserStore } from '@/stores'
 import * as Regexp from '@/utils/regexp'

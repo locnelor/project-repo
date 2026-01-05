@@ -1,6 +1,6 @@
+import type { LabelValueState } from '@/types/global'
 import { ref } from 'vue'
 import { listRoleDict } from '@/apis/system'
-import type { LabelValueState } from '@/types/global'
 
 /** 角色模块 */
 export function useRole(options?: { onSuccess?: () => void }) {

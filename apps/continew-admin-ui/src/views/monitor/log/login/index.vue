@@ -41,9 +41,10 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs'
 import type { TableInstance } from '@arco-design/web-vue'
-import { type LogQuery, exportLoginLog, listLog } from '@/apis/monitor'
+import type { LogQuery } from '@/apis/monitor'
+import dayjs from 'dayjs'
+import { exportLoginLog, listLog } from '@/apis/monitor'
 import DateRangePicker from '@/components/DateRangePicker/index.vue'
 import { useDownload, useTable } from '@/hooks'
 

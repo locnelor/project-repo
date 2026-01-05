@@ -1,18 +1,16 @@
+import { IgnorePermission } from '@app/auth-power'
+import { Controller, Get, Inject } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
+import { AppService } from './app.service'
 
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
-import { ApiTags } from '@nestjs/swagger';
-import { IgnorePermission } from '@app/auth-power';
-
-
-@Controller("app")
-@ApiTags("appTag")
+@Controller('app')
+@ApiTags('appTag')
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(@Inject(AppService) private readonly appService: AppService) { }
 
   @Get()
   @IgnorePermission()
   getHello(): string {
-    return this.appService.getHello();
+    return this.appService.getHello()
   }
 }

@@ -38,8 +38,8 @@
 
 <script type="text/babel">
 import { computed, ref, toRefs, watchEffect } from 'vue'
-import VerifySlide from './Verify/VerifySlide.vue'
 import VerifyPoints from './Verify/VerifyPoints.vue'
+import VerifySlide from './Verify/VerifySlide.vue'
 
 export default {
   name: 'Vue2Verify',

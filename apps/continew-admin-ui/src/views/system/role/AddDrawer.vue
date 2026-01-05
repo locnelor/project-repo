@@ -62,13 +62,14 @@
 </template>
 
 <script setup lang="ts">
-import { type FormInstance, Message, type TreeNodeData } from '@arco-design/web-vue'
-import { useWindowSize } from '@vueuse/core'
+import type { FormInstance, TreeNodeData } from '@arco-design/web-vue'
 import type { GiForm } from '@/components/GiForm'
+import { Message } from '@arco-design/web-vue'
+import { useWindowSize } from '@vueuse/core'
 
+import { addRole, getRole, updateRole } from '@/apis'
 import { useResetReactive } from '@/hooks'
 import { useDept, useDict } from '@/hooks/app'
-import { addRole, getRole, updateRole } from '@/apis'
 
 const emit = defineEmits<{
   (e: 'save-success'): void

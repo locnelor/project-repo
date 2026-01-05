@@ -96,13 +96,14 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
-import { Message, Modal } from '@arco-design/web-vue'
-import AddModal from './AddModal.vue'
-import { type MenuResp, clearMenuCache, deleteMenu, listMenu } from '@/apis/system/menu'
+import type { MenuResp } from '@/apis/system/menu'
 import type GiTable from '@/components/GiTable/index.vue'
+import { Message, Modal } from '@arco-design/web-vue'
+import { clearMenuCache, deleteMenu, listMenu } from '@/apis/system/menu'
 import { useTable } from '@/hooks'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
+import AddModal from './AddModal.vue'
 
 defineOptions({ name: 'SystemMenu' })
 

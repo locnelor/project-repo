@@ -1,31 +1,34 @@
-import { FileService } from '@app/file';
-import { Injectable } from '@nestjs/common';
-import { defaultWebsiteConfig } from './types';
+import { Inject, Injectable } from '@nestjs/common'
+import { FileService } from '@app/file'
+import { defaultWebsiteConfig } from './types'
 
-let config = defaultWebsiteConfig;
+let config = defaultWebsiteConfig
 @Injectable()
 export class WebsiteService {
-    constructor(private readonly fileService: FileService) {
-        this.init();
-    }
-    private init() {
-        config.crypto = process.env.DEFAULT_CRYPTO === 'true';
-        const data = this.fileService.website.getFile('website.json');
-        if (!data) {
-            this.updateConfig(config);
-            return;
-        }
-        config = JSON.parse(data.toString());
-    }
-    updateConfig(body: any) {
-        this.fileService.website.writeFile("website.json", body);
-        config = body;
-    }
+  constructor(@Inject(FileService) private readonly fileService: FileService) {
+    this.init()
+  }
 
-    getConfig() {
-        return config;
+  private init() {
+    config.crypto = process.env.DEFAULT_CRYPTO === 'true'
+    const data = this.fileService.website.getFile('website.json')
+    if (!data) {
+      this.updateConfig(config)
+      return
     }
-    static getConfig() {
-        return config;
-    }
+    config = JSON.parse(data.toString())
+  }
+
+  updateConfig(body: any) {
+    this.fileService.website.writeFile('website.json', body)
+    config = body
+  }
+
+  getConfig() {
+    return config
+  }
+
+  static getConfig() {
+    return config
+  }
 }

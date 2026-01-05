@@ -36,15 +36,15 @@
 
 <script setup lang="tsx">
 import { useRoute, useRouter } from 'vue-router'
-import SiteConfig from './site/index.vue'
-import SecurityConfig from './security/index.vue'
-import LoginConfig from './login/index.vue'
-import MailConfig from './mail/index.vue'
-import SmsConfig from './sms/index.vue'
-import StorageConfig from './storage/index.vue'
-import ClientConfig from './client/index.vue'
 import { useDevice } from '@/hooks'
 import has from '@/utils/has'
+import ClientConfig from './client/index.vue'
+import LoginConfig from './login/index.vue'
+import MailConfig from './mail/index.vue'
+import SecurityConfig from './security/index.vue'
+import SiteConfig from './site/index.vue'
+import SmsConfig from './sms/index.vue'
+import StorageConfig from './storage/index.vue'
 
 defineOptions({ name: 'SystemConfig' })
 
@@ -89,7 +89,7 @@ const change = (key: string | number) => {
   padding-top: 0;
 }
 
-.tab-pane-item{
+.tab-pane-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -130,8 +130,10 @@ const change = (key: string | number) => {
 }
 
 :deep(.arco-tabs .arco-tabs-nav-type-card-gutter .arco-tabs-tab-active) {
-  box-shadow: inset 0 2px 0 rgb(var(--primary-6)), inset -1px 0 0 var(--color-border-2),
-  inset 1px 0 0 var(--color-border-2);
+  box-shadow:
+    inset 0 2px 0 rgb(var(--primary-6)),
+    inset -1px 0 0 var(--color-border-2),
+    inset 1px 0 0 var(--color-border-2);
   position: relative;
 }
 
@@ -156,11 +158,11 @@ const change = (key: string | number) => {
   overflow: visible;
 }
 
-:deep(.arco-tabs-nav-type-rounded .arco-tabs-tab){
+:deep(.arco-tabs-nav-type-rounded .arco-tabs-tab) {
   border-radius: 8px;
 }
 
-:deep(.arco-tabs-tab-title){
+:deep(.arco-tabs-tab-title) {
   width: 100%;
 }
 </style>

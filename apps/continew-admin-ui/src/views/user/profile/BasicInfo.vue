@@ -96,14 +96,15 @@
 </template>
 
 <script setup lang="ts">
+import type { FileItem } from '@arco-design/web-vue'
+import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
-import { type FileItem, Message } from '@arco-design/web-vue'
 import { VueCropper } from 'vue-cropper'
-import BasicInfoUpdateModal from './BasicInfoUpdateModal.vue'
 import { uploadAvatar } from '@/apis/system'
-import 'vue-cropper/dist/index.css'
 import { useUserStore } from '@/stores'
 import getAvatar from '@/utils/avatar'
+import BasicInfoUpdateModal from './BasicInfoUpdateModal.vue'
+import 'vue-cropper/dist/index.css'
 
 const { width } = useWindowSize()
 const userStore = useUserStore()

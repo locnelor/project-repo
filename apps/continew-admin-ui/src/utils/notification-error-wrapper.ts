@@ -1,4 +1,5 @@
-import { Notification, type NotificationReturn } from '@arco-design/web-vue'
+import type { NotificationReturn } from '@arco-design/web-vue'
+import { Notification } from '@arco-design/web-vue'
 
 let notificationInstance: NotificationReturn | null
 const notificationErrorWrapper = (options: any) => {

@@ -16,9 +16,10 @@
 </template>
 
 <script setup lang="ts">
-import { AiEditor, type AiEditorOptions } from 'aieditor'
-import 'aieditor/dist/style.css'
+import type { AiEditorOptions } from 'aieditor'
+import { AiEditor } from 'aieditor'
 import { useAppStore } from '@/stores'
+import 'aieditor/dist/style.css'
 
 defineOptions({ name: 'AiEditor' })
 const props = defineProps<{
@@ -76,7 +77,7 @@ onUnmounted(() => {
   z-index: 1;
 }
 
-.aie-header-panel aie-header>div {
+.aie-header-panel aie-header > div {
   align-items: center;
   justify-content: center;
   padding: 10px 0;
@@ -91,7 +92,7 @@ onUnmounted(() => {
   max-width: 826.77px;
   margin: 0rem auto;
   border: 1px solid var(--color-border-1);
-  background-color: var() rgba($color: var(--color-bg-1), $alpha: 1.0);
+  background-color: var() rgba($color: var(--color-bg-1), $alpha: 1);
   height: 100%;
   padding: 1rem;
   z-index: 99;
@@ -114,7 +115,6 @@ onUnmounted(() => {
   left: 10px;
   width: 260px;
   z-index: 0;
-
 }
 
 .aie-title1 {

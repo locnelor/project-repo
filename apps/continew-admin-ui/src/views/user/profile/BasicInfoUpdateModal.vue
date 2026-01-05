@@ -14,12 +14,13 @@
 </template>
 
 <script setup lang="ts">
-import { useWindowSize } from '@vueuse/core'
+import type { ColumnItem } from '@/components/GiForm'
 import { Message } from '@arco-design/web-vue'
+import { useWindowSize } from '@vueuse/core'
 import { updateUserBaseInfo } from '@/apis/system'
-import { type ColumnItem, GiForm } from '@/components/GiForm'
-import { useUserStore } from '@/stores'
+import { GiForm } from '@/components/GiForm'
 import { useResetReactive } from '@/hooks'
+import { useUserStore } from '@/stores'
 
 const { width } = useWindowSize()
 const userStore = useUserStore()

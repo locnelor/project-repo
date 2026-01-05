@@ -107,7 +107,6 @@ watch(() => breakpoint.value, (val) => {
   }
 
   &--padding {
-
     .gi-page-layout__left,
     .gi-page-layout__header,
     .gi-page-layout__body {
@@ -185,8 +184,8 @@ watch(() => breakpoint.value, (val) => {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 
-.gi-page-layout__mask{
-  content: "";
+.gi-page-layout__mask {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

@@ -19,8 +19,9 @@
 </template>
 
 <script setup lang="ts">
+import type { AppResp } from '@/apis/open/app'
 import { useWindowSize } from '@vueuse/core'
-import { type AppResp, getApp as getDetail } from '@/apis/open/app'
+import { getApp as getDetail } from '@/apis/open/app'
 
 const { width } = useWindowSize()
 

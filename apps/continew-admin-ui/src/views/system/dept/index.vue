@@ -92,15 +92,16 @@
 </template>
 
 <script setup lang="ts">
-import 'vue3-tree-org/lib/vue3-tree-org.css'
-import { Vue3TreeOrg } from 'vue3-tree-org'
 import type { TableInstance } from '@arco-design/web-vue'
-import AddModal from './AddModal.vue'
-import { type DeptQuery, type DeptResp, deleteDept, exportDept, listDept } from '@/apis/system/dept'
+import type { DeptQuery, DeptResp } from '@/apis/system/dept'
 import type GiTable from '@/components/GiTable/index.vue'
+import { Vue3TreeOrg } from 'vue3-tree-org'
+import { deleteDept, exportDept, listDept } from '@/apis/system/dept'
 import { useDownload, useTable } from '@/hooks'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
+import AddModal from './AddModal.vue'
+import 'vue3-tree-org/lib/vue3-tree-org.css'
 
 defineOptions({ name: 'SystemDept' })
 
@@ -259,7 +260,7 @@ const onUpdate = (record: DeptResp) => {
     list-style: none !important;
   }
 }
-:deep(.tree-org-node__expand){
+:deep(.tree-org-node__expand) {
   background-color: var(--color-bg-1) !important;
 }
 </style>

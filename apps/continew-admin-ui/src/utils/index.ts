@@ -1,7 +1,7 @@
-import { browse, mapTree } from 'xe-utils'
-import { camelCase, upperFirst } from 'lodash-es'
 import { Message } from '@arco-design/web-vue'
 import CronParser from 'cron-parser'
+import { camelCase, upperFirst } from 'lodash-es'
+import { browse, mapTree } from 'xe-utils'
 import { isExternal } from '@/utils/validate'
 
 export function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
@@ -201,7 +201,7 @@ export const transformPathToName = (path: string) => {
  */
 type FilterTree = <T extends { children?: T[] }>(
   array: T[],
-  iterate: (item: T, index?: number, items?: T[]) => boolean
+  iterate: (item: T, index?: number, items?: T[]) => boolean,
 ) => T[]
 export const filterTree: FilterTree = (values, fn) => {
   const arr = values.filter(fn)

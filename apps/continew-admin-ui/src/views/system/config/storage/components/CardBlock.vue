@@ -76,11 +76,12 @@
 </template>
 
 <script lang="ts" setup>
+import type { StorageResp } from '@/apis/system'
 import { Message, Modal } from '@arco-design/web-vue'
-import AddModal from '../AddModal.vue'
-import has from '@/utils/has'
-import { type StorageResp, deleteStorage, setDefaultStorage, updateStorageStatus } from '@/apis/system'
+import { deleteStorage, setDefaultStorage, updateStorageStatus } from '@/apis/system'
 import { useDict } from '@/hooks/app'
+import has from '@/utils/has'
+import AddModal from '../AddModal.vue'
 
 interface Props {
   loading: boolean

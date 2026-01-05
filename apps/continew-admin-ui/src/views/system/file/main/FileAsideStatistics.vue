@@ -17,14 +17,15 @@
 </template>
 
 <script setup lang="ts">
-import VCharts from 'vue-echarts'
-import { use } from 'echarts/core'
+import type { FileStatisticsResp } from '@/apis/system'
 import { PieChart } from 'echarts/charts'
 import { LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components'
+import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
+import VCharts from 'vue-echarts'
+import { getFileStatistics } from '@/apis/system'
 import { FileTypeList } from '@/constant/file'
 import { useChart } from '@/hooks'
-import { type FileStatisticsResp, getFileStatistics } from '@/apis/system'
 import { formatFileSize } from '@/utils'
 import mittBus from '@/utils/mitt'
 

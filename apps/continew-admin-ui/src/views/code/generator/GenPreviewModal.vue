@@ -68,9 +68,11 @@
 </template>
 
 <script setup lang="ts">
-import { Message, type TreeNodeData } from '@arco-design/web-vue'
+import type { TreeNodeData } from '@arco-design/web-vue'
+import type { GeneratePreviewResp } from '@/apis/code/generator'
+import { Message } from '@arco-design/web-vue'
 import { useClipboard } from '@vueuse/core'
-import { type GeneratePreviewResp, genPreview } from '@/apis/code/generator'
+import { genPreview } from '@/apis/code/generator'
 
 const emit = defineEmits(['download', 'generate'])
 const { copy, copied } = useClipboard()

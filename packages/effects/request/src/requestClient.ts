@@ -4,43 +4,45 @@ import type {
   AxiosResponse,
   CreateAxiosDefaults,
   InternalAxiosRequestConfig,
-} from "axios";
-import axios from "axios";
+} from 'axios'
+import axios from 'axios'
 
-type InterceptorRequestFulfilled = (req: InternalAxiosRequestConfig) => any;
-type InterceptorResponseFulfilled = (res: AxiosResponse<any, any>) => any;
+type InterceptorRequestFulfilled = (req: InternalAxiosRequestConfig) => any
+type InterceptorResponseFulfilled = (res: AxiosResponse<any, any>) => any
 export class RequestClient {
-  private readonly instance: AxiosInstance;
-  private download = "";
-  private upload = "";
+  private readonly instance: AxiosInstance
+  private download = ''
+  private upload = ''
   constructor(options: CreateAxiosDefaults) {
-    this.instance = axios.create(options);
+    this.instance = axios.create(options)
   }
+
   addRequestInterceptor(
     fulfilled: InterceptorRequestFulfilled,
     rejected = (error: any) => error,
   ) {
-    this.instance.interceptors.request.use(fulfilled, rejected);
+    this.instance.interceptors.request.use(fulfilled, rejected)
   }
+
   addResponseInterceptor(
     fulfilled: InterceptorResponseFulfilled,
     rejected = (error: any) => error,
   ) {
-    this.instance.interceptors.response.use(fulfilled, rejected);
+    this.instance.interceptors.response.use(fulfilled, rejected)
   }
 
   /**
    * DELETE请求方法
    */
   public delete<T = any>(url: string, config?: RequestClient): Promise<T> {
-    return this.request<T>(url, { ...config, method: "DELETE" });
+    return this.request<T>(url, { ...config, method: 'DELETE' })
   }
 
   /**
    * GET请求方法
    */
   public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    return this.request<T>(url, { ...config, method: "GET" });
+    return this.request<T>(url, { ...config, method: 'GET' })
   }
 
   /**
@@ -51,7 +53,7 @@ export class RequestClient {
     data?: any,
     config?: AxiosRequestConfig,
   ): Promise<T> {
-    return this.request<T>(url, { ...config, data, method: "POST" });
+    return this.request<T>(url, { ...config, data, method: 'POST' })
   }
 
   /**
@@ -62,7 +64,7 @@ export class RequestClient {
     data?: any,
     config?: AxiosRequestConfig,
   ): Promise<T> {
-    return this.request<T>(url, { ...config, data, method: "PUT" });
+    return this.request<T>(url, { ...config, data, method: 'PUT' })
   }
 
   /**
@@ -73,10 +75,10 @@ export class RequestClient {
       const response: AxiosResponse<T> = await this.instance({
         url,
         ...config,
-      });
-      return response.data as T;
+      })
+      return response.data as T
     } catch (error: any) {
-      throw error.response ? error.response.data : error;
+      throw error.response ? error.response.data : error
     }
   }
 }

@@ -67,13 +67,14 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
+import type { DictItemQuery, DictItemResp } from '@/apis/system/dict'
 import { Message, Modal } from '@arco-design/web-vue'
-import DictTree from './tree/index.vue'
-import DictItemAddModal from './DictItemAddModal.vue'
-import { type DictItemQuery, type DictItemResp, clearDictCache, deleteDictItem, listDictItem } from '@/apis/system/dict'
+import { clearDictCache, deleteDictItem, listDictItem } from '@/apis/system/dict'
 import { useTable } from '@/hooks'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
+import DictItemAddModal from './DictItemAddModal.vue'
+import DictTree from './tree/index.vue'
 
 defineOptions({ name: 'SystemDict' })
 

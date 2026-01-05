@@ -1,15 +1,15 @@
-export * from "./interface";
-export * from "./deep-copy";
-export * from "./tree";
-export * from "./merge-route-modules";
-export * from "./numberToChinese";
-export * from "./timer";
-export * from "./inference";
-export * from "./merge";
-export * from "./letter";
-export { get } from "lodash";
-export { set } from "lodash";
-export { isEqual } from "lodash";
-export { merge } from "lodash";
-export * from "./type";
-export * from "./state-handler";
+export * from './deep-copy'
+export * from './inference'
+export * from './interface'
+export * from './letter'
+export * from './merge'
+export * from './merge-route-modules'
+export * from './numberToChinese'
+export * from './state-handler'
+export * from './timer'
+export * from './tree'
+export * from './type'
+export { get } from 'lodash'
+export { set } from 'lodash'
+export { isEqual } from 'lodash'
+export { merge } from 'lodash'

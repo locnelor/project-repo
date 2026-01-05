@@ -42,10 +42,11 @@
 </template>
 
 <script setup lang="ts">
+import type { FileItem } from '@/apis/system'
 import { Message } from '@arco-design/web-vue'
-import FileImage from '../../main/FileMain/FileImage.vue'
-import { type FileItem, calcDirSize } from '@/apis/system'
+import { calcDirSize } from '@/apis/system'
 import { formatFileSize } from '@/utils'
+import FileImage from '../../main/FileMain/FileImage.vue'
 
 interface Props {
   data: FileItem

@@ -1,5 +1,5 @@
-export interface Pagination<T>{
-    pageNo: number;
-    pageSize: number;
-    records: T[];
+export interface Pagination<T> {
+  pageNo: number
+  pageSize: number
+  records: T[]
 }

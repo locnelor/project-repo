@@ -37,13 +37,13 @@
 </template>
 
 <script setup lang="ts">
-import Welcome from './components/Welcome.vue'
-import Project from './components/Project.vue'
-import LatestActivity from './components/LatestActivity.vue'
-import QuickOperation from './components/QuickOperation.vue'
 import Carousel from './components/Carousel.vue'
-import Notice from './components/Notice.vue'
 import Docs from './components/Docs.vue'
+import LatestActivity from './components/LatestActivity.vue'
+import Notice from './components/Notice.vue'
+import Project from './components/Project.vue'
+import QuickOperation from './components/QuickOperation.vue'
+import Welcome from './components/Welcome.vue'
 
 defineOptions({ name: 'Workplace' })
 </script>

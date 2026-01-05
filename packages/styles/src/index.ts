@@ -1,2 +1,3 @@
-import "./css/global.css";
-export { cn } from "./cn";
+import './css/global.css'
+
+export { cn } from './cn'

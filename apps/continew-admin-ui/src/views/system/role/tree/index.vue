@@ -45,13 +45,14 @@
 </template>
 
 <script setup lang="ts">
-import { Message, Modal } from '@arco-design/web-vue'
 import type { TreeNodeData } from '@arco-design/web-vue'
+import type { RoleResp } from '@/apis/system/role'
+import { Message, Modal } from '@arco-design/web-vue'
 import { mapTree } from 'xe-utils'
+import { deleteRole, listRole } from '@/apis/system/role'
+import has from '@/utils/has'
 import AddDrawer from '../AddDrawer.vue'
 import RightMenu from './RightMenu.vue'
-import { type RoleResp, deleteRole, listRole } from '@/apis/system/role'
-import has from '@/utils/has'
 
 const emit = defineEmits<{
   (e: 'node-click', keys: Array<any>): void
@@ -161,7 +162,7 @@ onMounted(() => {
     transition: all 0.25s;
     border-radius: 8px;
 
-    &:hover{
+    &:hover {
       background-color: var(--color-bg-1);
     }
   }
@@ -229,14 +230,14 @@ onMounted(() => {
     background-color: var(--color-bg-1);
     position: relative;
     height: 100%;
-/*    margin-bottom:10px;*/
+    /*    margin-bottom:10px;*/
     .tree {
       position: absolute;
       top: 0;
       bottom: 0;
       left: 0;
       right: 0;
-      overflow: auto
+      overflow: auto;
     }
   }
 }

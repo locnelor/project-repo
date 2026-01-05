@@ -14,7 +14,7 @@ export interface LabelValueState {
   extra?: string
 }
 
-declare global{
+declare global {
   type Recordable<T = any> = Record<string, T>
 }
 

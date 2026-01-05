@@ -68,10 +68,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import AiEditor from './view/components/index.vue'
-import { getUnreadNoticeIds, getUserNotice } from '@/apis/system/user-message'
 import type { NoticePreviewResp } from '@/apis/system'
+import { computed, ref } from 'vue'
+import { getUnreadNoticeIds, getUserNotice } from '@/apis/system/user-message'
+import AiEditor from './view/components/index.vue'
 
 defineOptions({ name: 'NoticePopup' })
 
@@ -202,31 +202,31 @@ defineExpose({
 <style scoped lang="scss">
 .detail {
   .detail_content {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      padding: 0; // 减小内边距
-      margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0; // 减小内边距
+    margin: 0;
 
-      .title {
-        margin-bottom: 12px; // 减小标题下边距
-        color: var(--color-text-1);
-        line-height: 1.4;
-        text-align: center;
-      }
+    .title {
+      margin-bottom: 12px; // 减小标题下边距
+      color: var(--color-text-1);
+      line-height: 1.4;
+      text-align: center;
+    }
 
-      .info {
-        margin-bottom: 12px; // 减小信息区域下边距
-        color: var(--color-text-2);
-        font-size: 14px;
-        line-height: 1.5715;
-        text-align: center;
+    .info {
+      margin-bottom: 12px; // 减小信息区域下边距
+      color: var(--color-text-2);
+      font-size: 14px;
+      line-height: 1.5715;
+      text-align: center;
 
-        .icon {
-          margin-right: 4px;
-        }
+      .icon {
+        margin-right: 4px;
       }
     }
+  }
 
   .notice-footer {
     margin-top: 24px;

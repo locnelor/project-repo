@@ -296,7 +296,6 @@
       line-height: 1.5;
     }
   }
-
 }
 
 // 表格类名 高度自适应
@@ -306,7 +305,7 @@
   display: flex;
   flex-direction: column;
 
-  >.arco-spin {
+  > .arco-spin {
     max-height: 100%;
     height: auto;
     overflow: hidden;
@@ -412,14 +411,14 @@
   }
 }
 
-.detail{
+.detail {
   height: 100%;
   display: flex;
   flex-direction: column;
-  &_header{
+  &_header {
     background: var(--color-bg-1);
   }
-  &_content{
+  &_content {
     position: relative;
     flex: 1;
     // height: 100%;
@@ -434,11 +433,7 @@
 
 // echarts 提示
 .echarts-tooltip-diy {
-  background: linear-gradient(
-                  304.17deg,
-                  rgba(253, 254, 255, 0.6) -6.04%,
-                  rgba(244, 247, 252, 0.6) 85.2%
-  ) !important;
+  background: linear-gradient(304.17deg, rgba(253, 254, 255, 0.6) -6.04%, rgba(244, 247, 252, 0.6) 85.2%) !important;
   border: none !important;
   backdrop-filter: blur(10px) !important;
   /* Note: backdrop-filter has minimal browser support */
@@ -547,8 +542,8 @@
         height: 28px;
         width: 56px;
         &:hover {
-          -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .15);
-          box-shadow: 0 2px 3px rgba(0, 0, 0, .15);
+          -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
           border-color: rgb(var(--primary-5));
         }
       }

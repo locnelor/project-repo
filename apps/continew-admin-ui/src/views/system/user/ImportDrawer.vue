@@ -86,13 +86,15 @@
 </template>
 
 <script setup lang="ts">
-import { type FormInstance, Message, type RequestOption } from '@arco-design/web-vue'
+import type { FormInstance, RequestOption } from '@arco-design/web-vue'
+import type { UserImportResp } from '@/apis/system/user'
+import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
 import {
-  type UserImportResp,
   downloadUserImportTemplate,
   importUser,
   parseImportUser,
+
 } from '@/apis/system/user'
 import { useDownload, useResetReactive } from '@/hooks'
 

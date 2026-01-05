@@ -14,11 +14,13 @@
 </template>
 
 <script setup lang="ts">
+import type { DeptResp } from '@/apis/system/dept'
+import type { ColumnItem } from '@/components/GiForm'
 import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
 import { mapTree } from 'xe-utils'
-import { type DeptResp, addDept, getDept, updateDept } from '@/apis/system/dept'
-import { type ColumnItem, GiForm } from '@/components/GiForm'
+import { addDept, getDept, updateDept } from '@/apis/system/dept'
+import { GiForm } from '@/components/GiForm'
 import { useResetReactive } from '@/hooks'
 
 interface Props {

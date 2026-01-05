@@ -1,8 +1,8 @@
-import type NProgress from "nprogress";
-import { ref, readonly } from "vue";
+import type NProgress from 'nprogress'
+import { readonly, ref } from 'vue'
 
 // 创建一个NProgress实例的变量，初始值为null
-let nProgressInstance: null | typeof NProgress = null;
+let nProgressInstance: null | typeof NProgress = null
 
 /**
  * 动态加载NProgress库，并进行配置。
@@ -13,14 +13,14 @@ let nProgressInstance: null | typeof NProgress = null;
  */
 async function loadNprogress() {
   if (nProgressInstance) {
-    return nProgressInstance;
+    return nProgressInstance
   }
-  nProgressInstance = await import("nprogress");
+  nProgressInstance = await import('nprogress')
   nProgressInstance.configure({
     showSpinner: true,
     speed: 300,
-  });
-  return nProgressInstance;
+  })
+  return nProgressInstance
 }
 
 /**
@@ -28,43 +28,43 @@ async function loadNprogress() {
  * 提供进度条的显示、隐藏和状态管理功能
  */
 export const useNProgress = () => {
-  const isLoading = ref(false);
+  const isLoading = ref(false)
 
   /**
    * 开始显示进度条
    */
   const start = async () => {
-    isLoading.value = true;
-    const nprogress = await loadNprogress();
-    nprogress?.start();
-  };
+    isLoading.value = true
+    const nprogress = await loadNprogress()
+    nprogress?.start()
+  }
 
   /**
    * 停止显示进度条，并隐藏进度条
    */
   const done = async () => {
-    isLoading.value = false;
-    const nprogress = await loadNprogress();
-    nprogress?.done();
-  };
+    isLoading.value = false
+    const nprogress = await loadNprogress()
+    nprogress?.done()
+  }
 
   /**
    * 设置进度条进度
    * @param progress 进度值 (0-1)
    */
   const set = async (progress: number) => {
-    const nprogress = await loadNprogress();
-    nprogress?.set(progress);
-  };
+    const nprogress = await loadNprogress()
+    nprogress?.set(progress)
+  }
 
   /**
    * 增加进度条进度
    * @param amount 增加的进度值
    */
   const inc = async (amount?: number) => {
-    const nprogress = await loadNprogress();
-    nprogress?.inc(amount);
-  };
+    const nprogress = await loadNprogress()
+    nprogress?.inc(amount)
+  }
 
   return {
     isLoading: readonly(isLoading),
@@ -72,16 +72,16 @@ export const useNProgress = () => {
     done,
     set,
     inc,
-  };
-};
+  }
+}
 
 // 兼容旧版本的导出
 export const startProgress = async () => {
-  const nprogress = await loadNprogress();
-  nprogress?.start();
-};
+  const nprogress = await loadNprogress()
+  nprogress?.start()
+}
 
 export const stopProgress = async () => {
-  const nprogress = await loadNprogress();
-  nprogress?.done();
-};
+  const nprogress = await loadNprogress()
+  nprogress?.done()
+}

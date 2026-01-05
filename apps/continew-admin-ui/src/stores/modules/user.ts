@@ -1,22 +1,23 @@
+import type { AccountLoginReq, EmailLoginReq, PhoneLoginReq, UserInfo } from '@/apis'
 import { defineStore } from 'pinia'
 import { computed, reactive, ref } from 'vue'
-import { useTenantStore } from './tenant'
-import { resetRouter } from '@/router'
 import {
-  type AccountLoginReq,
-  AuthTypeConstants,
-  type EmailLoginReq,
-  type PhoneLoginReq,
-  type UserInfo,
   accountLogin as accountLoginApi,
+
+  AuthTypeConstants,
   emailLogin as emailLoginApi,
+
   getUserInfo as getUserInfoApi,
   logout as logoutApi,
   phoneLogin as phoneLoginApi,
+
   socialLogin as socialLoginApi,
+
 } from '@/apis'
-import { clearToken, getToken, setToken } from '@/utils/auth'
+import { resetRouter } from '@/router'
 import { resetHasRouteFlag } from '@/router/guard'
+import { clearToken, getToken, setToken } from '@/utils/auth'
+import { useTenantStore } from './tenant'
 
 const storeSetup = () => {
   const tenantStore = useTenantStore()
