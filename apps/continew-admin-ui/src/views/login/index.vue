@@ -97,15 +97,15 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import AccountLogin from './components/account/index.vue'
+import Background from './components/background/index.vue'
+import EmailLogin from './components/email/index.vue'
+import PhoneLogin from './components/phone/index.vue'
 import { getTenantIdByDomain, getTenantStatus } from '@/apis'
 import { socialAuth } from '@/apis/auth'
 import { useDevice } from '@/hooks'
 import { useAppStore } from '@/stores'
 import { useTenantStore } from '@/stores/modules/tenant'
-import AccountLogin from './components/account/index.vue'
-import Background from './components/background/index.vue'
-import EmailLogin from './components/email/index.vue'
-import PhoneLogin from './components/phone/index.vue'
 
 defineOptions({ name: 'Login' })
 

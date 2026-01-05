@@ -1,7 +1,6 @@
 import type { PaginationDto } from '@app/api-kit'
 import type { CreateUserDto } from './dto/create-user.dto'
 import type { UpdateUserDto } from './dto/update-user.dto'
-import type { UserService } from './user.service'
 import { ApiResult, Pagination } from '@app/api-kit'
 import { AuthController } from '@app/auth-power'
 import { SysUserModel } from '@app/prisma'
@@ -9,18 +8,20 @@ import {
   Body,
   Delete,
   Get,
+  Inject,
   Param,
   Patch,
   Post,
   Query,
 } from '@nestjs/common'
+import { UserService } from './user.service'
 
 @AuthController({
   url: '/api/sys/user',
   tag: '用户管理',
 })
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(@Inject(UserService) private readonly userService: UserService) { }
 
   @Post()
   @ApiResult(SysUserModel, { summary: '创建用户' })

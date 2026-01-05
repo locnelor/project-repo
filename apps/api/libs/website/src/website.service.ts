@@ -1,11 +1,11 @@
-import type { FileService } from '@app/file'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
+import { FileService } from '@app/file'
 import { defaultWebsiteConfig } from './types'
 
 let config = defaultWebsiteConfig
 @Injectable()
 export class WebsiteService {
-  constructor(private readonly fileService: FileService) {
+  constructor(@Inject(FileService) private readonly fileService: FileService) {
     this.init()
   }
 

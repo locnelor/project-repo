@@ -1,19 +1,20 @@
 import type {
   ExecutionContext,
 } from '@nestjs/common'
-import type { Reflector } from '@nestjs/core'
 import type { Request } from 'express'
 import type { PermissionMeta } from '../decorators'
 import {
+  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common'
+import { Reflector } from '@nestjs/core'
 import { AuthGuard } from '@nestjs/passport'
 import { IgnorePermissionMetaKey, PermissionMetaKey } from '../constants'
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor(private reflector: Reflector) {
+  constructor(@Inject(Reflector) private reflector: Reflector) {
     super()
   }
 

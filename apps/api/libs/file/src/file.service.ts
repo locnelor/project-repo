@@ -1,4 +1,3 @@
-import type { ConfigService } from '@nestjs/config'
 import type { Buffer } from 'node:buffer'
 import type { MakeDirectoryOptions } from 'node:fs'
 import {
@@ -15,7 +14,8 @@ import {
 } from 'node:fs'
 import { join } from 'node:path'
 import { cwd } from 'node:process'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 
 class FileAction {
   constructor(
@@ -74,7 +74,7 @@ class FileAction {
 }
 @Injectable()
 export class FileService {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(@Inject(ConfigService) private readonly configService: ConfigService) {}
 
   public static readonly Root = cwd()
   private readonly Assets = join(FileService.Root, 'assets')

@@ -1,6 +1,6 @@
-import type { HashService } from '@app/hash'
-import type { JwtService } from '@nestjs/jwt'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import { HashService } from '@app/hash'
 
 export interface JwtPayload {
   sub: string
@@ -10,8 +10,8 @@ export interface JwtPayload {
 @Injectable()
 export class AuthPowerService {
   constructor(
-    private readonly jwtService: JwtService,
-    private readonly hashService: HashService,
+    @Inject(JwtService) private readonly jwtService: JwtService,
+    @Inject(HashService) private readonly hashService: HashService,
   ) {}
 
   async validate({ sub, crypto }: JwtPayload) {

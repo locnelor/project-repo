@@ -1,12 +1,12 @@
-import type { AuthPowerService } from '@app/auth-power'
 import type { LoginDto } from './dto/LoginDto'
 import type { RegisterDto } from './dto/RegisterDto'
-import { Injectable } from '@nestjs/common'
+import { AuthPowerService } from '@app/auth-power'
+import { Inject, Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly authPowerService: AuthPowerService,
+    @Inject(AuthPowerService) private readonly authPowerService: AuthPowerService,
   ) { }
 
   async register({ username, password }: RegisterDto) {

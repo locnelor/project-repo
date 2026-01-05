@@ -1,17 +1,19 @@
+// 导入顺序可能会导致应用跑不起来
+import { createApp } from 'vue'
 import ArcoVue, { Card, Drawer, Modal } from '@arco-design/web-vue'
 // 额外引入 Arco Design Icon图标库
 import ArcoVueIcon from '@arco-design/web-vue/es/icon'
-import { createApp } from 'vue'
+
 // import '@arco-themes/vue-gi-demo/index.less'
 // import '@arco-design/web-vue/dist/arco.css'
 
 // 状态管理
-import pinia from '@/stores'
 import App from './App.vue'
 // 自定义指令
 import directives from './directives'
 
 import router from './router'
+import pinia from '@/stores'
 
 import '@/styles/arco-ui/index.less'
 

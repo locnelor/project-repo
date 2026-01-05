@@ -1,12 +1,12 @@
-import type { HashService } from '@app/hash'
 import type { NestMiddleware } from '@nestjs/common'
 import type { NextFunction, Request, Response } from 'express'
+import { Inject, Injectable } from '@nestjs/common'
+import { HashService } from '@app/hash'
 import { WebsiteService } from '@app/website'
-import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class DecryptMiddleware implements NestMiddleware {
-  constructor(private readonly hashService: HashService) {}
+  constructor(@Inject(HashService) private readonly hashService: HashService) {}
 
   use(req: Request, res: Response, next: NextFunction) {
     const contentType = req.headers['content-type'];

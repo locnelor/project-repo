@@ -1,21 +1,22 @@
 import type { CreateRoleDto } from './dto/create-role.dto'
 import type { UpdateRoleDto } from './dto/update-role.dto'
-import type { RoleService } from './role.service'
 import {
   Body,
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   Patch,
   Post,
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
+import { RoleService } from './role.service'
 
 @Controller('api/sys/role')
 @ApiTags('角色管理')
 export class RoleController {
-  constructor(private readonly roleService: RoleService) {}
+  constructor(@Inject(RoleService) private readonly roleService: RoleService) {}
 
   @Post()
   create(@Body() createRoleDto: CreateRoleDto) {

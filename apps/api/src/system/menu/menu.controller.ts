@@ -1,6 +1,5 @@
 import type { PaginationDto } from '@app/api-kit'
 import type { CreateMenuDto } from './dto'
-import type { MenuService } from './menu.service'
 import { ApiResult, Pagination } from '@app/api-kit'
 import { AuthController, CurrentUser } from '@app/auth-power'
 import { SysMenuModel } from '@app/prisma'
@@ -8,18 +7,20 @@ import {
   Body,
   Delete,
   Get,
+  Inject,
   Param,
   Post,
   Put,
   Query,
 } from '@nestjs/common'
+import { MenuService } from './menu.service'
 
 @AuthController({
   url: 'sys/menu',
   tag: '系统菜单',
 })
 export class MenuController {
-  constructor(private readonly menuService: MenuService) { }
+  constructor(@Inject(MenuService) private readonly menuService: MenuService) { }
 
   @ApiResult(SysMenuModel, { description: '获取菜单详情' })
   @Get(`:id/detail`)

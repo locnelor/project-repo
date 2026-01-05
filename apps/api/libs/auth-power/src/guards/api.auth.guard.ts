@@ -1,7 +1,7 @@
 import type { CanActivate, ExecutionContext } from '@nestjs/common'
-import type { Reflector } from '@nestjs/core'
 import type { ApiAuthConfig, ApiPermissionsConfig } from '../decorators/api.auth.decorator'
-import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
+import { Reflector } from '@nestjs/core'
 import { AUTH_CONFIG_KEY, PERMISSIONS_CONFIG_KEY } from '../decorators/api.auth.decorator'
 /**
  * API 鉴权 Guard
@@ -9,7 +9,7 @@ import { AUTH_CONFIG_KEY, PERMISSIONS_CONFIG_KEY } from '../decorators/api.auth.
  */
 @Injectable()
 export class ApiAuthGuard implements CanActivate {
-  constructor(private reflector: Reflector) { }
+  constructor(@Inject(Reflector) private reflector: Reflector) { }
 
   canActivate(context: ExecutionContext): boolean {
     const handler = context.getHandler()

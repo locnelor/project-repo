@@ -1,15 +1,15 @@
-import type { TestService } from './test.service'
 import { ApiResult } from '@app/api-kit'
 import { CheckPermission, CurrentUser, IgnorePermission } from '@app/auth-power'
-import { Body, Controller, Get, Post } from '@nestjs/common'
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { TestDto } from './dto/test.dto'
+import { TestService } from './test.service'
 
 @Controller('test')
 @ApiTags('test')
 @CheckPermission('test')
 export class TestController {
-  constructor(private readonly testService: TestService) { }
+  constructor(@Inject(TestService) private readonly testService: TestService) { }
 
   @Get('getToken')
   @ApiOperation({ summary: '获取测试token' })

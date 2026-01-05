@@ -1,11 +1,11 @@
-import type { AuthService } from './auth.service'
 import type { LoginDto } from './dto/LoginDto'
 import type { RegisterDto } from './dto/RegisterDto'
 import { ApiResult } from '@app/api-kit'
 import { CurrentUser, IgnorePermission } from '@app/auth-power'
 import { SysUserModel } from '@app/prisma'
-import { Body, Controller, Get, Post } from '@nestjs/common'
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
+import { AuthService } from './auth.service'
 import { UserInfoDto } from './dto/UserInfoDto'
 import { VerifyCodeDto } from './dto/VerifyCodeDto'
 
@@ -13,7 +13,7 @@ import { VerifyCodeDto } from './dto/VerifyCodeDto'
 @ApiTags('认证模块')
 export class AuthController {
   constructor(
-    private readonly authService: AuthService,
+    @Inject(AuthService) private readonly authService: AuthService,
   ) { }
 
   @Get('verifyCode')

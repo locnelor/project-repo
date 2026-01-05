@@ -1,7 +1,7 @@
-import type { ConfigService } from '@nestjs/config'
 import type { BinaryLike } from 'node:crypto'
 import { createHash, pbkdf2Sync, randomBytes } from 'node:crypto'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { sm2 } from 'sm-crypto'
 import { v4 as uuidv4 } from 'uuid'
 // import {
@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid'
 export class HashService {
   constructor(
     // @Inject("MODULE_OPTIONS_TOKEN") private options: HashModuleOptions,
-    private readonly config: ConfigService,
+    @Inject(ConfigService) private readonly config: ConfigService,
   ) { }
 
   /**
