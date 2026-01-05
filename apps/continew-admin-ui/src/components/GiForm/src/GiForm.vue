@@ -82,9 +82,9 @@
 </template>
 
 <script setup lang="ts">
-import { cloneDeep, omit } from 'lodash-es'
 import type { FormInstance, GridItemProps, GridProps } from '@arco-design/web-vue'
 import type { ColumnItem } from './type'
+import { cloneDeep, omit } from 'lodash-es'
 
 interface Props {
   modelValue: any
@@ -196,7 +196,7 @@ const getComponentBindProps = (item: ColumnItem) => {
 
 /** 表单数据更新  */
 const updateValue = (value: any, field: string) => {
-  emit('update:modelValue', Object.assign(props.modelValue, { [field]: value }))
+  emit('update:modelValue', Object.assign({}, props.modelValue, { [field]: value }))
 }
 
 /** 必填项 */
@@ -275,12 +275,12 @@ watch(cloneForm as any, (newVal, oldVal) => {
           i.request(props.modelValue).then((res) => {
             dicData[i.field] = i.resultFormat ? i.resultFormat(res) : res.data
             if (!dicData[i.field].map((i: any) => i.value).includes(props.modelValue[i.field])) {
-              emit('update:modelValue', Object.assign(props.modelValue, { [i.field]: Array.isArray(props.modelValue[i.field]) ? [] : '' }))
+              emit('update:modelValue', Object.assign({}, props.modelValue, { [i.field]: Array.isArray(props.modelValue[i.field]) ? [] : '' }))
             }
           })
         } else if (i.request && !newVal[item.field]) {
           dicData[i.field] = []
-          emit('update:modelValue', Object.assign(props.modelValue, { [i.field]: Array.isArray(props.modelValue[i.field]) ? [] : '' }))
+          emit('update:modelValue', Object.assign({}, props.modelValue, { [i.field]: Array.isArray(props.modelValue[i.field]) ? [] : '' }))
         }
       })
     }

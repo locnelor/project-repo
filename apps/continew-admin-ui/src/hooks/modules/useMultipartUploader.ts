@@ -1,6 +1,6 @@
+import { throttle } from 'lodash-es'
 // 分片上传通用 hooks，支持多文件/多分片并发、暂停、恢复、取消、重试等
 import { computed, onUnmounted, ref } from 'vue'
-import { throttle } from 'lodash-es'
 import {
   cancelUpload,
   completeMultipartUpload,
@@ -98,7 +98,6 @@ export function useMultipartUploader(props: {
    */
   function initMd5Worker() {
     if (typeof Worker !== 'undefined' && !md5Worker) {
-      // eslint-disable-next-line no-console
       console.log('[Hooks] 初始化MD5 Worker...')
       md5Worker = new Worker(new URL('../../utils/md5-worker.ts', import.meta.url), { type: 'module' })
       md5Worker.onmessage = function (e) {
@@ -109,7 +108,7 @@ export function useMultipartUploader(props: {
           if (task) {
             task.fileMd5 = md5
             md5CalculatingTaskUid.value = null
-            // eslint-disable-next-line no-console
+
             console.log(`[Hooks] MD5计算完成: ${task.fileName}, MD5: ${md5}`)
           }
         } else if (type === 'error') {
@@ -163,7 +162,6 @@ export function useMultipartUploader(props: {
           chunkSize = 512 * 1024 // 512KB分片
         }
 
-        // eslint-disable-next-line no-console
         console.log(`[Hooks] 发送文件到Worker: ${file.name}, 大小: ${(file.size / 1024 / 1024).toFixed(2)}MB, 块大小: ${(blockSize / 1024 / 1024).toFixed(2)}MB, 分片大小: ${(chunkSize / 1024 / 1024).toFixed(2)}MB`)
 
         md5Worker.postMessage({
@@ -183,7 +181,7 @@ export function useMultipartUploader(props: {
             if (performanceStats.value) {
               performanceStats.value.md5EndTime = Date.now()
               const md5Time = performanceStats.value.md5EndTime - performanceStats.value.md5StartTime
-              // eslint-disable-next-line no-console
+
               console.log(`MD5计算完成，耗时: ${md5Time}ms，文件大小: ${formatFileSize(file.size)}`)
             }
 
@@ -205,7 +203,7 @@ export function useMultipartUploader(props: {
     const chunkId = `${task.uid}-${chunkNumber}`
     if (!activeUploads.value.has(chunkId)) {
       uploadQueue.value.push({ task, chunkNumber })
-      // eslint-disable-next-line no-console
+
       console.log(`添加分片到队列: ${task.fileName} - 分片${chunkNumber}`)
       processUploadQueue()
     }
@@ -215,7 +213,6 @@ export function useMultipartUploader(props: {
    * 处理上传队列 - 优化版本
    */
   function processUploadQueue() {
-    // eslint-disable-next-line no-console
     console.log(`[Hooks] 处理上传队列，队列长度: ${uploadQueue.value.length}, 活跃上传数: ${activeUploads.value.size}`)
     // 智能队列处理：优先处理小文件的分片，避免大文件阻塞
     const sortedQueue = [...uploadQueue.value].sort((a, b) => {
@@ -229,10 +226,8 @@ export function useMultipartUploader(props: {
       const { task, chunkNumber } = sortedQueue.shift()!
       const chunkId = `${task.uid}-${chunkNumber}`
 
-      // eslint-disable-next-line no-console
       console.log(`[Hooks] 检查分片: ${task.fileName} - 分片${chunkNumber}, 任务状态: ${task.status}`)
       if (task.status === 'uploading' && !activeUploads.value.has(chunkId)) {
-        // eslint-disable-next-line no-console
         console.log(`[Hooks] 开始上传分片: ${task.fileName} - 分片${chunkNumber}`)
         activeUploads.value.add(chunkId)
         uploadChunk(task, chunkNumber)
@@ -245,7 +240,6 @@ export function useMultipartUploader(props: {
           uploadQueue.value.splice(index, 1)
         }
       } else {
-        // eslint-disable-next-line no-console
         console.log(`[Hooks] 跳过分片: ${task.fileName} - 分片${chunkNumber}, 原因: 状态不是uploading或已在活跃上传中`)
       }
     }
@@ -307,7 +301,6 @@ export function useMultipartUploader(props: {
     } catch (error) {
       // 检查是否是取消请求导致的错误
       if (error instanceof Error && error.name === 'AbortError') {
-        // eslint-disable-next-line no-console
         console.log(`分片上传被取消: ${task.fileName} - 分片${chunkNumber}`)
         return
       }
@@ -316,7 +309,6 @@ export function useMultipartUploader(props: {
 
       // 检查任务是否已经被取消或暂停
       if (task.status === 'cancelled' || task.status === 'paused') {
-        // eslint-disable-next-line no-console
         console.log(`任务 ${task.fileName} 已被取消或暂停，跳过错误处理`)
         return
       }
@@ -340,7 +332,7 @@ export function useMultipartUploader(props: {
 
         if (currentRetryCount < maxRetries) {
           // 网络错误或服务器错误，将分片重新加入队列进行重试
-          // eslint-disable-next-line no-console
+
           console.log(`分片 ${chunkNumber} 上传失败，第${currentRetryCount + 1}次重试: ${task.fileName}`)
 
           // 更新重试次数
@@ -354,7 +346,7 @@ export function useMultipartUploader(props: {
           }, 2000 * (currentRetryCount + 1)) // 递增延迟：2秒、4秒、6秒
         } else {
           // 超过最大重试次数，标记任务失败
-          // eslint-disable-next-line no-console
+
           console.log(`分片 ${chunkNumber} 重试次数超过限制，标记任务失败: ${task.fileName}`)
           task.status = 'failed'
           task.errorMessage = `分片 ${chunkNumber} 重试次数超过限制`
@@ -371,7 +363,7 @@ export function useMultipartUploader(props: {
         }
       } else {
         // 其他错误（如认证错误、参数错误等），标记任务失败
-        // eslint-disable-next-line no-console
+
         console.log(`任务 ${task.fileName} 遇到不可恢复的错误，标记为失败`)
         task.status = 'failed'
         task.errorMessage = (error as Error)?.message || '上传失败'
@@ -398,20 +390,16 @@ export function useMultipartUploader(props: {
    */
   async function uploadFileTask(task: FileTask) {
     try {
-      // eslint-disable-next-line no-console
       console.log(`[Hooks] 开始上传任务: ${task.fileName}, 当前状态: ${task.status}`)
       // 1. 初始化分片上传，获取 uploadId
       if (!task.uploadId) {
-        // eslint-disable-next-line no-console
         console.log(`[Hooks] 任务 ${task.fileName} 没有 uploadId，准备调用 initMultipartUpload`)
         // 若没有MD5，先计算
         if (!task.fileMd5) {
-          // eslint-disable-next-line no-console
           console.log(`[Hooks] 任务 ${task.fileName} 没有 MD5，开始计算...`)
           task.fileMd5 = await calcFileMd5(task.file, task.uid)
         }
 
-        // eslint-disable-next-line no-console
         console.log(`[Hooks] 调用 initMultipartUpload: ${task.fileName}, MD5: ${task.fileMd5}, 路径: ${task.parentPath}`)
 
         // 确保parentPath不是空字符串，如果是则使用"/"
@@ -429,7 +417,6 @@ export function useMultipartUploader(props: {
         })
 
         if (res && res.data) {
-          // eslint-disable-next-line no-console
           console.log(`[Hooks] initMultipartUpload 成功: ${task.fileName}, uploadId: ${res.data.uploadId}`)
           task.uploadId = res.data.uploadId
           task.chunkSize = res.data.partSize
@@ -437,7 +424,6 @@ export function useMultipartUploader(props: {
 
           // 处理断点续传：如果后端返回了已上传的分片编号
           if (res.data.uploadedPartNumbers && res.data.uploadedPartNumbers.length > 0) {
-            // eslint-disable-next-line no-console
             console.log(`[Hooks] 发现已上传分片: ${task.fileName}, 已上传分片: ${res.data.uploadedPartNumbers.join(',')}`)
             // 将已上传的分片编号添加到任务中
             task.uploadedChunks = [...res.data.uploadedPartNumbers]
@@ -446,11 +432,9 @@ export function useMultipartUploader(props: {
             const totalChunks = Math.ceil(task.fileSize / task.chunkSize)
             updateTaskProgress(task, totalChunks)
 
-            // eslint-disable-next-line no-console
             console.log(`[Hooks] 断点续传进度: ${task.fileName}, 进度: ${(task.progress * 100).toFixed(1)}%`)
           }
         } else {
-          // eslint-disable-next-line no-console
           console.log(`[Hooks] initMultipartUpload 失败: ${task.fileName}`)
           task.status = 'failed'
           return
@@ -461,7 +445,6 @@ export function useMultipartUploader(props: {
       const totalChunks = Math.ceil(task.fileSize / task.chunkSize)
       task.totalChunks = totalChunks
 
-      // eslint-disable-next-line no-console
       console.log(`[Hooks] 计算总分片数: ${task.fileName}, 总分片数: ${totalChunks}, 分片大小: ${task.chunkSize}`)
 
       // 检查是否有断点续传的分片
@@ -474,13 +457,13 @@ export function useMultipartUploader(props: {
         task.progress = 0
       } else {
         // 有断点续传数据，计算当前进度
-        // eslint-disable-next-line no-console
+
         console.log(`[Hooks] 发现断点续传数据: ${task.fileName}, 已上传分片: ${task.uploadedChunks.join(',')}`)
         updateTaskProgress(task, task.totalChunks)
       }
 
       // 将所有未完成的分片添加到队列
-      // eslint-disable-next-line no-console
+
       console.log(`[Hooks] 开始添加分片到队列: ${task.fileName}`)
       for (let i = 1; i <= totalChunks; i++) {
         // 只添加未上传的分片
@@ -488,7 +471,7 @@ export function useMultipartUploader(props: {
           addChunkToQueue(task, i)
         }
       }
-      // eslint-disable-next-line no-console
+
       console.log(`[Hooks] 分片添加完成: ${task.fileName}, 队列长度: ${uploadQueue.value.length}`)
 
       // 挂载暂停/取消控制方法到 task
@@ -554,9 +537,8 @@ export function useMultipartUploader(props: {
    * 全部开始上传（将所有 waiting 状态任务置为 uploading 并启动并发上传）
    */
   function startAllUpload() {
-    // eslint-disable-next-line no-console
     console.log('[Hooks] 开始上传按钮被点击，准备启动所有等待中的任务')
-    // eslint-disable-next-line no-console
+
     console.log('[Hooks] 当前任务列表:', fileTasks.value.map((t) => ({ name: t.fileName, status: t.status })))
     for (const task of fileTasks.value) {
       if (task.status === 'waiting' || task.status === 'paused') {
@@ -600,7 +582,7 @@ export function useMultipartUploader(props: {
       let parent = ''
 
       // 调试：查看 webkitRelativePath 的实际内容
-      // eslint-disable-next-line no-console
+
       console.log('文件路径调试:', {
         fileName: file.name,
         webkitRelativePath: relativePath,
@@ -647,7 +629,6 @@ export function useMultipartUploader(props: {
         parent = parent.substring(1)
       }
 
-      // eslint-disable-next-line no-console
       console.log('最终路径:', {
         fileName: file.name,
         parentPath: parent,
@@ -688,14 +669,12 @@ export function useMultipartUploader(props: {
 
   // 暂停单个任务
   function pauseTask(task: FileTask) {
-    // eslint-disable-next-line no-console
     console.log(`暂停任务: ${task.fileName}`)
     task._pause?.()
   }
 
   // 恢复单个任务
   function resumeTask(task: FileTask) {
-    // eslint-disable-next-line no-console
     console.log(`[Hooks] 继续任务: ${task.fileName}, 当前状态: ${task.status}`)
     task._resume?.()
     if (task.status === 'paused') {
@@ -706,13 +685,12 @@ export function useMultipartUploader(props: {
 
   // 取消单个任务
   function cancelTask(task: FileTask) {
-    // eslint-disable-next-line no-console
     console.log(`取消任务: ${task.fileName}`)
 
     // 中断所有正在进行的请求
     if (task.abortController) {
       task.abortController.abort()
-      // eslint-disable-next-line no-console
+
       console.log(`已中断任务 ${task.fileName} 的所有请求`)
     }
 

@@ -1,5 +1,5 @@
-import { ref } from 'vue'
 import type { TreeNodeData } from '@arco-design/web-vue'
+import { ref } from 'vue'
 import { listDeptDictTree } from '@/apis/system'
 
 /** 部门模块 */

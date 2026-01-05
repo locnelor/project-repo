@@ -78,12 +78,13 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
-import DetailDrawer from './DetailDrawer.vue'
-import { type NoticeQuery, type NoticeResp, deleteNotice, listNotice } from '@/apis/system'
+import type { NoticeQuery, NoticeResp } from '@/apis/system'
+import { deleteNotice, listNotice } from '@/apis/system'
 import { useTable } from '@/hooks'
 import { useDict } from '@/hooks/app'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
+import DetailDrawer from './DetailDrawer.vue'
 
 defineOptions({ name: 'SystemNotice' })
 

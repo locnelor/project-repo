@@ -43,19 +43,19 @@
 
 <script setup lang="ts">
 import type { RouteRecordRaw } from 'vue-router'
+import { useDevice } from '@/hooks'
+import WwAds from '@/layout/components/WwAds.vue'
+import { useLevelMenu } from '@/layout/hooks/useLevelMenu'
+import { useAppStore } from '@/stores'
+import { getToken } from '@/utils/auth'
+import NoticePopup from '@/views/user/message/components/NoticePopup.vue'
 import HeaderRightBar from './components/HeaderRightBar/index.vue'
 import Logo from './components/Logo.vue'
 import Main from './components/Main.vue'
 import Menu from './components/Menu/index.vue'
+
 import MenuFoldBtn from './components/MenuFoldBtn.vue'
 import Tabs from './components/Tabs/index.vue'
-import { useAppStore } from '@/stores'
-import { useLevelMenu } from '@/layout/hooks/useLevelMenu'
-import { useDevice } from '@/hooks'
-import { getToken } from '@/utils/auth'
-
-import WwAds from '@/layout/components/WwAds.vue'
-import NoticePopup from '@/views/user/message/components/NoticePopup.vue'
 
 /** 组件名称 */
 defineOptions({ name: 'LayoutMix' })
@@ -101,7 +101,6 @@ onMounted(() => {
 }
 
 :deep(.arco-menu.arco-menu-vertical.arco-menu-collapsed) {
-
   // Menu菜单组件修改
   .arco-menu-icon {
     padding: 10px 0;

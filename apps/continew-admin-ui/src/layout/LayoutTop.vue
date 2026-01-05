@@ -11,12 +11,12 @@
 </template>
 
 <script setup lang="ts">
+import { useAppStore } from '@/stores'
 import HeaderRightBar from './components/HeaderRightBar/index.vue'
 import Logo from './components/Logo.vue'
 import Main from './components/Main.vue'
 import Menu from './components/Menu/index.vue'
 import Tabs from './components/Tabs/index.vue'
-import { useAppStore } from '@/stores'
 
 defineOptions({ name: 'LayoutTop' })
 

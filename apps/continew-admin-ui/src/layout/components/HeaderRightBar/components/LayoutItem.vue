@@ -94,9 +94,10 @@ const appStore = useAppStore()
   border-radius: 2px;
   background-color: var(--color-bg-5);
   border: 1px solid var(--color-border-2);
-  box-shadow: 0 1px 2px -2px rgba(0, 0, 0, .08),
-    0 3px 6px 0 rgba(0, 0, 0, .06),
-    0 5px 12px 4px rgba(0, 0, 0, .04);
+  box-shadow:
+    0 1px 2px -2px rgba(0, 0, 0, 0.08),
+    0 3px 6px 0 rgba(0, 0, 0, 0.06),
+    0 5px 12px 4px rgba(0, 0, 0, 0.04);
 
   &__text {
     font-size: 12px;
@@ -172,7 +173,6 @@ const appStore = useAppStore()
 
 // 双列布局样式
 .layout-mode-item__columns {
-
   .block-left {
     width: 10px;
     background-color: $color-theme;

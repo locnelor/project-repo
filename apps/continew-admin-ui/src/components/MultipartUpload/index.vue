@@ -83,8 +83,8 @@
 </template>
 
 <script lang="ts" setup>
-import { h, ref, resolveComponent } from 'vue'
 import { IconClose, IconDelete, IconPause, IconPlayArrow, IconRefresh } from '@arco-design/web-vue/es/icon'
+import { h, ref, resolveComponent } from 'vue'
 import { useMultipartUploader } from '@/hooks/modules/useMultipartUploader'
 import { getFilesFromDataTransferItems, isFileSystemAccessAPISupported } from '@/utils/drag-drop-file-util'
 
@@ -298,7 +298,9 @@ function statusColor(status: string) {
   border-radius: 8px;
   box-shadow: 0 2px 8px #0000000d;
   border: 2px dashed #e5e6eb;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
   min-width: 1000px;
   max-width: 1200px;
   margin: 0 auto;

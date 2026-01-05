@@ -23,9 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import { AiEditor, type AiEditorOptions } from 'aieditor'
-import 'aieditor/dist/style.css'
+import type { AiEditorOptions } from 'aieditor'
+import { AiEditor } from 'aieditor'
 import { useAppStore } from '@/stores'
+import 'aieditor/dist/style.css'
 
 defineOptions({ name: 'AiEditor' })
 const props = defineProps<{
@@ -98,112 +99,111 @@ onUnmounted(() => {
 
 <style scoped lang="scss">
 .container {
-    height: 100%;
-    width: 100%;
-    box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .aie-header-panel {
-    position: sticky;
-    // top: 51px;
-    z-index: 1;
+  position: sticky;
+  // top: 51px;
+  z-index: 1;
 }
 
-.aie-header-panel aie-header>div {
-    align-items: center;
-    justify-content: center;
-    padding: 10px 0;
+.aie-header-panel aie-header > div {
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
 }
 
 .aie-container {
-    border: none !important;
+  border: none !important;
 }
 
 .aie-container-panel {
-    width: calc(100% - 2rem - 2px);
-    max-width: 826.77px;
-    margin: 0rem auto;
-    border: 1px solid var(--color-border-1);
-    background-color: var() rgba($color: var(--color-bg-1), $alpha: 1.0);
-    height: 100%;
-    padding: 1rem;
-    z-index: 99;
-    overflow: auto;
-    box-sizing: border-box;
-    color: black;
+  width: calc(100% - 2rem - 2px);
+  max-width: 826.77px;
+  margin: 0rem auto;
+  border: 1px solid var(--color-border-1);
+  background-color: var() rgba($color: var(--color-bg-1), $alpha: 1);
+  height: 100%;
+  padding: 1rem;
+  z-index: 99;
+  overflow: auto;
+  box-sizing: border-box;
+  color: black;
 }
 
 .aie-main {
-    position: relative;
-    overflow: hidden;
-    flex: 1;
-    box-sizing: border-box;
-    padding: 1rem 0px;
-    background-color: var(--color-bg-2);
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  box-sizing: border-box;
+  padding: 1rem 0px;
+  background-color: var(--color-bg-2);
 }
 
 .aie-directory {
-    position: absolute;
-    top: 30px;
-    left: 10px;
-    width: 260px;
-    z-index: 0;
-
+  position: absolute;
+  top: 30px;
+  left: 10px;
+  width: 260px;
+  z-index: 0;
 }
 
 .aie-directory h5 {
-    // color: #000000c4;
-    font-size: 16px;
-    text-indent: 4px;
-    line-height: 32px;
+  // color: #000000c4;
+  font-size: 16px;
+  text-indent: 4px;
+  line-height: 32px;
 }
 
 .aie-directory a {
-    height: 30px;
-    font-size: 14px;
-    // color: #000000a3;
-    text-indent: 4px;
-    line-height: 30px;
-    text-decoration: none;
-    width: 100%;
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
+  height: 30px;
+  font-size: 14px;
+  // color: #000000a3;
+  text-indent: 4px;
+  line-height: 30px;
+  text-decoration: none;
+  width: 100%;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 
 .aie-directory a:hover {
-    cursor: pointer;
-    // background-color: #334d660f;
-    border-radius: 4px;
+  cursor: pointer;
+  // background-color: #334d660f;
+  border-radius: 4px;
 }
 
 .aie-title1 {
-    font-size: 14px;
-    font-weight: 500;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 #outline {
-    text-indent: 2rem;
+  text-indent: 2rem;
 }
 
 .aie-directory-content {
-    position: sticky;
-    top: 0px
+  position: sticky;
+  top: 0px;
 }
 
 @media screen and (max-width: 1280px) {
-    .aie-directory {
-        display: none;
-    }
+  .aie-directory {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 1400px) {
-    .aie-directory {
-        width: 200px;
-    }
+  .aie-directory {
+    width: 200px;
+  }
 }
 </style>

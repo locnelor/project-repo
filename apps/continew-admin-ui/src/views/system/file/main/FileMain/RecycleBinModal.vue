@@ -59,21 +59,22 @@
 </template>
 
 <script setup lang="ts">
-import { Message, Modal, type TableInstance } from '@arco-design/web-vue'
+import type { TableInstance } from '@arco-design/web-vue'
+import type { FileItem, FileQuery } from '@/apis/system/file'
+import { Message, Modal } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core/index'
 import {
-  type FileItem,
-  type FileQuery,
   calcDirSize,
   cleanRecycleBin,
   deleteRecycleFile,
+
   listRecycleFiles,
   restoreRecycleFile,
 } from '@/apis/system/file'
+import { FileTypeList } from '@/constant/file'
 import { useTable } from '@/hooks'
 import { formatFileSize, isMobile } from '@/utils'
 import has from '@/utils/has'
-import { FileTypeList } from '@/constant/file'
 
 const emit = defineEmits<{
   (e: 'close'): void

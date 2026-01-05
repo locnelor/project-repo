@@ -90,15 +90,16 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
+import type { JobQuery, JobResp } from '@/apis/schedule'
 import { Message } from '@arco-design/web-vue'
 import { useRouter } from 'vue-router'
-import AddModal from './AddModal.vue'
-import DetailDrawer from './DetailDrawer.vue'
-import { type JobQuery, type JobResp, deleteJob, listGroup, listJob, triggerJob, updateJobStatus } from '@/apis/schedule'
+import { deleteJob, listGroup, listJob, triggerJob, updateJobStatus } from '@/apis/schedule'
 import { useTable } from '@/hooks'
 import { useDict } from '@/hooks/app'
 import { isMobile, parseCron } from '@/utils'
 import has from '@/utils/has'
+import AddModal from './AddModal.vue'
+import DetailDrawer from './DetailDrawer.vue'
 
 defineOptions({ name: 'ScheduleJob' })
 
@@ -177,7 +178,8 @@ const onUpdateStatus = (record: JobResp) => {
   updateJobStatus({ jobStatus: record.jobStatus }, record.id)
     .then(() => {
       Message.success(msg)
-    }).catch(() => {
+    })
+    .catch(() => {
       record.jobStatus = record.jobStatus === 1 ? 0 : 1
     })
 }

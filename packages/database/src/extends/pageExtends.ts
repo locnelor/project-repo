@@ -1,4 +1,4 @@
-import { Prisma } from "../generated/client";
+import { Prisma } from '../generated/client'
 
 export const pageExtension = Prisma.defineExtension({
   name: 'pageExtension',
@@ -9,24 +9,24 @@ export const pageExtension = Prisma.defineExtension({
         args: Prisma.Exact<
           A,
           Prisma.Args<T, 'findMany'> & {
-            pageNo: number;
-            pageSize?: number;
+            pageNo: number
+            pageSize?: number
           }
         >,
       ): Promise<{
-        records: Prisma.Result<T, A, 'findMany'>;
-        pageNo: number;
-        pageSize: number;
-        total: number;
+        records: Prisma.Result<T, A, 'findMany'>
+        pageNo: number
+        pageSize: number
+        total: number
       }> {
-        const context: any = Prisma.getExtensionContext(this);
-        const { pageNo: rawPageNo = 1, pageSize: rawPageSize = 10, ...rest } = args as any;
-        let pageNo = parseInt(rawPageNo.toString());
-        let pageSize = parseInt(rawPageSize.toString());
+        const context: any = Prisma.getExtensionContext(this)
+        const { pageNo: rawPageNo = 1, pageSize: rawPageSize = 10, ...rest } = args as any
+        const pageNo = Number.parseInt(rawPageNo.toString())
+        const pageSize = Number.parseInt(rawPageSize.toString())
         const pagination = {
           skip: (pageNo - 1) * pageSize,
           take: pageSize,
-        };
+        }
         const [records, total] = await context.$parent.$transaction([
           context.findMany({
             ...pagination,
@@ -35,14 +35,14 @@ export const pageExtension = Prisma.defineExtension({
           context.count({
             where: rest.where,
           }),
-        ]);
+        ])
         return {
           records,
           pageNo,
           pageSize,
           total,
-        };
+        }
       },
     },
   },
-});
+})

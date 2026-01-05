@@ -1,15 +1,14 @@
-import { AuthPowerService } from '@app/auth-power';
-import { AccountOrPasswordError } from '@app/error/http.error';
-import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
-import { LoginDto } from './dto/LoginDto';
-import { RegisterDto } from './dto/RegisterDto';
-import { prisma } from '@repo/database';
+import type { AuthPowerService } from '@app/auth-power'
+import type { LoginDto } from './dto/LoginDto'
+import type { RegisterDto } from './dto/RegisterDto'
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly authPowerService: AuthPowerService
+    private readonly authPowerService: AuthPowerService,
   ) { }
+
   async register({ username, password }: RegisterDto) {
     // const find = await prisma.sysUser.findUnique({
     //   where: {
@@ -29,9 +28,11 @@ export class AuthService {
     //   token
     // }
   }
+
   verifyCode() {
-    throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.')
   }
+
   async login({ username, password }: LoginDto) {
     // const user = await prisma.sys_user.findUnique({
     //   where: { username },

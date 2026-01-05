@@ -68,8 +68,9 @@
 </template>
 
 <script setup lang="ts">
+import type { LogDetailResp } from '@/apis/monitor'
 import { useWindowSize } from '@vueuse/core/index'
-import { type LogDetailResp, getLog as getDetail } from '@/apis/monitor'
+import { getLog as getDetail } from '@/apis/monitor'
 
 const { width } = useWindowSize()
 

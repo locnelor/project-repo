@@ -1,7 +1,6 @@
-import { ApiField } from "@app/api-kit";
-
+import { ApiField } from '@app/api-kit'
 
 export class VerifyCodeDto {
-    @ApiField({ description: "验证id" })
-    verifyId: string;
+  @ApiField({ description: '验证id' })
+  verifyId: string
 }

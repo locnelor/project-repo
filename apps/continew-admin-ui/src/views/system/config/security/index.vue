@@ -144,9 +144,11 @@
 </template>
 
 <script setup lang="ts">
+import type { FormInstance } from '@arco-design/web-vue'
+import type { OptionResp, SecurityConfig } from '@/apis/system'
+import { Message, Modal } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
-import { type FormInstance, Message, Modal } from '@arco-design/web-vue'
-import { type OptionResp, type SecurityConfig, listOption, resetOptionValue, updateOption } from '@/apis/system'
+import { listOption, resetOptionValue, updateOption } from '@/apis/system'
 import { useResetReactive } from '@/hooks'
 
 defineOptions({ name: 'SystemSecurityConfig' })

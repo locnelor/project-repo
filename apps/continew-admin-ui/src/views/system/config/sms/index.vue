@@ -76,21 +76,21 @@
 </template>
 
 <script setup lang="tsx">
-import { Message, Modal } from '@arco-design/web-vue'
 import type { TableInstance } from '@arco-design/web-vue'
-import AddModal from './AddModal.vue'
+import type { SmsConfigQuery, SmsConfigResp } from '@/apis/system/smsConfig'
+import { Message, Modal } from '@arco-design/web-vue'
 import {
-  type SmsConfigQuery,
-  type SmsConfigResp,
   deleteSmsConfig,
   listSmsConfig,
   setDefaultSmsConfig,
+
 } from '@/apis/system/smsConfig'
+import GiCellStatus from '@/components/GiCell/GiCellStatus.vue'
 import { useTable } from '@/hooks'
 import { useDict } from '@/hooks/app'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
-import GiCellStatus from '@/components/GiCell/GiCellStatus.vue'
+import AddModal from './AddModal.vue'
 
 defineOptions({ name: 'SystemSmsConfig' })
 

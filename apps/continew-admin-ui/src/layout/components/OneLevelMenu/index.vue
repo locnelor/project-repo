@@ -88,7 +88,7 @@ const calcIsActive = (item: RouteRecordRaw) => {
 
     &--active {
       color: rgb(var(--primary-6));
-      background-color: var(--color-primary-light-2)
+      background-color: var(--color-primary-light-2);
     }
 
     &:not(.one-level-menu__item--active):hover {

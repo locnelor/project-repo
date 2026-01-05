@@ -38,10 +38,11 @@
 </template>
 
 <script setup lang="ts">
+import type { DashboardChartCommonResp } from '@/apis'
 import { computed } from 'vue'
+import { getDashboardOverviewIp as getData } from '@/apis'
 import { useChart } from '@/hooks'
 import { useAppStore } from '@/stores'
-import { type DashboardChartCommonResp, getDashboardOverviewIp as getData } from '@/apis'
 
 const appStore = useAppStore()
 const isDark = computed(() => appStore.theme === 'dark')

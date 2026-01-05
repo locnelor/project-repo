@@ -83,15 +83,16 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
-import AddModal from './AddModal.vue'
-import AdminUserPwdUpdateModal from './AdminUserPwdUpdateModal.vue'
-import DetailDrawer from './DetailDrawer.vue'
-import { type TenantQuery, type TenantResp, deleteTenant, listTenant } from '@/apis/tenant/management'
+import type { TenantQuery, TenantResp } from '@/apis/tenant/management'
+import type { LabelValueState } from '@/types/global'
+import { listTenantPackageDict } from '@/apis/tenant'
+import { deleteTenant, listTenant } from '@/apis/tenant/management'
 import { useTable } from '@/hooks'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
-import { listTenantPackageDict } from '@/apis/tenant'
-import type { LabelValueState } from '@/types/global'
+import AddModal from './AddModal.vue'
+import AdminUserPwdUpdateModal from './AdminUserPwdUpdateModal.vue'
+import DetailDrawer from './DetailDrawer.vue'
 
 defineOptions({ name: 'TenantManagement' })
 

@@ -13,10 +13,11 @@
 </template>
 
 <script setup lang="tsx">
+import type { ColumnItem } from '@/components/GiForm'
 import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
 import { addSmsConfig, getSmsConfig, updateSmsConfig } from '@/apis/system/smsConfig'
-import { type ColumnItem, GiForm } from '@/components/GiForm'
+import { GiForm } from '@/components/GiForm'
 import { useResetReactive } from '@/hooks'
 import { useDict } from '@/hooks/app'
 

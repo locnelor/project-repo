@@ -34,10 +34,11 @@
 </template>
 
 <script setup lang="ts">
+import type { StorageQuery, StorageResp } from '@/apis'
 import { groupBy } from 'xe-utils'
+import { listStorage } from '@/apis'
 import StorageLocal from './StorageLocal.vue'
 import StorageOss from './StorageOss.vue'
-import { type StorageQuery, type StorageResp, listStorage } from '@/apis'
 
 defineOptions({ name: 'SystemStorage' })
 

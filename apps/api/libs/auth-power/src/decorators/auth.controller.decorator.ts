@@ -1,16 +1,16 @@
-import { applyDecorators, Controller, SetMetadata } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
-import { ApiAuthConfig, ApiPermissionsConfig, AUTH_CONFIG_KEY, PERMISSIONS_CONFIG_KEY } from './api.auth.decorator';
-
+import type { ApiAuthConfig, ApiPermissionsConfig } from './api.auth.decorator'
+import { applyDecorators, Controller, SetMetadata } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
+import { AUTH_CONFIG_KEY, PERMISSIONS_CONFIG_KEY } from './api.auth.decorator'
 
 export interface AuthControllerOptions {
-    url?: string,
-    perms?: string,
-    tag?: string,
-    /** 鉴权配置 */
-    auth?: ApiAuthConfig,
-    /** 权限配置 */
-    permissions?: ApiPermissionsConfig,
+  url?: string
+  perms?: string
+  tag?: string
+  /** 鉴权配置 */
+  auth?: ApiAuthConfig
+  /** 权限配置 */
+  permissions?: ApiPermissionsConfig
 }
 /**
  * 认证控制器装饰器
@@ -24,9 +24,9 @@ export interface AuthControllerOptions {
  * @returns 组合装饰器，包含Controller、ApiTags和SetMetadata
  * @example
  * ```typescript
- * @AuthController({ 
- *   url: '/users', 
- *   perms: 'user', 
+ * @AuthController({
+ *   url: '/users',
+ *   perms: 'user',
  *   tag: 'User Management',
  *   auth: { required: true },
  *   permissions: { ignore: false }
@@ -35,43 +35,43 @@ export interface AuthControllerOptions {
  * ```
  */
 export const AuthController = (options: AuthControllerOptions = {}) => {
-    const url = options.url ?? "";
+  const url = options.url ?? ''
 
-    const normalizePrefix = (url: string): string => {
-        return url
-            .trim()
-            .replace(/^\/+/, "")        // removes leading "/"
-            .replace(/\/+$/, "")        // removes trailing "/"
-            .replace(/^api\//i, "")     // case-insensitive "api/"
-            .replace(/\/:/g, "/")       // fix "/:id"
-            .replace(/:.*$/, "")        // remove path params
-            .toLowerCase()
-            .replace(/\//g, ":") || "default";
-    };
+  const normalizePrefix = (url: string): string => {
+    return url
+      .trim()
+      .replace(/^\/+/, '') // removes leading "/"
+      .replace(/\/+$/, '') // removes trailing "/"
+      .replace(/^api\//i, '') // case-insensitive "api/"
+      .replace(/\/:/g, '/') // fix "/:id"
+      .replace(/:.*$/, '') // remove path params
+      .toLowerCase()
+      .replace(/\//g, ':') || 'default'
+  }
 
-    const prefix = (options.perms && options.perms.trim()) || normalizePrefix(url);
-    const tag = options.tag || "default";
+  const prefix = (options.perms && options.perms.trim()) || normalizePrefix(url)
+  const tag = options.tag || 'default'
 
-    return function (target: any) {
-        // 先存储所有controller相关的元数据
-        Reflect.defineMetadata("prefix", prefix, target);
-        Reflect.defineMetadata("controller:url", url, target);
-        Reflect.defineMetadata("controller:tag", tag, target);
-        
-        // 存储鉴权和权限配置
-        if (options.auth) {
-            Reflect.defineMetadata(AUTH_CONFIG_KEY, options.auth, target);
-        }
-        if (options.permissions) {
-            Reflect.defineMetadata(PERMISSIONS_CONFIG_KEY, options.permissions, target);
-        }
+  return function (target: any) {
+    // 先存储所有controller相关的元数据
+    Reflect.defineMetadata('prefix', prefix, target)
+    Reflect.defineMetadata('controller:url', url, target)
+    Reflect.defineMetadata('controller:tag', tag, target)
 
-        // 然后应用其他装饰器
-        const decorators = applyDecorators(
-            Controller(url),
-            ApiTags(tag),
-        );
-        
-        decorators(target);
-    };
+    // 存储鉴权和权限配置
+    if (options.auth) {
+      Reflect.defineMetadata(AUTH_CONFIG_KEY, options.auth, target)
+    }
+    if (options.permissions) {
+      Reflect.defineMetadata(PERMISSIONS_CONFIG_KEY, options.permissions, target)
+    }
+
+    // 然后应用其他装饰器
+    const decorators = applyDecorators(
+      Controller(url),
+      ApiTags(tag),
+    )
+
+    decorators(target)
+  }
 }

@@ -102,12 +102,13 @@
 </template>
 
 <script setup lang="ts">
+import type { FormInstance } from '@arco-design/web-vue'
+import type { MailConfig, OptionResp } from '@/apis/system'
+import { Message, Modal } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
-import { type FormInstance, Message, Modal } from '@arco-design/web-vue'
 import {
-  type MailConfig,
-  type OptionResp,
   listOption,
+
   resetOptionValue,
   updateOption,
 } from '@/apis/system'

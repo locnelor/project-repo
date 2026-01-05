@@ -78,10 +78,10 @@
 </template>
 
 <script setup lang="ts" generic="T extends TableData">
-import { computed, ref, watch } from 'vue'
 import type { DropdownInstance, TableColumnData, TableData, TableInstance } from '@arco-design/web-vue'
-import { omit } from 'lodash-es'
 import type { TableProps } from './type'
+import { omit } from 'lodash-es'
+import { computed, ref, watch } from 'vue'
 import ColumnSetting from './components/ColumnSetting.vue'
 
 defineOptions({ name: 'GiTable' })
@@ -271,14 +271,15 @@ defineExpose({
     }
 
     // 控制表格最后一行的下边框显示
-    :deep(.arco-table-border .arco-table-scroll-y .arco-table-body .arco-table-tr:last-of-type .arco-table-td,
-      .arco-table-border .arco-table-scroll-y tfoot .arco-table-tr:last-of-type .arco-table-td) {
+    :deep(
+      .arco-table-border .arco-table-scroll-y .arco-table-body .arco-table-tr:last-of-type .arco-table-td,
+      .arco-table-border .arco-table-scroll-y tfoot .arco-table-tr:last-of-type .arco-table-td
+    ) {
       border-bottom: 1px solid var(--color-border-table);
     }
   }
 
   &__body {
-
     position: relative;
     display: flex;
     flex-direction: column;

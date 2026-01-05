@@ -9,8 +9,8 @@
 </template>
 
 <script setup lang="ts">
-import type { LabelValueState } from '@/types/global'
 import type { GiCellTagType } from '@/components/GiCell/type'
+import type { LabelValueState } from '@/types/global'
 
 defineOptions({ name: 'GiCellTag' })
 const props = withDefaults(defineProps<Partial<GiCellTagType>>(), {

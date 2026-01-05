@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useRouteStore } from '@/stores'
-import { constantRoutes, systemRoutes } from '@/router/route'
 import { setupRouterGuard } from '@/router/guard'
+import { constantRoutes, systemRoutes } from '@/router/route'
+import { useRouteStore } from '@/stores'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

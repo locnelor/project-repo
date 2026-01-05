@@ -1,19 +1,19 @@
-import { SysUserRole } from '@repo/database';
-import { ApiField } from '@app/api-kit';
-import { SysUserModel } from './SysUser';
-import { SysRoleModel } from './SysRole';
+import type { SysUserRole } from '@repo/database'
+import type { SysRoleModel } from './SysRole'
+import type { SysUserModel } from './SysUser'
+import { ApiField } from '@app/api-kit'
 
 export class SysUserRoleModel implements SysUserRole {
   @ApiField({ description: '主键ID', type: BigInt, required: true })
-  id: bigint;
+  id: bigint
 
   @ApiField({ description: '用户ID', type: BigInt, required: true })
-  userId: bigint;
+  userId: bigint
 
   @ApiField({ description: '角色ID', type: BigInt, required: true })
-  roleId: bigint;
+  roleId: bigint
 
-  user?: SysUserModel;
+  user?: SysUserModel
 
-  role?: SysRoleModel;
+  role?: SysRoleModel
 }

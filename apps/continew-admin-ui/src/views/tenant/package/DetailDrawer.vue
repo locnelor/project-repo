@@ -39,8 +39,9 @@
 </template>
 
 <script setup lang="ts">
+import type { TenantPackageResp } from '@/apis/tenant/package'
 import { useWindowSize } from '@vueuse/core'
-import { type TenantPackageResp, getTenantPackage as getDetail } from '@/apis/tenant/package'
+import { getTenantPackage as getDetail } from '@/apis/tenant/package'
 import { useMenu } from '@/hooks/app'
 
 const { width } = useWindowSize()

@@ -1,67 +1,67 @@
-import { SysFile } from '@repo/database';
-import { ApiField } from '@app/api-kit';
-import { SysStorageModel } from './SysStorage';
+import type { SysFile } from '@repo/database'
+import type { SysStorageModel } from './SysStorage'
+import { ApiField } from '@app/api-kit'
 
 export class SysFileModel implements SysFile {
   @ApiField({ description: '主键ID', type: BigInt, required: true })
-  id: bigint;
+  id: bigint
 
   @ApiField({ description: '创建人', type: BigInt, required: true })
-  createUser: bigint;
+  createUser: bigint
 
   @ApiField({ description: '创建时间', type: Date, required: true })
-  createTime: Date;
+  createTime: Date
 
   @ApiField({ description: '修改人', type: BigInt, nullable: true })
-  updateUser: bigint | null;
+  updateUser: bigint | null
 
   @ApiField({ description: '修改时间', type: Date, nullable: true })
-  updateTime: Date | null;
+  updateTime: Date | null
 
   @ApiField({ description: '是否已删除', type: BigInt, required: true })
-  deleted: bigint;
+  deleted: bigint
 
   @ApiField({ description: '名称', type: String, required: true })
-  name: string;
+  name: string
 
   @ApiField({ description: '原始名称', type: String, required: true })
-  originalName: string;
+  originalName: string
 
   @ApiField({ description: '大小（字节）', type: BigInt, nullable: true })
-  size: bigint | null;
+  size: bigint | null
 
   @ApiField({ description: '上级目录', type: String, required: true })
-  parentPath: string;
+  parentPath: string
 
   @ApiField({ description: '路径', type: String, required: true })
-  path: string;
+  path: string
 
   @ApiField({ description: '扩展名', type: String, nullable: true })
-  extension: string | null;
+  extension: string | null
 
   @ApiField({ description: '内容类型', type: String, nullable: true })
-  contentType: string | null;
+  contentType: string | null
 
   @ApiField({ description: '类型（0: 目录；1：其他；2：图片；3：文档；4：视频；5：音频）', type: Number, required: true })
-  type: number;
+  type: number
 
   @ApiField({ description: 'SHA256值', type: String, nullable: true })
-  sha256: string | null;
+  sha256: string | null
 
   @ApiField({ description: '元数据', type: String, nullable: true })
-  metadata: string | null;
+  metadata: string | null
 
   @ApiField({ description: '缩略图名称', type: String, nullable: true })
-  thumbnailName: string | null;
+  thumbnailName: string | null
 
   @ApiField({ description: '缩略图大小（字节)', type: BigInt, nullable: true })
-  thumbnailSize: bigint | null;
+  thumbnailSize: bigint | null
 
   @ApiField({ description: '缩略图元数据', type: String, nullable: true })
-  thumbnailMetadata: string | null;
+  thumbnailMetadata: string | null
 
   @ApiField({ description: '存储ID', type: BigInt, required: true })
-  storageId: bigint;
+  storageId: bigint
 
-  storage?: SysStorageModel;
+  storage?: SysStorageModel
 }

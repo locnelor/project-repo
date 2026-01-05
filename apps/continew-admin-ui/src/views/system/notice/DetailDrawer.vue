@@ -24,8 +24,9 @@
 </template>
 
 <script setup lang="ts">
+import type { NoticeDetailResp } from '@/apis/system/notice'
 import { useWindowSize } from '@vueuse/core'
-import { type NoticeDetailResp, getNotice as getDetail } from '@/apis/system/notice'
+import { getNotice as getDetail } from '@/apis/system/notice'
 import { useDict } from '@/hooks/app'
 
 const { width } = useWindowSize()

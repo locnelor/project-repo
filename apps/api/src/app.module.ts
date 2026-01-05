@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
-import { SystemModule } from './system/system.module';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from '@app/auth-power';
-import { TestModule } from './test/test.module';
+import { JwtAuthGuard } from '@app/auth-power'
+import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+import { APP_GUARD } from '@nestjs/core'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import { SystemModule } from './system/system.module'
+import { TestModule } from './test/test.module'
 
 @Module({
   imports: [
@@ -20,8 +20,9 @@ import { TestModule } from './test/test.module';
   providers: [
     {
       provide: APP_GUARD,
-      useClass: JwtAuthGuard
+      useClass: JwtAuthGuard,
     },
-    AppService],
+    AppService,
+  ],
 })
 export class AppModule { }

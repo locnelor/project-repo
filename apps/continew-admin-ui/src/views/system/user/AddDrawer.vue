@@ -13,11 +13,13 @@
 </template>
 
 <script setup lang="ts">
-import { Message, type TreeNodeData } from '@arco-design/web-vue'
+import type { TreeNodeData } from '@arco-design/web-vue'
+import type { ColumnItem } from '@/components/GiForm'
+import type { Gender, Status } from '@/types/global'
+import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
 import { addUser, getUser, updateUser } from '@/apis/system/user'
-import { type ColumnItem, GiForm } from '@/components/GiForm'
-import type { Gender, Status } from '@/types/global'
+import { GiForm } from '@/components/GiForm'
 import { GenderList } from '@/constant/common'
 import { useResetReactive } from '@/hooks'
 import { useDept, useRole } from '@/hooks/app'

@@ -8,9 +8,9 @@
 </template>
 
 <script setup lang="ts">
+import type { FileItem } from '@/apis/system'
 import GiOption from '@/components/GiOption/index.vue'
 import GiOptionItem from '@/components/GiOptionItem/index.vue'
-import type { FileItem } from '@/apis/system'
 
 interface Props {
   data?: FileItem
@@ -32,7 +32,9 @@ const onClickItem = (mode: string) => {
 
 <style scoped lang="scss">
 .shadow {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.12),
+    0 0 6px rgba(0, 0, 0, 0.04);
   border-radius: 4px;
   overflow: hidden;
   border: 1px solid var(--color-border-2);

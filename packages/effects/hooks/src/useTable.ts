@@ -1,5 +1,6 @@
-import { array2tree, isFunction } from "@repo/utils";
-import { computed, unref, type Ref } from "vue";
+import type { Ref } from 'vue'
+import { array2tree, isFunction } from '@repo/utils'
+import { computed, unref } from 'vue'
 
 /**
  *
@@ -16,18 +17,18 @@ import { computed, unref, type Ref } from "vue";
 //   });
 // };
 
-export type UseTableAction<T> = (() => T[] | Ref<T[]>) | T[] | Ref<T[]>;
+export type UseTableAction<T> = (() => T[] | Ref<T[]>) | T[] | Ref<T[]>
 
 export const useTableDataSource = <T>(
   data?: UseTableAction<T>,
   makeTree = false,
 ) => {
   return computed(() => {
-    const source = unref(data);
-    if (!source) return [];
-    const list = isFunction(source) ? unref(source()) : source;
-    if (!list) return [];
-    const dataSource = list.map((item: any) => ({ ...item, key: item.id }));
-    return makeTree ? array2tree(dataSource) : dataSource;
-  });
-};
+    const source = unref(data)
+    if (!source) return []
+    const list = isFunction(source) ? unref(source()) : source
+    if (!list) return []
+    const dataSource = list.map((item: any) => ({ ...item, key: item.id }))
+    return makeTree ? array2tree(dataSource) : dataSource
+  })
+}

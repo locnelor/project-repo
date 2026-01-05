@@ -14,14 +14,15 @@
 </template>
 
 <script setup lang="tsx">
+import type { ColumnItem } from '@/components/GiForm'
+import type { LabelValueState } from '@/types/global'
 import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
+import { listTenantPackageDict } from '@/apis/tenant'
 import { addTenant, getTenant, updateTenant } from '@/apis/tenant/management'
-import { type ColumnItem, GiForm } from '@/components/GiForm'
+import { GiForm } from '@/components/GiForm'
 import { useResetReactive } from '@/hooks'
 import { encryptByRsa } from '@/utils/encrypt'
-import { listTenantPackageDict } from '@/apis/tenant'
-import type { LabelValueState } from '@/types/global'
 
 const emit = defineEmits<{
   (e: 'save-success'): void

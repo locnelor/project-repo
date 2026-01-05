@@ -19,8 +19,9 @@
 </template>
 
 <script setup lang="ts">
+import type { MessageResp } from '@/apis'
 import { onMounted } from 'vue'
-import { type MessageResp, listMessage, readAllMessage } from '@/apis'
+import { listMessage, readAllMessage } from '@/apis'
 import router from '@/router'
 
 const emit = defineEmits<{

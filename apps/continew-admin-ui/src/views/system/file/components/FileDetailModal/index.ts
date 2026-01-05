@@ -1,7 +1,7 @@
-import { h } from 'vue'
-import { Modal } from '@arco-design/web-vue'
-import ModalContent from './ModalContent.vue'
 import type { FileItem } from '@/apis/system'
+import { Modal } from '@arco-design/web-vue'
+import { h } from 'vue'
+import ModalContent from './ModalContent.vue'
 
 /** 打开 详情 弹窗 */
 export function openFileDetailModal(fileItem: FileItem) {

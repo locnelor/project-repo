@@ -1,7 +1,7 @@
-name: "\U0001F41E Bug 报告"
+name: 🐞 Bug 报告
 description: 在使用 xxx 功能时出现异常
-title: "[Bug] "
-labels: ["bug"]
+title: '[Bug] '
+labels: [bug]
 body:
   - type: markdown
     attributes:

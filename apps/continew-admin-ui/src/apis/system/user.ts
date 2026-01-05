@@ -1,6 +1,6 @@
 import type * as T from './type'
-import http from '@/utils/http'
 import type { LabelValueState } from '@/types/global'
+import http from '@/utils/http'
 
 const BASE_URL = '/system/user'
 

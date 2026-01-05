@@ -1,7 +1,7 @@
 <template>
   <GiPageLayout>
     <GiTable
-      v-model:selectedKeys="selectedKeys"
+      v-model:selected-keys="selectedKeys"
       row-key="tableName"
       :data="dataList"
       :columns="columns"
@@ -62,10 +62,10 @@
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
 import { Message } from '@arco-design/web-vue'
-import GenConfigDrawer from './GenConfigDrawer.vue'
 import { downloadCode, generateCode, listGenConfig } from '@/apis/code/generator'
 import { useTable } from '@/hooks'
 import { isMobile } from '@/utils'
+import GenConfigDrawer from './GenConfigDrawer.vue'
 
 defineOptions({ name: 'CodeGenerator' })
 const GenPreviewModal = defineAsyncComponent(() => import('./GenPreviewModal.vue'))

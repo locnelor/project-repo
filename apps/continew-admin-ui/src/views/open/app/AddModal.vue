@@ -14,10 +14,11 @@
 </template>
 
 <script setup lang="ts">
+import type { ColumnItem } from '@/components/GiForm'
 import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
 import { addApp, getApp, updateApp } from '@/apis/open/app'
-import { type ColumnItem, GiForm } from '@/components/GiForm'
+import { GiForm } from '@/components/GiForm'
 import { useResetReactive } from '@/hooks'
 
 const emit = defineEmits<{

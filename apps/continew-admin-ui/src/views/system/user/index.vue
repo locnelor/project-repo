@@ -88,18 +88,19 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
-import DeptTree from './dept/index.vue'
-import AddDrawer from './AddDrawer.vue'
-import ImportDrawer from './ImportDrawer.vue'
-import DetailDrawer from './DetailDrawer.vue'
-import PwdResetModal from './PwdResetModal.vue'
-import RoleUpdateModal from './RoleUpdateModal.vue'
-import { type UserResp, deleteUser, exportUser, listUser } from '@/apis/system/user'
+import type { UserResp } from '@/apis/system/user'
+import type { ColumnItem } from '@/components/GiForm'
+import { deleteUser, exportUser, listUser } from '@/apis/system/user'
 import { DisEnableStatusList } from '@/constant/common'
 import { useDownload, useResetReactive, useTable } from '@/hooks'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
-import type { ColumnItem } from '@/components/GiForm'
+import AddDrawer from './AddDrawer.vue'
+import DeptTree from './dept/index.vue'
+import DetailDrawer from './DetailDrawer.vue'
+import ImportDrawer from './ImportDrawer.vue'
+import PwdResetModal from './PwdResetModal.vue'
+import RoleUpdateModal from './RoleUpdateModal.vue'
 
 defineOptions({ name: 'SystemUser' })
 

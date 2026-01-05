@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthPowerModule } from '@app/auth-power';
-import { AuthController } from './auth.controller';
+import { AuthPowerModule } from '@app/auth-power'
+import { Module } from '@nestjs/common'
+import { AuthController } from './auth.controller'
+import { AuthService } from './auth.service'
 
 @Module({
   imports: [AuthPowerModule],

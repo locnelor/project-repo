@@ -62,10 +62,11 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
+import type { JobLogQuery, JobLogResp } from '@/apis/schedule'
 import { Message } from '@arco-design/web-vue'
-import { useRoute } from 'vue-router'
 import dayjs from 'dayjs'
-import { type JobLogQuery, type JobLogResp, listGroup, listJobLog, retryJob, stopJob } from '@/apis/schedule'
+import { useRoute } from 'vue-router'
+import { listGroup, listJobLog, retryJob, stopJob } from '@/apis/schedule'
 import { useTable } from '@/hooks'
 import { useDict } from '@/hooks/app'
 import { isMobile } from '@/utils'

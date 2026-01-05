@@ -1,8 +1,8 @@
-const path = require('path');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const nodeExternals = require('webpack-node-externals');
-const { swcOptions } =
-  require('@nestjs/cli/lib/compiler/defaults/swc-defaults').swcDefaultsFactory();
+const path = require('node:path')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const nodeExternals = require('webpack-node-externals')
+const { swcOptions }
+  = require('@nestjs/cli/lib/compiler/defaults/swc-defaults').swcDefaultsFactory()
 
 /**
  * Webpack config exported as a function so we can switch behaviour
@@ -15,15 +15,15 @@ const { swcOptions } =
  *   · 不排除任何 external，所有依赖都会打入 bundle，方便单文件部署
  */
 module.exports = (env, argv) => {
-  const lifecycle = process.env.npm_lifecycle_event;
-  const modeArg = argv && typeof argv.mode === 'string' ? argv.mode : undefined;
-  const isProd =
-    env === 'production' ||
-    (env && (env.production === true || env.prod === true)) ||
-    modeArg === 'production' ||
-    process.env.WEBPACK_MODE === 'production' ||
-    process.env.NODE_ENV === 'production' ||
-    lifecycle === 'build';
+  const lifecycle = process.env.npm_lifecycle_event
+  const modeArg = argv && typeof argv.mode === 'string' ? argv.mode : undefined
+  const isProd
+    = env === 'production'
+      || (env && (env.production === true || env.prod === true))
+      || modeArg === 'production'
+      || process.env.WEBPACK_MODE === 'production'
+      || process.env.NODE_ENV === 'production'
+      || lifecycle === 'build'
 
   return {
     entry: './src/main.ts',
@@ -54,5 +54,5 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, 'dist'),
       filename: 'main.js',
     },
-  };
-};
+  }
+}

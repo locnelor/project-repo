@@ -67,8 +67,8 @@
 </template>
 
 <script setup lang="ts">
-import { useClipboard } from '@vueuse/core'
 import { Message } from '@arco-design/web-vue'
+import { useClipboard } from '@vueuse/core'
 
 defineOptions({ name: 'GiIconSelector' })
 

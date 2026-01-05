@@ -54,9 +54,10 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
 import type { TableInstance } from '@arco-design/web-vue'
-import { type SmsLogQuery, type SmsLogResp, deleteSmsLog, exportSmsLog, listSmsLog } from '@/apis/system/smsLog'
+import type { SmsLogQuery, SmsLogResp } from '@/apis/system/smsLog'
+import { useRoute } from 'vue-router'
+import { deleteSmsLog, exportSmsLog, listSmsLog } from '@/apis/system/smsLog'
 import { useDownload, useTable } from '@/hooks'
 import { useDict } from '@/hooks/app'
 import { isMobile } from '@/utils'

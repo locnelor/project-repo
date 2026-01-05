@@ -130,9 +130,17 @@
 </template>
 
 <script setup lang="ts">
-import { Message, Modal, type RequestOption } from '@arco-design/web-vue'
-import { api as viewerApi } from 'v-viewer'
+import type { RequestOption } from '@arco-design/web-vue'
+import type { FileItem, FileQuery } from '@/apis/system/file'
+import type { ExcelConfig } from '@/components/FilePreview/type'
+import { Message, Modal } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
+import { api as viewerApi } from 'v-viewer'
+import { createDir, deleteFile, listFile, uploadFile } from '@/apis/system/file'
+import { ImageTypes, OfficeTypes } from '@/constant/file'
+import { useTable } from '@/hooks'
+import { downloadByUrl } from '@/utils/downloadFile'
+import mittBus from '@/utils/mitt'
 import {
   openFileDetailModal,
   openFileRenameModal,
@@ -142,13 +150,7 @@ import {
 import FileGrid from './FileGrid.vue'
 import RecycleBinModal from './RecycleBinModal.vue'
 import useFileManage from './useFileManage'
-import { useTable } from '@/hooks'
-import { type FileItem, type FileQuery, createDir, deleteFile, listFile, uploadFile } from '@/apis/system/file'
-import { ImageTypes, OfficeTypes } from '@/constant/file'
 import 'viewerjs/dist/viewer.css'
-import { downloadByUrl } from '@/utils/downloadFile'
-import mittBus from '@/utils/mitt'
-import type { ExcelConfig } from '@/components/FilePreview/type'
 
 const FilePreview = defineAsyncComponent(() => import('@/components/FilePreview/index.vue'))
 

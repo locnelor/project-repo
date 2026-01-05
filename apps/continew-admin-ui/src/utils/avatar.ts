@@ -1,6 +1,6 @@
-import Unknown from '../assets/images/avatar/unknown.png'
-import Male from '../assets/images/avatar/male.png'
 import Female from '../assets/images/avatar/female.png'
+import Male from '../assets/images/avatar/male.png'
+import Unknown from '../assets/images/avatar/unknown.png'
 
 export default function getAvatar(avatar: string | undefined, gender: number | undefined) {
   if (avatar) {

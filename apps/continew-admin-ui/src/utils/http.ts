@@ -1,13 +1,13 @@
+import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import axios from 'axios'
 import qs from 'query-string'
-import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { useTenantStore } from '@/stores/modules/tenant'
-import { useUserStore } from '@/stores'
-import { getToken } from '@/utils/auth'
-import modalErrorWrapper from '@/utils/modal-error-wrapper'
-import messageErrorWrapper from '@/utils/message-error-wrapper'
-import notificationErrorWrapper from '@/utils/notification-error-wrapper'
 import router from '@/router'
+import { useUserStore } from '@/stores'
+import { useTenantStore } from '@/stores/modules/tenant'
+import { getToken } from '@/utils/auth'
+import messageErrorWrapper from '@/utils/message-error-wrapper'
+import modalErrorWrapper from '@/utils/modal-error-wrapper'
+import notificationErrorWrapper from '@/utils/notification-error-wrapper'
 
 interface ICodeMessage {
   [propName: number]: string

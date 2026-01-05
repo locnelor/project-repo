@@ -22,17 +22,19 @@
 </template>
 
 <script setup lang="ts">
-import { useWindowSize } from '@vueuse/core'
+import type { BehaviorCaptchaReq } from '@/apis'
+import type { ColumnItem } from '@/components/GiForm'
 import { Message } from '@arco-design/web-vue'
+import { useWindowSize } from '@vueuse/core'
 import NProgress from 'nprogress'
-import { type BehaviorCaptchaReq, getEmailCaptcha, getSmsCaptcha, updateUserEmail, updateUserPassword, updateUserPhone } from '@/apis'
-import { encryptByRsa } from '@/utils/encrypt'
-import { useUserStore } from '@/stores'
-import { type ColumnItem, GiForm } from '@/components/GiForm'
+import { getEmailCaptcha, getSmsCaptcha, updateUserEmail, updateUserPassword, updateUserPhone } from '@/apis'
+import { GiForm } from '@/components/GiForm'
 import { useResetReactive } from '@/hooks'
-import * as Regexp from '@/utils/regexp'
-import modalErrorWrapper from '@/utils/modal-error-wrapper'
 import router from '@/router'
+import { useUserStore } from '@/stores'
+import { encryptByRsa } from '@/utils/encrypt'
+import modalErrorWrapper from '@/utils/modal-error-wrapper'
+import * as Regexp from '@/utils/regexp'
 
 const { width } = useWindowSize()
 const userStore = useUserStore()

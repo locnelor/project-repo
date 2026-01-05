@@ -21,7 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import { FileTypeList, type FileTypeListItem } from '@/constant/file'
+import type { FileTypeListItem } from '@/constant/file'
+import { FileTypeList } from '@/constant/file'
 import FileAsideStatistics from '@/views/system/file/main/FileAsideStatistics.vue'
 
 const route = useRoute()

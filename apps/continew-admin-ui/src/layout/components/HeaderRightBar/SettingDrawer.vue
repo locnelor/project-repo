@@ -81,12 +81,12 @@
 </template>
 
 <script setup lang="ts">
-import { ColorPicker } from 'vue-color-kit'
-import 'vue-color-kit/dist/vue-color-kit.css'
-import { useClipboard } from '@vueuse/core'
 import { Message } from '@arco-design/web-vue'
-import LayoutItem from './components/LayoutItem.vue'
+import { useClipboard } from '@vueuse/core'
+import { ColorPicker } from 'vue-color-kit'
 import { useAppStore } from '@/stores'
+import LayoutItem from './components/LayoutItem.vue'
+import 'vue-color-kit/dist/vue-color-kit.css'
 
 defineOptions({ name: 'SettingDrawer' })
 const appStore = useAppStore()

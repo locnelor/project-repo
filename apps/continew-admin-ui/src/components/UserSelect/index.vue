@@ -3,7 +3,7 @@
     <a-row :gutter="16">
       <a-col :span="24" :md="17">
         <GiTable
-          v-model:selectedKeys="selectedKeys"
+          v-model:selected-keys="selectedKeys"
           row-key="id"
           :data="dataList"
           :columns="listColumns"
@@ -77,8 +77,10 @@
 <script setup lang="ts">
 import type { TableInstance, TreeNodeData } from '@arco-design/web-vue'
 
-import { type UserQuery, type UserResp, listAllUser, listUser } from '@/apis'
-import { type Options, useTable } from '@/hooks'
+import type { UserQuery, UserResp } from '@/apis'
+import type { Options } from '@/hooks'
+import { listAllUser, listUser } from '@/apis'
+import { useTable } from '@/hooks'
 import { useDept } from '@/hooks/app'
 import { isMobile } from '@/utils'
 

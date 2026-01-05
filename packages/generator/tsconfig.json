@@ -1,8 +1,8 @@
 {
   "extends": "@internal/tsconfig/prisma.json",
   "compilerOptions": {
-    "moduleResolution": "bundler",
-    "module": "ESNext"
+    "module": "ESNext",
+    "moduleResolution": "bundler"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "ts.config.ts"],
   "exclude": ["node_modules"]

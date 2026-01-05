@@ -1,11 +1,12 @@
+// eslint-disable-next-line ts/no-unsafe-function-type
 function isFunction(value: unknown): value is Function {
-  return typeof value === "function";
+  return typeof value === 'function'
 }
 function isObject(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null;
+  return typeof value === 'object' && value !== null
 }
 function isString(value: unknown): value is string {
-  return typeof value === "string";
+  return typeof value === 'string'
 }
 
 /**
@@ -15,7 +16,7 @@ function isString(value: unknown): value is string {
  * @returns {boolean} 如果值是undefined，返回true，否则返回false。
  */
 function isUndefined(value?: unknown): value is undefined {
-  return value === undefined;
+  return value === undefined
 }
 
 /**
@@ -24,7 +25,7 @@ function isUndefined(value?: unknown): value is undefined {
  * @returns 如果值是布尔值，返回true，否则返回false。
  */
 function isBoolean(value: unknown): value is boolean {
-  return typeof value === "boolean";
+  return typeof value === 'boolean'
 }
 
 /**
@@ -43,22 +44,22 @@ function isBoolean(value: unknown): value is boolean {
  */
 function isEmpty<T = unknown>(value?: T): value is T {
   if (value === null || value === undefined) {
-    return true;
+    return true
   }
 
   if (Array.isArray(value) || isString(value)) {
-    return value.length === 0;
+    return value.length === 0
   }
 
   if (value instanceof Map || value instanceof Set) {
-    return value.size === 0;
+    return value.size === 0
   }
 
   if (isObject(value)) {
-    return Object.keys(value).length === 0;
+    return Object.keys(value).length === 0
   }
 
-  return false;
+  return false
 }
 
 /**
@@ -69,11 +70,11 @@ function isEmpty<T = unknown>(value?: T): value is T {
  */
 function isHttpUrl(url?: string): boolean {
   if (!url) {
-    return false;
+    return false
   }
   // 使用正则表达式测试URL是否以http:// 或 https:// 开头
-  const httpRegex = /^https?:\/\/.*$/;
-  return httpRegex.test(url);
+  const httpRegex = /^https?:\/\/.*$/
+  return httpRegex.test(url)
 }
 
 /**
@@ -84,8 +85,8 @@ function isHttpUrl(url?: string): boolean {
  */
 function isWindow(value: any): value is Window {
   return (
-    typeof window !== "undefined" && value !== null && value === value.window
-  );
+    typeof window !== 'undefined' && value !== null && value === value.window
+  )
 }
 
 /**
@@ -97,8 +98,8 @@ function isWindow(value: any): value is Window {
  * @returns {boolean} 如果当前环境是Mac OS，返回true，否则返回false。
  */
 function isMacOs(): boolean {
-  const macRegex = /macintosh|mac os x/i;
-  return macRegex.test(navigator.userAgent);
+  const macRegex = /macintosh|mac os x/i
+  return macRegex.test(navigator.userAgent)
 }
 
 /**
@@ -110,8 +111,8 @@ function isMacOs(): boolean {
  * @returns {boolean} 如果当前环境是Windows OS，返回true，否则返回false。
  */
 function isWindowsOs(): boolean {
-  const windowsRegex = /windows|win32/i;
-  return windowsRegex.test(navigator.userAgent);
+  const windowsRegex = /windows|win32/i
+  return windowsRegex.test(navigator.userAgent)
 }
 
 /**
@@ -119,7 +120,7 @@ function isWindowsOs(): boolean {
  * @param value
  */
 function isNumber(value: any): value is number {
-  return typeof value === "number" && Number.isFinite(value);
+  return typeof value === 'number' && Number.isFinite(value)
 }
 
 /**
@@ -150,10 +151,10 @@ function getFirstNonNullOrUndefined<T>(
 ): T | undefined {
   for (const value of values) {
     if (value !== undefined && value !== null) {
-      return value;
+      return value
     }
   }
-  return undefined;
+  return undefined
 }
 
 export {
@@ -169,4 +170,4 @@ export {
   isUndefined,
   isWindow,
   isWindowsOs,
-};
+}

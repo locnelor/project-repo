@@ -71,16 +71,17 @@
 </template>
 
 <script setup lang="ts">
+import type { ColumnItem } from '@/components/GiForm'
+import type { LabelValueState } from '@/types/global'
 import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
-import AiEditor from './components/index.vue'
-import { addNotice, getNotice, updateNotice } from '@/apis/system/notice'
 import { listUserDict } from '@/apis/system'
-import { type ColumnItem, GiForm } from '@/components/GiForm'
-import type { LabelValueState } from '@/types/global'
-import { useTabsStore } from '@/stores'
+import { addNotice, getNotice, updateNotice } from '@/apis/system/notice'
+import { GiForm } from '@/components/GiForm'
 import { useResetReactive } from '@/hooks'
 import { useDict } from '@/hooks/app'
+import { useTabsStore } from '@/stores'
+import AiEditor from './components/index.vue'
 
 const { width } = useWindowSize()
 const route = useRoute()

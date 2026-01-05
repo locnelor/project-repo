@@ -77,13 +77,13 @@
 import { Modal } from '@arco-design/web-vue'
 import { useFullscreen } from '@vueuse/core'
 import { onMounted, ref } from 'vue'
-import Message from './Message.vue'
-import SettingDrawer from './SettingDrawer.vue'
-import Search from './Search.vue'
 import { getUnreadMessageCount } from '@/apis'
+import { useBreakpoint, useDevice } from '@/hooks'
 import { useUserStore } from '@/stores'
 import { getToken } from '@/utils/auth'
-import { useBreakpoint, useDevice } from '@/hooks'
+import Message from './Message.vue'
+import Search from './Search.vue'
+import SettingDrawer from './SettingDrawer.vue'
 
 defineOptions({ name: 'HeaderRight' })
 

@@ -78,9 +78,9 @@
 </template>
 
 <script setup lang="ts">
+import type { RouteRecordRaw } from 'vue-router'
 import { useEventListener } from '@vueuse/core'
 import { useRouter } from 'vue-router'
-import type { RouteRecordRaw } from 'vue-router'
 import { useRouteStore } from '@/stores'
 
 interface SearchHistory {
@@ -328,22 +328,22 @@ watch(searchKeyword, (newValue) => {
   background-color: var(--color-bg-4);
 }
 
-:deep(.arco-modal-footer){
+:deep(.arco-modal-footer) {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
 }
 
-.shortcut{
+.shortcut {
   display: flex;
   justify-items: center;
   align-items: center;
   gap: 8px;
 
-  &-icon{
+  &-icon {
     padding: 4px;
-    background-color:var(--color-fill-2);
+    background-color: var(--color-fill-2);
     border-radius: 6px;
     color: var(--color-text-1);
   }

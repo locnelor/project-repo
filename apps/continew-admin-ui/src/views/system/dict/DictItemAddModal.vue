@@ -28,10 +28,11 @@
 </template>
 
 <script setup lang="ts">
+import type { ColumnItem } from '@/components/GiForm'
 import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
 import { addDictItem, getDictItem, updateDictItem } from '@/apis/system/dict'
-import { type ColumnItem, GiForm } from '@/components/GiForm'
+import { GiForm } from '@/components/GiForm'
 import { useResetReactive } from '@/hooks'
 
 const emit = defineEmits<{

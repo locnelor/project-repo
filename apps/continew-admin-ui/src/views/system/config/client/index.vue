@@ -59,20 +59,22 @@
 </template>
 
 <script setup lang="tsx">
+import type { TableInstance } from '@arco-design/web-vue'
 import type { LabelValue } from '@arco-design/web-vue/es/tree-select/interface'
-import { type TableInstance, Tag } from '@arco-design/web-vue'
-import AddModal from './AddModal.vue'
-import DetailDrawer from './DetailDrawer.vue'
-import { type ClientQuery, type ClientResp, deleteClient, listClient } from '@/apis/system/client'
+import type { ClientQuery, ClientResp } from '@/apis/system/client'
+import { Tag } from '@arco-design/web-vue'
+import { deleteClient, listClient } from '@/apis/system/client'
+import CellCopy from '@/components/CellCopy/index.vue'
+import GiCellStatus from '@/components/GiCell/GiCellStatus.vue'
+import GiCellTag from '@/components/GiCell/GiCellTag.vue'
+import GiCellTags from '@/components/GiCell/GiCellTags.vue'
 import { DisEnableStatusList } from '@/constant/common'
 import { useTable } from '@/hooks'
 import { useDict } from '@/hooks/app'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
-import CellCopy from '@/components/CellCopy/index.vue'
-import GiCellTag from '@/components/GiCell/GiCellTag.vue'
-import GiCellTags from '@/components/GiCell/GiCellTags.vue'
-import GiCellStatus from '@/components/GiCell/GiCellStatus.vue'
+import AddModal from './AddModal.vue'
+import DetailDrawer from './DetailDrawer.vue'
 
 defineOptions({ name: 'SystemClient' })
 

@@ -16,7 +16,7 @@
         <div class="login-right">
           <h3 v-if="isEmailLogin" class="login-right__title">邮箱登录</h3>
           <EmailLogin v-if="isEmailLogin" />
-          <a-tabs v-else v-model:activeKey="activeTab" class="login-right__form">
+          <a-tabs v-else v-model:active-key="activeTab" class="login-right__form">
             <a-tab-pane key="1" title="账号登录">
               <component :is="AccountLogin" v-if="activeTab === '1'" />
             </a-tab-pane>
@@ -65,7 +65,7 @@
         <div class="login-right">
           <h3 v-if="isEmailLogin" class="login-right__title">邮箱登录</h3>
           <EmailLogin v-if="isEmailLogin" />
-          <a-tabs v-else v-model:activeKey="activeTab" class="login-right__form">
+          <a-tabs v-else v-model:active-key="activeTab" class="login-right__form">
             <a-tab-pane key="1" title="账号登录">
               <component :is="AccountLogin" v-if="activeTab === '1'" />
             </a-tab-pane>
@@ -97,15 +97,15 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import Background from './components/background/index.vue'
-import AccountLogin from './components/account/index.vue'
-import PhoneLogin from './components/phone/index.vue'
-import EmailLogin from './components/email/index.vue'
+import { getTenantIdByDomain, getTenantStatus } from '@/apis'
 import { socialAuth } from '@/apis/auth'
+import { useDevice } from '@/hooks'
 import { useAppStore } from '@/stores'
 import { useTenantStore } from '@/stores/modules/tenant'
-import { useDevice } from '@/hooks'
-import { getTenantIdByDomain, getTenantStatus } from '@/apis'
+import AccountLogin from './components/account/index.vue'
+import Background from './components/background/index.vue'
+import EmailLogin from './components/email/index.vue'
+import PhoneLogin from './components/phone/index.vue'
 
 defineOptions({ name: 'Login' })
 

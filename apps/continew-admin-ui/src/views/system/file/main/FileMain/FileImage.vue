@@ -4,8 +4,8 @@
 </template>
 
 <script setup lang="ts">
-import { FileIcon, ImageTypes } from '@/constant/file'
 import type { FileItem } from '@/apis/system'
+import { FileIcon, ImageTypes } from '@/constant/file'
 
 interface Props {
   data: FileItem

@@ -2,10 +2,10 @@
   "name": "@repo/types",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
-  "keywords": [],
   "author": "",
   "license": "ISC",
+  "keywords": [],
+  "main": "index.ts",
   "dependencies": {
     "@repo/database": "workspace:*"
   }

@@ -36,8 +36,8 @@
 
 <script setup lang="ts">
 import type { ModeItem } from '../type'
-import VerifyModel from '../components/VerifyModel.vue'
 import { useUserStore } from '@/stores'
+import VerifyModel from '../components/VerifyModel.vue'
 
 const userStore = useUserStore()
 const userInfo = computed(() => userStore.userInfo)

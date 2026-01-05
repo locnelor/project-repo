@@ -48,9 +48,11 @@
 </template>
 
 <script setup lang="ts">
+import type { FormInstance } from '@arco-design/web-vue'
+import type { LoginConfig, OptionResp } from '@/apis/system'
+import { Message, Modal } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
-import { type FormInstance, Message, Modal } from '@arco-design/web-vue'
-import { type LoginConfig, type OptionResp, listOption, resetOptionValue, updateOption } from '@/apis/system'
+import { listOption, resetOptionValue, updateOption } from '@/apis/system'
 import { useResetReactive } from '@/hooks'
 
 defineOptions({ name: 'SystemLoginConfig' })

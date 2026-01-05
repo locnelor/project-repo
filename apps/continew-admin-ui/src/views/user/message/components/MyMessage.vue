@@ -99,14 +99,14 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
+import type { MessageQuery, MessageResp } from '@/apis'
 import { Message, Modal } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
 import {
-  type MessageQuery,
-  type MessageResp,
   deleteMessage,
   getUserMessage,
   listMessage,
+
   readAllMessage,
   readMessage,
 } from '@/apis'

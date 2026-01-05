@@ -35,8 +35,8 @@
 </template>
 
 <script setup lang="ts">
-import { useWindowSize } from '@vueuse/core'
 import type { JobResp } from '@/apis/schedule'
+import { useWindowSize } from '@vueuse/core'
 import { useDict } from '@/hooks/app'
 
 const { width } = useWindowSize()

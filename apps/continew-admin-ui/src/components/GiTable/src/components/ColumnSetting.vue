@@ -89,11 +89,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import { VueDraggable } from 'vue-draggable-plus'
-import { Message } from '@arco-design/web-vue'
 import type { TableColumnData } from '@arco-design/web-vue'
+import { Message } from '@arco-design/web-vue'
+import { computed, onMounted, ref, watch } from 'vue'
+import { VueDraggable } from 'vue-draggable-plus'
+import { useRoute } from 'vue-router'
 
 interface ColumnItem {
   title: string

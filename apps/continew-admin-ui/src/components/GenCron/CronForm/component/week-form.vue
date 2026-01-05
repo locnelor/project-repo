@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { TypeEnum, WEEK_MAP, useFormProps, useFormSetup, useFromEmits } from './use-mixin'
+import { TypeEnum, useFormProps, useFormSetup, useFromEmits, WEEK_MAP } from './use-mixin'
 
 export default defineComponent({
   name: 'WeekForm',

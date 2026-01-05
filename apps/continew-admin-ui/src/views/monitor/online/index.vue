@@ -44,11 +44,12 @@
 
 <script setup lang="ts">
 import type { TableInstance } from '@arco-design/web-vue'
+import type { OnlineUserQuery } from '@/apis/monitor'
 import { Message } from '@arco-design/web-vue'
-import { type OnlineUserQuery, kickout, listOnlineUser } from '@/apis/monitor'
+import { kickout, listOnlineUser } from '@/apis/monitor'
 import DateRangePicker from '@/components/DateRangePicker/index.vue'
-import { useUserStore } from '@/stores'
 import { useTable } from '@/hooks'
+import { useUserStore } from '@/stores'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
 

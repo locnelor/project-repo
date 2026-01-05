@@ -1,8 +1,8 @@
-import { defineConfig, mergeConfig, type UserConfig, type Plugin } from "vite";
-import vuePlugin from "@vitejs/plugin-vue";
+import type { UserConfig } from 'vite'
 // import tailwindcss from "@tailwindcss/vite"
-import path from "node:path";
-import { getPackagesSync } from "@internal/pkg-utils";
+import { getPackagesSync } from '@internal/pkg-utils'
+import vuePlugin from '@vitejs/plugin-vue'
+import { defineConfig, mergeConfig } from 'vite'
 
 // 创建自动添加@source指令的插件
 // tailwind4x
@@ -53,15 +53,15 @@ import { getPackagesSync } from "@internal/pkg-utils";
 //   }
 // }
 
-const { packages } = getPackagesSync();
-const tailwindPackages: string[] = [];
+const { packages } = getPackagesSync()
+const tailwindPackages: string[] = []
 
 packages.forEach((pkg) => {
   // apps目录下和 @vben-core/tailwind-ui 包需要使用到 tailwindcss ui
   // if (fs.existsSync(path.join(pkg.dir, 'tailwind.config.mjs'))) {
-  tailwindPackages.push(pkg.dir);
+  tailwindPackages.push(pkg.dir)
   // }
-});
+})
 
 export const defineApplicationConfig = (userConfig: UserConfig = {}) => {
   const config = defineConfig({
@@ -75,6 +75,6 @@ export const defineApplicationConfig = (userConfig: UserConfig = {}) => {
     //     plugins: [],
     //   },
     // },
-  });
-  return mergeConfig(config, userConfig);
-};
+  })
+  return mergeConfig(config, userConfig)
+}

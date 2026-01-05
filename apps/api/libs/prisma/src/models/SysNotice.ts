@@ -1,55 +1,55 @@
-import { SysNotice } from '@repo/database';
-import { ApiField } from '@app/api-kit';
-import { SysNoticeLogModel } from './SysNoticeLog';
+import type { SysNotice } from '@repo/database'
+import type { SysNoticeLogModel } from './SysNoticeLog'
+import { ApiField } from '@app/api-kit'
 
 export class SysNoticeModel implements SysNotice {
   @ApiField({ description: '主键ID', type: BigInt, required: true })
-  id: bigint;
+  id: bigint
 
   @ApiField({ description: '创建人', type: BigInt, required: true })
-  createUser: bigint;
+  createUser: bigint
 
   @ApiField({ description: '创建时间', type: Date, required: true })
-  createTime: Date;
+  createTime: Date
 
   @ApiField({ description: '修改人', type: BigInt, nullable: true })
-  updateUser: bigint | null;
+  updateUser: bigint | null
 
   @ApiField({ description: '修改时间', type: Date, nullable: true })
-  updateTime: Date | null;
+  updateTime: Date | null
 
   @ApiField({ description: '是否已删除', type: BigInt, required: true })
-  deleted: bigint;
+  deleted: bigint
 
   @ApiField({ description: '状态（1：草稿；2：待发布；3：已发布）', type: Number, required: true })
-  status: number;
+  status: number
 
   @ApiField({ description: '标题', type: String, required: true })
-  title: string;
+  title: string
 
   @ApiField({ description: '内容', type: String, required: true })
-  content: string;
+  content: string
 
   @ApiField({ description: '分类', type: String, required: true })
-  type: string;
+  type: string
 
   @ApiField({ description: '通知范围（1：所有人；2：指定用户）', type: Number, required: true })
-  noticeScope: number;
+  noticeScope: number
 
   @ApiField({ description: '通知用户', nullable: true })
-  noticeUsers;
+  noticeUsers
 
   @ApiField({ description: '通知方式（1：系统消息；2：登录弹窗）', nullable: true })
-  noticeMethods;
+  noticeMethods
 
   @ApiField({ description: '是否定时', type: Boolean, required: true })
-  isTiming: boolean;
+  isTiming: boolean
 
   @ApiField({ description: '发布时间', type: Date, nullable: true })
-  publishTime: Date | null;
+  publishTime: Date | null
 
   @ApiField({ description: '是否置顶', type: Boolean, required: true })
-  isTop: boolean;
+  isTop: boolean
 
-  logs?: SysNoticeLogModel[];
+  logs?: SysNoticeLogModel[]
 }

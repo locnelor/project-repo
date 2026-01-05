@@ -40,8 +40,8 @@
 </template>
 
 <script lang="ts" setup>
-import { IconLeft, IconRight } from '@arco-design/web-vue/es/icon'
 import type { CSSProperties } from 'vue'
+import { IconLeft, IconRight } from '@arco-design/web-vue/es/icon'
 
 /**
  * 组件属性定义
@@ -167,7 +167,7 @@ onUnmounted(() => {
 .clead_padding {
   padding: 0 !important;
 }
-.ca-split-panel:has(.gi-table--fullscreen) .container{
+.ca-split-panel:has(.gi-table--fullscreen) .container {
   display: none;
 }
 .ca-split-panel {
@@ -210,7 +210,9 @@ onUnmounted(() => {
     flex: 1;
     background: var(--color-bg-1);
     overflow: hidden;
-    transition: transform 0.5s ease, width 0.5s ease;
+    transition:
+      transform 0.5s ease,
+      width 0.5s ease;
   }
 
   &__content {
@@ -314,7 +316,6 @@ onUnmounted(() => {
   }
 
   &.is-mobile {
-
     :deep(.arco-table-col-fixed-left),
     :deep(.arco-table-col-fixed-right) {
       position: static;

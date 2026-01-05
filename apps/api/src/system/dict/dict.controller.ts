@@ -1,5 +1,5 @@
-import { Controller } from '@nestjs/common';
-import { DictService } from './dict.service';
+import type { DictService } from './dict.service'
+import { Controller } from '@nestjs/common'
 
 @Controller('dict')
 export class DictController {

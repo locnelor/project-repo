@@ -1,12 +1,13 @@
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
 import type { RouteRecordRaw } from 'vue-router'
-import { mapTree, toTreeArray } from 'xe-utils'
+import type { RouteItem } from '@/apis'
 import { cloneDeep, omit } from 'lodash-es'
-import { constantRoutes, systemRoutes } from '@/router/route'
-import { type RouteItem, getUserRoute } from '@/apis'
-import { transformPathToName } from '@/utils'
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
+import { mapTree, toTreeArray } from 'xe-utils'
+import { getUserRoute } from '@/apis'
 import { asyncRouteModules } from '@/router/asyncModules'
+import { constantRoutes, systemRoutes } from '@/router/route'
+import { transformPathToName } from '@/utils'
 
 const layoutComponentMap = {
   Layout: () => import('@/layout/index.vue'),
@@ -83,8 +84,7 @@ const storeSetup = () => {
   // 合并路由
   const setRoutes = (data: RouteRecordRaw[]) => {
     // 合并路由并排序
-    routes.value = [...constantRoutes, ...systemRoutes].concat(data)
-      .sort((a, b) => (a.meta?.sort ?? 0) - (b.meta?.sort ?? 0))
+    routes.value = [...constantRoutes, ...systemRoutes].concat(data).sort((a, b) => (a.meta?.sort ?? 0) - (b.meta?.sort ?? 0))
     asyncRoutes.value = data
   }
 

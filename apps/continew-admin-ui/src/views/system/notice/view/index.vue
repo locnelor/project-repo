@@ -37,9 +37,10 @@
 </template>
 
 <script setup lang="ts">
-import AiEditor from './components/index.vue'
-import { type NoticeResp, getNotice } from '@/apis/system/notice'
+import type { NoticeResp } from '@/apis/system/notice'
+import { getNotice } from '@/apis/system/notice'
 import { useTabsStore } from '@/stores'
+import AiEditor from './components/index.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -69,16 +70,16 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .detail_content {
-    .title {
-        text-align: center;
-    }
+  .title {
+    text-align: center;
+  }
 
-    .info {
-        text-align: center;
-    }
+  .info {
+    text-align: center;
+  }
 
-    .icon {
-      margin-right: 3px;
-    }
+  .icon {
+    margin-right: 3px;
+  }
 }
 </style>

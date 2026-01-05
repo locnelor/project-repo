@@ -1,6 +1,6 @@
 import type { TableData, TableInstance } from '@arco-design/web-vue'
-import { Message, Modal } from '@arco-design/web-vue'
 import type { Options as paginationOptions } from './usePagination'
+import { Message, Modal } from '@arco-design/web-vue'
 import { useBreakpoint, usePagination } from '@/hooks'
 
 interface Options<T, U> {
