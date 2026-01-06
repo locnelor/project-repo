@@ -20,17 +20,17 @@ model SysUser {
   /// 密码
   password     String?   @db.VarChar(255)
   /// 性别（0：未知；1：男；2：女）
-  gender       Int       @default(0) @db.TinyInt
+  gender       Int       @default(0) 
   /// 邮箱
   email        String?   @db.VarChar(255)
   /// 手机号码
   phone        String?   @db.VarChar(255)
   /// 头像
-  avatar       String?   @db.LongText
+  avatar       String?   @db.Text
   /// 描述
   description  String?   @db.VarChar(200)
   /// 状态（1：启用；2：禁用）
-  status       Int       @default(1) @db.TinyInt
+  status       Int       @default(1) 
   /// 是否为系统内置数据
   isSystem     Boolean   @default(false) @map("is_system")
   /// 最后一次修改密码时间
@@ -46,13 +46,13 @@ model SysUser {
   messageLogs     SysMessageLog[]
   noticeLogs      SysNoticeLog[]
 
-  @@unique([username, deleted], map: "uk_username")
-  @@unique([email, deleted], map: "uk_email")
-  @@unique([phone, deleted], map: "uk_phone")
-  @@index([deptId], map: "idx_dept_id")
-  @@index([createUser], map: "idx_create_user")
-  @@index([updateUser], map: "idx_update_user")
-  @@index([deleted], map: "idx_deleted")
+  @@unique([username, deleted], map: "sys_user_uk_username")
+  @@unique([email, deleted], map: "sys_user_uk_email")
+  @@unique([phone, deleted], map: "sys_user_uk_phone")
+  @@index([deptId], map: "sys_user_idx_dept_id")
+  @@index([createUser], map: "sys_user_idx_create_user")
+  @@index([updateUser], map: "sys_user_idx_update_user")
+  @@index([deleted], map: "sys_user_idx_deleted")
   @@map("sys_user")
 }
 
@@ -69,7 +69,7 @@ model SysUserPasswordHistory {
 
   user SysUser @relation(fields: [userId], references: [id])
 
-  @@index([userId], map: "idx_user_id")
+  @@index([userId], map: "sys_user_idx_user_id")
   @@map("sys_user_password_history")
 }
 
@@ -97,8 +97,8 @@ model SysUserSocial {
 
   user SysUser @relation(fields: [userId], references: [id])
 
-  @@unique([source, openId, deleted], map: "uk_source_open_id")
-  @@index([deleted], map: "idx_deleted")
+  @@unique([source, openId, deleted], map: "sys_user_uk_source_open_id")
+  @@index([deleted], map: "sys_user_auth_idx_deleted")
   @@map("sys_user_social")
 }
 
@@ -114,6 +114,6 @@ model SysUserRole {
   user SysUser @relation(fields: [userId], references: [id])
   role SysRole @relation(fields: [roleId], references: [id])
 
-  @@unique([userId, roleId], map: "uk_user_id_role_id")
+  @@unique([userId, roleId], map: "sys_user_uk_user_id_role_id")
   @@map("sys_user_role")
 }

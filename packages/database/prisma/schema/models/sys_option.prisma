@@ -14,12 +14,12 @@ model SysOption {
   /// 键
   code         String  @db.VarChar(100)
   /// 值
-  value        String? @db.LongText
+  value        String? @db.Text
   /// 默认值
-  defaultValue String? @map("default_value") @db.LongText
+  defaultValue String? @map("default_value") @db.Text
   /// 描述
   description  String? @db.VarChar(200)
 
-  @@unique([category, code], map: "uk_category_code")
+  @@unique([category, code], map: "sys_option_uk_category_code")
   @@map("sys_option")
 }

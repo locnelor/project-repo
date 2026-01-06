@@ -13,7 +13,7 @@ model SysSmsConfig {
   /// 是否已删除（0：否；id：是）
   deleted    BigInt    @default(0)
   /// 状态（1：启用；2：禁用）
-  status     Int       @default(1) @db.TinyInt
+  status     Int       @default(1) 
 
   /// 名称
   name           String  @db.VarChar(100)
@@ -42,9 +42,9 @@ model SysSmsConfig {
 
   logs SysSmsLog[]
 
-  @@index([createUser], map: "idx_create_user")
-  @@index([updateUser], map: "idx_update_user")
-  @@index([deleted], map: "idx_deleted")
+  @@index([createUser], map: "sys_sms_idx_create_user")
+  @@index([updateUser], map: "sys_sms_idx_update_user")
+  @@index([deleted], map: "sys_sms_idx_deleted")
   @@map("sys_sms_config")
 }
 
@@ -64,13 +64,13 @@ model SysSmsLog {
   /// 参数配置
   params   String? @db.Text
   /// 发送状态（1：成功；2：失败）
-  status   Int     @default(1) @db.TinyInt
+  status   Int     @default(1) 
   /// 返回数据
   resMsg   String? @map("res_msg") @db.Text
 
   config SysSmsConfig @relation(fields: [configId], references: [id])
 
-  @@index([configId], map: "idx_config_id")
-  @@index([createUser], map: "idx_create_user")
+  @@index([configId], map: "sys_sms_idx_config_id")
+  @@index([createUser], map: "sys_sms_log_idx_create_user")
   @@map("sys_sms_log")
 }

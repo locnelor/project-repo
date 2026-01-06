@@ -13,7 +13,7 @@ model SysClient {
   /// 是否已删除（0：否；id：是）
   deleted    BigInt    @default(0)
   /// 状态（1：启用；2：禁用）
-  status     Int       @default(1) @db.TinyInt
+  status     Int       @default(1) 
 
   /// 客户端ID
   clientId           String  @map("client_id") @db.VarChar(50)
@@ -34,9 +34,9 @@ model SysClient {
   /// 溢出人数的下线方式（LOGOUT：注销下线；KICKOUT：踢人下线；REPLACED：顶人下线）
   overflowLogoutMode String? @map("overflow_logout_mode") @db.VarChar(20)
 
-  @@unique([clientId, deleted], map: "uk_client_id")
-  @@index([createUser], map: "idx_create_user")
-  @@index([updateUser], map: "idx_update_user")
-  @@index([deleted], map: "idx_deleted")
+  @@unique([clientId, deleted], map: "sys_client_uk_client_id")
+  @@index([createUser], map: "sys_client_idx_create_user")
+  @@index([updateUser], map: "sys_client_idx_update_user")
+  @@index([deleted], map: "sys_client_idx_deleted")
   @@map("sys_client")
 }

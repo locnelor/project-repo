@@ -26,7 +26,7 @@ model SysLog {
   /// 响应头
   responseHeaders String? @map("response_headers") @db.Text
   /// 响应体
-  responseBody    String? @map("response_body") @db.MediumText
+  responseBody    String? @map("response_body") @db.Text
   /// 耗时（ms）
   timeTaken       BigInt  @map("time_taken")
   /// IP
@@ -38,13 +38,13 @@ model SysLog {
   /// 操作系统
   os              String? @db.VarChar(100)
   /// 状态（1：成功；2：失败）
-  status          Int     @default(1) @db.TinyInt
+  status          Int     @default(1) 
   /// 错误信息
   errorMsg        String? @map("error_msg") @db.Text
 
-  @@index([module], map: "idx_module")
-  @@index([ip], map: "idx_ip")
-  @@index([address], map: "idx_address")
-  @@index([createTime], map: "idx_create_time")
+  @@index([module], map: "sys_log_idx_module")
+  @@index([ip], map: "sys_log_idx_ip")
+  @@index([address], map: "sys_log_idx_address")
+  @@index([createTime], map: "sys_log_idx_create_time")
   @@map("sys_log")
 }

@@ -13,14 +13,14 @@ model SysMenu {
   /// 是否已删除（0：否；id：是）
   deleted    BigInt    @default(0)
   /// 状态（1：启用；2：禁用）
-  status     Int       @default(1) @db.TinyInt // 1:启用 2:禁用
+  status     Int       @default(1)  // 1:启用 2:禁用
 
   /// 标题
   title      String   @db.VarChar(30)
   /// 上级菜单ID
   parentId   BigInt   @default(0) @map("parent_id")
   /// 类型（1：目录；2：菜单；3：按钮）
-  type       Int      @default(1) @db.TinyInt // 1:目录 2:菜单 3:按钮
+  type       Int      @default(1)  // 1:目录 2:菜单 3:按钮
   /// 路由地址
   path       String?  @db.VarChar(255)
   /// 组件名称
@@ -45,10 +45,10 @@ model SysMenu {
   // Relations
   roles SysRoleMenu[]
 
-  @@unique([title, parentId, deleted], map: "uk_title_parent_id")
-  @@index([parentId], map: "idx_parent_id")
-  @@index([createUser], map: "idx_create_user")
-  @@index([updateUser], map: "idx_update_user")
-  @@index([deleted], map: "idx_deleted")
+  @@unique([title, parentId, deleted], map: "sys_menu_uk_title_parent_id")
+  @@index([parentId], map: "sys_menu_idx_parent_id")
+  @@index([createUser], map: "sys_menu_idx_create_user")
+  @@index([updateUser], map: "sys_menu_idx_update_user")
+  @@index([deleted], map: "sys_menu_idx_deleted")
   @@map("sys_menu")
 }

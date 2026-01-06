@@ -14,17 +14,17 @@ model SysMessage {
   /// 内容
   content String? @db.Text
   /// 类型（1：系统消息；2：安全消息）
-  type    Int     @default(1) @db.TinyInt
+  type    Int     @default(1) 
   /// 跳转路径
   path    String? @db.VarChar(255)
   /// 通知范围（1：所有人；2：指定用户）
-  scope   Int     @default(1) @db.TinyInt
+  scope   Int     @default(1) 
   /// 通知用户
   users   Json?
 
   logs SysMessageLog[]
 
-  @@index([deleted], map: "idx_deleted")
+  @@index([deleted], map: "sys_message_idx_deleted")
   @@map("sys_message")
 }
 

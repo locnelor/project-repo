@@ -13,16 +13,16 @@ model SysNotice {
   /// 是否已删除（0：否；id：是）
   deleted    BigInt    @default(0)
   /// 状态（1：草稿；2：待发布；3：已发布）
-  status     Int       @default(1) @db.TinyInt
+  status     Int       @default(1) 
 
   /// 标题
   title         String    @db.VarChar(150)
   /// 内容
-  content       String    @db.MediumText
+  content       String    @db.Text
   /// 分类
   type          String    @db.VarChar(30)
   /// 通知范围（1：所有人；2：指定用户）
-  noticeScope   Int       @default(1) @map("notice_scope") @db.TinyInt
+  noticeScope   Int       @default(1) @map("notice_scope") 
   /// 通知用户
   noticeUsers   Json?     @map("notice_users")
   /// 通知方式（1：系统消息；2：登录弹窗）
@@ -36,9 +36,9 @@ model SysNotice {
 
   logs SysNoticeLog[]
 
-  @@index([createUser], map: "idx_create_user")
-  @@index([updateUser], map: "idx_update_user")
-  @@index([deleted], map: "idx_deleted")
+  @@index([createUser], map: "sys_notice_idx_create_user")
+  @@index([updateUser], map: "sys_notice_idx_update_user")
+  @@index([deleted], map: "sys_notice_idx_deleted")
   @@map("sys_notice")
 }
 

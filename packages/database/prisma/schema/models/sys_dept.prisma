@@ -13,7 +13,7 @@ model SysDept {
   /// 是否已删除（0：否；id：是）
   deleted    BigInt    @default(0)
   /// 状态（1：启用；2：禁用）
-  status     Int       @default(1) @db.TinyInt
+  status     Int       @default(1) 
 
   /// 名称
   name        String  @db.VarChar(30)
@@ -32,10 +32,10 @@ model SysDept {
   roles SysRoleDept[]
   users SysUser[]
 
-  @@unique([name, parentId, deleted], map: "uk_name_parent_id")
-  @@index([parentId], map: "idx_parent_id")
-  @@index([createUser], map: "idx_create_user")
-  @@index([updateUser], map: "idx_update_user")
-  @@index([deleted], map: "idx_deleted")
+  @@unique([name, parentId, deleted], map: "sys_dept_uk_name_parent_id")
+  @@index([parentId], map: "sys_dept_idx_parent_id")
+  @@index([createUser], map: "sys_dept_idx_create_user")
+  @@index([updateUser], map: "sys_dept_idx_update_user")
+  @@index([deleted], map: "sys_dept_idx_deleted")
   @@map("sys_dept")
 }

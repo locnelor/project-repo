@@ -24,9 +24,9 @@ model SysDict {
 
   items SysDictItem[]
 
-  @@unique([name, deleted], map: "uk_name")
-  @@unique([code, deleted], map: "uk_code")
-  @@index([deleted], map: "idx_deleted")
+  @@unique([name, deleted], map: "sys_dict_uk_name")
+  @@unique([code, deleted], map: "sys_dict_uk_code")
+  @@index([deleted], map: "sys_dict_idx_deleted")
   @@map("sys_dict")
 }
 
@@ -56,16 +56,16 @@ model SysDictItem {
   /// 描述
   description String? @db.VarChar(200)
   /// 状态（1：启用；2：禁用）
-  status      Int     @default(1) @db.TinyInt
+  status      Int     @default(1) 
   /// 字典ID
   dictId      BigInt  @map("dict_id")
 
   dict SysDict @relation(fields: [dictId], references: [id])
 
-  @@unique([value, dictId, deleted], map: "uk_value_dict_id")
-  @@index([dictId], map: "idx_dict_id")
-  @@index([createUser], map: "idx_create_user")
-  @@index([updateUser], map: "idx_update_user")
-  @@index([deleted], map: "idx_deleted")
+  @@unique([value, dictId, deleted], map: "sys_dict_uk_value_dict_id")
+  @@index([dictId], map: "sys_dict_idx_dict_id")
+  @@index([createUser], map: "sys_dict_item_idx_create_user")
+  @@index([updateUser], map: "sys_dict_item_idx_update_user")
+  @@index([deleted], map: "sys_dict_item_idx_deleted")
   @@map("sys_dict_item")
 }

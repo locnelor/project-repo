@@ -28,7 +28,7 @@ model SysFile {
   /// 内容类型
   contentType       String? @map("content_type") @db.VarChar(255)
   /// 类型（0: 目录；1：其他；2：图片；3：文档；4：视频；5：音频）
-  type              Int     @default(1) @db.TinyInt
+  type              Int     @default(1) 
   /// SHA256值
   sha256            String? @db.VarChar(256)
   /// 元数据
@@ -44,11 +44,11 @@ model SysFile {
 
   storage SysStorage @relation(fields: [storageId], references: [id])
 
-  @@index([type], map: "idx_type")
-  @@index([sha256], map: "idx_sha256")
-  @@index([storageId], map: "idx_storage_id")
-  @@index([createUser], map: "idx_create_user")
-  @@index([updateUser], map: "idx_update_user")
-  @@index([deleted], map: "idx_deleted")
+  @@index([type], map: "sys_file_idx_type")
+  @@index([sha256], map: "sys_file_idx_sha256")
+  @@index([storageId], map: "sys_file_idx_storage_id")
+  @@index([createUser], map: "sys_file_idx_create_user")
+  @@index([updateUser], map: "sys_file_idx_update_user")
+  @@index([deleted], map: "sys_file_idx_deleted")
   @@map("sys_file")
 }

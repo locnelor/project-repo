@@ -18,7 +18,7 @@ model SysRole {
   /// 编码
   code              String   @db.VarChar(30)
   /// 数据权限（1：全部数据权限；2：本部门及以下数据权限；3：本部门数据权限；4：仅本人数据权限；5：自定义数据权限）
-  dataScope         Int      @default(4) @map("data_scope") @db.TinyInt
+  dataScope         Int      @default(4) @map("data_scope") 
   /// 描述
   description       String?  @db.VarChar(200)
   /// 排序
@@ -35,11 +35,11 @@ model SysRole {
   menus SysRoleMenu[]
   depts SysRoleDept[]
 
-  @@unique([name, deleted], map: "uk_name")
-  @@unique([code, deleted], map: "uk_code")
-  @@index([createUser], map: "idx_create_user")
-  @@index([updateUser], map: "idx_update_user")
-  @@index([deleted], map: "idx_deleted")
+  @@unique([name, deleted], map: "sys_role_uk_name")
+  @@unique([code, deleted], map: "sys_role_uk_code")
+  @@index([createUser], map: "sys_role_idx_create_user")
+  @@index([updateUser], map: "sys_role_idx_update_user")
+  @@index([deleted], map: "sys_role_idx_deleted")
   @@map("sys_role")
 }
 
